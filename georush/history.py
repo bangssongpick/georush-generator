@@ -2,6 +2,7 @@
 import json
 from pathlib import Path
 import sqlite3
+from contextlib import contextmanager
 
 
 class History:
@@ -15,10 +16,15 @@ class History:
                 output_path TEXT NOT NULL, status TEXT NOT NULL DEFAULT 'running',
                 error TEXT NOT NULL DEFAULT '', quiz_json TEXT NOT NULL)''')
 
+    @contextmanager
     def _connect(self):
         db = sqlite3.connect(str(self.path), timeout=20)
         db.row_factory = sqlite3.Row
-        return db
+        try:
+            with db:
+                yield db
+        finally:
+            db.close()
 
     def reserve_quiz(self, signature, difficulty, output_path, quiz):
         with self._connect() as db:
