@@ -1,0 +1,17 @@
+{
+  "zip": "/tmp/GeoRush-v1.0-Windows-Source.zip",
+  "sha256": "a72f788ff2b412c9a65f0838a16a6622cedeb5d35664d3c71caa88236bd365b6",
+  "bytes": 8250815,
+  "files": 228,
+  "crc": "PASS",
+  "source_match": "PASS",
+  "windows_exe_included": false,
+  "needs_python_for_source": true,
+  "actions_required": false,
+  "windows_verified": false,
+  "extracted_source": "/tmp/GeoRush_LocalSource_Zip_Check_tiivwamy/GeoRush-Generator",
+  "extracted_32_tests": "PASS",
+  "extracted_linux_real_gui_to_mp4": "PASS",
+  "existing_whyilkka_163_files_unchanged": true,
+  "network_configuration_changed": false
+}

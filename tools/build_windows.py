@@ -4,6 +4,8 @@ import shutil
 import subprocess
 import sys
 import zipfile
+import json
+import os
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -32,4 +34,28 @@ def build():
 
 
 if __name__ == '__main__':
-    build()
+    folder = build()
+    report = ROOT/'build_validation'/'WINDOWS_VALIDATION.json'
+    report.parent.mkdir(parents=True, exist_ok=True)
+    report.unlink(missing_ok=True)
+    environment = dict(os.environ)
+    environment.pop('GEORUSH_FFMPEG', None)
+    environment['PATH'] = os.pathsep.join([str(Path(os.environ['SystemRoot'])/'System32'), os.environ['SystemRoot']])
+    subprocess.run([str(folder/'GeoRushGenerator.exe'), '--distribution-check', str(report),
+                    '--output', str(report.parent/'OneDrive 테스트'/'바탕 화면'/'GeoRush_Output')],
+                   env=environment, check=True, timeout=300)
+    result = json.loads(report.read_text(encoding='utf-8'))
+    if result.get('status') != 'PASS' or not result.get('frozen'):
+        raise SystemExit('EXE integration failed. See '+str(report))
+    shutil.copy2(report, folder/report.name)
+    archive = ROOT/'dist'/'GeoRush-v1.0-Windows-x64.zip'
+    temporary = archive.with_suffix('.pending.zip')
+    with zipfile.ZipFile(temporary, 'w', zipfile.ZIP_DEFLATED) as output:
+        for path in folder.rglob('*'):
+            if path.is_file():
+                output.write(path, 'GeoRushGenerator/'+path.relative_to(folder).as_posix())
+    with zipfile.ZipFile(temporary) as output:
+        if output.testzip() is not None:
+            raise SystemExit('ZIP CRC check failed')
+    temporary.replace(archive)
+    print('Windows EXE GUI-to-MP4 PASS. ZIP:', archive)

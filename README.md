@@ -1,5 +1,10 @@
 # GeoRush Generator v1.0
 
+현재 배포 경로는 **Windows PC에서 직접 실행·빌드하는 소스 ZIP**입니다. 이 ZIP의 예제는 `samples/sample_01`~`sample_03`에 있습니다. 아래의 기존 `samples/GeoRush_Output` 경로는 원래 Linux 개발 결과 경로입니다.
+GitHub Actions·클라우드 환경 게시는 필요 없습니다. 먼저 [Windows 초보자 설명서](WINDOWS_처음시작.md)를 읽으세요.
+로컬 `BUILD_EXE.cmd`는 실제 EXE의 GUI→MP4 검증이 통과한 뒤에만 Python 불필요 배포 ZIP을 만듭니다.
+개발 환경에서 Windows 빌드를 실행한 것은 아닙니다.
+
 `@GeoRushGames`용 **국기 맞히기 쇼츠**를 만드는 독립 Python 프로그램입니다.
 국가 선택 → 국기·4지선다 검증 → 카운트다운·정답 공개 → 로컬 합성 BGM/효과음 → MP4 → 영어 게시 문구 저장까지 연결했습니다.
 제작 중 인터넷, Codex, AI API, TTS, API 키가 필요하지 않습니다.

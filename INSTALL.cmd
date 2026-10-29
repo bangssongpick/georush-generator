@@ -6,7 +6,7 @@ echo GeoRush 무료 Python 라이브러리를 설치합니다. 첫 설치에는 
 if exist ".venv\Scripts\python.exe" goto packages
 where py >nul 2>nul
 if not errorlevel 1 (
-  py -3 -m venv ".venv"
+  py -3.12 -m venv ".venv"
 ) else (
   python -m venv ".venv"
 )
@@ -21,7 +21,7 @@ if /I not "%~1"=="/nopause" pause
 popd
 exit /b 0
 :failed
-echo 설치 실패. Python 3.11 이상과 인터넷 연결을 확인하세요. Python 3.12를 권장합니다.
+echo 설치 실패. Python 3.12 64비트와 인터넷 연결을 확인하세요.
 echo Python 공식 설치: https://www.python.org/downloads/windows/
 if /I not "%~1"=="/nopause" pause
 popd

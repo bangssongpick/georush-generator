@@ -1,5 +1,7 @@
 # GeoRush v1.0 실제 개발·검증 보고서
 
+이 보고서의 샘플 절대·상대 경로는 원래 Linux 개발 실행 기록입니다. 새 로컬 소스 ZIP에서는 같은 MP4와 게시 문구를 `samples/sample_01`~`sample_03`에 넣었습니다. 현재 실행·빌드 방법은 `WINDOWS_처음시작.md`를 확인하세요.
+
 ## 실제 개발 경로
 
 `/workspace/georush-generator`

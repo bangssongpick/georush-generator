@@ -1,0 +1,85 @@
+{
+  "platform": "linux",
+  "frozen": false,
+  "resource_root": "/tmp/GeoRush_LocalSource_Zip_Check_tiivwamy/GeoRush-Generator",
+  "output_root": "/tmp/GeoRush_Zip_한글검증",
+  "onedrive_test_scope": "Unicode OneDrive-like local path; real cloud sync not tested",
+  "manual_appearance_review_required": true,
+  "ffmpeg": "/usr/bin/ffmpeg",
+  "shell_desktop_output": "/home/agent/Desktop/GeoRush_Output",
+  "default_font": "nimbus sans l",
+  "status": "PASS",
+  "video_folder": "/tmp/GeoRush_Zip_한글검증/GeoRush_20261029_004722_902570_d51c07",
+  "media": {
+    "checks": {
+      "duration": true,
+      "resolution": true,
+      "fps": true,
+      "decoded_frames": true,
+      "h264": true,
+      "aac": true,
+      "pixel_format": true,
+      "stereo": true,
+      "audio_not_silent": true,
+      "audio_below_full_scale": true
+    },
+    "duration": 21.0,
+    "width": 1080,
+    "height": 1920,
+    "fps": 30.0,
+    "frames": 630,
+    "video_codec": "h264",
+    "audio_codec": "aac",
+    "pixel_format": "yuv420p",
+    "decoded_audio_peak_dbfs": -6.80411,
+    "decoded_audio_rms_dbfs": -29.230948,
+    "probe_method": "ffprobe",
+    "full_video_audio_decode": true,
+    "size_bytes": 859961,
+    "encoded_inspection": [
+      {
+        "file": "q1_start.jpg",
+        "time_seconds": 0.0
+      },
+      {
+        "file": "q1_countdown.jpg",
+        "time_seconds": 2.0
+      },
+      {
+        "file": "q1_answer.jpg",
+        "time_seconds": 5.2
+      },
+      {
+        "file": "q2_start.jpg",
+        "time_seconds": 6.5
+      },
+      {
+        "file": "q2_countdown.jpg",
+        "time_seconds": 8.5
+      },
+      {
+        "file": "q2_answer.jpg",
+        "time_seconds": 11.7
+      },
+      {
+        "file": "q3_start.jpg",
+        "time_seconds": 13.0
+      },
+      {
+        "file": "q3_countdown.jpg",
+        "time_seconds": 15.0
+      },
+      {
+        "file": "q3_answer.jpg",
+        "time_seconds": 18.2
+      },
+      {
+        "file": "cta.jpg",
+        "time_seconds": 19.8
+      }
+    ]
+  },
+  "heartbeat_count": 110,
+  "elapsed_seconds": 11.842,
+  "video_sha256": "923d24a808ce6ee67ec06723b40dcede3e311f15703012fa68246e8aadbbe952"
+}

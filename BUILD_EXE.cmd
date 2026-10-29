@@ -2,23 +2,23 @@
 setlocal
 chcp 65001 >nul
 pushd "%~dp0"
-if not exist ".venv\Scripts\python.exe" (
-  call "%~dp0INSTALL.cmd" /nopause
-  if errorlevel 1 goto failed
-)
-".venv\Scripts\python.exe" -m pip install --disable-pip-version-check "pyinstaller>=6.11,<7"
+call "%~dp0INSTALL.cmd" /nopause
 if errorlevel 1 goto failed
-".venv\Scripts\python.exe" -m PyInstaller --noconfirm --clean --onedir --windowed --name GeoRushGenerator --add-data "assets;assets" --collect-all imageio_ffmpeg --collect-all PIL --hidden-import tkinter "main.py"
+".venv\Scripts\python.exe" -m pip install --disable-pip-version-check -r "requirements-build.txt"
+if errorlevel 1 goto failed
+".venv\Scripts\python.exe" -m unittest discover -s tests -v
+if errorlevel 1 goto failed
+".venv\Scripts\python.exe" "tools\build_windows.py"
 if errorlevel 1 goto failed
 echo.
-echo 빌드 완료: dist\GeoRushGenerator\GeoRushGenerator.exe
-echo 배포할 때 dist\GeoRushGenerator 폴더 전체를 함께 복사하세요.
-echo Windows GUI, 한글 경로, 실제 MP4 생성은 이 PC에서 검증하세요.
+echo EXE 및 실제 GUI 영상 검사 성공. dist\GeoRush-v1.0-Windows-x64.zip 생성 완료.
+echo 배포 시 ZIP을 완전히 풀고 START_HERE.cmd를 실행하세요. Python 설치는 필요 없습니다.
 pause
 popd
 exit /b 0
 :failed
-echo EXE 빌드 실패. 위 오류 로그를 확인하세요.
+echo 빌드 또는 검증 실패. 성공 배포로 판정하지 않습니다.
+echo 위 오류와 build_validation\WINDOWS_VALIDATION.json을 확인하세요.
 pause
 popd
 exit /b 1

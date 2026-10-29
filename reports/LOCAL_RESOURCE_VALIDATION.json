@@ -1,0 +1,12 @@
+{
+  "catalog_real_60_files_hash_and_decode": "PASS",
+  "frozen_bundled_ffmpeg_path_selection_simulation": "PASS",
+  "simulation_is_not_a_windows_exe_execution": true,
+  "resource_root": "sys._MEIPASS (_internal for PyInstaller onedir)",
+  "asset_path": "_internal/assets",
+  "ffmpeg_path": "_internal/bin/ffmpeg.exe",
+  "audio": "Generated at runtime by bundled numpy; no external BGM/SFX asset required",
+  "english_font": "_internal/assets/fonts/DejaVuSans-Bold.ttf",
+  "korean_gui_font": "Windows system Malgun Gothic; Windows appearance unverified",
+  "windows_build_and_exe_execution": "UNTESTED"
+}

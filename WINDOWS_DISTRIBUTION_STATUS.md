@@ -1,5 +1,9 @@
 # GeoRush Windows 배포 안정화 상태
 
+**현재 사용자 지시로 GitHub Actions 경로는 중단했습니다.** 네트워크·기존 환경을 변경하지 않고 로컬 소스 ZIP과 Windows 직접 빌드를 사용합니다.
+아래 GitHub API 관련 내용은 이전 단계의 이력이며 현재 사용자에게 환경 게시를 요청하지 않습니다.
+현재 실행·빌드 절차는 `WINDOWS_처음시작.md`를 확인하세요.
+
 현재 상태: **Windows 러너 미실행 / EXE·Python 불필요 배포 ZIP 미생성 / 사이트 다운로드 링크 없음**.
 GitHub API 요청은 현재 실행 환경에서 `Forbidden`입니다. 기존 저장소의 Git 읽기는 성공했지만,
 새 GeoRush 저장소 생성·Actions 실행·릴리스 업로드 권한을 의미하지 않습니다.

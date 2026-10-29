@@ -1,0 +1,37 @@
+test_free_asset_license_notices_are_present (test_assets.LicensedAssetTests.test_free_asset_license_notices_are_present) ... ok
+test_vendored_catalog_integrity_and_country_mapping (test_assets.LicensedAssetTests.test_vendored_catalog_integrity_and_country_mapping) ... ok
+test_correct_answer_and_distinct_countries_offline (test_core.CoreTests.test_correct_answer_and_distinct_countries_offline) ... ok
+test_correct_answer_position_is_not_fixed (test_core.CoreTests.test_correct_answer_position_is_not_fixed) ... ok
+test_country_name_and_flag_mapping_mismatch_is_rejected (test_core.CoreTests.test_country_name_and_flag_mapping_mismatch_is_rejected) ... ok
+test_every_difficulty_selects_correct_pool (test_core.CoreTests.test_every_difficulty_selects_correct_pool) ... ok
+test_failure_is_never_recorded_as_success (test_core.CoreTests.test_failure_is_never_recorded_as_success) ... ok
+test_missing_flag_rejected_and_not_selected (test_core.CoreTests.test_missing_flag_rejected_and_not_selected) ... ok
+test_modified_flag_hash_rejected (test_core.CoreTests.test_modified_flag_hash_rejected) ... ok
+test_reserved_composition_cannot_be_repeated (test_core.CoreTests.test_reserved_composition_cannot_be_repeated) ... ok
+test_seed_reproducible_before_reservation (test_core.CoreTests.test_seed_reproducible_before_reservation) ... ok
+test_signature_reservation_is_unique (test_core.CoreTests.test_signature_reservation_is_unique) ... ok
+test_success_history_persists_after_reopening_unicode_path (test_core.CoreTests.test_success_history_persists_after_reopening_unicode_path) ... ok
+test_unknown_country_is_actionable_error (test_core.CoreTests.test_unknown_country_is_actionable_error) ... ok
+test_wrong_answer_and_duplicate_option_are_rejected (test_core.CoreTests.test_wrong_answer_and_duplicate_option_are_rejected) ... ok
+test_three_gains_duration_event_alignment_and_no_clipping (test_media.LocalAudioTests.test_three_gains_duration_event_alignment_and_no_clipping) ... ok
+test_unsupported_audio_settings_are_rejected (test_media.LocalAudioTests.test_unsupported_audio_settings_are_rejected) ... ok
+test_longest_country_names_are_measured_without_truncation (test_media.PillowLayoutTests.test_longest_country_names_are_measured_without_truncation) ... ok
+test_missing_flag_stops_board_creation (test_media.PillowLayoutTests.test_missing_flag_stops_board_creation) ... ok
+test_configured_ffmpeg_unicode_path_is_preserved (test_paths.UnicodePathTests.test_configured_ffmpeg_unicode_path_is_preserved) ... ok
+test_missing_explicit_ffmpeg_does_not_silently_use_another (test_paths.UnicodePathTests.test_missing_explicit_ffmpeg_does_not_silently_use_another) ... ok
+test_windows_desktop_fallback_retains_unicode (test_paths.UnicodePathTests.test_windows_desktop_fallback_retains_unicode) ... ok
+test_windows_shell_desktop_honors_onedrive_redirection (test_paths.UnicodePathTests.test_windows_shell_desktop_honors_onedrive_redirection) ... ok
+test_disk_space_failure_creates_no_success_history (test_pipeline.PipelineFailureTests.test_disk_space_failure_creates_no_success_history) ... ok
+test_metadata_unicode_folders_and_reexecution_do_not_collide (test_pipeline.PipelineFailureTests.test_metadata_unicode_folders_and_reexecution_do_not_collide) ... ok
+test_output_root_as_file_is_rejected (test_pipeline.PipelineFailureTests.test_output_root_as_file_is_rejected) ... ok
+test_single_render_failure_does_not_abort_following_videos (test_pipeline.PipelineFailureTests.test_single_render_failure_does_not_abort_following_videos) ... ok
+test_validation_failure_never_commits_success (test_pipeline.PipelineFailureTests.test_validation_failure_never_commits_success) ... ok
+test_changed_country_data_refused (test_provenance.ProductionProvenanceTests.test_changed_country_data_refused) ... ok
+test_missing_provenance_refused (test_provenance.ProductionProvenanceTests.test_missing_provenance_refused) ... ok
+test_wrong_mapping_refused_even_if_catalog_hash_updated (test_provenance.ProductionProvenanceTests.test_wrong_mapping_refused_even_if_catalog_hash_updated) ... ok
+test_actual_decode_without_ffprobe (test_validation.RealMediaValidationTests.test_actual_decode_without_ffprobe) ... ok
+
+----------------------------------------------------------------------
+Ran 32 tests in 2.388s
+
+OK

@@ -4,5 +4,6 @@ __pycache__/
 build/
 dist/
 *.spec
+build_validation/
 GeoRush_Output/
 *.sqlite3*
