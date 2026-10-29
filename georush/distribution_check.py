@@ -13,6 +13,8 @@ def run_check(report_path, output_root=None):
     from .catalog import Catalog
     from .gui import GeoRushApp
     from .history import History
+    from .output import get_history, FINAL_FILES
+    from .paths import data_root
     from .paths import default_output_root, find_ffmpeg, resource_root
     from .quiz import validate_quiz
     from tkinter import font
@@ -48,7 +50,9 @@ def run_check(report_path, output_root=None):
         app.output.set(str(output))
         app.video_count.set('1'); app.questions.set(3); app.bgm.set('10%')
         app.update()
-        before = len(History(output/'georush_history.sqlite3').list_runs())
+        history = get_history(output)
+        before = history.list_runs(limit=1)
+        before_id = before[0]['id'] if before else 0
         beats = []
         def heartbeat():
             beats.append(time.monotonic())
@@ -63,21 +67,34 @@ def run_check(report_path, output_root=None):
                 break
             time.sleep(.02)
         assert app.results.get() == '성공 1편 · 실패 0편', app.log.get('1.0', 'end')
-        rows = History(output/'georush_history.sqlite3').list_runs()
-        assert len(rows) == before+1 and rows[0]['status'] == 'success'
+        rows = history.list_runs()
+        assert rows[0]['id'] > before_id and rows[0]['status'] == 'success'
         folder = Path(rows[0]['output_path'])
-        for name in ('video.mp4', 'quiz_data.json', 'title.txt', 'description.txt', 'tags.txt', 'pinned_comment.txt'):
-            assert (folder/name).is_file(), name
-        quiz = json.loads((folder/'quiz_data.json').read_text(encoding='utf-8'))
+        assert {p.name for p in folder.iterdir()} == FINAL_FILES
+        assert all(p.is_file() for p in folder.iterdir())
+        debug = data_root()/'debug'/folder.name
+        quiz = json.loads((debug/'quiz_data.json').read_text(encoding='utf-8'))
+        text = (folder/'shorts_metadata.txt').read_text(encoding='utf-8-sig')
+        for header in ('[제목]', '[설명]', '[고정 댓글]', '[태그]', '[카테고리]'):
+            assert header in text
+        assert all(q['country_name'] not in text for q in quiz['questions'])
+        from PIL import Image
+        with Image.open(folder/'shorts_thumbnail.jpg') as thumbnail:
+            assert thumbnail.size == (1080,1920) and thumbnail.format == 'JPEG'
+        assert not (debug/'original_audio.wav').exists()
+        report['exact_three_user_files'] = sorted(p.name for p in folder.iterdir())
+        report['thumbnail_from_final_video'] = True
+        report['internal_history'] = str(history.path)
+        report['internal_debug'] = str(debug)
         validate_quiz(quiz, catalog)
-        media = json.loads((folder/'MEDIA_REPORT.json').read_text(encoding='utf-8'))
+        media = json.loads((debug/'MEDIA_REPORT.json').read_text(encoding='utf-8'))
         assert all(media['checks'].values())
-        render = json.loads((folder/'RENDER_REPORT.json').read_text(encoding='utf-8'))
+        render = json.loads((debug/'RENDER_REPORT.json').read_text(encoding='utf-8'))
         assert render['audio']['clipped_samples'] == 0
         assert len(beats) > 2 and any(0 < p < 100 for p in progress)
         report.update(status='PASS', video_folder=str(folder), media=media,
                       heartbeat_count=len(beats), elapsed_seconds=round(time.monotonic()-start, 3),
-                      video_sha256=hashlib.sha256((folder/'video.mp4').read_bytes()).hexdigest())
+                      video_sha256=hashlib.sha256((folder/'shorts.mp4').read_bytes()).hexdigest())
     except Exception:
         report.update(status='FAIL', error=traceback.format_exc())
     finally:

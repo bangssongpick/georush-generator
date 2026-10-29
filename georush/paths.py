@@ -11,6 +11,19 @@ def resource_root():
     return Path(getattr(sys, '_MEIPASS', Path(__file__).resolve().parents[1]))
 
 
+def data_root():
+    override = os.environ.get('GEORUSH_DATA_DIR')
+    if override:
+        return Path(override).expanduser().resolve()
+    if sys.platform == 'win32':
+        return Path(os.environ.get('LOCALAPPDATA', str(Path.home()/'AppData'/'Local')))/'GeoRush'
+    return Path(os.environ.get('XDG_DATA_HOME', str(Path.home()/'.local'/'share')))/'GeoRush'
+
+
+def history_path():
+    return data_root()/'georush_history.sqlite3'
+
+
 def default_output_root():
     if sys.platform == 'win32':
         # Windows shell Desktop honors redirected/OneDrive Desktop locations.

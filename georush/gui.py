@@ -9,7 +9,7 @@ from tkinter import font as tkfont
 import sys
 from tkinter import filedialog, messagebox, ttk
 
-from .paths import default_output_root, open_folder
+from .paths import default_output_root, open_folder, history_path
 
 
 class GeoRushApp(tk.Tk):
@@ -18,7 +18,7 @@ class GeoRushApp(tk.Tk):
         if sys.platform == 'win32':
             for name in ('TkDefaultFont', 'TkTextFont', 'TkMenuFont', 'TkHeadingFont', 'TkCaptionFont', 'TkTooltipFont', 'TkFixedFont'):
                 tkfont.nametofont(name).configure(family='Malgun Gothic', size=10)
-        self.title("GeoRush Generator v1.0")
+        self.title("GeoRush Generator v1.1")
         self.geometry("1000x800")
         self.minsize(780, 680)
         self.configure(bg="#0A1730")
@@ -191,7 +191,7 @@ class GeoRushApp(tk.Tk):
     def _refresh_history(self):
         for item in self.history.get_children():
             self.history.delete(item)
-        database = Path(self.output.get()).expanduser()/"georush_history.sqlite3"
+        database = history_path()
         if not database.is_file():
             return
         try:

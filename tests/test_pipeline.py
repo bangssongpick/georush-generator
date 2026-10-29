@@ -4,6 +4,9 @@ These tests do not establish MP4 playback. Actual encoded sample validation is
 performed separately by the production validation module.
 """
 import json
+import os
+from PIL import Image
+from georush.paths import history_path
 from pathlib import Path
 import tempfile
 from types import SimpleNamespace
@@ -18,6 +21,11 @@ class PipelineFailureTests(unittest.TestCase):
     def setUp(self):
         self.temporary = tempfile.TemporaryDirectory(prefix="GeoRush 배치 ")
         self.root = Path(self.temporary.name) / "OneDrive 바탕 화면" / "GeoRush_Output"
+        self.data = Path(self.temporary.name)/"프로그램 데이터"
+        env = patch.dict(os.environ, {"GEORUSH_DATA_DIR": str(self.data)})
+        env.start(); self.addCleanup(env.stop)
+        thumbnail = patch.object(pipeline, "extract_thumbnail", side_effect=lambda video, target, ffmpeg: Image.new("RGB", (1080,1920), "blue").save(target))
+        thumbnail.start(); self.addCleanup(thumbnail.stop)
 
     def tearDown(self):
         self.temporary.cleanup()
@@ -52,7 +60,7 @@ class PipelineFailureTests(unittest.TestCase):
                                               progress_callback=events.append)
         self.assertEqual([r["status"] for r in results], ["failed", "success", "success"])
         self.assertEqual(len(calls), 3)
-        history = History(self.root / "georush_history.sqlite3").list_runs()
+        history = History(history_path()).list_runs()
         self.assertEqual(sum(r["status"] == "success" for r in history), 2)
         self.assertEqual(sum(r["status"] == "failed" for r in history), 1)
         self.assertTrue((Path(results[0]["path"]) / "ERROR.txt").is_file())
@@ -65,7 +73,7 @@ class PipelineFailureTests(unittest.TestCase):
                 patch.object(pipeline, "validate_video", side_effect=ValueError("Invalid codec")):
             results = pipeline.generate_batch(output_root=self.root, seed=42)
         self.assertEqual(results[0]["status"], "failed")
-        history = History(self.root / "georush_history.sqlite3").list_runs()
+        history = History(history_path()).list_runs()
         self.assertEqual(history[0]["status"], "failed")
         self.assertIn("Invalid codec", history[0]["error"])
 
@@ -78,11 +86,9 @@ class PipelineFailureTests(unittest.TestCase):
         self.assertNotEqual(first["signature"], second["signature"])
         for result in (first, second):
             folder = Path(result["path"])
-            for filename in ("video.mp4", "title.txt", "description.txt", "tags.txt",
-                             "pinned_comment.txt", "quiz_data.json"):
-                self.assertTrue((folder / filename).is_file(), filename)
-            quiz = json.loads((folder / "quiz_data.json").read_text(encoding="utf-8"))
-            title = (folder / "title.txt").read_text(encoding="utf-8")
+            self.assertEqual({p.name for p in folder.iterdir()}, {"shorts.mp4", "shorts_metadata.txt", "shorts_thumbnail.jpg"})
+            quiz = json.loads((Path(result["debug_path"]) / "quiz_data.json").read_text(encoding="utf-8"))
+            title = (folder / "shorts_metadata.txt").read_text(encoding="utf-8-sig")
             for question in quiz["questions"]:
                 self.assertNotIn(question["country_name"], title)
 
@@ -92,7 +98,7 @@ class PipelineFailureTests(unittest.TestCase):
             results = pipeline.generate_batch(count=3, output_root=self.root)
         self.assertEqual(len(results), 3)
         self.assertTrue(all(r["status"] == "failed" for r in results))
-        self.assertEqual(History(self.root / "georush_history.sqlite3").list_runs(), [])
+        self.assertEqual(History(history_path()).list_runs(), [])
 
     def test_output_root_as_file_is_rejected(self):
         self.root.parent.mkdir(parents=True)
