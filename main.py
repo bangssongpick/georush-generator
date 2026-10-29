@@ -9,15 +9,20 @@ from pathlib import Path
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description="GeoRush Generator — local flag quiz Shorts")
-    parser.add_argument("--generate", type=int, choices=(1, 3, 5, 10), help="Generate a batch without the GUI")
+    parser.add_argument("--mode", choices=("Shorts", "Longform"), default="Shorts")
+    parser.add_argument("--generate", type=int, choices=(1, 2, 3, 5, 10), help="Generate a batch without the GUI")
     parser.add_argument("--difficulty", choices=("Easy", "Normal", "Hard", "Mixed"), default="Mixed")
-    parser.add_argument("--questions", type=int, default=3)
+    parser.add_argument("--questions", type=int)
     parser.add_argument("--bgm", type=float, choices=(0.08, 0.10, 0.12), default=0.10)
     parser.add_argument("--output", type=Path)
     parser.add_argument("--seed", type=int, help="Reproducible test selection; history still prevents repeated quizzes")
     parser.add_argument("--gui-smoke", action="store_true", help="Open and close GUI without generating videos")
+    parser.add_argument('--longform-check', type=Path, help='Exercise packaged Longform GUI and decode')
     parser.add_argument('--distribution-check', type=Path, metavar='REPORT_JSON', help='Exercise real packaged GUI and MP4 generation')
     args = parser.parse_args(argv)
+    if args.longform_check:
+        from georush.longform.distribution_check import run_check
+        return run_check(args.longform_check,args.output)
     if args.distribution_check:
         from georush.distribution_check import run_check
         return run_check(args.distribution_check, args.output)
@@ -30,8 +35,11 @@ def main(argv=None):
         return 0
     if args.generate is not None:
         from georush.paths import default_output_root
-        from georush.pipeline import generate_batch
-        rows = generate_batch(count=args.generate, difficulty=args.difficulty, questions_per_video=args.questions,
+        if args.mode == 'Longform':
+            from georush.longform.pipeline import generate_batch
+        else:
+            from georush.pipeline import generate_batch
+        rows = generate_batch(count=args.generate, difficulty=args.difficulty, questions_per_video=args.questions if args.questions is not None else (40 if args.mode=="Longform" else 3),
                               bgm_volume=args.bgm, output_root=args.output or default_output_root(),
                               progress_callback=lambda event: print(json.dumps(event, ensure_ascii=False), flush=True),
                               seed=args.seed)

@@ -17,7 +17,8 @@ def _run(args, timeout=180):
     return result
 
 
-def validate_video(path, expected_duration=21.0, expected_frames=630, ffmpeg_path=None):
+def validate_video(path, expected_duration=21.0, expected_frames=630, ffmpeg_path=None,
+                   expected_resolution=(1080, 1920), decode_timeout=180):
     path = Path(path)
     ffmpeg = str(ffmpeg_path or find_ffmpeg())
     if not path.is_file() or path.stat().st_size < 1000:
@@ -56,17 +57,17 @@ def validate_video(path, expected_duration=21.0, expected_frames=630, ffmpeg_pat
         channel_count = 2 if 'stereo' in audio_line else 1
         probe_method = 'ffmpeg_stream_header_and_full_decode'
     decoded = _run([ffmpeg, '-hide_banner', '-v', 'error', '-xerror', '-i', str(path),
-                    '-map', '0:v:0', '-map', '0:a:0', '-f', 'null', '-', '-progress', 'pipe:1'])
+                    '-map', '0:v:0', '-map', '0:a:0', '-f', 'null', '-', '-progress', 'pipe:1'], timeout=decode_timeout)
     counts = re.findall(r'^frame=(\d+)', decoded.stdout, re.MULTILINE)
     decoded_frames = int(counts[-1]) if counts else -1
     stats = _run([ffmpeg, '-hide_banner', '-i', str(path), '-vn', '-af',
-                  'astats=metadata=0:reset=0', '-f', 'null', '-'])
+                  'astats=metadata=0:reset=0', '-f', 'null', '-'], timeout=decode_timeout)
     peaks = re.findall(r'Peak level dB: (-?[\d.]+)', stats.stderr)
     rms_values = re.findall(r'RMS level dB: (-?[\d.]+)', stats.stderr)
     peak_db = max(map(float, peaks)) if peaks else None
     rms_db = max(map(float, rms_values)) if rms_values else None
     checks = {'duration': abs(duration-expected_duration) <= .08,
-              'resolution': (width, height) == (1080, 1920),
+              'resolution': (width, height) == tuple(expected_resolution),
               'fps': abs(fps-30) < .001, 'decoded_frames': decoded_frames == expected_frames,
               'h264': video_codec == 'h264', 'aac': audio_codec == 'aac',
               'pixel_format': pixel_format == 'yuv420p', 'stereo': channel_count == 2,

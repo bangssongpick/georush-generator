@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+import json
 import queue
 import threading
 import tkinter as tk
@@ -18,12 +19,15 @@ class GeoRushApp(tk.Tk):
         if sys.platform == 'win32':
             for name in ('TkDefaultFont', 'TkTextFont', 'TkMenuFont', 'TkHeadingFont', 'TkCaptionFont', 'TkTooltipFont', 'TkFixedFont'):
                 tkfont.nametofont(name).configure(family='Malgun Gothic', size=10)
-        self.title("GeoRush Generator v1.2")
+        self.title("GeoRush Generator v1.3")
         self.geometry("1000x800")
         self.minsize(780, 680)
         self.configure(bg="#0A1730")
         self.events = queue.Queue()
         self.worker = None
+        self.mode = tk.StringVar(value="Shorts")
+        self.long_video_count = tk.StringVar(value="1")
+        self.long_questions = tk.StringVar(value="40")
         self.video_count = tk.StringVar(value="1")
         self.difficulty = tk.StringVar(value="Mixed")
         self.questions = tk.IntVar(value=3)
@@ -48,8 +52,21 @@ class GeoRushApp(tk.Tk):
         outer = ttk.Frame(self, padding=20)
         outer.pack(fill="both", expand=True)
         ttk.Label(outer, text="GeoRush", font=("Arial", 28, "bold"), foreground="#FFD83D").pack(anchor="w")
-        ttk.Label(outer, text="국기 퀴즈 쇼츠 자동 제작 · 영어 콘텐츠 · 무료 로컬 제작").pack(anchor="w", pady=(0, 16))
-        fields = ttk.LabelFrame(outer, text="제작 설정", padding=12)
+        ttk.Label(outer, text="국기 퀴즈 Shorts / Longform · 영어 콘텐츠 · 무료 로컬 제작").pack(anchor="w", pady=(0, 16))
+        mode_row = ttk.Frame(outer)
+        mode_row.pack(fill="x", pady=(0,8))
+        ttk.Label(mode_row, text="영상 종류").pack(side="left", padx=(0,12))
+        self.mode_box = ttk.Combobox(mode_row, textvariable=self.mode, values=("Shorts","Longform"), state="readonly", width=16)
+        self.mode_box.pack(side="left")
+        self.mode_box.bind("<<ComboboxSelected>>", self._mode_changed)
+        self.long_settings = ttk.LabelFrame(outer, text="Longform 전용 설정 · 1920×1080 · Mixed", padding=10)
+        ttk.Label(self.long_settings, text="제작 편수").grid(row=0,column=0,padx=8)
+        ttk.Combobox(self.long_settings,textvariable=self.long_video_count,values=("1","2","3"),state="readonly",width=8).grid(row=0,column=1)
+        ttk.Label(self.long_settings, text="문제 수").grid(row=0,column=2,padx=8)
+        ttk.Combobox(self.long_settings,textvariable=self.long_questions,values=("20","30","40"),state="readonly",width=8).grid(row=0,column=3)
+        ttk.Label(self.long_settings,text="Easy → Normal → Hard → Expert (편집 기준)\n20문제 3:44 · 30문제 5:24 · 40문제 7:04").grid(row=1,column=0,columnspan=4,sticky="w",pady=6)
+        fields = ttk.LabelFrame(outer, text="Shorts 설정 / 공통 BGM·출력", padding=12)
+        self.settings_fields = fields
         fields.pack(fill="x")
         fields.columnconfigure(1, weight=1)
         fields.columnconfigure(3, weight=1)
@@ -63,6 +80,9 @@ class GeoRushApp(tk.Tk):
         ttk.Spinbox(fields, from_=1, to=5, textvariable=self.questions, width=8, state="readonly").grid(row=0, column=3, sticky="w")
         ttk.Label(fields, text="BGM 볼륨").grid(row=1, column=2, sticky="w", padx=(20, 10))
         ttk.Combobox(fields, textvariable=self.bgm, values=("8%", "10%", "12%"), state="readonly", width=8).grid(row=1, column=3, sticky="w")
+        self.short_controls = [widget for widget in fields.winfo_children()
+                               if widget.grid_info() and (int(widget.grid_info()['column'])<2
+                               or int(widget.grid_info()['row'])==0)]
         ttk.Label(fields, text="출력 폴더").grid(row=2, column=0, sticky="w", pady=(12, 0))
         ttk.Entry(fields, textvariable=self.output).grid(row=2, column=1, columnspan=3, sticky="ew", pady=(12, 0))
         folder_buttons = ttk.Frame(fields)
@@ -101,6 +121,14 @@ class GeoRushApp(tk.Tk):
         ttk.Label(outer, text="첫 설치 시 무료 라이브러리 다운로드가 필요합니다. 설치 후 영상 생성은 인터넷·API 키 없이 실행합니다.", wraplength=900).pack(anchor="w", pady=(12, 0))
         self._write_log("GeoRush Generator 준비 완료. 기본 3문제, BGM 10%, TTS 없음.")
 
+    def _mode_changed(self, _event=None):
+        if self.mode.get() == 'Longform':
+            self.long_settings.pack(fill="x", before=self.settings_fields, pady=(0,8))
+            for widget in self.short_controls: widget.grid_remove()
+        else:
+            self.long_settings.pack_forget()
+            for widget in self.short_controls: widget.grid()
+
     def _choose_folder(self):
         selected = filedialog.askdirectory(title="GeoRush 출력 폴더 선택", initialdir=str(Path(self.output.get()).parent))
         if selected:
@@ -120,13 +148,15 @@ class GeoRushApp(tk.Tk):
         if self.worker is not None and self.worker.is_alive():
             return
         try:
-            count = int(self.video_count.get())
-            questions = int(self.questions.get())
-            if count not in (1, 3, 5, 10) or not 1 <= questions <= 5:
+            longform = self.mode.get() == 'Longform'
+            count = int(self.long_video_count.get() if longform else self.video_count.get())
+            questions = int(self.long_questions.get() if longform else self.questions.get())
+            valid = count in (1,2,3) and questions in (20,30,40) if longform else count in (1,3,5,10) and 1<=questions<=5
+            if not valid:
                 raise ValueError("영상 개수와 문제 수를 확인하세요.")
             if not self.output.get().strip():
                 raise ValueError("출력 폴더를 선택하세요.")
-            arguments = dict(count=count, difficulty=self.difficulty.get(), questions_per_video=questions,
+            arguments = dict(_mode=self.mode.get(), count=count, difficulty="Mixed" if longform else self.difficulty.get(), questions_per_video=questions,
                              bgm_volume=int(self.bgm.get().rstrip("%"))/100,
                              output_root=Path(self.output.get()).expanduser(), progress_callback=self.events.put)
         except (ValueError, tk.TclError) as exc:
@@ -136,13 +166,18 @@ class GeoRushApp(tk.Tk):
         self.results.set("성공 0편 · 실패 0편")
         self.status.set("제작을 시작합니다. 이 창에서 진행 상황을 확인할 수 있습니다.")
         self.start_button.configure(state="disabled")
+        self.mode_box.configure(state="disabled")
         self._write_log(f"배치 시작: {count}편 / {questions}문제 / {self.difficulty.get()} / BGM {self.bgm.get()}")
         self.worker = threading.Thread(target=self._run, args=(arguments,), name="GeoRush-render", daemon=True)
         self.worker.start()
 
     def _run(self, arguments):
         try:
-            from .pipeline import generate_batch
+            mode = arguments.pop('_mode')
+            if mode == 'Longform':
+                from .longform.pipeline import generate_batch
+            else:
+                from .pipeline import generate_batch
             rows = generate_batch(**arguments)
             self.events.put({"_done": True, "results": rows})
         except Exception as exc:
@@ -162,11 +197,13 @@ class GeoRushApp(tk.Tk):
                     for row in rows:
                         self._write_log(str(row.get("output_path", row.get("path", ""))) if row.get("status") == "success" else "실패: "+str(row.get("error", "원인 불명")))
                     self.start_button.configure(state="normal")
+                    self.mode_box.configure(state="readonly")
                     self._refresh_history()
                 elif event.get("_fatal"):
                     self.status.set("제작 중 오류가 발생했습니다. 로그를 확인하세요.")
                     self._write_log(event.get("message", "알 수 없는 오류"))
                     self.start_button.configure(state="normal")
+                    self.mode_box.configure(state="readonly")
                     self._refresh_history()
                 else:
                     message = str(event.get("message", event.get("stage", "")))
@@ -203,7 +240,7 @@ class GeoRushApp(tk.Tk):
                 if hasattr(store, "close"):
                     store.close()
             for row in rows:
-                self.history.insert("", "end", values=(row.get("created_at", ""), row.get("status", ""), row.get("difficulty", ""), row.get("output_path", ""), row.get("error", "") or ""))
+                self.history.insert("", "end", values=(row.get("created_at", ""), row.get("status", ""), json.loads(row.get("quiz_json", "{}")).get("mode", "Shorts")+" · "+row.get("difficulty", ""), row.get("output_path", ""), row.get("error", "") or ""))
         except Exception as exc:
             self._write_log("제작 이력을 읽지 못했습니다: "+str(exc))
 

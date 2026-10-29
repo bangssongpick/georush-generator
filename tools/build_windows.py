@@ -27,9 +27,9 @@ def build():
                     '--collect-all', 'PIL', '--hidden-import', 'tkinter', str(ROOT/'main.py')], cwd=ROOT, check=True)
     folder = ROOT/'dist'/'GeoRushGenerator'
     (folder/'START_HERE.cmd').write_bytes(b'@echo off\r\nstart "GeoRush" "%~dp0GeoRushGenerator.exe"\r\n')
-    for name in ('THIRD_PARTY_NOTICES.md', 'LICENSE', 'V11_OUTPUT_KO.md', 'V12_PRESENTATION_KO.md'):
+    for name in ('THIRD_PARTY_NOTICES.md', 'LICENSE', 'V11_OUTPUT_KO.md', 'V12_PRESENTATION_KO.md', 'V13_LONGFORM_KO.md'):
         shutil.copy2(ROOT/name, folder/name)
-    (folder/'README.txt').write_text('GeoRush Windows x64\n\n압축을 완전히 풀고 START_HERE.cmd 또는 GeoRushGenerator.exe를 실행하세요.\nPython 설치는 필요 없습니다. _internal 폴더를 함께 보관하세요.\n기본 출력: Windows 실제 바탕화면의 GeoRush_Output\n영상 폴더에는 shorts.mp4, shorts_metadata.txt, shorts_thumbnail.jpg 3개만 생성됩니다.\n이력·로그: %LOCALAPPDATA%\\GeoRush (자세한 내용은 V11_OUTPUT_KO.md)\n검증 범위와 실제 실행 결과: WINDOWS_VALIDATION.json\nOneDrive 실시간 동기화 및 화면 외관은 사용자 PC에서 확인하세요.\n', encoding='utf-8')
+    (folder/'README.txt').write_text('GeoRush Windows x64\n\n압축을 완전히 풀고 START_HERE.cmd 또는 GeoRushGenerator.exe를 실행하세요.\nPython 설치는 필요 없습니다. _internal 폴더를 함께 보관하세요.\n기본 출력: Windows 실제 바탕화면의 GeoRush_Output\nShorts: shorts.mp4, shorts_metadata.txt, shorts_thumbnail.jpg\nLongform: longform.mp4, longform_metadata.txt, longform_thumbnail.jpg\n영상 종류를 선택하고 영상 제작 시작을 누르세요. 자세한 내용: V13_LONGFORM_KO.md\n이력·로그: %LOCALAPPDATA%\\GeoRush (자세한 내용은 V11_OUTPUT_KO.md)\n검증 범위와 실제 실행 결과: WINDOWS_VALIDATION.json\nOneDrive 실시간 동기화 및 화면 외관은 사용자 PC에서 확인하세요.\n', encoding='utf-8')
     with (folder/'FFMPEG_LICENSE_AND_BUILD.txt').open('w', encoding='utf-8') as out:
         subprocess.run([str(ffmpeg), '-L'], stdout=out, stderr=subprocess.STDOUT, check=True)
         subprocess.run([str(ffmpeg), '-buildconf'], stdout=out, stderr=subprocess.STDOUT, check=True)
@@ -37,56 +37,46 @@ def build():
 
 
 if __name__ == '__main__':
-    folder = build()
-    report = ROOT/'build_validation'/'WINDOWS_VALIDATION.json'
-    report.parent.mkdir(parents=True, exist_ok=True)
-    report.unlink(missing_ok=True)
-    environment = dict(os.environ)
-    environment.pop('GEORUSH_FFMPEG', None)
-    environment['GEORUSH_DATA_DIR'] = str(ROOT/'build_validation'/'AppData'/'GeoRush')
-    environment['PATH'] = os.pathsep.join([str(Path(os.environ['SystemRoot'])/'System32'), os.environ['SystemRoot']])
-    environment['GEORUSH_CHECK_COUNT']='3'
-    subprocess.run([str(folder/'GeoRushGenerator.exe'), '--distribution-check', str(report),
-                    '--output', str(report.parent/'OneDrive 테스트'/'바탕 화면'/'GeoRush_Output')],
-                   env=environment, check=True, timeout=300)
-    result = json.loads(report.read_text(encoding='utf-8'))
-    if result.get('status') != 'PASS' or not result.get('frozen'):
-        raise SystemExit('EXE integration failed. See '+str(report))
-    shutil.copy2(report, folder/report.name)
-    moved_root = Path(tempfile.mkdtemp(prefix='GeoRush 이동 검증 '))
-    moved = moved_root/'GeoRush 앱'
-    shutil.copytree(folder, moved)
-    moved_report = report.with_name('WINDOWS_RELOCATION_VALIDATION.json')
-    moved_report.unlink(missing_ok=True)
+    folder=build()
+    evidence=ROOT/'build_validation';evidence.mkdir(parents=True,exist_ok=True)
+    environment=dict(os.environ);environment.pop('GEORUSH_FFMPEG',None)
+    environment['GEORUSH_DATA_DIR']=str(evidence/'AppData'/'GeoRush')
+    environment['PATH']=os.pathsep.join([str(Path(os.environ['SystemRoot'])/'System32'),os.environ['SystemRoot']])
     environment['GEORUSH_CHECK_COUNT']='1'
-    subprocess.run([str(moved/'GeoRushGenerator.exe'), '--distribution-check', str(moved_report),
-                    '--output', str(report.parent/'OneDrive 테스트'/'바탕 화면'/'GeoRush_Output')],
-                   env=environment, check=True, timeout=300)
-    moved_result = json.loads(moved_report.read_text(encoding='utf-8'))
-    if moved_result.get('status') != 'PASS' or not moved_result.get('frozen'):
-        raise SystemExit('Relocated EXE integration failed. See '+str(moved_report))
-    shutil.copy2(moved_report, folder/moved_report.name)
-    for index, video in enumerate(result['batch_videos'],1):
-        shutil.copy2(Path(video['video_folder'])/'shorts.mp4',ROOT/'dist'/f'GeoRush-v1.2-sample-{index:02d}.mp4')
-        review_dir=Path(video['presentation_review']['video']).parent
-        debug_dir=ROOT/'build_validation'/'AppData'/'GeoRush'/'debug'/review_dir.name/'v12_review'
-        shutil.copy2(debug_dir/'CONTACT_SHEET.jpg',ROOT/'dist'/f'GeoRush-v1.2-sample-{index:02d}-frames.jpg')
-    archive = ROOT/'dist'/'GeoRush-v1.2-Windows-EXE.zip'
-    temporary = archive.with_suffix('.pending.zip')
-    with zipfile.ZipFile(temporary, 'w', zipfile.ZIP_DEFLATED) as output:
+    output=evidence/'OneDrive 테스트'/'바탕 화면'/'GeoRush_Output'
+    def check(executable,flag,report_name,timeout=300):
+        report=evidence/report_name;report.unlink(missing_ok=True)
+        subprocess.run([str(executable),flag,str(report),'--output',str(output)],env=environment,check=True,timeout=timeout)
+        result=json.loads(report.read_text(encoding='utf-8'))
+        if result.get('status')!='PASS' or not result.get('frozen'):
+            raise SystemExit('Frozen GUI integration failed: '+str(report))
+        shutil.copy2(report,folder/report.name)
+        return result
+    short=check(folder/'GeoRushGenerator.exe','--distribution-check','WINDOWS_SHORTS_VALIDATION.json')
+    longforms=[]
+    for count in (20,40):
+        environment['GEORUSH_LONGFORM_QUESTIONS']=str(count)
+        result=check(folder/'GeoRushGenerator.exe','--longform-check',f'WINDOWS_LONGFORM_{count}_VALIDATION.json',1800)
+        longforms.append(result)
+        shutil.copy2(Path(result['video_folder'])/'longform.mp4',ROOT/'dist'/f'GeoRush-v1.3-Longform-{count}.mp4')
+        shutil.copy2(Path(result['video_folder'])/'longform_thumbnail.jpg',ROOT/'dist'/f'GeoRush-v1.3-Longform-{count}-thumbnail.jpg')
+        shutil.copy2(Path(result['video_folder'])/'longform_metadata.txt',ROOT/'dist'/f'GeoRush-v1.3-Longform-{count}-metadata.txt')
+        shutil.copy2(Path(result['debug_folder'])/'review'/'CONTACT_SHEET.jpg',ROOT/'dist'/f'GeoRush-v1.3-Longform-{count}-frames.jpg')
+    moved_root=Path(tempfile.mkdtemp(prefix='GeoRush 이동 검증 '));moved=moved_root/'GeoRush 앱'
+    shutil.copytree(folder,moved)
+    relocated=check(moved/'GeoRushGenerator.exe','--distribution-check','WINDOWS_RELOCATION_VALIDATION.json')
+    shutil.copy2(Path(short['video_folder'])/'shorts.mp4',ROOT/'dist'/'GeoRush-v1.3-Shorts-sample.mp4')
+    archive=ROOT/'dist'/'GeoRush-v1.3-Windows-EXE.zip';temporary=archive.with_suffix('.pending.zip')
+    with zipfile.ZipFile(temporary,'w',zipfile.ZIP_DEFLATED) as out:
         for path in folder.rglob('*'):
-            if path.is_file():
-                output.write(path, 'GeoRushGenerator/'+path.relative_to(folder).as_posix())
-    with zipfile.ZipFile(temporary) as output:
-        if output.testzip() is not None:
-            raise SystemExit('ZIP CRC check failed')
-    temporary.replace(archive)
-    digest = hashlib.sha256(archive.read_bytes()).hexdigest()
-    archive.with_suffix('.zip.sha256').write_text(digest+'  '+archive.name+'\n', encoding='ascii')
-    summary = {'windows_exe_build':'PASS','exe_bytes':(folder/'GeoRushGenerator.exe').stat().st_size,
-               'zip_bytes':archive.stat().st_size,'zip_sha256':digest,
-               'gui_to_mp4':result,'relocated_gui_to_mp4':moved_result,
-               'system_python_and_ffmpeg_removed_from_test_PATH':True,
-               'limits':['Windows hosted runner is not a clean physical PC', 'Manual GUI appearance and listening review needed', 'Real OneDrive sync not tested']}
+            if path.is_file():out.write(path,'GeoRushGenerator/'+path.relative_to(folder).as_posix())
+    with zipfile.ZipFile(temporary) as out:
+        if out.testzip() is not None:raise SystemExit('ZIP CRC failure')
+    temporary.replace(archive);digest=hashlib.sha256(archive.read_bytes()).hexdigest()
+    archive.with_suffix('.zip.sha256').write_text(digest+'  '+archive.name+'\n',encoding='ascii')
+    summary={'windows_exe_build':'PASS','exe_bytes':(folder/'GeoRushGenerator.exe').stat().st_size,
+             'zip_bytes':archive.stat().st_size,'zip_sha256':digest,'shorts_gui':short,'longform_gui':longforms,
+             'relocated_shorts_gui':relocated,'system_python_and_ffmpeg_removed_from_test_PATH':True,
+             'limits':['Windows hosted runner is not a Windows 11 physical PC','Manual visual/audio review required','Real OneDrive sync not tested']}
     (ROOT/'dist'/'WINDOWS_BUILD_REPORT.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2),encoding='utf-8')
-    print('Windows EXE GUI-to-MP4 PASS. ZIP:', archive)
+    print('Windows EXE Shorts + Longform GUI validation PASS:',archive)
