@@ -1,0 +1,19 @@
+{
+  "status": "PASS",
+  "enabled_countries": 60,
+  "difficulty_counts": {
+    "Easy": 20,
+    "Normal": 20,
+    "Hard": 20
+  },
+  "checks": {
+    "all_source_code_name_matches": true,
+    "all_iso_alpha2_source_records": true,
+    "all_png_sha256_matches": true,
+    "all_source_svg_sha256_matches": true,
+    "all_png_decode_and_900x675": true,
+    "all_png_hashes_distinct": true
+  },
+  "manual_review": "All60flagicons inspected in FLAGS_CONTACT_SHEET.jpg; standard4:3 icon variants",
+  "upstream_revision": "ac7e0eb3259eb62aa6100c435607e2fe03896a97"
+}
