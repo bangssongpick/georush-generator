@@ -1,0 +1,22 @@
+[
+  {
+    "folder": "GeoRush_20261029_020016_386173_21ce60",
+    "first_country": "Peru",
+    "flag_region_psnr_db": 38.015,
+    "three_files": [
+      "shorts.mp4",
+      "shorts_metadata.txt",
+      "shorts_thumbnail.jpg"
+    ]
+  },
+  {
+    "folder": "GeoRush_20261029_015958_116716_07a321",
+    "first_country": "Slovakia",
+    "flag_region_psnr_db": 35.821,
+    "three_files": [
+      "shorts.mp4",
+      "shorts_metadata.txt",
+      "shorts_thumbnail.jpg"
+    ]
+  }
+]

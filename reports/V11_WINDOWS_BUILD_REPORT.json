@@ -1,0 +1,200 @@
+{
+  "windows_exe_build": "PASS",
+  "exe_bytes": 5318864,
+  "zip_bytes": 66261391,
+  "zip_sha256": "38fc0e65034423ac9f7bd583ff4e9a1e02acddc53b44cbe17ccd13df41ef5b3e",
+  "gui_to_mp4": {
+    "platform": "win32",
+    "frozen": true,
+    "resource_root": "D:\\a\\georush-generator\\georush-generator\\dist\\GeoRushGenerator\\_internal",
+    "output_root": "D:\\a\\georush-generator\\georush-generator\\build_validation\\OneDrive 테스트\\바탕 화면\\GeoRush_Output",
+    "onedrive_test_scope": "Unicode OneDrive-like local path; real cloud sync not tested",
+    "manual_appearance_review_required": true,
+    "ffmpeg": "D:\\a\\georush-generator\\georush-generator\\dist\\GeoRushGenerator\\_internal\\bin\\ffmpeg.exe",
+    "shell_desktop_output": "C:\\Users\\runneradmin\\Desktop\\GeoRush_Output",
+    "real_shell_desktop_write_read_pass": true,
+    "default_font": "Malgun Gothic",
+    "exact_three_user_files": [
+      "shorts.mp4",
+      "shorts_metadata.txt",
+      "shorts_thumbnail.jpg"
+    ],
+    "thumbnail_from_final_video": true,
+    "internal_history": "D:\\a\\georush-generator\\georush-generator\\build_validation\\AppData\\GeoRush\\georush_history.sqlite3",
+    "internal_debug": "D:\\a\\georush-generator\\georush-generator\\build_validation\\AppData\\GeoRush\\debug\\GeoRush_20261029_015958_116716_07a321",
+    "status": "PASS",
+    "video_folder": "D:\\a\\georush-generator\\georush-generator\\build_validation\\OneDrive 테스트\\바탕 화면\\GeoRush_Output\\GeoRush_20261029_015958_116716_07a321",
+    "media": {
+      "checks": {
+        "duration": true,
+        "resolution": true,
+        "fps": true,
+        "decoded_frames": true,
+        "h264": true,
+        "aac": true,
+        "pixel_format": true,
+        "stereo": true,
+        "audio_not_silent": true,
+        "audio_below_full_scale": true
+      },
+      "duration": 21.0,
+      "width": 1080,
+      "height": 1920,
+      "fps": 30.0,
+      "frames": 630,
+      "video_codec": "h264",
+      "audio_codec": "aac",
+      "pixel_format": "yuv420p",
+      "decoded_audio_peak_dbfs": -6.80411,
+      "decoded_audio_rms_dbfs": -29.230948,
+      "probe_method": "ffmpeg_stream_header_and_full_decode",
+      "full_video_audio_decode": true,
+      "size_bytes": 861354,
+      "encoded_inspection": [
+        {
+          "file": "q1_start.jpg",
+          "time_seconds": 0.0
+        },
+        {
+          "file": "q1_countdown.jpg",
+          "time_seconds": 2.0
+        },
+        {
+          "file": "q1_answer.jpg",
+          "time_seconds": 5.2
+        },
+        {
+          "file": "q2_start.jpg",
+          "time_seconds": 6.5
+        },
+        {
+          "file": "q2_countdown.jpg",
+          "time_seconds": 8.5
+        },
+        {
+          "file": "q2_answer.jpg",
+          "time_seconds": 11.7
+        },
+        {
+          "file": "q3_start.jpg",
+          "time_seconds": 13.0
+        },
+        {
+          "file": "q3_countdown.jpg",
+          "time_seconds": 15.0
+        },
+        {
+          "file": "q3_answer.jpg",
+          "time_seconds": 18.2
+        },
+        {
+          "file": "cta.jpg",
+          "time_seconds": 19.8
+        }
+      ]
+    },
+    "heartbeat_count": 102,
+    "elapsed_seconds": 11.89,
+    "video_sha256": "d9b994c6bfc9a7202efcaa6b145ed8f5992b3c0b7873da0011b98fe682535328"
+  },
+  "relocated_gui_to_mp4": {
+    "platform": "win32",
+    "frozen": true,
+    "resource_root": "C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\GeoRush 이동 검증 4o_cjpji\\GeoRush 앱\\_internal",
+    "output_root": "D:\\a\\georush-generator\\georush-generator\\build_validation\\OneDrive 테스트\\바탕 화면\\GeoRush_Output",
+    "onedrive_test_scope": "Unicode OneDrive-like local path; real cloud sync not tested",
+    "manual_appearance_review_required": true,
+    "ffmpeg": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\GeoRush 이동 검증 4o_cjpji\\GeoRush 앱\\_internal\\bin\\ffmpeg.exe",
+    "shell_desktop_output": "C:\\Users\\runneradmin\\Desktop\\GeoRush_Output",
+    "real_shell_desktop_write_read_pass": true,
+    "default_font": "Malgun Gothic",
+    "exact_three_user_files": [
+      "shorts.mp4",
+      "shorts_metadata.txt",
+      "shorts_thumbnail.jpg"
+    ],
+    "thumbnail_from_final_video": true,
+    "internal_history": "D:\\a\\georush-generator\\georush-generator\\build_validation\\AppData\\GeoRush\\georush_history.sqlite3",
+    "internal_debug": "D:\\a\\georush-generator\\georush-generator\\build_validation\\AppData\\GeoRush\\debug\\GeoRush_20261029_020016_386173_21ce60",
+    "status": "PASS",
+    "video_folder": "D:\\a\\georush-generator\\georush-generator\\build_validation\\OneDrive 테스트\\바탕 화면\\GeoRush_Output\\GeoRush_20261029_020016_386173_21ce60",
+    "media": {
+      "checks": {
+        "duration": true,
+        "resolution": true,
+        "fps": true,
+        "decoded_frames": true,
+        "h264": true,
+        "aac": true,
+        "pixel_format": true,
+        "stereo": true,
+        "audio_not_silent": true,
+        "audio_below_full_scale": true
+      },
+      "duration": 21.0,
+      "width": 1080,
+      "height": 1920,
+      "fps": 30.0,
+      "frames": 630,
+      "video_codec": "h264",
+      "audio_codec": "aac",
+      "pixel_format": "yuv420p",
+      "decoded_audio_peak_dbfs": -6.80411,
+      "decoded_audio_rms_dbfs": -29.230948,
+      "probe_method": "ffmpeg_stream_header_and_full_decode",
+      "full_video_audio_decode": true,
+      "size_bytes": 818934,
+      "encoded_inspection": [
+        {
+          "file": "q1_start.jpg",
+          "time_seconds": 0.0
+        },
+        {
+          "file": "q1_countdown.jpg",
+          "time_seconds": 2.0
+        },
+        {
+          "file": "q1_answer.jpg",
+          "time_seconds": 5.2
+        },
+        {
+          "file": "q2_start.jpg",
+          "time_seconds": 6.5
+        },
+        {
+          "file": "q2_countdown.jpg",
+          "time_seconds": 8.5
+        },
+        {
+          "file": "q2_answer.jpg",
+          "time_seconds": 11.7
+        },
+        {
+          "file": "q3_start.jpg",
+          "time_seconds": 13.0
+        },
+        {
+          "file": "q3_countdown.jpg",
+          "time_seconds": 15.0
+        },
+        {
+          "file": "q3_answer.jpg",
+          "time_seconds": 18.2
+        },
+        {
+          "file": "cta.jpg",
+          "time_seconds": 19.8
+        }
+      ]
+    },
+    "heartbeat_count": 98,
+    "elapsed_seconds": 11.219,
+    "video_sha256": "a0719aed8d33d2d221a68db65d6a7ef0380c4cf53ace7463b5be80db8d14af74"
+  },
+  "system_python_and_ffmpeg_removed_from_test_PATH": true,
+  "limits": [
+    "Windows hosted runner is not a clean physical PC",
+    "Manual GUI appearance and listening review needed",
+    "Real OneDrive sync not tested"
+  ]
+}
