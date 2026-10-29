@@ -1,0 +1,94 @@
+{
+  "version": "v1.3.1-windows",
+  "source_commit": "1362170a1a217d06d2254bfabd3ceb548279f753",
+  "actions": "https://github.com/bangssongpick/georush-generator/actions/runs/40833796301",
+  "linux_tests_passed": 72,
+  "windows_tests_passed": 72,
+  "metadata_unit_test_counts": [
+    20,
+    30,
+    40
+  ],
+  "zip_https_status": 200,
+  "zip_bytes": 66328776,
+  "exe_bytes": 5365822,
+  "zip_crc": "PASS",
+  "zip_sha256": "1c78a0390add56c0612eaa5baa10ea04178bfa88b1bf7aa72993abf11bcf3718",
+  "gui_metadata_cases": [
+    {
+      "questions": 20,
+      "metadata_https_status": 200,
+      "standalone_chapter_section": false,
+      "description_chapters": "00:00 Welcome\n00:05 Easy\n00:55 Normal\n01:48 Hard\n02:41 Expert\n03:34 What's your score?",
+      "gui_status": "PASS",
+      "duration": 224.0,
+      "frames": 6720,
+      "media_checks": {
+        "duration": true,
+        "resolution": true,
+        "fps": true,
+        "decoded_frames": true,
+        "h264": true,
+        "aac": true,
+        "pixel_format": true,
+        "stereo": true,
+        "audio_not_silent": true,
+        "audio_below_full_scale": true
+      },
+      "exact_three_files": [
+        "longform.mp4",
+        "longform_metadata.txt",
+        "longform_thumbnail.jpg"
+      ]
+    },
+    {
+      "questions": 40,
+      "metadata_https_status": 200,
+      "standalone_chapter_section": false,
+      "description_chapters": "00:00 Welcome\n00:05 Easy\n01:45 Normal\n03:28 Hard\n05:11 Expert\n06:54 What's your score?",
+      "gui_status": "PASS",
+      "duration": 424.0,
+      "frames": 12720,
+      "media_checks": {
+        "duration": true,
+        "resolution": true,
+        "fps": true,
+        "decoded_frames": true,
+        "h264": true,
+        "aac": true,
+        "pixel_format": true,
+        "stereo": true,
+        "audio_not_silent": true,
+        "audio_below_full_scale": true
+      },
+      "exact_three_files": [
+        "longform.mp4",
+        "longform_metadata.txt",
+        "longform_thumbnail.jpg"
+      ]
+    }
+  ],
+  "shorts_gui": "PASS",
+  "relocated_shorts_gui": "PASS",
+  "unchanged_production_modules": [
+    "georush/gui.py",
+    "georush/pipeline.py",
+    "georush/output.py",
+    "georush/quiz.py",
+    "georush/catalog.py",
+    "georush/history.py",
+    "georush/paths.py",
+    "georush/render.py",
+    "georush/audio.py",
+    "georush/validation.py",
+    "georush/longform/render.py",
+    "georush/longform/timeline.py",
+    "georush/longform/pipeline.py",
+    "georush/longform/audio.py"
+  ],
+  "limits": [
+    "Windows 11 physical PC not directly tested",
+    "30-question metadata unit tested; no new 30-question MP4 render",
+    "Real OneDrive sync and manual listening not tested"
+  ]
+}

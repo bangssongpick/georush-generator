@@ -1,8 +1,18 @@
-# GeoRush Generator v1.3 — Shorts + Longform Windows EXE
+# GeoRush Generator v1.3.1 — Longform 메타데이터 패치
 
-[**Python 설치 없이 실행하는 EXE ZIP 다운로드**](https://github.com/bangssongpick/georush-generator/releases/download/v1.3.0-windows/GeoRush-v1.3-Windows-EXE.zip)
+[**Python 설치 없이 실행하는 EXE ZIP 다운로드**](https://github.com/bangssongpick/georush-generator/releases/download/v1.3.1-windows/GeoRush-v1.3.1-Windows-EXE.zip)
 
-[릴리스 페이지](https://github.com/bangssongpick/georush-generator/releases/tag/v1.3.0-windows) · [Windows Actions](https://github.com/bangssongpick/georush-generator/actions/runs/40829705207) · [v1.3 실행·검증·변경 파일 안내](V13_LONGFORM_KO.md)
+[릴리스 페이지](https://github.com/bangssongpick/georush-generator/releases/tag/v1.3.1-windows) · [Windows Actions](https://github.com/bangssongpick/georush-generator/actions/runs/40833796301) · [v1.3 실행·검증·변경 파일 안내](V13_LONGFORM_KO.md)
+
+## v1.3.1 메타데이터 최소 패치
+
+롱폼 `[설명]`에 소개·구독 유도·CHAPTERS·실제 타임스탬프·해시태그를 모두 포함합니다.
+별도 `[챕터]`는 생성하지 않습니다. 출력 순서는 제목 → 설명 → 고정 댓글 → 태그 → 카테고리입니다.
+Shorts 메타데이터·렌더링·국기·GUI·SQLite·최종 파일 3개 구조는 그대로입니다.
+
+20·30·40문제 메타데이터 검사 포함 72개 테스트가 Linux와 Windows에서 통과했습니다.
+실제 EXE GUI의 Shorts·20/40문제 Longform 제작 및 공개 ZIP/메타데이터 다운로드 검사도 통과했습니다.
+[패치 안내·실제 결과](V131_METADATA_KO.md) · [이전 v1.3 릴리스](https://github.com/bangssongpick/georush-generator/releases/tag/v1.3.0-windows)
 
 ## v1.3 선택형 Longform
 
@@ -17,7 +27,7 @@ GUI에서 영상 종류를 선택하고 **영상 제작 시작**을 누릅니다
 - 기존 50개 + 신규 18개 테스트, 실제 Windows EXE의 Shorts·20문제·40문제 GUI 제작, 전체 디코딩, 한글 경로 이동 후 재제작 통과.
 - [실제 20문제 영상](https://github.com/bangssongpick/georush-generator/releases/download/v1.3.0-windows/GeoRush-v1.3-Longform-20.mp4) / [실제 40문제 영상](https://github.com/bangssongpick/georush-generator/releases/download/v1.3.0-windows/GeoRush-v1.3-Longform-40.mp4)
 
-ZIP 66,326,451 bytes / EXE 5,365,820 bytes. 공개 HTTPS 다운로드·ZIP CRC·SHA256 일치 확인.
+최신 ZIP 66,328,776 bytes / EXE 5,365,822 bytes. 공개 HTTPS 다운로드·ZIP CRC·SHA256 일치 확인.
 사용자 Windows 11 실물 PC, 실제 OneDrive 동기화와 수동 청취는 미검증입니다.
 이전 [v1.2 안정판](https://github.com/bangssongpick/georush-generator/releases/tag/v1.2.0-windows)을 보존했습니다.
 
