@@ -19,10 +19,11 @@ def metadata(quiz,timeline):
             'Difficulty tiers are editorial groupings, not measured player ratings. Familiarity varies by viewer.\n\n'
             'Watch until the end and share your final score.\n'
             'Subscribe to GeoRush (@GeoRushGames) for more geography challenges.\n\n'
+            'CHAPTERS\n'+chapter_text+'\n\n'
             '#GeoRush #FlagQuiz #GeographyQuiz #GuessTheFlag\n\n'
             f'[고정 댓글]\nHow many flags did you recognize? Share your score out of {count}!\n\n'
             '[태그]\nGeoRush, guess the flag, flag quiz, geography quiz, world flags, guess the country, geography challenge\n\n'
-            '[카테고리]\n교육 / 아동용 아님\n\n[챕터]\n'+chapter_text+'\n')
+            '[카테고리]\n교육 / 아동용 아님\n')
 
 
 def thumbnail(quiz,destination):

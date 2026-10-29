@@ -23,14 +23,14 @@ jobs:
         run: python tools/build_windows.py
       - uses: actions/upload-artifact@v4
         with:
-          name: GeoRush-v1.3-Windows-EXE
+          name: GeoRush-v1.3.1-Windows-EXE
           path: |
-            dist/GeoRush-v1.3-Windows-EXE.zip
-            dist/GeoRush-v1.3-Windows-EXE.zip.sha256
+            dist/GeoRush-v1.3.1-Windows-EXE.zip
+            dist/GeoRush-v1.3.1-Windows-EXE.zip.sha256
             dist/WINDOWS_BUILD_REPORT.json
-            dist/GeoRush-v1.3-*.mp4
-            dist/GeoRush-v1.3-*.jpg
-            dist/GeoRush-v1.3-*-metadata.txt
+            dist/GeoRush-v1.3.1-*.mp4
+            dist/GeoRush-v1.3.1-*.jpg
+            dist/GeoRush-v1.3.1-*-metadata.txt
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -47,7 +47,7 @@ jobs:
     steps:
       - uses: actions/download-artifact@v4
         with:
-          name: GeoRush-v1.3-Windows-EXE
+          name: GeoRush-v1.3.1-Windows-EXE
           path: release
       - name: Publish tested EXE download
         env:
@@ -57,6 +57,7 @@ jobs:
         run: |
           cat > notes.md <<'NOTES'
           Windows x64 executable distribution. Python and FFmpeg are bundled.
+          Metadata-only patch: Longform description now includes introduction, subscribe text, CHAPTERS timestamps and hashtags. No separate Korean chapter section. Shorts, rendering, GUI, SQLite and exact-three-file outputs are unchanged.
           Extract the whole ZIP and run START_HERE.cmd or GeoRushGenerator.exe.
           Select Shorts (unchanged) or Longform (20/30/40 questions; default 40, 7m04s). Native 1920x1080 landscape, editorial Easy-to-Expert rounds.
           Output: exactly three MP4/TXT/JPG files per video. Shorts names remain unchanged; Longform uses longform.mp4, longform_metadata.txt and longform_thumbnail.jpg. Internal history/diagnostics are preserved.
@@ -64,4 +65,4 @@ jobs:
           Limits: hosted Windows runner; manual visual/audio review and real OneDrive cloud sync remain to be checked on the user PC.
           See WINDOWS_BUILD_REPORT.json for actual results and sizes.
           NOTES
-          gh release create v1.3.0-windows release/* --target "$SOURCE_SHA" --title "GeoRush v1.3 — Shorts + Longform Windows EXE" --notes-file notes.md
+          gh release create v1.3.1-windows release/* --target "$SOURCE_SHA" --title "GeoRush v1.3.1 — Longform metadata patch" --notes-file notes.md

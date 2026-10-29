@@ -73,7 +73,8 @@ class LongformTests(unittest.TestCase):
             for start,label in chapters(t):self.assertTrue(any(s['start']==start for s in t['segments']))
     def test_metadata_count_no_answer_leak_and_real_chapters(self):
         q=build(self.catalog,count=30);t=build_timeline(q);m=metadata(q,t)
-        for header in ('[제목]','[설명]','[고정 댓글]','[태그]','[카테고리]','[챕터]'):self.assertIn(header,m)
+        for header in ('[제목]','[설명]','[고정 댓글]','[태그]','[카테고리]'):self.assertIn(header,m)
+        self.assertNotIn('[챕터]',m)
         self.assertIn('30 Flags',m);self.assertNotIn('#Shorts',m)
         for question in q['questions']:self.assertNotIn(question['country_name'],m)
         for at,label in chapters(t):self.assertIn(timestamp(at)+' '+label,m)
