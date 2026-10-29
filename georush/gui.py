@@ -18,7 +18,7 @@ class GeoRushApp(tk.Tk):
         if sys.platform == 'win32':
             for name in ('TkDefaultFont', 'TkTextFont', 'TkMenuFont', 'TkHeadingFont', 'TkCaptionFont', 'TkTooltipFont', 'TkFixedFont'):
                 tkfont.nametofont(name).configure(family='Malgun Gothic', size=10)
-        self.title("GeoRush Generator v1.1")
+        self.title("GeoRush Generator v1.2")
         self.geometry("1000x800")
         self.minsize(780, 680)
         self.configure(bg="#0A1730")

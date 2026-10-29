@@ -48,7 +48,9 @@ def run_check(report_path, output_root=None):
         if sys.platform == 'win32':
             assert report['default_font'].lower() in ('malgun gothic', '맑은 고딕')
         app.output.set(str(output))
-        app.video_count.set('1'); app.questions.set(3); app.bgm.set('10%')
+        video_count=int(os.environ.get('GEORUSH_CHECK_COUNT','1'))
+        assert video_count in (1,3)
+        app.video_count.set(str(video_count)); app.questions.set(3); app.bgm.set('10%')
         app.update()
         history = get_history(output)
         before = history.list_runs(limit=1)
@@ -66,35 +68,42 @@ def run_check(report_path, output_root=None):
             if str(app.start_button['state']) == 'normal':
                 break
             time.sleep(.02)
-        assert app.results.get() == '성공 1편 · 실패 0편', app.log.get('1.0', 'end')
-        rows = history.list_runs()
-        assert rows[0]['id'] > before_id and rows[0]['status'] == 'success'
-        folder = Path(rows[0]['output_path'])
-        assert {p.name for p in folder.iterdir()} == FINAL_FILES
-        assert all(p.is_file() for p in folder.iterdir())
-        debug = data_root()/'debug'/folder.name
-        quiz = json.loads((debug/'quiz_data.json').read_text(encoding='utf-8'))
-        text = (folder/'shorts_metadata.txt').read_text(encoding='utf-8-sig')
-        for header in ('[제목]', '[설명]', '[고정 댓글]', '[태그]', '[카테고리]'):
-            assert header in text
-        assert all(q['country_name'] not in text for q in quiz['questions'])
-        from PIL import Image
-        with Image.open(folder/'shorts_thumbnail.jpg') as thumbnail:
-            assert thumbnail.size == (1080,1920) and thumbnail.format == 'JPEG'
-        assert not (debug/'original_audio.wav').exists()
-        report['exact_three_user_files'] = sorted(p.name for p in folder.iterdir())
-        report['thumbnail_from_final_video'] = True
-        report['internal_history'] = str(history.path)
-        report['internal_debug'] = str(debug)
-        validate_quiz(quiz, catalog)
-        media = json.loads((debug/'MEDIA_REPORT.json').read_text(encoding='utf-8'))
-        assert all(media['checks'].values())
-        render = json.loads((debug/'RENDER_REPORT.json').read_text(encoding='utf-8'))
-        assert render['audio']['clipped_samples'] == 0
+        assert app.results.get() == f'성공 {video_count}편 · 실패 0편', app.log.get('1.0', 'end')
+        rows = [row for row in history.list_runs() if row['id']>before_id]
+        assert len(rows)==video_count and all(row['status']=='success' for row in rows)
+        batch=[]
+        from .presentation_review import review_video
+        for row in reversed(rows):
+            folder = Path(row['output_path'])
+            assert {p.name for p in folder.iterdir()} == FINAL_FILES
+            assert all(p.is_file() for p in folder.iterdir())
+            debug = data_root()/'debug'/folder.name
+            quiz = json.loads((debug/'quiz_data.json').read_text(encoding='utf-8'))
+            text = (folder/'shorts_metadata.txt').read_text(encoding='utf-8-sig')
+            for header in ('[제목]', '[설명]', '[고정 댓글]', '[태그]', '[카테고리]'):
+                assert header in text
+            assert all(q['country_name'] not in text for q in quiz['questions'])
+            from PIL import Image
+            with Image.open(folder/'shorts_thumbnail.jpg') as thumbnail:
+                assert thumbnail.size == (1080,1920) and thumbnail.format == 'JPEG'
+            assert not (debug/'original_audio.wav').exists()
+            validate_quiz(quiz, catalog)
+            media = json.loads((debug/'MEDIA_REPORT.json').read_text(encoding='utf-8'))
+            assert all(media['checks'].values())
+            render = json.loads((debug/'RENDER_REPORT.json').read_text(encoding='utf-8'))
+            assert render['audio']['clipped_samples'] == 0
+            visual=review_video(folder/'shorts.mp4',quiz,debug/'v12_review',ffmpeg)
+            batch.append({'video_folder':str(folder),'media':media,'render_audio':render['audio'],
+                          'exact_three_user_files':sorted(p.name for p in folder.iterdir()),
+                          'presentation_review':visual,
+                          'video_sha256':hashlib.sha256((folder/'shorts.mp4').read_bytes()).hexdigest()})
         assert len(beats) > 2 and any(0 < p < 100 for p in progress)
-        report.update(status='PASS', video_folder=str(folder), media=media,
-                      heartbeat_count=len(beats), elapsed_seconds=round(time.monotonic()-start, 3),
-                      video_sha256=hashlib.sha256((folder/'shorts.mp4').read_bytes()).hexdigest())
+        report.update(status='PASS', video_folder=batch[-1]['video_folder'],media=batch[-1]['media'],
+                      exact_three_user_files=batch[-1]['exact_three_user_files'],
+                      internal_history=str(history.path),internal_debug=str(debug),
+                      thumbnail_from_final_video=True,batch_videos=batch,
+                      heartbeat_count=len(beats),elapsed_seconds=round(time.monotonic()-start,3),
+                      video_sha256=batch[-1]['video_sha256'])
     except Exception:
         report.update(status='FAIL', error=traceback.format_exc())
     finally:

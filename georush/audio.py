@@ -55,7 +55,7 @@ def synthesize_audio(destination: Path, question_count: int, bgm_volume: float =
         start = round(at*SAMPLE_RATE)
         length = min(round(seconds*SAMPLE_RATE), size-start)
         t = np.arange(length)/SAMPLE_RATE
-        envelope = np.minimum(t/.006,1) * np.minimum((seconds-t)/.05,1).clip(0,1)
+        envelope = np.minimum(t/.012,1) * np.minimum((seconds-t)/.06,1).clip(0,1)
         envelope *= np.exp(-t*4)
         signal = sum(np.sin(2*np.pi*f*t) for f in frequencies)/len(frequencies)*gain*envelope
         track[start:start+length] += signal[:,None]
@@ -63,11 +63,12 @@ def synthesize_audio(destination: Path, question_count: int, bgm_volume: float =
 
     for question in range(question_count):
         base = question*QUESTION_SECONDS
+        add_tone(base+.12,(740.0,1110.0),.14,.08,'entrance')
         for tick in range(5):
             add_tone(base+tick,(1000.0 if tick<4 else 1250.0,),.075,.12,'countdown_tick')
         # A short ascending major chord is an original answer reveal cue.
         for step, frequency in enumerate((523.251,659.255,783.991)):
-            add_tone(base+COUNTDOWN_SECONDS+step*.065,(frequency,),.24,.19,'correct_answer')
+            add_tone(base+COUNTDOWN_SECONDS+step*.065,(frequency,),.24,.15,'correct_answer')
         if question+1 < question_count:
             start = round((base+QUESTION_SECONDS-.16)*SAMPLE_RATE)
             length = round(.16*SAMPLE_RATE)
@@ -76,13 +77,14 @@ def synthesize_audio(destination: Path, question_count: int, bgm_volume: float =
             rng = np.random.default_rng(100+question)
             noise = rng.normal(0,1,length)
             noise = np.convolve(noise,np.ones(9)/9,mode='same')
-            noise *= .13*np.sin(np.pi*t/.16)**2
+            noise *= .07*np.sin(np.pi*t/.16)**2
             track[start:start+length] += noise[:,None]
             events.append({'kind':'transition','time_seconds':base+QUESTION_SECONDS-.16,'duration_seconds':.16})
     add_tone(question_count*QUESTION_SECONDS,(659.255,783.991),.42,.11,'cta')
     fade = min(round(.08*SAMPLE_RATE),size)
     track[:fade] *= np.linspace(0,1,fade)[:,None]
-    track[-fade:] *= np.linspace(1,0,fade)[:,None]
+    end_fade=min(round(.45*SAMPLE_RATE),size)
+    track[-end_fade:] *= np.linspace(1,0,end_fade)[:,None]
     pre_peak = float(np.max(np.abs(track)))
     attenuation = min(1.0, .92/pre_peak) if pre_peak else 1.0
     track *= attenuation
@@ -98,4 +100,5 @@ def synthesize_audio(destination: Path, question_count: int, bgm_volume: float =
             'peak_before_limiter':pre_peak,'limiter_gain':attenuation,
             'peak_pcm':float(np.max(np.abs(pcm.astype(np.float64)))/32767),
             'clipped_samples':int((np.abs(pcm.astype(np.int32))>=32767).sum()),
+            'end_fade_seconds':end_fade/SAMPLE_RATE,
             'events':events}

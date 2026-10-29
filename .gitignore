@@ -8,3 +8,8 @@ build_validation/
 build_support/
 GeoRush_Output/
 *.sqlite3*
+
+v12_samples/
+v11_actual_validation/
+windows_actual_validation/
+v12_actual_validation/

@@ -134,6 +134,92 @@ def _cta(background,count):
     return image
 
 
+def animation_state(second, question_count):
+    """Shared timing in seconds; effects are local to the current question."""
+    index = int((second+1e-8)//QUESTION_SECONDS)
+    local = max(0.0, second-index*QUESTION_SECONDS)
+    state = {'question_index': index, 'local': local, 'cta': index >= question_count,
+             'reveal': local >= COUNTDOWN_SECONDS, 'flag_scale': 1.0,
+             'title_offset': 0, 'digit_scale': 1.0, 'answer_scale': 1.0,
+             'urgent': 3.0 <= local < COUNTDOWN_SECONDS,
+             'progress': max(0.0, 1-local/COUNTDOWN_SECONDS)}
+    if local < .28:
+        state['flag_scale'] = .84+.185*(1-(1-local/.28)**3)
+    elif local < .65:
+        t=(local-.28)/.37
+        state['flag_scale'] = 1.025-.025*(t*t*(3-2*t))
+    state['title_offset'] = round(8*(1-min(local/.35,1))**2)
+    if local < COUNTDOWN_SECONDS:
+        tick = min(4, int(local+1e-8))
+        phase = max(0, local-tick)
+        state['remaining'] = 5-tick
+        state['digit_scale'] = 1+.13*math.sin(math.pi*min(phase/.18,1))
+    else:
+        elapsed=local-COUNTDOWN_SECONDS
+        state['answer_scale'] = 1+.04*math.sin(math.pi*min(elapsed/.28,1))
+    return state
+
+
+def prepare_animation(questions):
+    background = _background()
+    boards = [(_question_static(q,i,len(questions),background),
+               _question_static(q,i,len(questions),background,True)) for i,q in enumerate(questions)]
+    flags=[]
+    for question in questions:
+        with Image.open(question['flag_path']) as source:
+            flag=source.convert('RGBA');flag.thumbnail((742,415),Image.Resampling.LANCZOS)
+            flags.append(flag.copy())
+    return {'background':background,'boards':boards,'flags':flags,
+            'cta':_cta(background,len(questions)),'questions':questions}
+
+
+def animated_frame(context, second):
+    questions=context['questions'];state=animation_state(second,len(questions))
+    index=state['question_index'];local=state['local']
+    if state['cta']:
+        image=context['cta'].copy();draw=ImageDraw.Draw(image)
+        elapsed=second-len(questions)*QUESTION_SECONDS
+        length=int(700*min(1,elapsed/.45))
+        draw.rounded_rectangle((190,1320,190+max(1,length),1327),radius=3,fill=YELLOW)
+        return image
+    image=context['boards'][index][int(state['reveal'])].copy()
+    draw=ImageDraw.Draw(image)
+    if not state['reveal']:
+        if local < .65:
+            # Keep the whole flag visible, including frame zero. No blackout/fade.
+            draw.rectangle((151,469,929,921),fill='#F4F8FF')
+            flag=context['flags'][index]
+            scaled=flag.resize((round(flag.width*state['flag_scale']),round(flag.height*state['flag_scale'])),Image.Resampling.LANCZOS)
+            image.paste(scaled,((WIDTH-scaled.width)//2,695-scaled.height//2),scaled)
+        if state['title_offset']:
+            image.paste(context['background'].crop((80,232,1000,420)),(80,232))
+            draw=ImageDraw.Draw(image)
+            _center(draw,'GUESS THE FLAG!',250+state['title_offset'],66,YELLOW)
+            _center(draw,'Which country is this?',346+state['title_offset'],40,WHITE)
+        color='#FFC663' if state['urgent'] else YELLOW
+        draw=ImageDraw.Draw(image)
+        draw.arc((450,1033,630,1213),-90,270,fill='#34558B',width=9)
+        draw.arc((450,1033,630,1213),-90,-90+360*state['progress'],fill=color,width=10)
+        size=round(104*state['digit_scale'])
+        _center(draw,str(state['remaining']),1061-round((size-104)/2),size,color,max_width=170)
+        draw.rounded_rectangle((160,1219,920,1231),radius=6,fill='#34558B')
+        end=160+round(760*state['progress'])
+        if end>161:draw.rounded_rectangle((160,1219,end,1231),radius=6,fill=color)
+    else:
+        correct=int(questions[index]['correct_index'])
+        x=76+(correct%2)*480;y=1255+(correct//2)*178
+        card=context['boards'][index][1].crop((x,y,x+449,y+147))
+        width=round(449*state['answer_scale']);height=round(147*state['answer_scale'])
+        left=x-(width-449)//2;top=y-(height-147)//2
+        image.paste(card.resize((width,height),Image.Resampling.LANCZOS),(left,top))
+        draw=ImageDraw.Draw(image)
+        draw.rounded_rectangle((left,top,left+width-1,top+height-1),radius=26,
+                               outline='#A8FFE0' if local-COUNTDOWN_SECONDS<.35 else GREEN,width=6)
+    if index>0 and local<.16:
+        draw.rectangle((0,214,int(WIDTH*(local/.16)),222),fill=YELLOW)
+    return image
+
+
 def render_video(quiz, destination, bgm_volume=.10, progress_callback=None, ffmpeg_path=None):
     """Create a local video atomically. Failed temporary output is never promoted."""
     started=time.monotonic();destination=Path(destination)
@@ -149,9 +235,7 @@ def render_video(quiz, destination, bgm_volume=.10, progress_callback=None, ffmp
     if not ffmpeg_path:raise FileNotFoundError('FFmpeg is not installed or bundled')
     audio_path=destination.parent/'original_audio.wav'
     audio_report=synthesize_audio(audio_path,count,bgm_volume)
-    background=_background()
-    boards=[(_question_static(q,i,count,background),_question_static(q,i,count,background,True)) for i,q in enumerate(questions)]
-    cta=_cta(background,count)
+    animation=prepare_animation(questions)
     inspection=destination.parent/'inspection';inspection.mkdir(exist_ok=True)
     duration=count*QUESTION_SECONDS+CTA_SECONDS
     frames=round(duration*FPS)
@@ -171,30 +255,8 @@ def render_video(quiz, destination, bgm_volume=.10, progress_callback=None, ffmp
             for number in range(frames):
                 second=number/FPS
                 question_index=int(second//QUESTION_SECONDS)
-                if question_index>=count:
-                    image=cta.copy();draw=ImageDraw.Draw(image)
-                    # A gentle native-resolution CTA underline grows into view.
-                    local=second-count*QUESTION_SECONDS
-                    length=int(700*min(1,local/.45))
-                    draw.rounded_rectangle((190,1320,190+max(1,length),1327),radius=3,fill=YELLOW)
-                else:
-                    local=second-question_index*QUESTION_SECONDS
-                    reveal=local>=COUNTDOWN_SECONDS
-                    image=boards[question_index][int(reveal)].copy();draw=ImageDraw.Draw(image)
-                    if not reveal:
-                        remaining=max(1,math.ceil(COUNTDOWN_SECONDS-local))
-                        draw.arc((450,1033,630,1213),-90,270,fill='#34558B',width=9)
-                        fraction=max(0,1-local/COUNTDOWN_SECONDS)
-                        draw.arc((450,1033,630,1213),-90,-90+360*fraction,fill=YELLOW,width=10)
-                        _center(draw,str(remaining),1061,104,YELLOW,max_width=170)
-                    else:
-                        # The result border gives visible answer feedback without flashing.
-                        pulse=2+round(2*(.5+.5*math.sin((local-5)*math.pi*2)))
-                        draw.rounded_rectangle((51,1228,1029,1606),radius=35,outline='#217A80',width=pulse)
-                # Brief directional accent marks transitions; content remains fully readable.
-                phase=second%QUESTION_SECONDS
-                if question_index>0 and question_index<count and phase<.16:
-                    draw.rectangle((0,214,int(WIDTH*(phase/.16)),222),fill=YELLOW)
+                local=second-question_index*QUESTION_SECONDS
+                image=animated_frame(animation,second)
                 if (number%round(QUESTION_SECONDS*FPS)==0 or
                     number%round(QUESTION_SECONDS*FPS)==round(2.0*FPS) or
                     number%round(QUESTION_SECONDS*FPS)==round(COUNTDOWN_SECONDS*FPS)) and question_index<count:
@@ -233,5 +295,8 @@ def render_video(quiz, destination, bgm_volume=.10, progress_callback=None, ffmp
             'layout_safety':{'horizontal_margin':51,'minimum_option_font':23,'option_count':4,
                              'flag_aspect_preserved':True,'no_text_truncation':True},
             'ffmpeg_log':log_path.name}
+    report['presentation']={'version':'1.2','intro_seconds':.65,'first_flag_scale':.84,
+                            'countdown_seconds':COUNTDOWN_SECONDS,'answer_hold_seconds':QUESTION_SECONDS-COUNTDOWN_SECONDS,
+                            'digit_pulse_seconds':.18,'answer_pulse_seconds':.28,'global_flashes':False,'camera_shake':False}
     (destination.parent/'render_report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
     return report

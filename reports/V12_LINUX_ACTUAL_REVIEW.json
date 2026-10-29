@@ -1,0 +1,299 @@
+[
+  {
+    "status": "PASS",
+    "video": "v12_samples/GeoRush_20261029_053429_098926_a504c5/shorts.mp4",
+    "frames": [
+      {
+        "frame": 0,
+        "seconds": 0.0,
+        "file": "frame_01.png",
+        "intended_frame_psnr_db": 35.855
+      },
+      {
+        "frame": 3,
+        "seconds": 0.1,
+        "file": "frame_02.png",
+        "intended_frame_psnr_db": 35.623
+      },
+      {
+        "frame": 9,
+        "seconds": 0.3,
+        "file": "frame_03.png",
+        "intended_frame_psnr_db": 35.768
+      },
+      {
+        "frame": 21,
+        "seconds": 0.7,
+        "file": "frame_04.png",
+        "intended_frame_psnr_db": 35.874
+      },
+      {
+        "frame": 30,
+        "seconds": 1.0,
+        "file": "frame_05.png",
+        "intended_frame_psnr_db": 35.923
+      },
+      {
+        "frame": 33,
+        "seconds": 1.1,
+        "file": "frame_06.png",
+        "intended_frame_psnr_db": 35.932
+      },
+      {
+        "frame": 75,
+        "seconds": 2.5,
+        "file": "frame_07.png",
+        "intended_frame_psnr_db": 36.265
+      },
+      {
+        "frame": 93,
+        "seconds": 3.1,
+        "file": "frame_08.png",
+        "intended_frame_psnr_db": 36.401
+      },
+      {
+        "frame": 149,
+        "seconds": 4.966666666666667,
+        "file": "frame_09.png",
+        "intended_frame_psnr_db": 36.828
+      },
+      {
+        "frame": 151,
+        "seconds": 5.033333333333333,
+        "file": "frame_10.png",
+        "intended_frame_psnr_db": 36.674
+      },
+      {
+        "frame": 154,
+        "seconds": 5.133333333333334,
+        "file": "frame_11.png",
+        "intended_frame_psnr_db": 36.726
+      },
+      {
+        "frame": 195,
+        "seconds": 6.5,
+        "file": "frame_12.png",
+        "intended_frame_psnr_db": 35.955
+      },
+      {
+        "frame": 629,
+        "seconds": 20.966666666666665,
+        "file": "frame_13.png",
+        "intended_frame_psnr_db": 35.8
+      }
+    ],
+    "encoded_flag_intro_mean_delta": 37.719,
+    "first_frame_visible_flag_and_question": true,
+    "answer_green_matches_correct_index": true,
+    "no_answer_effect_at_question_start": true,
+    "comparison": "Encoded pixels vs intended Pillow frames, PSNR>28dB",
+    "question_codes": [
+      "ca",
+      "cl",
+      "pa"
+    ],
+    "human_review_required": [
+      "interest of first second",
+      "subjective audio quality",
+      "mobile viewing comfort"
+    ]
+  },
+  {
+    "status": "PASS",
+    "video": "v12_samples/GeoRush_20261029_053444_326902_e3d6d6/shorts.mp4",
+    "frames": [
+      {
+        "frame": 0,
+        "seconds": 0.0,
+        "file": "frame_01.png",
+        "intended_frame_psnr_db": 35.953
+      },
+      {
+        "frame": 3,
+        "seconds": 0.1,
+        "file": "frame_02.png",
+        "intended_frame_psnr_db": 35.766
+      },
+      {
+        "frame": 9,
+        "seconds": 0.3,
+        "file": "frame_03.png",
+        "intended_frame_psnr_db": 35.819
+      },
+      {
+        "frame": 21,
+        "seconds": 0.7,
+        "file": "frame_04.png",
+        "intended_frame_psnr_db": 36.077
+      },
+      {
+        "frame": 30,
+        "seconds": 1.0,
+        "file": "frame_05.png",
+        "intended_frame_psnr_db": 36.113
+      },
+      {
+        "frame": 33,
+        "seconds": 1.1,
+        "file": "frame_06.png",
+        "intended_frame_psnr_db": 36.135
+      },
+      {
+        "frame": 75,
+        "seconds": 2.5,
+        "file": "frame_07.png",
+        "intended_frame_psnr_db": 36.465
+      },
+      {
+        "frame": 93,
+        "seconds": 3.1,
+        "file": "frame_08.png",
+        "intended_frame_psnr_db": 36.607
+      },
+      {
+        "frame": 149,
+        "seconds": 4.966666666666667,
+        "file": "frame_09.png",
+        "intended_frame_psnr_db": 37.048
+      },
+      {
+        "frame": 151,
+        "seconds": 5.033333333333333,
+        "file": "frame_10.png",
+        "intended_frame_psnr_db": 36.879
+      },
+      {
+        "frame": 154,
+        "seconds": 5.133333333333334,
+        "file": "frame_11.png",
+        "intended_frame_psnr_db": 36.899
+      },
+      {
+        "frame": 195,
+        "seconds": 6.5,
+        "file": "frame_12.png",
+        "intended_frame_psnr_db": 35.924
+      },
+      {
+        "frame": 629,
+        "seconds": 20.966666666666665,
+        "file": "frame_13.png",
+        "intended_frame_psnr_db": 35.8
+      }
+    ],
+    "encoded_flag_intro_mean_delta": 37.72,
+    "first_frame_visible_flag_and_question": true,
+    "answer_green_matches_correct_index": true,
+    "no_answer_effect_at_question_start": true,
+    "comparison": "Encoded pixels vs intended Pillow frames, PSNR>28dB",
+    "question_codes": [
+      "dk",
+      "nl",
+      "kz"
+    ],
+    "human_review_required": [
+      "interest of first second",
+      "subjective audio quality",
+      "mobile viewing comfort"
+    ]
+  },
+  {
+    "status": "PASS",
+    "video": "v12_samples/GeoRush_20261029_053456_404817_cafb4d/shorts.mp4",
+    "frames": [
+      {
+        "frame": 0,
+        "seconds": 0.0,
+        "file": "frame_01.png",
+        "intended_frame_psnr_db": 35.323
+      },
+      {
+        "frame": 3,
+        "seconds": 0.1,
+        "file": "frame_02.png",
+        "intended_frame_psnr_db": 34.96
+      },
+      {
+        "frame": 9,
+        "seconds": 0.3,
+        "file": "frame_03.png",
+        "intended_frame_psnr_db": 35.097
+      },
+      {
+        "frame": 21,
+        "seconds": 0.7,
+        "file": "frame_04.png",
+        "intended_frame_psnr_db": 35.187
+      },
+      {
+        "frame": 30,
+        "seconds": 1.0,
+        "file": "frame_05.png",
+        "intended_frame_psnr_db": 35.231
+      },
+      {
+        "frame": 33,
+        "seconds": 1.1,
+        "file": "frame_06.png",
+        "intended_frame_psnr_db": 35.24
+      },
+      {
+        "frame": 75,
+        "seconds": 2.5,
+        "file": "frame_07.png",
+        "intended_frame_psnr_db": 35.521
+      },
+      {
+        "frame": 93,
+        "seconds": 3.1,
+        "file": "frame_08.png",
+        "intended_frame_psnr_db": 35.626
+      },
+      {
+        "frame": 149,
+        "seconds": 4.966666666666667,
+        "file": "frame_09.png",
+        "intended_frame_psnr_db": 35.989
+      },
+      {
+        "frame": 151,
+        "seconds": 5.033333333333333,
+        "file": "frame_10.png",
+        "intended_frame_psnr_db": 35.867
+      },
+      {
+        "frame": 154,
+        "seconds": 5.133333333333334,
+        "file": "frame_11.png",
+        "intended_frame_psnr_db": 35.908
+      },
+      {
+        "frame": 195,
+        "seconds": 6.5,
+        "file": "frame_12.png",
+        "intended_frame_psnr_db": 35.284
+      },
+      {
+        "frame": 629,
+        "seconds": 20.966666666666665,
+        "file": "frame_13.png",
+        "intended_frame_psnr_db": 35.8
+      }
+    ],
+    "encoded_flag_intro_mean_delta": 41.637,
+    "first_frame_visible_flag_and_question": true,
+    "answer_green_matches_correct_index": true,
+    "no_answer_effect_at_question_start": true,
+    "comparison": "Encoded pixels vs intended Pillow frames, PSNR>28dB",
+    "question_codes": [
+      "bo",
+      "es",
+      "eg"
+    ],
+    "human_review_required": [
+      "interest of first second",
+      "subjective audio quality",
+      "mobile viewing comfort"
+    ]
+  }
+]
