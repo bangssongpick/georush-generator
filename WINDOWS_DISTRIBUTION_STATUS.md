@@ -1,3 +1,5 @@
+> 이 문서는 이전 개발 단계의 기록입니다. 최신 Windows EXE와 검증은 [정식 배포 보고서](WINDOWS_EXE_RELEASE_KO.md)를 확인하세요.
+
 # GeoRush Windows 배포 안정화 상태
 
 **현재 사용자 지시로 GitHub Actions 경로는 중단했습니다.** 네트워크·기존 환경을 변경하지 않고 로컬 소스 ZIP과 Windows 직접 빌드를 사용합니다.

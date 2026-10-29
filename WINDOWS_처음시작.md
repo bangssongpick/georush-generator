@@ -1,3 +1,5 @@
+> 이 문서는 이전 개발 단계의 기록입니다. 최신 Windows EXE와 검증은 [정식 배포 보고서](WINDOWS_EXE_RELEASE_KO.md)를 확인하세요.
+
 # GeoRush v1.0 — Windows 11 처음 실행·EXE 만들기
 
 이 ZIP은 **소스 배포본**입니다. 이미 완성된 Windows EXE를 포함하지 않습니다.
