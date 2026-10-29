@@ -40,7 +40,7 @@ class OutputV11Tests(unittest.TestCase):
         r=self.batch();self.assertEqual(r['status'],'success')
         final=Path(r['path']);self.assertEqual({p.name for p in final.iterdir()},FINAL_FILES)
         self.assertTrue(all(p.is_file() for p in final.iterdir()))
-        self.assertEqual(list(self.output.iterdir()),[final])
+        self.assertEqual([p.resolve() for p in self.output.iterdir()],[final.resolve()])
         self.assertFalse((self.output/'georush_history.sqlite3').exists())
         self.assertEqual(History(history_path()).list_runs()[0]['status'],'success')
 
