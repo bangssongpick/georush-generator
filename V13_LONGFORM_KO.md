@@ -79,3 +79,48 @@ Windows 호스팅 러너는 Windows 11 실물 PC와 다릅니다. 실제 OneDriv
 변경 파일: `georush/longform/` 독립 모듈, `gui.py` 모드 연결, `main.py` 실행 분기,
 `validation.py`의 선택적 해상도/검증 제한 인자(기본 Shorts 값 동일), 버전 표시, Windows 빌드/배포와 신규 테스트·안내 문서.
 기존 Shorts `quiz.py`, `catalog.py`, `history.py`, `pipeline.py`, `render.py`, `audio.py`, `output.py`, `paths.py`와 원본 에셋은 보존합니다.
+
+## 실제 배포 검증 결과 — 2026-10-29 KST
+
+[Windows EXE ZIP 다운로드](https://github.com/bangssongpick/georush-generator/releases/download/v1.3.0-windows/GeoRush-v1.3-Windows-EXE.zip)
+
+[릴리스](https://github.com/bangssongpick/georush-generator/releases/tag/v1.3.0-windows) · [Windows Actions](https://github.com/bangssongpick/georush-generator/actions/runs/40829705207) · [전체 Windows 검증 JSON](reports/V13_WINDOWS_BUILD_REPORT.json) · [공개 다운로드 재검증](reports/V13_RELEASE_VERIFICATION.json)
+
+| 항목 | 실제 결과 |
+|---|---|
+|Windows 자동 테스트|68개 통과, 실패/건너뜀 0개. 기존 50개 테스트 파일 원본 유지 + 신규 18개|
+|Shorts GUI 버튼 → MP4|21초, 630프레임, 1080×1920/30fps/H.264/AAC, 전체 디코딩 통과|
+|20문제 Longform GUI 버튼 → MP4|224초(3:44), 6,720프레임, 1920×1080/30fps/H.264/AAC|
+|40문제 Longform GUI 버튼 → MP4|424초(7:04), 12,720프레임, 1920×1080/30fps/H.264/AAC|
+|20문제 실제 프레임 대응 검사|66프레임, 모든 국기 등장·정답 공개 포함, 최소 PSNR 33.319dB|
+|40문제 실제 프레임 대응 검사|126프레임, 모든 국기 등장·정답 공개 포함, 최소 PSNR 33.315dB|
+|국가·정답|영상 내 국가 중복 0개. 20문제 정답 위치 A/B/C/D 각 5개, 40문제 각 10개|
+|카운트다운·공개|각 문제 8초/2초. 음향 이벤트와 화면이 같은 타임라인 사용|
+|음향|20문제 AAC 피크 −11.616dBFS, 40문제 −11.609dBFS. 원본 PCM 클리핑 0개, 비무음·종료 페이드 검사|
+|최종 출력|모든 성공 영상 폴더에 지정된 MP4/TXT/JPG 3개만 존재|
+|SQLite|이전 Shorts 및 앞선 Longform 이력 보존 검사 통과|
+|응답성|실제 Tk 이벤트 루프 동작. 20문제 983회, 40문제 1,831회 heartbeat 기록|
+|한글 경로|한글 OneDrive 유사 출력 경로와 앱 폴더 이동 후 Shorts 재제작 통과|
+|Windows 렌더 소요|20문제 렌더 97.812초 / GUI+검증 114.203초. 40문제 렌더 182.578초 / GUI+검증 212.438초. 호스팅 러너 결과이며 사용자 PC 성능 보장은 아님|
+|공개 다운로드|ZIP·샘플 HTTP 200. 다운로드한 MP4 3개 전체 영상/오디오 재디코딩 통과|
+|ZIP|66,326,451 bytes, CRC 통과, Windows 빌드 SHA256과 일치|
+|EXE|5,365,820 bytes. Python/FFmpeg 경로 제외 후 번들 리소스 사용 확인|
+
+ZIP SHA256:
+
+`74261912e1a3cef9c1ef15cfbaa1e98fd843eb9bc0c69bfb2428ac23c6588cdf`
+
+실제 Windows EXE 샘플:
+
+- [20문제 영상](https://github.com/bangssongpick/georush-generator/releases/download/v1.3.0-windows/GeoRush-v1.3-Longform-20.mp4) · [프레임 검수 이미지](https://github.com/bangssongpick/georush-generator/releases/download/v1.3.0-windows/GeoRush-v1.3-Longform-20-frames.jpg)
+- [40문제 영상](https://github.com/bangssongpick/georush-generator/releases/download/v1.3.0-windows/GeoRush-v1.3-Longform-40.mp4) · [프레임 검수 이미지](https://github.com/bangssongpick/georush-generator/releases/download/v1.3.0-windows/GeoRush-v1.3-Longform-40-frames.jpg)
+- [Shorts 회귀 검증 영상](https://github.com/bangssongpick/georush-generator/releases/download/v1.3.0-windows/GeoRush-v1.3-Shorts-sample.mp4)
+
+Linux에서도 별도의 실제 20문제 영상 1편을 생성해 224초/6,720프레임, 전체 디코딩 및 66프레임 검사를 통과했습니다.
+기존 왜일까? 보호 대상 파일 163개 해시가 일치했습니다. Brain Blink·Oddly Sharp 등 타 저장소 수정 없음.
+기존 v1.2/v1.1/v1.0 릴리스는 보존했습니다.
+
+남은 미검증: 30문제 실제 MP4(문제 생성/배분/타임라인 단위 테스트는 통과), Windows 11 실물 PC,
+실제 OneDrive 클라우드 동기화, 수동 GUI 마우스 조작·수동 청취·시청 지속률.
+러너 GUI 검증은 실제 Tk 제작 버튼을 프로그램으로 invoke하고 실제 워커·인코더를 실행한 것입니다. 렌더러를 모의 객체로 대체하지 않았습니다.
+현재 자동 검사에서 발견된 미해결 오류는 없습니다.

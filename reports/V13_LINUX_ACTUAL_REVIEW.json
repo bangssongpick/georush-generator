@@ -1,0 +1,615 @@
+{
+  "status": "PASS",
+  "video": "/tmp/georush-v13-linux-output/GeoRush_Longform_20261029_062740_593281_b707ff/longform.mp4",
+  "inspected_frames": 66,
+  "minimum_psnr_db": 35.211,
+  "all_questions_flag_and_reveal_checked": true,
+  "chapters": [
+    [
+      0,
+      "Welcome"
+    ],
+    [
+      5,
+      "Easy"
+    ],
+    [
+      55,
+      "Normal"
+    ],
+    [
+      108,
+      "Hard"
+    ],
+    [
+      161,
+      "Expert"
+    ],
+    [
+      214,
+      "What's your score?"
+    ]
+  ],
+  "frames": [
+    {
+      "frame": 0,
+      "time": 0.0,
+      "kind": "intro",
+      "psnr_db": 39.836
+    },
+    {
+      "frame": 150,
+      "time": 5.0,
+      "kind": "question",
+      "psnr_db": 35.929,
+      "question": 1,
+      "country_code": "mx",
+      "answer_index": 2
+    },
+    {
+      "frame": 159,
+      "time": 5.3,
+      "kind": "question",
+      "psnr_db": 35.923,
+      "question": 1,
+      "country_code": "mx",
+      "answer_index": 2
+    },
+    {
+      "frame": 389,
+      "time": 12.966666666666667,
+      "kind": "question",
+      "psnr_db": 37.305,
+      "question": 1,
+      "country_code": "mx",
+      "answer_index": 2
+    },
+    {
+      "frame": 393,
+      "time": 13.1,
+      "kind": "question",
+      "psnr_db": 37.54,
+      "question": 1,
+      "country_code": "mx",
+      "answer_index": 2
+    },
+    {
+      "frame": 450,
+      "time": 15.0,
+      "kind": "question",
+      "psnr_db": 36.076,
+      "question": 2,
+      "country_code": "fr",
+      "answer_index": 2
+    },
+    {
+      "frame": 459,
+      "time": 15.3,
+      "kind": "question",
+      "psnr_db": 36.251,
+      "question": 2,
+      "country_code": "fr",
+      "answer_index": 2
+    },
+    {
+      "frame": 693,
+      "time": 23.1,
+      "kind": "question",
+      "psnr_db": 37.836,
+      "question": 2,
+      "country_code": "fr",
+      "answer_index": 2
+    },
+    {
+      "frame": 750,
+      "time": 25.0,
+      "kind": "question",
+      "psnr_db": 35.938,
+      "question": 3,
+      "country_code": "gr",
+      "answer_index": 1
+    },
+    {
+      "frame": 759,
+      "time": 25.3,
+      "kind": "question",
+      "psnr_db": 36.049,
+      "question": 3,
+      "country_code": "gr",
+      "answer_index": 1
+    },
+    {
+      "frame": 993,
+      "time": 33.1,
+      "kind": "question",
+      "psnr_db": 37.658,
+      "question": 3,
+      "country_code": "gr",
+      "answer_index": 1
+    },
+    {
+      "frame": 1050,
+      "time": 35.0,
+      "kind": "question",
+      "psnr_db": 35.508,
+      "question": 4,
+      "country_code": "es",
+      "answer_index": 0
+    },
+    {
+      "frame": 1059,
+      "time": 35.3,
+      "kind": "question",
+      "psnr_db": 35.313,
+      "question": 4,
+      "country_code": "es",
+      "answer_index": 0
+    },
+    {
+      "frame": 1293,
+      "time": 43.1,
+      "kind": "question",
+      "psnr_db": 36.729,
+      "question": 4,
+      "country_code": "es",
+      "answer_index": 0
+    },
+    {
+      "frame": 1350,
+      "time": 45.0,
+      "kind": "question",
+      "psnr_db": 35.955,
+      "question": 5,
+      "country_code": "in",
+      "answer_index": 0
+    },
+    {
+      "frame": 1359,
+      "time": 45.3,
+      "kind": "question",
+      "psnr_db": 35.961,
+      "question": 5,
+      "country_code": "in",
+      "answer_index": 0
+    },
+    {
+      "frame": 1593,
+      "time": 53.1,
+      "kind": "question",
+      "psnr_db": 37.426,
+      "question": 5,
+      "country_code": "in",
+      "answer_index": 0
+    },
+    {
+      "frame": 1650,
+      "time": 55.0,
+      "kind": "chapter",
+      "psnr_db": 44.255
+    },
+    {
+      "frame": 1740,
+      "time": 58.0,
+      "kind": "question",
+      "psnr_db": 36.343,
+      "question": 6,
+      "country_code": "th",
+      "answer_index": 3
+    },
+    {
+      "frame": 1749,
+      "time": 58.3,
+      "kind": "question",
+      "psnr_db": 36.438,
+      "question": 6,
+      "country_code": "th",
+      "answer_index": 3
+    },
+    {
+      "frame": 1983,
+      "time": 66.1,
+      "kind": "question",
+      "psnr_db": 38.235,
+      "question": 6,
+      "country_code": "th",
+      "answer_index": 3
+    },
+    {
+      "frame": 2040,
+      "time": 68.0,
+      "kind": "question",
+      "psnr_db": 36.078,
+      "question": 7,
+      "country_code": "eg",
+      "answer_index": 1
+    },
+    {
+      "frame": 2049,
+      "time": 68.3,
+      "kind": "question",
+      "psnr_db": 36.095,
+      "question": 7,
+      "country_code": "eg",
+      "answer_index": 1
+    },
+    {
+      "frame": 2283,
+      "time": 76.1,
+      "kind": "question",
+      "psnr_db": 37.67,
+      "question": 7,
+      "country_code": "eg",
+      "answer_index": 1
+    },
+    {
+      "frame": 2340,
+      "time": 78.0,
+      "kind": "question",
+      "psnr_db": 36.101,
+      "question": 8,
+      "country_code": "be",
+      "answer_index": 3
+    },
+    {
+      "frame": 2349,
+      "time": 78.3,
+      "kind": "question",
+      "psnr_db": 36.314,
+      "question": 8,
+      "country_code": "be",
+      "answer_index": 3
+    },
+    {
+      "frame": 2583,
+      "time": 86.1,
+      "kind": "question",
+      "psnr_db": 37.799,
+      "question": 8,
+      "country_code": "be",
+      "answer_index": 3
+    },
+    {
+      "frame": 2640,
+      "time": 88.0,
+      "kind": "question",
+      "psnr_db": 36.34,
+      "question": 9,
+      "country_code": "nl",
+      "answer_index": 2
+    },
+    {
+      "frame": 2649,
+      "time": 88.3,
+      "kind": "question",
+      "psnr_db": 36.502,
+      "question": 9,
+      "country_code": "nl",
+      "answer_index": 2
+    },
+    {
+      "frame": 2883,
+      "time": 96.1,
+      "kind": "question",
+      "psnr_db": 38.262,
+      "question": 9,
+      "country_code": "nl",
+      "answer_index": 2
+    },
+    {
+      "frame": 2940,
+      "time": 98.0,
+      "kind": "question",
+      "psnr_db": 36.083,
+      "question": 10,
+      "country_code": "nz",
+      "answer_index": 0
+    },
+    {
+      "frame": 2949,
+      "time": 98.3,
+      "kind": "question",
+      "psnr_db": 36.034,
+      "question": 10,
+      "country_code": "nz",
+      "answer_index": 0
+    },
+    {
+      "frame": 3183,
+      "time": 106.1,
+      "kind": "question",
+      "psnr_db": 37.728,
+      "question": 10,
+      "country_code": "nz",
+      "answer_index": 0
+    },
+    {
+      "frame": 3240,
+      "time": 108.0,
+      "kind": "chapter",
+      "psnr_db": 42.912
+    },
+    {
+      "frame": 3330,
+      "time": 111.0,
+      "kind": "question",
+      "psnr_db": 35.967,
+      "question": 11,
+      "country_code": "cu",
+      "answer_index": 0
+    },
+    {
+      "frame": 3339,
+      "time": 111.3,
+      "kind": "question",
+      "psnr_db": 35.977,
+      "question": 11,
+      "country_code": "cu",
+      "answer_index": 0
+    },
+    {
+      "frame": 3573,
+      "time": 119.1,
+      "kind": "question",
+      "psnr_db": 37.677,
+      "question": 11,
+      "country_code": "cu",
+      "answer_index": 0
+    },
+    {
+      "frame": 3630,
+      "time": 121.0,
+      "kind": "question",
+      "psnr_db": 35.826,
+      "question": 12,
+      "country_code": "jm",
+      "answer_index": 3
+    },
+    {
+      "frame": 3639,
+      "time": 121.3,
+      "kind": "question",
+      "psnr_db": 35.71,
+      "question": 12,
+      "country_code": "jm",
+      "answer_index": 3
+    },
+    {
+      "frame": 3873,
+      "time": 129.1,
+      "kind": "question",
+      "psnr_db": 37.159,
+      "question": 12,
+      "country_code": "jm",
+      "answer_index": 3
+    },
+    {
+      "frame": 3930,
+      "time": 131.0,
+      "kind": "question",
+      "psnr_db": 35.558,
+      "question": 13,
+      "country_code": "bo",
+      "answer_index": 3
+    },
+    {
+      "frame": 3939,
+      "time": 131.3,
+      "kind": "question",
+      "psnr_db": 35.618,
+      "question": 13,
+      "country_code": "bo",
+      "answer_index": 3
+    },
+    {
+      "frame": 4173,
+      "time": 139.1,
+      "kind": "question",
+      "psnr_db": 36.928,
+      "question": 13,
+      "country_code": "bo",
+      "answer_index": 3
+    },
+    {
+      "frame": 4230,
+      "time": 141.0,
+      "kind": "question",
+      "psnr_db": 36.107,
+      "question": 14,
+      "country_code": "pa",
+      "answer_index": 2
+    },
+    {
+      "frame": 4239,
+      "time": 141.3,
+      "kind": "question",
+      "psnr_db": 36.202,
+      "question": 14,
+      "country_code": "pa",
+      "answer_index": 2
+    },
+    {
+      "frame": 4473,
+      "time": 149.1,
+      "kind": "question",
+      "psnr_db": 37.799,
+      "question": 14,
+      "country_code": "pa",
+      "answer_index": 2
+    },
+    {
+      "frame": 4530,
+      "time": 151.0,
+      "kind": "question",
+      "psnr_db": 36.0,
+      "question": 15,
+      "country_code": "cr",
+      "answer_index": 3
+    },
+    {
+      "frame": 4539,
+      "time": 151.3,
+      "kind": "question",
+      "psnr_db": 36.207,
+      "question": 15,
+      "country_code": "cr",
+      "answer_index": 3
+    },
+    {
+      "frame": 4773,
+      "time": 159.1,
+      "kind": "question",
+      "psnr_db": 37.758,
+      "question": 15,
+      "country_code": "cr",
+      "answer_index": 3
+    },
+    {
+      "frame": 4830,
+      "time": 161.0,
+      "kind": "chapter",
+      "psnr_db": 44.51
+    },
+    {
+      "frame": 4920,
+      "time": 164.0,
+      "kind": "question",
+      "psnr_db": 35.339,
+      "question": 16,
+      "country_code": "al",
+      "answer_index": 2
+    },
+    {
+      "frame": 4929,
+      "time": 164.3,
+      "kind": "question",
+      "psnr_db": 35.211,
+      "question": 16,
+      "country_code": "al",
+      "answer_index": 2
+    },
+    {
+      "frame": 5163,
+      "time": 172.1,
+      "kind": "question",
+      "psnr_db": 36.449,
+      "question": 16,
+      "country_code": "al",
+      "answer_index": 2
+    },
+    {
+      "frame": 5220,
+      "time": 174.0,
+      "kind": "question",
+      "psnr_db": 36.049,
+      "question": 17,
+      "country_code": "ge",
+      "answer_index": 1
+    },
+    {
+      "frame": 5229,
+      "time": 174.3,
+      "kind": "question",
+      "psnr_db": 35.935,
+      "question": 17,
+      "country_code": "ge",
+      "answer_index": 1
+    },
+    {
+      "frame": 5463,
+      "time": 182.1,
+      "kind": "question",
+      "psnr_db": 37.527,
+      "question": 17,
+      "country_code": "ge",
+      "answer_index": 1
+    },
+    {
+      "frame": 5520,
+      "time": 184.0,
+      "kind": "question",
+      "psnr_db": 35.413,
+      "question": 18,
+      "country_code": "hr",
+      "answer_index": 1
+    },
+    {
+      "frame": 5529,
+      "time": 184.3,
+      "kind": "question",
+      "psnr_db": 35.219,
+      "question": 18,
+      "country_code": "hr",
+      "answer_index": 1
+    },
+    {
+      "frame": 5763,
+      "time": 192.1,
+      "kind": "question",
+      "psnr_db": 36.561,
+      "question": 18,
+      "country_code": "hr",
+      "answer_index": 1
+    },
+    {
+      "frame": 5820,
+      "time": 194.0,
+      "kind": "question",
+      "psnr_db": 35.865,
+      "question": 19,
+      "country_code": "sk",
+      "answer_index": 1
+    },
+    {
+      "frame": 5829,
+      "time": 194.3,
+      "kind": "question",
+      "psnr_db": 35.858,
+      "question": 19,
+      "country_code": "sk",
+      "answer_index": 1
+    },
+    {
+      "frame": 6063,
+      "time": 202.1,
+      "kind": "question",
+      "psnr_db": 37.432,
+      "question": 19,
+      "country_code": "sk",
+      "answer_index": 1
+    },
+    {
+      "frame": 6120,
+      "time": 204.0,
+      "kind": "question",
+      "psnr_db": 35.694,
+      "question": 20,
+      "country_code": "uz",
+      "answer_index": 0
+    },
+    {
+      "frame": 6129,
+      "time": 204.3,
+      "kind": "question",
+      "psnr_db": 35.728,
+      "question": 20,
+      "country_code": "uz",
+      "answer_index": 0
+    },
+    {
+      "frame": 6363,
+      "time": 212.1,
+      "kind": "question",
+      "psnr_db": 36.736,
+      "question": 20,
+      "country_code": "uz",
+      "answer_index": 0
+    },
+    {
+      "frame": 6719,
+      "time": 223.96666666666667,
+      "kind": "outro",
+      "psnr_db": 38.158
+    }
+  ],
+  "scope": "Encoded frame/layout correspondence; not subjective engagement or manual listening"
+}

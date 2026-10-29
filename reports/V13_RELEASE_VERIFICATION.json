@@ -1,0 +1,112 @@
+{
+  "zip_https_status": 200,
+  "zip_crc": "PASS",
+  "zip_sha256": "74261912e1a3cef9c1ef15cfbaa1e98fd843eb9bc0c69bfb2428ac23c6588cdf",
+  "zip_bytes": 66326451,
+  "videos": [
+    {
+      "name": "GeoRush-v1.3-Longform-20.mp4",
+      "https_status": 200,
+      "sha256": "589d5a61d72a0936b621ef0d44bb628fa99013d12063b92953f387d0906dd37b",
+      "media": {
+        "checks": {
+          "duration": true,
+          "resolution": true,
+          "fps": true,
+          "decoded_frames": true,
+          "h264": true,
+          "aac": true,
+          "pixel_format": true,
+          "stereo": true,
+          "audio_not_silent": true,
+          "audio_below_full_scale": true
+        },
+        "duration": 224.0,
+        "width": 1920,
+        "height": 1080,
+        "fps": 30.0,
+        "frames": 6720,
+        "video_codec": "h264",
+        "audio_codec": "aac",
+        "pixel_format": "yuv420p",
+        "decoded_audio_peak_dbfs": -11.615702,
+        "decoded_audio_rms_dbfs": -33.793033,
+        "probe_method": "ffprobe",
+        "full_video_audio_decode": true,
+        "size_bytes": 8889585
+      }
+    },
+    {
+      "name": "GeoRush-v1.3-Longform-40.mp4",
+      "https_status": 200,
+      "sha256": "34853630fd20e9bc613c7af9017928252d1a4b0c7a82d43c42c8d3d795ed71cb",
+      "media": {
+        "checks": {
+          "duration": true,
+          "resolution": true,
+          "fps": true,
+          "decoded_frames": true,
+          "h264": true,
+          "aac": true,
+          "pixel_format": true,
+          "stereo": true,
+          "audio_not_silent": true,
+          "audio_below_full_scale": true
+        },
+        "duration": 424.0,
+        "width": 1920,
+        "height": 1080,
+        "fps": 30.0,
+        "frames": 12720,
+        "video_codec": "h264",
+        "audio_codec": "aac",
+        "pixel_format": "yuv420p",
+        "decoded_audio_peak_dbfs": -11.609227,
+        "decoded_audio_rms_dbfs": -33.719687,
+        "probe_method": "ffprobe",
+        "full_video_audio_decode": true,
+        "size_bytes": 16907057
+      }
+    },
+    {
+      "name": "GeoRush-v1.3-Shorts-sample.mp4",
+      "https_status": 200,
+      "sha256": "45d278c003f0e364787e0474ebc0f25e0bf3f90fb0abfd564254c4f497cb9389",
+      "media": {
+        "checks": {
+          "duration": true,
+          "resolution": true,
+          "fps": true,
+          "decoded_frames": true,
+          "h264": true,
+          "aac": true,
+          "pixel_format": true,
+          "stereo": true,
+          "audio_not_silent": true,
+          "audio_below_full_scale": true
+        },
+        "duration": 21.0,
+        "width": 1080,
+        "height": 1920,
+        "fps": 30.0,
+        "frames": 630,
+        "video_codec": "h264",
+        "audio_codec": "aac",
+        "pixel_format": "yuv420p",
+        "decoded_audio_peak_dbfs": -8.574663,
+        "decoded_audio_rms_dbfs": -30.745227,
+        "probe_method": "ffprobe",
+        "full_video_audio_decode": true,
+        "size_bytes": 921777
+      }
+    }
+  ],
+  "existing_50_test_sources_unchanged": true,
+  "windows_test_count": 68,
+  "original_shorts_tests": 50,
+  "new_longform_tests": 18,
+  "actions_url": "https://github.com/bangssongpick/georush-generator/actions/runs/40829705207",
+  "built_commit": "d69eaa50802177618d45c1031d9db11ee3c0b937",
+  "protected_whyilkka_files_checked": 163,
+  "protected_whyilkka_files_changed": 0
+}

@@ -1,8 +1,25 @@
-# GeoRush Generator v1.2 — Windows EXE 정식 배포
+# GeoRush Generator v1.3 — Shorts + Longform Windows EXE
 
-[**Python 설치 없이 실행하는 EXE ZIP 다운로드**](https://github.com/bangssongpick/georush-generator/releases/download/v1.2.0-windows/GeoRush-v1.2-Windows-EXE.zip)
+[**Python 설치 없이 실행하는 EXE ZIP 다운로드**](https://github.com/bangssongpick/georush-generator/releases/download/v1.3.0-windows/GeoRush-v1.3-Windows-EXE.zip)
 
-[릴리스 페이지](https://github.com/bangssongpick/georush-generator/releases/tag/v1.2.0-windows) · [Windows Actions 실행](https://github.com/bangssongpick/georush-generator/actions/runs/40824517592) · [v1.2 연출·검증 안내](V12_PRESENTATION_KO.md) · [출력 안내](V11_OUTPUT_KO.md)
+[릴리스 페이지](https://github.com/bangssongpick/georush-generator/releases/tag/v1.3.0-windows) · [Windows Actions](https://github.com/bangssongpick/georush-generator/actions/runs/40829705207) · [v1.3 실행·검증·변경 파일 안내](V13_LONGFORM_KO.md)
+
+## v1.3 선택형 Longform
+
+기존 Shorts 기본 모드와 제작 엔진을 유지하고 Longform을 독립 모듈로 추가했습니다.
+GUI에서 영상 종류를 선택하고 **영상 제작 시작**을 누릅니다. EXE는 Python·FFmpeg를 포함하며 무료·로컬·오프라인으로 제작합니다.
+
+- 20/30/40문제, 기본 40문제. 가로 1920×1080 / 30fps / H.264/AAC.
+- 8초 카운트다운 + 2초 정답 공개. 기본 40문제는 7분 04초.
+- Easy → Normal → Hard → Expert 편집 그룹. 객관적 정답률 기반 난이도가 아니며 상세 기준은 안내 문서에 공개합니다.
+- 실제 문제 기반 썸네일·메타데이터·챕터, 같은 영상 내 국가 중복 차단과 균등한 정답 위치.
+- 영상 폴더에는 `longform.mp4`, `longform_metadata.txt`, `longform_thumbnail.jpg` 3개만 생성합니다. Shorts의 3개 파일 구조도 유지합니다.
+- 기존 50개 + 신규 18개 테스트, 실제 Windows EXE의 Shorts·20문제·40문제 GUI 제작, 전체 디코딩, 한글 경로 이동 후 재제작 통과.
+- [실제 20문제 영상](https://github.com/bangssongpick/georush-generator/releases/download/v1.3.0-windows/GeoRush-v1.3-Longform-20.mp4) / [실제 40문제 영상](https://github.com/bangssongpick/georush-generator/releases/download/v1.3.0-windows/GeoRush-v1.3-Longform-40.mp4)
+
+ZIP 66,326,451 bytes / EXE 5,365,820 bytes. 공개 HTTPS 다운로드·ZIP CRC·SHA256 일치 확인.
+사용자 Windows 11 실물 PC, 실제 OneDrive 동기화와 수동 청취는 미검증입니다.
+이전 [v1.2 안정판](https://github.com/bangssongpick/georush-generator/releases/tag/v1.2.0-windows)을 보존했습니다.
 
 ## v1.2 연출 개선
 
