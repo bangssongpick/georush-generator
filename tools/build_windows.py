@@ -6,6 +6,8 @@ import sys
 import zipfile
 import json
 import os
+import tempfile
+import hashlib
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -15,14 +17,15 @@ def build():
         raise SystemExit('Windows EXE must be built on Windows.')
     import imageio_ffmpeg
     ffmpeg = Path(imageio_ffmpeg.get_ffmpeg_exe()).resolve()
+    staging = ROOT/'build_support'
+    staging.mkdir(exist_ok=True)
+    bundled_source = staging/'ffmpeg.exe'
+    shutil.copy2(ffmpeg, bundled_source)
     subprocess.run([sys.executable, '-m', 'PyInstaller', '--noconfirm', '--clean', '--onedir',
                     '--windowed', '--name', 'GeoRushGenerator', '--add-data', f'{ROOT / "assets"};assets',
-                    '--add-binary', f'{ffmpeg};bin', '--collect-all', 'imageio_ffmpeg',
+                    '--add-binary', f'{bundled_source};bin', '--exclude-module', 'imageio_ffmpeg',
                     '--collect-all', 'PIL', '--hidden-import', 'tkinter', str(ROOT/'main.py')], cwd=ROOT, check=True)
     folder = ROOT/'dist'/'GeoRushGenerator'
-    bundled = folder/'_internal'/'bin'/ffmpeg.name
-    # Canonical local name ensures PATH/system FFmpeg cannot mask a missing resource.
-    shutil.copy2(bundled, bundled.with_name('ffmpeg.exe')) if bundled.name != 'ffmpeg.exe' else None
     (folder/'START_HERE.cmd').write_bytes(b'@echo off\r\nstart "GeoRush" "%~dp0GeoRushGenerator.exe"\r\n')
     for name in ('THIRD_PARTY_NOTICES.md', 'LICENSE'):
         shutil.copy2(ROOT/name, folder/name)
@@ -48,7 +51,19 @@ if __name__ == '__main__':
     if result.get('status') != 'PASS' or not result.get('frozen'):
         raise SystemExit('EXE integration failed. See '+str(report))
     shutil.copy2(report, folder/report.name)
-    archive = ROOT/'dist'/'GeoRush-v1.0-Windows-x64.zip'
+    moved_root = Path(tempfile.mkdtemp(prefix='GeoRush 이동 검증 '))
+    moved = moved_root/'GeoRush 앱'
+    shutil.copytree(folder, moved)
+    moved_report = report.with_name('WINDOWS_RELOCATION_VALIDATION.json')
+    moved_report.unlink(missing_ok=True)
+    subprocess.run([str(moved/'GeoRushGenerator.exe'), '--distribution-check', str(moved_report),
+                    '--output', str(report.parent/'OneDrive 테스트'/'바탕 화면'/'GeoRush_Output')],
+                   env=environment, check=True, timeout=300)
+    moved_result = json.loads(moved_report.read_text(encoding='utf-8'))
+    if moved_result.get('status') != 'PASS' or not moved_result.get('frozen'):
+        raise SystemExit('Relocated EXE integration failed. See '+str(moved_report))
+    shutil.copy2(moved_report, folder/moved_report.name)
+    archive = ROOT/'dist'/'GeoRush-v1.0-Windows-EXE.zip'
     temporary = archive.with_suffix('.pending.zip')
     with zipfile.ZipFile(temporary, 'w', zipfile.ZIP_DEFLATED) as output:
         for path in folder.rglob('*'):
@@ -58,4 +73,12 @@ if __name__ == '__main__':
         if output.testzip() is not None:
             raise SystemExit('ZIP CRC check failed')
     temporary.replace(archive)
+    digest = hashlib.sha256(archive.read_bytes()).hexdigest()
+    archive.with_suffix('.zip.sha256').write_text(digest+'  '+archive.name+'\n', encoding='ascii')
+    summary = {'windows_exe_build':'PASS','exe_bytes':(folder/'GeoRushGenerator.exe').stat().st_size,
+               'zip_bytes':archive.stat().st_size,'zip_sha256':digest,
+               'gui_to_mp4':result,'relocated_gui_to_mp4':moved_result,
+               'system_python_and_ffmpeg_removed_from_test_PATH':True,
+               'limits':['Windows hosted runner is not a clean physical PC', 'Manual GUI appearance and listening review needed', 'Real OneDrive sync not tested']}
+    (ROOT/'dist'/'WINDOWS_BUILD_REPORT.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2),encoding='utf-8')
     print('Windows EXE GUI-to-MP4 PASS. ZIP:', archive)

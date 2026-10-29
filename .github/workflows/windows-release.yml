@@ -1,8 +1,6 @@
 name: Windows build and real GUI render
 on:
   workflow_dispatch:
-  push:
-    tags: ['v*']
 permissions:
   contents: read
 jobs:
@@ -15,41 +13,30 @@ jobs:
         with:
           python-version: '3.12'
           architecture: x64
-      - run: python -m pip install -r requirements.txt pyinstaller==6.16.0
-      - name: Preserve all regression tests
-        run: python -m unittest discover -s tests -v
-      - name: Build Python-free EXE folder
-        run: python tools/build_windows.py
-      - name: Run frozen EXE GUI button to actual MP4
+      - run: python -m pip install -r requirements-build.txt
+      - name: Preserve all 32 regression tests
         shell: pwsh
         run: |
-          $report = Join-Path $env:RUNNER_TEMP 'GeoRush-check.json'
-          $output = Join-Path $env:RUNNER_TEMP 'OneDrive 테스트\바탕 화면\GeoRush_Output'
-          $env:GEORUSH_FFMPEG = ''
-          $env:PATH = "$env:SystemRoot\System32;$env:SystemRoot"
-          $exe = Join-Path $PWD 'dist\GeoRushGenerator\GeoRushGenerator.exe'
-          $p = Start-Process -FilePath $exe -ArgumentList @('--distribution-check', "`"$report`"", '--output', "`"$output`"") -PassThru
-          if (-not $p.WaitForExit(300000)) { $p.Kill(); throw 'EXE timeout' }
-          if ($p.ExitCode -ne 0 -or -not (Test-Path $report)) { throw 'EXE failed before report' }
-          $r = Get-Content $report -Raw -Encoding utf8 | ConvertFrom-Json
-          if ($r.status -ne 'PASS' -or -not $r.frozen) { throw (Get-Content $report -Raw) }
-          Copy-Item $report dist\GeoRushGenerator\WINDOWS_VALIDATION.json
-      - name: Zip only after EXE integration passes
-        shell: pwsh
-        run: Compress-Archive -Path dist\GeoRushGenerator -DestinationPath dist\GeoRush-v1.0-Windows-x64.zip
+          python -m unittest discover -s tests -v 2>&1 | Tee-Object -FilePath unit-tests-windows.log
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Build EXE, run real GUI renders and relocate
+        run: python tools/build_windows.py
       - uses: actions/upload-artifact@v4
         with:
-          name: GeoRush-v1.0-Windows-x64
-          path: dist/GeoRush-v1.0-Windows-x64.zip
+          name: GeoRush-v1.0-Windows-EXE
+          path: |
+            dist/GeoRush-v1.0-Windows-EXE.zip
+            dist/GeoRush-v1.0-Windows-EXE.zip.sha256
+            dist/WINDOWS_BUILD_REPORT.json
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: windows-validation
           path: |
-            ${{ runner.temp }}/GeoRush-check.json
-            ${{ runner.temp }}/OneDrive 테스트/바탕 화면/GeoRush_Output
+            unit-tests-windows.log
+            build_validation
+            build/GeoRushGenerator/warn-GeoRushGenerator.txt
   publish:
-    if: startsWith(github.ref, 'refs/tags/')
     needs: verify-build
     runs-on: ubuntu-latest
     permissions:
@@ -57,10 +44,19 @@ jobs:
     steps:
       - uses: actions/download-artifact@v4
         with:
-          name: GeoRush-v1.0-Windows-x64
+          name: GeoRush-v1.0-Windows-EXE
           path: release
-      - name: Publish tested download
+      - name: Publish tested EXE download
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
-        run: gh release create "$GITHUB_REF_NAME" release/*.zip --title "GeoRush Windows $GITHUB_REF_NAME" --notes "Python-free Windows distribution. See included WINDOWS_VALIDATION.json for the executed frozen GUI-to-MP4 check and its limits."
+          SOURCE_SHA: ${{ github.sha }}
+        run: |
+          cat > notes.md <<'NOTES'
+          Windows x64 executable distribution. Python and FFmpeg are bundled.
+          Extract the whole ZIP and run START_HERE.cmd or GeoRushGenerator.exe.
+          Automated checks: existing 32 tests, frozen GUI-button-to-MP4 rendering, full decode, audio, metadata, history, Korean paths and repeat after folder relocation.
+          Limits: hosted Windows runner; manual visual/audio review and real OneDrive cloud sync remain to be checked on the user PC.
+          See WINDOWS_BUILD_REPORT.json for actual results and sizes.
+          NOTES
+          gh release create v1.0.0-windows release/* --target "$SOURCE_SHA" --title "GeoRush v1.0 — Windows EXE" --notes-file notes.md
