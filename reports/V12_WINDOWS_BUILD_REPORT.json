@@ -1,0 +1,1568 @@
+{
+  "windows_exe_build": "PASS",
+  "exe_bytes": 5326564,
+  "zip_bytes": 66273444,
+  "zip_sha256": "738ff203495594167d05b0e7f7669defbd6cb0068d0eabc955e5ee026c724be2",
+  "gui_to_mp4": {
+    "platform": "win32",
+    "frozen": true,
+    "resource_root": "D:\\a\\georush-generator\\georush-generator\\dist\\GeoRushGenerator\\_internal",
+    "output_root": "D:\\a\\georush-generator\\georush-generator\\build_validation\\OneDrive 테스트\\바탕 화면\\GeoRush_Output",
+    "onedrive_test_scope": "Unicode OneDrive-like local path; real cloud sync not tested",
+    "manual_appearance_review_required": true,
+    "ffmpeg": "D:\\a\\georush-generator\\georush-generator\\dist\\GeoRushGenerator\\_internal\\bin\\ffmpeg.exe",
+    "shell_desktop_output": "C:\\Users\\runneradmin\\Desktop\\GeoRush_Output",
+    "real_shell_desktop_write_read_pass": true,
+    "default_font": "Malgun Gothic",
+    "status": "PASS",
+    "video_folder": "D:\\a\\georush-generator\\georush-generator\\build_validation\\OneDrive 테스트\\바탕 화면\\GeoRush_Output\\GeoRush_20261029_053920_247890_cea03c",
+    "media": {
+      "checks": {
+        "duration": true,
+        "resolution": true,
+        "fps": true,
+        "decoded_frames": true,
+        "h264": true,
+        "aac": true,
+        "pixel_format": true,
+        "stereo": true,
+        "audio_not_silent": true,
+        "audio_below_full_scale": true
+      },
+      "duration": 21.0,
+      "width": 1080,
+      "height": 1920,
+      "fps": 30.0,
+      "frames": 630,
+      "video_codec": "h264",
+      "audio_codec": "aac",
+      "pixel_format": "yuv420p",
+      "decoded_audio_peak_dbfs": -8.574663,
+      "decoded_audio_rms_dbfs": -30.745227,
+      "probe_method": "ffmpeg_stream_header_and_full_decode",
+      "full_video_audio_decode": true,
+      "size_bytes": 878546,
+      "encoded_inspection": [
+        {
+          "file": "q1_start.jpg",
+          "time_seconds": 0.0
+        },
+        {
+          "file": "q1_countdown.jpg",
+          "time_seconds": 2.0
+        },
+        {
+          "file": "q1_answer.jpg",
+          "time_seconds": 5.2
+        },
+        {
+          "file": "q2_start.jpg",
+          "time_seconds": 6.5
+        },
+        {
+          "file": "q2_countdown.jpg",
+          "time_seconds": 8.5
+        },
+        {
+          "file": "q2_answer.jpg",
+          "time_seconds": 11.7
+        },
+        {
+          "file": "q3_start.jpg",
+          "time_seconds": 13.0
+        },
+        {
+          "file": "q3_countdown.jpg",
+          "time_seconds": 15.0
+        },
+        {
+          "file": "q3_answer.jpg",
+          "time_seconds": 18.2
+        },
+        {
+          "file": "cta.jpg",
+          "time_seconds": 19.8
+        }
+      ]
+    },
+    "exact_three_user_files": [
+      "shorts.mp4",
+      "shorts_metadata.txt",
+      "shorts_thumbnail.jpg"
+    ],
+    "internal_history": "D:\\a\\georush-generator\\georush-generator\\build_validation\\AppData\\GeoRush\\georush_history.sqlite3",
+    "internal_debug": "D:\\a\\georush-generator\\georush-generator\\build_validation\\AppData\\GeoRush\\debug\\GeoRush_20261029_053920_247890_cea03c",
+    "thumbnail_from_final_video": true,
+    "batch_videos": [
+      {
+        "video_folder": "D:\\a\\georush-generator\\georush-generator\\build_validation\\OneDrive 테스트\\바탕 화면\\GeoRush_Output\\GeoRush_20261029_053859_420869_1207cb",
+        "media": {
+          "checks": {
+            "duration": true,
+            "resolution": true,
+            "fps": true,
+            "decoded_frames": true,
+            "h264": true,
+            "aac": true,
+            "pixel_format": true,
+            "stereo": true,
+            "audio_not_silent": true,
+            "audio_below_full_scale": true
+          },
+          "duration": 21.0,
+          "width": 1080,
+          "height": 1920,
+          "fps": 30.0,
+          "frames": 630,
+          "video_codec": "h264",
+          "audio_codec": "aac",
+          "pixel_format": "yuv420p",
+          "decoded_audio_peak_dbfs": -8.574663,
+          "decoded_audio_rms_dbfs": -30.745227,
+          "probe_method": "ffmpeg_stream_header_and_full_decode",
+          "full_video_audio_decode": true,
+          "size_bytes": 952824,
+          "encoded_inspection": [
+            {
+              "file": "q1_start.jpg",
+              "time_seconds": 0.0
+            },
+            {
+              "file": "q1_countdown.jpg",
+              "time_seconds": 2.0
+            },
+            {
+              "file": "q1_answer.jpg",
+              "time_seconds": 5.2
+            },
+            {
+              "file": "q2_start.jpg",
+              "time_seconds": 6.5
+            },
+            {
+              "file": "q2_countdown.jpg",
+              "time_seconds": 8.5
+            },
+            {
+              "file": "q2_answer.jpg",
+              "time_seconds": 11.7
+            },
+            {
+              "file": "q3_start.jpg",
+              "time_seconds": 13.0
+            },
+            {
+              "file": "q3_countdown.jpg",
+              "time_seconds": 15.0
+            },
+            {
+              "file": "q3_answer.jpg",
+              "time_seconds": 18.2
+            },
+            {
+              "file": "cta.jpg",
+              "time_seconds": 19.8
+            }
+          ]
+        },
+        "render_audio": {
+          "source": "Original GeoRush procedural synthesis; no recordings or external music",
+          "sample_rate": 48000,
+          "channels": 2,
+          "duration": 21.0,
+          "bgm_gain": 0.1,
+          "peak_before_limiter": 0.3730744217147145,
+          "limiter_gain": 1.0,
+          "peak_pcm": 0.3730887783440657,
+          "clipped_samples": 0,
+          "end_fade_seconds": 0.45,
+          "events": [
+            {
+              "kind": "entrance",
+              "time_seconds": 0.12,
+              "duration_seconds": 0.14
+            },
+            {
+              "kind": "countdown_tick",
+              "time_seconds": 0.0,
+              "duration_seconds": 0.075
+            },
+            {
+              "kind": "countdown_tick",
+              "time_seconds": 1.0,
+              "duration_seconds": 0.075
+            },
+            {
+              "kind": "countdown_tick",
+              "time_seconds": 2.0,
+              "duration_seconds": 0.075
+            },
+            {
+              "kind": "countdown_tick",
+              "time_seconds": 3.0,
+              "duration_seconds": 0.075
+            },
+            {
+              "kind": "countdown_tick",
+              "time_seconds": 4.0,
+              "duration_seconds": 0.075
+            },
+            {
+              "kind": "correct_answer",
+              "time_seconds": 5.0,
+              "duration_seconds": 0.24
+            },
+            {
+              "kind": "correct_answer",
+              "time_seconds": 5.065,
+              "duration_seconds": 0.24
+            },
+            {
+              "kind": "correct_answer",
+              "time_seconds": 5.13,
+              "duration_seconds": 0.24
+            },
+            {
+              "kind": "transition",
+              "time_seconds": 6.34,
+              "duration_seconds": 0.16
+            },
+            {
+              "kind": "entrance",
+              "time_seconds": 6.62,
+              "duration_seconds": 0.14
+            },
+            {
+              "kind": "countdown_tick",
+              "time_seconds": 6.5,
+              "duration_seconds": 0.075
+            },
+            {
+              "kind": "countdown_tick",
+              "time_seconds": 7.5,
+              "duration_seconds": 0.075
+            },
+            {
+              "kind": "countdown_tick",
+              "time_seconds": 8.5,
+              "duration_seconds": 0.075
+            },
+            {
+              "kind": "countdown_tick",
+              "time_seconds": 9.5,
+              "duration_seconds": 0.075
+            },
+            {
+              "kind": "countdown_tick",
+              "time_seconds": 10.5,
+              "duration_seconds": 0.075
+            },
+            {
+              "kind": "correct_answer",
+              "time_seconds": 11.5,
+              "duration_seconds": 0.24
+            },
+            {
+              "kind": "correct_answer",
+              "time_seconds": 11.565,
+              "duration_seconds": 0.24
+            },
+            {
+              "kind": "correct_answer",
+              "time_seconds": 11.63,
+              "duration_seconds": 0.24
+            },
+            {
+              "kind": "transition",
+              "time_seconds": 12.84,
+              "duration_seconds": 0.16
+            },
+            {
+              "kind": "entrance",
+              "time_seconds": 13.12,
+              "duration_seconds": 0.14
+            },
+            {
+              "kind": "countdown_tick",
+              "time_seconds": 13.0,
+              "duration_seconds": 0.075
+            },
+            {
+              "kind": "countdown_tick",
+              "time_seconds": 14.0,
+              "duration_seconds": 0.075
+            },
+            {
+              "kind": "countdown_tick",
+              "time_seconds": 15.0,
+              "duration_seconds": 0.075
+            },
+            {
+              "kind": "countdown_tick",
+              "time_seconds": 16.0,
+              "duration_seconds": 0.075
+            },
+            {
+              "kind": "countdown_tick",
+              "time_seconds": 17.0,
+              "duration_seconds": 0.075
+            },
+            {
+              "kind": "correct_answer",
+              "time_seconds": 18.0,
+              "duration_seconds": 0.24
+            },
+            {
+              "kind": "correct_answer",
+              "time_seconds": 18.065,
+              "duration_seconds": 0.24
+            },
+            {
+              "kind": "correct_answer",
+              "time_seconds": 18.13,
+              "duration_seconds": 0.24
+            },
+            {
+              "kind": "cta",
+              "time_seconds": 19.5,
+              "duration_seconds": 0.42
+            }
+          ]
+        },
+        "exact_three_user_files": [
+          "shorts.mp4",
+          "shorts_metadata.txt",
+          "shorts_thumbnail.jpg"
+        ],
+        "presentation_review": {
+          "status": "PASS",
+          "video": "D:\\a\\georush-generator\\georush-generator\\build_validation\\OneDrive 테스트\\바탕 화면\\GeoRush_Output\\GeoRush_20261029_053859_420869_1207cb\\shorts.mp4",
+          "frames": [
+            {
+              "frame": 0,
+              "seconds": 0.0,
+              "file": "frame_01.png",
+              "intended_frame_psnr_db": 35.267
+            },
+            {
+              "frame": 3,
+              "seconds": 0.1,
+              "file": "frame_02.png",
+              "intended_frame_psnr_db": 34.926
+            },
+            {
+              "frame": 9,
+              "seconds": 0.3,
+              "file": "frame_03.png",
+              "intended_frame_psnr_db": 34.973
+            },
+            {
+              "frame": 21,
+              "seconds": 0.7,
+              "file": "frame_04.png",
+              "intended_frame_psnr_db": 35.158
+            },
+            {
+              "frame": 30,
+              "seconds": 1.0,
+              "file": "frame_05.png",
+              "intended_frame_psnr_db": 35.195
+            },
+            {
+              "frame": 33,
+              "seconds": 1.1,
+              "file": "frame_06.png",
+              "intended_frame_psnr_db": 35.204
+            },
+            {
+              "frame": 75,
+              "seconds": 2.5,
+              "file": "frame_07.png",
+              "intended_frame_psnr_db": 35.483
+            },
+            {
+              "frame": 93,
+              "seconds": 3.1,
+              "file": "frame_08.png",
+              "intended_frame_psnr_db": 35.587
+            },
+            {
+              "frame": 149,
+              "seconds": 4.966666666666667,
+              "file": "frame_09.png",
+              "intended_frame_psnr_db": 35.949
+            },
+            {
+              "frame": 151,
+              "seconds": 5.033333333333333,
+              "file": "frame_10.png",
+              "intended_frame_psnr_db": 35.832
+            },
+            {
+              "frame": 154,
+              "seconds": 5.133333333333334,
+              "file": "frame_11.png",
+              "intended_frame_psnr_db": 35.861
+            },
+            {
+              "frame": 195,
+              "seconds": 6.5,
+              "file": "frame_12.png",
+              "intended_frame_psnr_db": 35.851
+            },
+            {
+              "frame": 629,
+              "seconds": 20.966666666666665,
+              "file": "frame_13.png",
+              "intended_frame_psnr_db": 35.662
+            }
+          ],
+          "encoded_flag_intro_mean_delta": 53.762,
+          "first_frame_visible_flag_and_question": true,
+          "answer_green_matches_correct_index": true,
+          "no_answer_effect_at_question_start": true,
+          "comparison": "Encoded pixels vs intended Pillow frames, PSNR>28dB",
+          "question_codes": [
+            "br",
+            "pa",
+            "ba"
+          ],
+          "human_review_required": [
+            "interest of first second",
+            "subjective audio quality",
+            "mobile viewing comfort"
+          ]
+        },
+        "video_sha256": "01e1a394bc79ba890bb1c0b340a474310dd1d708552232b05839a5d854bad981"
+      },
+      {
+        "video_folder": "D:\\a\\georush-generator\\georush-generator\\build_validation\\OneDrive 테스트\\바탕 화면\\GeoRush_Output\\GeoRush_20261029_053910_051178_50498d",
+        "media": {
+          "checks": {
+            "duration": true,
+            "resolution": true,
+            "fps": true,
+            "decoded_frames": true,
+            "h264": true,
+            "aac": true,
+            "pixel_format": true,
+            "stereo": true,
+            "audio_not_silent": true,
+            "audio_below_full_scale": true
+          },
+          "duration": 21.0,
+          "width": 1080,
+          "height": 1920,
+          "fps": 30.0,
+          "frames": 630,
+          "video_codec": "h264",
+          "audio_codec": "aac",
+          "pixel_format": "yuv420p",
+          "decoded_audio_peak_dbfs": -8.574663,
+          "decoded_audio_rms_dbfs": -30.745227,
+          "probe_method": "ffmpeg_stream_header_and_full_decode",
+          "full_video_audio_decode": true,
+          "size_bytes": 892978,
+          "encoded_inspection": [
+            {
+              "file": "q1_start.jpg",
+              "time_seconds": 0.0
+            },
+            {
+              "file": "q1_countdown.jpg",
+              "time_seconds": 2.0
+            },
+            {
+              "file": "q1_answer.jpg",
+              "time_seconds": 5.2
+            },
+            {
+              "file": "q2_start.jpg",
+              "time_seconds": 6.5
+            },
+            {
+              "file": "q2_countdown.jpg",
+              "time_seconds": 8.5
+            },
+            {
+              "file": "q2_answer.jpg",
+              "time_seconds": 11.7
+            },
+            {
+              "file": "q3_start.jpg",
+              "time_seconds": 13.0
+            },
+            {
+              "file": "q3_countdown.jpg",
+              "time_seconds": 15.0
+            },
+            {
+              "file": "q3_answer.jpg",
+              "time_seconds": 18.2
+            },
+            {
+              "file": "cta.jpg",
+              "time_seconds": 19.8
+            }
+          ]
+        },
+        "render_audio": {
+          "source": "Original GeoRush procedural synthesis; no recordings or external music",
+          "sample_rate": 48000,
+          "channels": 2,
+          "duration": 21.0,
+          "bgm_gain": 0.1,
+          "peak_before_limiter": 0.3730744217147145,
+          "limiter_gain": 1.0,
+          "peak_pcm": 0.3730887783440657,
+          "clipped_samples": 0,
+          "end_fade_seconds": 0.45,
+          "events": [
+            {
+              "kind": "entrance",
+              "time_seconds": 0.12,
+              "duration_seconds": 0.14
+            },
+            {
+              "kind": "countdown_tick",
+              "time_seconds": 0.0,
+              "duration_seconds": 0.075
+            },
+            {
+              "kind": "countdown_tick",
+              "time_seconds": 1.0,
+              "duration_seconds": 0.075
+            },
+            {
+              "kind": "countdown_tick",
+              "time_seconds": 2.0,
+              "duration_seconds": 0.075
+            },
+            {
+              "kind": "countdown_tick",
+              "time_seconds": 3.0,
+              "duration_seconds": 0.075
+            },
+            {
+              "kind": "countdown_tick",
+              "time_seconds": 4.0,
+              "duration_seconds": 0.075
+            },
+            {
+              "kind": "correct_answer",
+              "time_seconds": 5.0,
+              "duration_seconds": 0.24
+            },
+            {
+              "kind": "correct_answer",
+              "time_seconds": 5.065,
+              "duration_seconds": 0.24
+            },
+            {
+              "kind": "correct_answer",
+              "time_seconds": 5.13,
+              "duration_seconds": 0.24
+            },
+            {
+              "kind": "transition",
+              "time_seconds": 6.34,
+              "duration_seconds": 0.16
+            },
+            {
+              "kind": "entrance",
+              "time_seconds": 6.62,
+              "duration_seconds": 0.14
+            },
+            {
+              "kind": "countdown_tick",
+              "time_seconds": 6.5,
+              "duration_seconds": 0.075
+            },
+            {
+              "kind": "countdown_tick",
+              "time_seconds": 7.5,
+              "duration_seconds": 0.075
+            },
+            {
+              "kind": "countdown_tick",
+              "time_seconds": 8.5,
+              "duration_seconds": 0.075
+            },
+            {
+              "kind": "countdown_tick",
+              "time_seconds": 9.5,
+              "duration_seconds": 0.075
+            },
+            {
+              "kind": "countdown_tick",
+              "time_seconds": 10.5,
+              "duration_seconds": 0.075
+            },
+            {
+              "kind": "correct_answer",
+              "time_seconds": 11.5,
+              "duration_seconds": 0.24
+            },
+            {
+              "kind": "correct_answer",
+              "time_seconds": 11.565,
+              "duration_seconds": 0.24
+            },
+            {
+              "kind": "correct_answer",
+              "time_seconds": 11.63,
+              "duration_seconds": 0.24
+            },
+            {
+              "kind": "transition",
+              "time_seconds": 12.84,
+              "duration_seconds": 0.16
+            },
+            {
+              "kind": "entrance",
+              "time_seconds": 13.12,
+              "duration_seconds": 0.14
+            },
+            {
+              "kind": "countdown_tick",
+              "time_seconds": 13.0,
+              "duration_seconds": 0.075
+            },
+            {
+              "kind": "countdown_tick",
+              "time_seconds": 14.0,
+              "duration_seconds": 0.075
+            },
+            {
+              "kind": "countdown_tick",
+              "time_seconds": 15.0,
+              "duration_seconds": 0.075
+            },
+            {
+              "kind": "countdown_tick",
+              "time_seconds": 16.0,
+              "duration_seconds": 0.075
+            },
+            {
+              "kind": "countdown_tick",
+              "time_seconds": 17.0,
+              "duration_seconds": 0.075
+            },
+            {
+              "kind": "correct_answer",
+              "time_seconds": 18.0,
+              "duration_seconds": 0.24
+            },
+            {
+              "kind": "correct_answer",
+              "time_seconds": 18.065,
+              "duration_seconds": 0.24
+            },
+            {
+              "kind": "correct_answer",
+              "time_seconds": 18.13,
+              "duration_seconds": 0.24
+            },
+            {
+              "kind": "cta",
+              "time_seconds": 19.5,
+              "duration_seconds": 0.42
+            }
+          ]
+        },
+        "exact_three_user_files": [
+          "shorts.mp4",
+          "shorts_metadata.txt",
+          "shorts_thumbnail.jpg"
+        ],
+        "presentation_review": {
+          "status": "PASS",
+          "video": "D:\\a\\georush-generator\\georush-generator\\build_validation\\OneDrive 테스트\\바탕 화면\\GeoRush_Output\\GeoRush_20261029_053910_051178_50498d\\shorts.mp4",
+          "frames": [
+            {
+              "frame": 0,
+              "seconds": 0.0,
+              "file": "frame_01.png",
+              "intended_frame_psnr_db": 35.798
+            },
+            {
+              "frame": 3,
+              "seconds": 0.1,
+              "file": "frame_02.png",
+              "intended_frame_psnr_db": 35.733
+            },
+            {
+              "frame": 9,
+              "seconds": 0.3,
+              "file": "frame_03.png",
+              "intended_frame_psnr_db": 35.699
+            },
+            {
+              "frame": 21,
+              "seconds": 0.7,
+              "file": "frame_04.png",
+              "intended_frame_psnr_db": 35.999
+            },
+            {
+              "frame": 30,
+              "seconds": 1.0,
+              "file": "frame_05.png",
+              "intended_frame_psnr_db": 36.033
+            },
+            {
+              "frame": 33,
+              "seconds": 1.1,
+              "file": "frame_06.png",
+              "intended_frame_psnr_db": 36.062
+            },
+            {
+              "frame": 75,
+              "seconds": 2.5,
+              "file": "frame_07.png",
+              "intended_frame_psnr_db": 36.376
+            },
+            {
+              "frame": 93,
+              "seconds": 3.1,
+              "file": "frame_08.png",
+              "intended_frame_psnr_db": 36.52
+            },
+            {
+              "frame": 149,
+              "seconds": 4.966666666666667,
+              "file": "frame_09.png",
+              "intended_frame_psnr_db": 36.948
+            },
+            {
+              "frame": 151,
+              "seconds": 5.033333333333333,
+              "file": "frame_10.png",
+              "intended_frame_psnr_db": 36.777
+            },
+            {
+              "frame": 154,
+              "seconds": 5.133333333333334,
+              "file": "frame_11.png",
+              "intended_frame_psnr_db": 36.817
+            },
+            {
+              "frame": 195,
+              "seconds": 6.5,
+              "file": "frame_12.png",
+              "intended_frame_psnr_db": 35.729
+            },
+            {
+              "frame": 629,
+              "seconds": 20.966666666666665,
+              "file": "frame_13.png",
+              "intended_frame_psnr_db": 35.662
+            }
+          ],
+          "encoded_flag_intro_mean_delta": 44.264,
+          "first_frame_visible_flag_and_question": true,
+          "answer_green_matches_correct_index": true,
+          "no_answer_effect_at_question_start": true,
+          "comparison": "Encoded pixels vs intended Pillow frames, PSNR>28dB",
+          "question_codes": [
+            "be",
+            "ca",
+            "eg"
+          ],
+          "human_review_required": [
+            "interest of first second",
+            "subjective audio quality",
+            "mobile viewing comfort"
+          ]
+        },
+        "video_sha256": "f434e8f8fe65c3d905bbb651722e4057e16dae817cebf8101cb39ba33f1610d5"
+      },
+      {
+        "video_folder": "D:\\a\\georush-generator\\georush-generator\\build_validation\\OneDrive 테스트\\바탕 화면\\GeoRush_Output\\GeoRush_20261029_053920_247890_cea03c",
+        "media": {
+          "checks": {
+            "duration": true,
+            "resolution": true,
+            "fps": true,
+            "decoded_frames": true,
+            "h264": true,
+            "aac": true,
+            "pixel_format": true,
+            "stereo": true,
+            "audio_not_silent": true,
+            "audio_below_full_scale": true
+          },
+          "duration": 21.0,
+          "width": 1080,
+          "height": 1920,
+          "fps": 30.0,
+          "frames": 630,
+          "video_codec": "h264",
+          "audio_codec": "aac",
+          "pixel_format": "yuv420p",
+          "decoded_audio_peak_dbfs": -8.574663,
+          "decoded_audio_rms_dbfs": -30.745227,
+          "probe_method": "ffmpeg_stream_header_and_full_decode",
+          "full_video_audio_decode": true,
+          "size_bytes": 878546,
+          "encoded_inspection": [
+            {
+              "file": "q1_start.jpg",
+              "time_seconds": 0.0
+            },
+            {
+              "file": "q1_countdown.jpg",
+              "time_seconds": 2.0
+            },
+            {
+              "file": "q1_answer.jpg",
+              "time_seconds": 5.2
+            },
+            {
+              "file": "q2_start.jpg",
+              "time_seconds": 6.5
+            },
+            {
+              "file": "q2_countdown.jpg",
+              "time_seconds": 8.5
+            },
+            {
+              "file": "q2_answer.jpg",
+              "time_seconds": 11.7
+            },
+            {
+              "file": "q3_start.jpg",
+              "time_seconds": 13.0
+            },
+            {
+              "file": "q3_countdown.jpg",
+              "time_seconds": 15.0
+            },
+            {
+              "file": "q3_answer.jpg",
+              "time_seconds": 18.2
+            },
+            {
+              "file": "cta.jpg",
+              "time_seconds": 19.8
+            }
+          ]
+        },
+        "render_audio": {
+          "source": "Original GeoRush procedural synthesis; no recordings or external music",
+          "sample_rate": 48000,
+          "channels": 2,
+          "duration": 21.0,
+          "bgm_gain": 0.1,
+          "peak_before_limiter": 0.3730744217147145,
+          "limiter_gain": 1.0,
+          "peak_pcm": 0.3730887783440657,
+          "clipped_samples": 0,
+          "end_fade_seconds": 0.45,
+          "events": [
+            {
+              "kind": "entrance",
+              "time_seconds": 0.12,
+              "duration_seconds": 0.14
+            },
+            {
+              "kind": "countdown_tick",
+              "time_seconds": 0.0,
+              "duration_seconds": 0.075
+            },
+            {
+              "kind": "countdown_tick",
+              "time_seconds": 1.0,
+              "duration_seconds": 0.075
+            },
+            {
+              "kind": "countdown_tick",
+              "time_seconds": 2.0,
+              "duration_seconds": 0.075
+            },
+            {
+              "kind": "countdown_tick",
+              "time_seconds": 3.0,
+              "duration_seconds": 0.075
+            },
+            {
+              "kind": "countdown_tick",
+              "time_seconds": 4.0,
+              "duration_seconds": 0.075
+            },
+            {
+              "kind": "correct_answer",
+              "time_seconds": 5.0,
+              "duration_seconds": 0.24
+            },
+            {
+              "kind": "correct_answer",
+              "time_seconds": 5.065,
+              "duration_seconds": 0.24
+            },
+            {
+              "kind": "correct_answer",
+              "time_seconds": 5.13,
+              "duration_seconds": 0.24
+            },
+            {
+              "kind": "transition",
+              "time_seconds": 6.34,
+              "duration_seconds": 0.16
+            },
+            {
+              "kind": "entrance",
+              "time_seconds": 6.62,
+              "duration_seconds": 0.14
+            },
+            {
+              "kind": "countdown_tick",
+              "time_seconds": 6.5,
+              "duration_seconds": 0.075
+            },
+            {
+              "kind": "countdown_tick",
+              "time_seconds": 7.5,
+              "duration_seconds": 0.075
+            },
+            {
+              "kind": "countdown_tick",
+              "time_seconds": 8.5,
+              "duration_seconds": 0.075
+            },
+            {
+              "kind": "countdown_tick",
+              "time_seconds": 9.5,
+              "duration_seconds": 0.075
+            },
+            {
+              "kind": "countdown_tick",
+              "time_seconds": 10.5,
+              "duration_seconds": 0.075
+            },
+            {
+              "kind": "correct_answer",
+              "time_seconds": 11.5,
+              "duration_seconds": 0.24
+            },
+            {
+              "kind": "correct_answer",
+              "time_seconds": 11.565,
+              "duration_seconds": 0.24
+            },
+            {
+              "kind": "correct_answer",
+              "time_seconds": 11.63,
+              "duration_seconds": 0.24
+            },
+            {
+              "kind": "transition",
+              "time_seconds": 12.84,
+              "duration_seconds": 0.16
+            },
+            {
+              "kind": "entrance",
+              "time_seconds": 13.12,
+              "duration_seconds": 0.14
+            },
+            {
+              "kind": "countdown_tick",
+              "time_seconds": 13.0,
+              "duration_seconds": 0.075
+            },
+            {
+              "kind": "countdown_tick",
+              "time_seconds": 14.0,
+              "duration_seconds": 0.075
+            },
+            {
+              "kind": "countdown_tick",
+              "time_seconds": 15.0,
+              "duration_seconds": 0.075
+            },
+            {
+              "kind": "countdown_tick",
+              "time_seconds": 16.0,
+              "duration_seconds": 0.075
+            },
+            {
+              "kind": "countdown_tick",
+              "time_seconds": 17.0,
+              "duration_seconds": 0.075
+            },
+            {
+              "kind": "correct_answer",
+              "time_seconds": 18.0,
+              "duration_seconds": 0.24
+            },
+            {
+              "kind": "correct_answer",
+              "time_seconds": 18.065,
+              "duration_seconds": 0.24
+            },
+            {
+              "kind": "correct_answer",
+              "time_seconds": 18.13,
+              "duration_seconds": 0.24
+            },
+            {
+              "kind": "cta",
+              "time_seconds": 19.5,
+              "duration_seconds": 0.42
+            }
+          ]
+        },
+        "exact_three_user_files": [
+          "shorts.mp4",
+          "shorts_metadata.txt",
+          "shorts_thumbnail.jpg"
+        ],
+        "presentation_review": {
+          "status": "PASS",
+          "video": "D:\\a\\georush-generator\\georush-generator\\build_validation\\OneDrive 테스트\\바탕 화면\\GeoRush_Output\\GeoRush_20261029_053920_247890_cea03c\\shorts.mp4",
+          "frames": [
+            {
+              "frame": 0,
+              "seconds": 0.0,
+              "file": "frame_01.png",
+              "intended_frame_psnr_db": 35.935
+            },
+            {
+              "frame": 3,
+              "seconds": 0.1,
+              "file": "frame_02.png",
+              "intended_frame_psnr_db": 35.574
+            },
+            {
+              "frame": 9,
+              "seconds": 0.3,
+              "file": "frame_03.png",
+              "intended_frame_psnr_db": 35.76
+            },
+            {
+              "frame": 21,
+              "seconds": 0.7,
+              "file": "frame_04.png",
+              "intended_frame_psnr_db": 35.947
+            },
+            {
+              "frame": 30,
+              "seconds": 1.0,
+              "file": "frame_05.png",
+              "intended_frame_psnr_db": 35.983
+            },
+            {
+              "frame": 33,
+              "seconds": 1.1,
+              "file": "frame_06.png",
+              "intended_frame_psnr_db": 35.994
+            },
+            {
+              "frame": 75,
+              "seconds": 2.5,
+              "file": "frame_07.png",
+              "intended_frame_psnr_db": 36.313
+            },
+            {
+              "frame": 93,
+              "seconds": 3.1,
+              "file": "frame_08.png",
+              "intended_frame_psnr_db": 36.438
+            },
+            {
+              "frame": 149,
+              "seconds": 4.966666666666667,
+              "file": "frame_09.png",
+              "intended_frame_psnr_db": 36.879
+            },
+            {
+              "frame": 151,
+              "seconds": 5.033333333333333,
+              "file": "frame_10.png",
+              "intended_frame_psnr_db": 36.714
+            },
+            {
+              "frame": 154,
+              "seconds": 5.133333333333334,
+              "file": "frame_11.png",
+              "intended_frame_psnr_db": 36.752
+            },
+            {
+              "frame": 195,
+              "seconds": 6.5,
+              "file": "frame_12.png",
+              "intended_frame_psnr_db": 35.745
+            },
+            {
+              "frame": 629,
+              "seconds": 20.966666666666665,
+              "file": "frame_13.png",
+              "intended_frame_psnr_db": 35.662
+            }
+          ],
+          "encoded_flag_intro_mean_delta": 53.642,
+          "first_frame_visible_flag_and_question": true,
+          "answer_green_matches_correct_index": true,
+          "no_answer_effect_at_question_start": true,
+          "comparison": "Encoded pixels vs intended Pillow frames, PSNR>28dB",
+          "question_codes": [
+            "cr",
+            "sk",
+            "am"
+          ],
+          "human_review_required": [
+            "interest of first second",
+            "subjective audio quality",
+            "mobile viewing comfort"
+          ]
+        },
+        "video_sha256": "f71b27651113c9edba8ca3db2b5f04e3eea4b9f4b7227c9c03ee994579e386b2"
+      }
+    ],
+    "heartbeat_count": 275,
+    "elapsed_seconds": 37.688,
+    "video_sha256": "f71b27651113c9edba8ca3db2b5f04e3eea4b9f4b7227c9c03ee994579e386b2"
+  },
+  "relocated_gui_to_mp4": {
+    "platform": "win32",
+    "frozen": true,
+    "resource_root": "C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\GeoRush 이동 검증 2b2ld8tj\\GeoRush 앱\\_internal",
+    "output_root": "D:\\a\\georush-generator\\georush-generator\\build_validation\\OneDrive 테스트\\바탕 화면\\GeoRush_Output",
+    "onedrive_test_scope": "Unicode OneDrive-like local path; real cloud sync not tested",
+    "manual_appearance_review_required": true,
+    "ffmpeg": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\GeoRush 이동 검증 2b2ld8tj\\GeoRush 앱\\_internal\\bin\\ffmpeg.exe",
+    "shell_desktop_output": "C:\\Users\\runneradmin\\Desktop\\GeoRush_Output",
+    "real_shell_desktop_write_read_pass": true,
+    "default_font": "Malgun Gothic",
+    "status": "PASS",
+    "video_folder": "D:\\a\\georush-generator\\georush-generator\\build_validation\\OneDrive 테스트\\바탕 화면\\GeoRush_Output\\GeoRush_20261029_053939_611107_d8d121",
+    "media": {
+      "checks": {
+        "duration": true,
+        "resolution": true,
+        "fps": true,
+        "decoded_frames": true,
+        "h264": true,
+        "aac": true,
+        "pixel_format": true,
+        "stereo": true,
+        "audio_not_silent": true,
+        "audio_below_full_scale": true
+      },
+      "duration": 21.0,
+      "width": 1080,
+      "height": 1920,
+      "fps": 30.0,
+      "frames": 630,
+      "video_codec": "h264",
+      "audio_codec": "aac",
+      "pixel_format": "yuv420p",
+      "decoded_audio_peak_dbfs": -8.574663,
+      "decoded_audio_rms_dbfs": -30.745227,
+      "probe_method": "ffmpeg_stream_header_and_full_decode",
+      "full_video_audio_decode": true,
+      "size_bytes": 978676,
+      "encoded_inspection": [
+        {
+          "file": "q1_start.jpg",
+          "time_seconds": 0.0
+        },
+        {
+          "file": "q1_countdown.jpg",
+          "time_seconds": 2.0
+        },
+        {
+          "file": "q1_answer.jpg",
+          "time_seconds": 5.2
+        },
+        {
+          "file": "q2_start.jpg",
+          "time_seconds": 6.5
+        },
+        {
+          "file": "q2_countdown.jpg",
+          "time_seconds": 8.5
+        },
+        {
+          "file": "q2_answer.jpg",
+          "time_seconds": 11.7
+        },
+        {
+          "file": "q3_start.jpg",
+          "time_seconds": 13.0
+        },
+        {
+          "file": "q3_countdown.jpg",
+          "time_seconds": 15.0
+        },
+        {
+          "file": "q3_answer.jpg",
+          "time_seconds": 18.2
+        },
+        {
+          "file": "cta.jpg",
+          "time_seconds": 19.8
+        }
+      ]
+    },
+    "exact_three_user_files": [
+      "shorts.mp4",
+      "shorts_metadata.txt",
+      "shorts_thumbnail.jpg"
+    ],
+    "internal_history": "D:\\a\\georush-generator\\georush-generator\\build_validation\\AppData\\GeoRush\\georush_history.sqlite3",
+    "internal_debug": "D:\\a\\georush-generator\\georush-generator\\build_validation\\AppData\\GeoRush\\debug\\GeoRush_20261029_053939_611107_d8d121",
+    "thumbnail_from_final_video": true,
+    "batch_videos": [
+      {
+        "video_folder": "D:\\a\\georush-generator\\georush-generator\\build_validation\\OneDrive 테스트\\바탕 화면\\GeoRush_Output\\GeoRush_20261029_053939_611107_d8d121",
+        "media": {
+          "checks": {
+            "duration": true,
+            "resolution": true,
+            "fps": true,
+            "decoded_frames": true,
+            "h264": true,
+            "aac": true,
+            "pixel_format": true,
+            "stereo": true,
+            "audio_not_silent": true,
+            "audio_below_full_scale": true
+          },
+          "duration": 21.0,
+          "width": 1080,
+          "height": 1920,
+          "fps": 30.0,
+          "frames": 630,
+          "video_codec": "h264",
+          "audio_codec": "aac",
+          "pixel_format": "yuv420p",
+          "decoded_audio_peak_dbfs": -8.574663,
+          "decoded_audio_rms_dbfs": -30.745227,
+          "probe_method": "ffmpeg_stream_header_and_full_decode",
+          "full_video_audio_decode": true,
+          "size_bytes": 978676,
+          "encoded_inspection": [
+            {
+              "file": "q1_start.jpg",
+              "time_seconds": 0.0
+            },
+            {
+              "file": "q1_countdown.jpg",
+              "time_seconds": 2.0
+            },
+            {
+              "file": "q1_answer.jpg",
+              "time_seconds": 5.2
+            },
+            {
+              "file": "q2_start.jpg",
+              "time_seconds": 6.5
+            },
+            {
+              "file": "q2_countdown.jpg",
+              "time_seconds": 8.5
+            },
+            {
+              "file": "q2_answer.jpg",
+              "time_seconds": 11.7
+            },
+            {
+              "file": "q3_start.jpg",
+              "time_seconds": 13.0
+            },
+            {
+              "file": "q3_countdown.jpg",
+              "time_seconds": 15.0
+            },
+            {
+              "file": "q3_answer.jpg",
+              "time_seconds": 18.2
+            },
+            {
+              "file": "cta.jpg",
+              "time_seconds": 19.8
+            }
+          ]
+        },
+        "render_audio": {
+          "source": "Original GeoRush procedural synthesis; no recordings or external music",
+          "sample_rate": 48000,
+          "channels": 2,
+          "duration": 21.0,
+          "bgm_gain": 0.1,
+          "peak_before_limiter": 0.3730744217147145,
+          "limiter_gain": 1.0,
+          "peak_pcm": 0.3730887783440657,
+          "clipped_samples": 0,
+          "end_fade_seconds": 0.45,
+          "events": [
+            {
+              "kind": "entrance",
+              "time_seconds": 0.12,
+              "duration_seconds": 0.14
+            },
+            {
+              "kind": "countdown_tick",
+              "time_seconds": 0.0,
+              "duration_seconds": 0.075
+            },
+            {
+              "kind": "countdown_tick",
+              "time_seconds": 1.0,
+              "duration_seconds": 0.075
+            },
+            {
+              "kind": "countdown_tick",
+              "time_seconds": 2.0,
+              "duration_seconds": 0.075
+            },
+            {
+              "kind": "countdown_tick",
+              "time_seconds": 3.0,
+              "duration_seconds": 0.075
+            },
+            {
+              "kind": "countdown_tick",
+              "time_seconds": 4.0,
+              "duration_seconds": 0.075
+            },
+            {
+              "kind": "correct_answer",
+              "time_seconds": 5.0,
+              "duration_seconds": 0.24
+            },
+            {
+              "kind": "correct_answer",
+              "time_seconds": 5.065,
+              "duration_seconds": 0.24
+            },
+            {
+              "kind": "correct_answer",
+              "time_seconds": 5.13,
+              "duration_seconds": 0.24
+            },
+            {
+              "kind": "transition",
+              "time_seconds": 6.34,
+              "duration_seconds": 0.16
+            },
+            {
+              "kind": "entrance",
+              "time_seconds": 6.62,
+              "duration_seconds": 0.14
+            },
+            {
+              "kind": "countdown_tick",
+              "time_seconds": 6.5,
+              "duration_seconds": 0.075
+            },
+            {
+              "kind": "countdown_tick",
+              "time_seconds": 7.5,
+              "duration_seconds": 0.075
+            },
+            {
+              "kind": "countdown_tick",
+              "time_seconds": 8.5,
+              "duration_seconds": 0.075
+            },
+            {
+              "kind": "countdown_tick",
+              "time_seconds": 9.5,
+              "duration_seconds": 0.075
+            },
+            {
+              "kind": "countdown_tick",
+              "time_seconds": 10.5,
+              "duration_seconds": 0.075
+            },
+            {
+              "kind": "correct_answer",
+              "time_seconds": 11.5,
+              "duration_seconds": 0.24
+            },
+            {
+              "kind": "correct_answer",
+              "time_seconds": 11.565,
+              "duration_seconds": 0.24
+            },
+            {
+              "kind": "correct_answer",
+              "time_seconds": 11.63,
+              "duration_seconds": 0.24
+            },
+            {
+              "kind": "transition",
+              "time_seconds": 12.84,
+              "duration_seconds": 0.16
+            },
+            {
+              "kind": "entrance",
+              "time_seconds": 13.12,
+              "duration_seconds": 0.14
+            },
+            {
+              "kind": "countdown_tick",
+              "time_seconds": 13.0,
+              "duration_seconds": 0.075
+            },
+            {
+              "kind": "countdown_tick",
+              "time_seconds": 14.0,
+              "duration_seconds": 0.075
+            },
+            {
+              "kind": "countdown_tick",
+              "time_seconds": 15.0,
+              "duration_seconds": 0.075
+            },
+            {
+              "kind": "countdown_tick",
+              "time_seconds": 16.0,
+              "duration_seconds": 0.075
+            },
+            {
+              "kind": "countdown_tick",
+              "time_seconds": 17.0,
+              "duration_seconds": 0.075
+            },
+            {
+              "kind": "correct_answer",
+              "time_seconds": 18.0,
+              "duration_seconds": 0.24
+            },
+            {
+              "kind": "correct_answer",
+              "time_seconds": 18.065,
+              "duration_seconds": 0.24
+            },
+            {
+              "kind": "correct_answer",
+              "time_seconds": 18.13,
+              "duration_seconds": 0.24
+            },
+            {
+              "kind": "cta",
+              "time_seconds": 19.5,
+              "duration_seconds": 0.42
+            }
+          ]
+        },
+        "exact_three_user_files": [
+          "shorts.mp4",
+          "shorts_metadata.txt",
+          "shorts_thumbnail.jpg"
+        ],
+        "presentation_review": {
+          "status": "PASS",
+          "video": "D:\\a\\georush-generator\\georush-generator\\build_validation\\OneDrive 테스트\\바탕 화면\\GeoRush_Output\\GeoRush_20261029_053939_611107_d8d121\\shorts.mp4",
+          "frames": [
+            {
+              "frame": 0,
+              "seconds": 0.0,
+              "file": "frame_01.png",
+              "intended_frame_psnr_db": 36.024
+            },
+            {
+              "frame": 3,
+              "seconds": 0.1,
+              "file": "frame_02.png",
+              "intended_frame_psnr_db": 35.966
+            },
+            {
+              "frame": 9,
+              "seconds": 0.3,
+              "file": "frame_03.png",
+              "intended_frame_psnr_db": 36.011
+            },
+            {
+              "frame": 21,
+              "seconds": 0.7,
+              "file": "frame_04.png",
+              "intended_frame_psnr_db": 36.179
+            },
+            {
+              "frame": 30,
+              "seconds": 1.0,
+              "file": "frame_05.png",
+              "intended_frame_psnr_db": 36.206
+            },
+            {
+              "frame": 33,
+              "seconds": 1.1,
+              "file": "frame_06.png",
+              "intended_frame_psnr_db": 36.239
+            },
+            {
+              "frame": 75,
+              "seconds": 2.5,
+              "file": "frame_07.png",
+              "intended_frame_psnr_db": 36.566
+            },
+            {
+              "frame": 93,
+              "seconds": 3.1,
+              "file": "frame_08.png",
+              "intended_frame_psnr_db": 36.721
+            },
+            {
+              "frame": 149,
+              "seconds": 4.966666666666667,
+              "file": "frame_09.png",
+              "intended_frame_psnr_db": 37.167
+            },
+            {
+              "frame": 151,
+              "seconds": 5.033333333333333,
+              "file": "frame_10.png",
+              "intended_frame_psnr_db": 37.031
+            },
+            {
+              "frame": 154,
+              "seconds": 5.133333333333334,
+              "file": "frame_11.png",
+              "intended_frame_psnr_db": 37.087
+            },
+            {
+              "frame": 195,
+              "seconds": 6.5,
+              "file": "frame_12.png",
+              "intended_frame_psnr_db": 33.637
+            },
+            {
+              "frame": 629,
+              "seconds": 20.966666666666665,
+              "file": "frame_13.png",
+              "intended_frame_psnr_db": 35.662
+            }
+          ],
+          "encoded_flag_intro_mean_delta": 36.015,
+          "first_frame_visible_flag_and_question": true,
+          "answer_green_matches_correct_index": true,
+          "no_answer_effect_at_question_start": true,
+          "comparison": "Encoded pixels vs intended Pillow frames, PSNR>28dB",
+          "question_codes": [
+            "it",
+            "ec",
+            "il"
+          ],
+          "human_review_required": [
+            "interest of first second",
+            "subjective audio quality",
+            "mobile viewing comfort"
+          ]
+        },
+        "video_sha256": "9cf90154e3f39280e47b9f634cafc0bfdc8b5c6b245c53a9dedce44740a3a801"
+      }
+    ],
+    "heartbeat_count": 100,
+    "elapsed_seconds": 13.531,
+    "video_sha256": "9cf90154e3f39280e47b9f634cafc0bfdc8b5c6b245c53a9dedce44740a3a801"
+  },
+  "system_python_and_ffmpeg_removed_from_test_PATH": true,
+  "limits": [
+    "Windows hosted runner is not a clean physical PC",
+    "Manual GUI appearance and listening review needed",
+    "Real OneDrive sync not tested"
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "zip_sha256": "738ff203495594167d05b0e7f7669defbd6cb0068d0eabc955e5ee026c724be2",
+  "zip_bytes": 66273444,
+  "exe_bytes": 5326564,
+  "three_public_samples": [
+    {
+      "sample": 1,
+      "question_codes": [
+        "br",
+        "pa",
+        "ba"
+      ],
+      "duration": 21.0,
+      "frames": 630,
+      "min_frame_psnr": 34.926,
+      "aac_peak_dbfs": -8.574663,
+      "pcm_peak": 0.3730887783440657,
+      "bgm_gain": 0.1
+    },
+    {
+      "sample": 2,
+      "question_codes": [
+        "be",
+        "ca",
+        "eg"
+      ],
+      "duration": 21.0,
+      "frames": 630,
+      "min_frame_psnr": 35.662,
+      "aac_peak_dbfs": -8.574663,
+      "pcm_peak": 0.3730887783440657,
+      "bgm_gain": 0.1
+    },
+    {
+      "sample": 3,
+      "question_codes": [
+        "cr",
+        "sk",
+        "am"
+      ],
+      "duration": 21.0,
+      "frames": 630,
+      "min_frame_psnr": 35.574,
+      "aac_peak_dbfs": -8.574663,
+      "pcm_peak": 0.3730887783440657,
+      "bgm_gain": 0.1
+    }
+  ],
+  "nine_countries_distinct": true,
+  "download_http": 200,
+  "zip_crc": "PASS",
+  "windows_batch_and_relocation": "PASS"
+}

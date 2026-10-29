@@ -30,3 +30,23 @@
 자동 Windows 검증은 EXE GUI에서 3편 배치를 실제 생성하고 영상당 13프레임을 검사합니다. 한글 폴더로 배포본을 옮긴 뒤 1편을 다시 제작합니다.
 실제 결과는 동봉 WINDOWS_VALIDATION.json / WINDOWS_RELOCATION_VALIDATION.json과 릴리스 WINDOWS_BUILD_REPORT.json에서 확인하세요.
 호스팅 Windows 러너 검증과 Python 미설치 물리 PC·실제 OneDrive 동기화·수동 GUI/음향 검수는 구분합니다.
+
+## 실제 완료 결과
+
+[Windows Actions 성공 실행](https://github.com/bangssongpick/georush-generator/actions/runs/40824517592)에서 기존 40개 및 신규 10개, 총 50개 테스트가 통과했습니다(5.874초).
+EXE GUI에서 3편을 배치 생성하고 39개 실제 인코딩 프레임을 검사했습니다. 한글 경로 이동 후 추가 1편·13프레임도 통과했습니다.
+3편 모두 21초·630프레임·1080×1920·30fps·H.264/AAC입니다. 내부 SQLite는 서로 다른 4개 성공 기록을 보존했고, 모든 최종 폴더는 정확히 세 파일이며 임시 WAV는 정리됐습니다.
+첫 프레임 국기·질문, 등장 움직임, 숫자 확대·진행, 정답 초록색 위치, 다음 문제 초기화를 확인했습니다. Windows 샘플 프레임 시트 3개도 개발자가 시각적으로 검사했습니다.
+AAC 디코딩 최대 진폭 -8.574663dBFS, PCM 최대 0.37309·클리핑 0입니다. 8/10/12% 음악 게인·15개 타이머 음·중복 없는 이벤트·페이드는 자동 테스트로 확인했습니다.
+인코딩된 프레임과 의도한 프레임의 최소 PSNR은 34.926 / 35.662 / 35.574dB입니다. 이는 영상 정확도 검사이지 시청 유지율 점수가 아닙니다.
+
+[정식 릴리스](https://github.com/bangssongpick/georush-generator/releases/tag/v1.2.0-windows)
+[EXE ZIP 다운로드](https://github.com/bangssongpick/georush-generator/releases/download/v1.2.0-windows/GeoRush-v1.2-Windows-EXE.zip)
+
+배포 EXE: 5,326,564 bytes. ZIP: 66,273,444 bytes.
+ZIP SHA256: `738ff203495594167d05b0e7f7669defbd6cb0068d0eabc955e5ee026c724be2`.
+공개 HTTPS ZIP·샘플3편 다운로드에 성공했고 ZIP SHA256·CRC 및 샘플별 SHA256이 실제 Windows 보고서와 일치했습니다.
+
+연출 변경 파일은 `georush/render.py`, `georush/audio.py`입니다. 신규 `tests/test_presentation_v12.py`, `georush/presentation_review.py`와 기존 distribution_check·build_windows·Actions는 검증·패키징용입니다. GUI와 __init__는 버전 표시만 갱신했습니다.
+`quiz.py`, `catalog.py`, `history.py`, `pipeline.py`, `output.py`, `paths.py`, `validation.py`는 v1.1과 바이트 단위로 동일합니다. 기존 40개 테스트 파일도 변경하지 않았습니다.
+실행 시 외부 API나 Codex는 사용하지 않습니다. 수동 음질 청취·흥미도·실제 OneDrive 동기화·Python 없는 물리 PC는 추가 검수 대상입니다. 기존 v1.1 릴리스는 보존했습니다.
