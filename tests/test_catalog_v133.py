@@ -10,7 +10,7 @@ from georush import render
 from georush.catalog import Catalog
 from georush.longform import render as longform_render
 from georush.longform.quiz import EXPERT, HARD, build as build_longform, tier_for, validate
-from georush.quiz import build_quiz, validate_quiz
+from georush.quiz import build_quiz, composition_signature, validate_quiz
 
 UN_MEMBERS = set('''af al dz ad ao ag ar am au at az bs bh bd bb by be bz bj bt bo ba bw br bn bg bf bi cv kh cm
 ca cf td cl cn co km cg cd cr ci hr cu cy cz dk dj dm do ec eg sv gq er ee sz et fj fi fr ga gm ge de gh gr gd gt
@@ -58,6 +58,29 @@ class Catalog190Tests(unittest.TestCase):
                 self.assertLessEqual(short.textbbox((0, 0), reveal, font=render._font(size))[2], 900)
                 longform_render.option(wide, 3, row['name'], True, 1.025)
                 longform_render.text(ImageDraw.Draw(wide), f"D: {row['name']}", (1455, 478, 405, 160), 35)
+
+    def test_every_country_links_flag_name_and_revealed_answer(self):
+        # Each country as the answer: catalog checks pass and the green card lands on its option.
+        import numpy
+        background = render._background()
+        for index, row in enumerate(self.valid):
+            with self.subTest(country=row['code']):
+                peers = [r for r in self.valid if r['difficulty'] == row['difficulty'] and r['code'] != row['code']]
+                correct = index % 4
+                options = [r['name'] for r in peers[index % len(peers):][:3] + peers[:3]][:3]
+                options.insert(correct, row['name'])
+                question = {'country_code': row['code'], 'country_name': row['name'], 'flag_path': row['flag_path'],
+                            'flag': row['flag'], 'flag_sha256': row['sha256'], 'options': options,
+                            'correct_index': correct, 'difficulty': row['difficulty']}
+                validate_quiz({'questions': [question], 'signature': composition_signature([question])}, self.catalog)
+                pixels = numpy.asarray(render._question_static(question, 0, 3, background, reveal=True)).astype(int)
+                green = []
+                for option in range(4):
+                    x, y = 76 + (option % 2) * 480, 1255 + (option // 2) * 178
+                    box = pixels[y:y + 146, x:x + 448]
+                    green.append(int(((box[:, :, 1] > box[:, :, 0] + 60) & (box[:, :, 1] > box[:, :, 2] + 25)
+                                      & (box[:, :, 1] > 140)).sum()))
+                self.assertEqual(green.index(max(green)), correct)
 
     def test_flag_images_are_900x675(self):
         for row in self.valid:

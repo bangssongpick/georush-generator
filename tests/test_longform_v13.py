@@ -43,7 +43,9 @@ class LongformTests(unittest.TestCase):
             with self.assertRaises(ValueError):allocations(count)
     def test_missing_expert_asset_blocks_generation(self):
         valid,errors=self.catalog.valid_countries()
-        with patch.object(self.catalog,'valid_countries',return_value=([r for r in valid if r['code']!='kz'],['missing kz'])):
+        # 40 questions need 10 Expert flags; leave only 9 of the 45.
+        missing=sorted(EXPERT)[9:]
+        with patch.object(self.catalog,'valid_countries',return_value=([r for r in valid if r['code'] not in missing],['missing '+c for c in missing])):
             with self.assertRaisesRegex(ValueError,'Expert'):build(self.catalog,count=40)
     def test_duplicate_or_wrong_country_blocked(self):
         q=build(self.catalog,count=20,seed=1)

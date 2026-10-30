@@ -1,10 +1,10 @@
 {
   "status": "PASS",
-  "enabled_countries": 60,
+  "enabled_countries": 190,
   "difficulty_counts": {
-    "Easy": 20,
-    "Normal": 20,
-    "Hard": 20
+    "Easy": 40,
+    "Normal": 60,
+    "Hard": 90
   },
   "checks": {
     "all_source_code_name_matches": true,
@@ -12,8 +12,9 @@
     "all_png_sha256_matches": true,
     "all_source_svg_sha256_matches": true,
     "all_png_decode_and_900x675": true,
-    "all_png_hashes_distinct": true
+    "all_png_hashes_distinct": true,
+    "v13_60_flags_byte_identical": true
   },
-  "manual_review": "All60flagicons inspected in FLAGS_CONTACT_SHEET.jpg; standard4:3 icon variants",
+  "manual_review": "All 190 flag icons inspected in FLAGS_CONTACT_SHEET.jpg; standard 4:3 icon variants. Nepal (np) is a non-rectangular icon with a transparent background.",
   "upstream_revision": "ac7e0eb3259eb62aa6100c435607e2fe03896a97"
 }
