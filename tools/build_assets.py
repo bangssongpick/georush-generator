@@ -42,6 +42,7 @@ def main():
     actual = subprocess.check_output(['git', '-C', str(repo), 'rev-parse', 'HEAD'], text=True).strip()
     if actual != REVISION:
         raise SystemExit(f'Expected pinned revision {REVISION}, got {actual}')
+    import cairocffi
     import cairosvg
     from PIL import Image
 
@@ -51,7 +52,10 @@ def main():
     upstream = json.loads((repo/'country.json').read_text(encoding='utf-8'))
     by_code = {row['code']: row for row in upstream}
     base = f'https://github.com/lipis/flag-icons/blob/{REVISION}'
-    countries = []
+    # Flags already in the catalog are kept byte-for-byte: another cairo version re-rasterizes a few
+    # emblem pixels differently (es/mx/bo with cairo 1.18.4). Only new codes are rasterized.
+    previous = {row['code']: row for row in json.loads((assets/'countries.json').read_text(encoding='utf-8'))}
+    countries, rasterized = [], []
     for difficulty, codes in GROUPS.items():
         for code in codes:
             row = by_code[code]
@@ -59,8 +63,15 @@ def main():
             svg = repo/row['flag_4x3']
             png = assets/'flags'/f'{code}.png'
             copied_svg = assets/'source_svg'/f'{code}.svg'
-            shutil.copyfile(svg, copied_svg)
-            cairosvg.svg2png(url=str(svg), write_to=str(png), output_width=900, output_height=675)
+            if code in previous:
+                kept = previous[code]
+                assert kept['difficulty'] == difficulty and kept['name'] == row['name']
+                assert sha(png) == kept['sha256'], f'existing flag changed: {code}'
+                assert sha(copied_svg) == kept['source_svg_sha256'] == sha(svg), f'existing SVG changed: {code}'
+            else:
+                shutil.copyfile(svg, copied_svg)
+                cairosvg.svg2png(url=str(svg), write_to=str(png), output_width=900, output_height=675)
+                rasterized.append(code)
             with Image.open(png) as im:
                 assert im.size == (900, 675)
                 im.verify()
@@ -87,10 +98,13 @@ def main():
         'difficulty_notice': 'Editorial familiarity groups, not an objective country difficulty ranking.',
         'excluded_ambiguity_examples': ['Chad/Romania', 'Monaco/Indonesia', 'Luxembourg/Netherlands'],
         'excluded_un_members': sorted(EXCLUDED),
+        'preserved_flags': len(countries) - len(rasterized),
+        'rasterized_flags': len(rasterized),
+        'rasterizer': f'CairoSVG 2.8.2 with cairo {cairocffi.cairo_version_string()}',
         'offline_runtime': True,
     }
     (assets/'asset_manifest.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
-    print(f'Built {len(countries)} verified PNGs and original source SVGs from {REVISION}')
+    print(f'Kept {len(countries) - len(rasterized)} existing and rasterized {len(rasterized)} new verified PNGs from {REVISION}')
 
 
 if __name__ == '__main__':
