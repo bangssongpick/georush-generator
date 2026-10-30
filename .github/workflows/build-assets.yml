@@ -1,0 +1,45 @@
+name: Build flag assets
+# Rasterizes the pinned flag-icons SVGs with CairoSVG on Linux (the Windows dev PC has no cairo library)
+# and commits the result to the branch that changed tools/build_assets.py.
+on:
+  push:
+    branches: [feature/v1.3.3-190-countries]
+    paths: [tools/build_assets.py]
+permissions:
+  contents: write
+jobs:
+  build-assets:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: sudo apt-get install -y libcairo2
+      - run: python -m pip install CairoSVG==2.8.2 Pillow==12.3.0
+      - name: Pinned flag-icons checkout
+        run: |
+          git clone --quiet https://github.com/lipis/flag-icons.git /tmp/flag-icons
+          # build_assets.py refuses any other revision
+          git -C /tmp/flag-icons checkout --quiet ac7e0eb3259eb62aa6100c435607e2fe03896a97
+      - run: python tools/build_assets.py --upstream /tmp/flag-icons
+      - name: The v1.3 60 flags must be byte-identical
+        run: |
+          python - <<'PY'
+          import hashlib, json
+          from pathlib import Path
+          old = json.loads(Path('tests/v13_catalog_60.json').read_text(encoding='utf-8'))
+          bad = [c for c, row in old.items()
+                 if hashlib.sha256(Path(f'assets/flags/{c}.png').read_bytes()).hexdigest() != row['sha256']
+                 or hashlib.sha256(Path(f'assets/source_svg/{c}.svg').read_bytes()).hexdigest() != row['source_svg_sha256']]
+          print('changed v1.3 flags:', bad)
+          raise SystemExit(1 if bad else 0)
+          PY
+      - name: Commit assets
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets
+          git commit -m "Build 190 flag assets with CairoSVG 2.8.2 from pinned flag-icons"
+          git push

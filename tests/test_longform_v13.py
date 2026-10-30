@@ -35,8 +35,8 @@ class LongformTests(unittest.TestCase):
     def test_40_questions(self):self.check_count(40)
     def test_editorial_groups_explicit_without_changing_catalog(self):
         rows=self.catalog.countries
-        self.assertEqual(Counter(r['difficulty'] for r in rows),{'Easy':20,'Normal':20,'Hard':20})
-        self.assertEqual(Counter(tier_for(r) for r in rows),{'Easy':20,'Normal':20,'Hard':10,'Expert':10})
+        self.assertEqual(Counter(r['difficulty'] for r in rows),{'Easy':40,'Normal':60,'Hard':90})
+        self.assertEqual(Counter(tier_for(r) for r in rows),{'Easy':40,'Normal':60,'Hard':45,'Expert':45})
         self.assertFalse(HARD&EXPERT);self.assertIn('not a measured',build(self.catalog,count=20)['difficulty_note'])
     def test_invalid_sizes_rejected(self):
         for count in (0,5,21,60,True):

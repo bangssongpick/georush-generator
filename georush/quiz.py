@@ -51,6 +51,20 @@ def validate_quiz(quiz, catalog):
     return True
 
 
+def _tier_balanced_sample(rng, rows, k):
+    # Mixed gives each difficulty an equal chance however many countries it has (Easy 40 / Normal 60 / Hard 90),
+    # matching the v1.3 one-third split of the original 20/20/20 catalog.
+    rows, selected = list(rows), []
+    for _ in range(k):
+        sizes = {}
+        for row in rows:
+            sizes[row['difficulty']] = sizes.get(row['difficulty'], 0) + 1
+        chosen = rng.choices(rows, weights=[1 / sizes[row['difficulty']] for row in rows])[0]
+        selected.append(chosen)
+        rows.remove(chosen)
+    return selected
+
+
 def build_quiz(catalog, history=None, difficulty='Mixed', questions_per_video=3, seed=None):
     if difficulty not in LEVELS:
         raise ValueError('지원하지 않는 난이도입니다.')
@@ -70,8 +84,9 @@ def build_quiz(catalog, history=None, difficulty='Mixed', questions_per_video=3,
         if len(fresh) >= questions_per_video:
             break
     selection_pool = fresh
+    pick = _tier_balanced_sample if difficulty == 'Mixed' else lambda r, rows, k: r.sample(rows, k)
     for attempt in range(512):
-        selected = rng.sample(selection_pool if attempt < 256 else pool, questions_per_video)
+        selected = pick(rng, selection_pool if attempt < 256 else pool, questions_per_video)
         questions = []
         for country in selected:
             candidates = [row for row in valid if row['code'] != country['code']]

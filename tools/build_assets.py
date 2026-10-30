@@ -13,11 +13,21 @@ import shutil
 import subprocess
 
 REVISION = 'ac7e0eb3259eb62aa6100c435607e2fe03896a97'
+# 190 of the 193 UN member states. The first 20 codes of each group are the v1.3 catalog, unchanged.
+# Omitted near-identical 4:3 icons: Chad (Romania), Monaco (Indonesia), Luxembourg (Netherlands).
 GROUPS = {
-    'Easy': 'us ca gb fr de it es jp kr cn br au in za mx ch se no gr ar'.split(),
-    'Normal': 'nz dk fi nl be pt ie pl ua tr eg ke ma ng vn th ph my sg il'.split(),
-    'Hard': 'ec bo pe cl co cr pa cu jm uy kz uz ge am az al hr rs ba sk'.split(),
+    'Easy': ('us ca gb fr de it es jp kr cn br au in za mx ch se no gr ar '
+             'ru id sa ae at pk ir cz hu is kp np lb cy bd ro ve qa iq et').split(),
+    'Normal': ('nz dk fi nl be pt ie pl ua tr eg ke ma ng vn th ph my sg il '
+               'af dz ao bs bb by bg kh do sv ee fj gt hn ht jo kw kg lv lt '
+               'ly mg mt mn me mz mm na ni om py pg sn si lk sd tn tz ug zw').split(),
+    'Hard': ('ec bo pe cl co cr pa cu jm uy kz uz ge am az al hr rs ba sk '
+             'ad ag bf bh bi bj bn bt bw bz cd cf cg ci cm cv dj dm er fm '
+             'ga gd gh gm gn gq gw gy ki km kn la lc li lr ls md mh mk ml '
+             'mr mu mv mw ne nr pw rw sb sc sl sm so sr ss st sy sz tg tj '
+             'tl tm to tt tv vc vu ws ye zm').split(),
 }
+EXCLUDED = {'td': 'ro', 'mc': 'id', 'lu': 'nl'}
 
 
 def sha(path):
@@ -60,8 +70,9 @@ def main():
                 'sha256': sha(png), 'source_svg_sha256': sha(svg),
                 'license': 'MIT',
             })
-    assert len(countries) == 60 and len({c['code'] for c in countries}) == 60
-    assert len({c['sha256'] for c in countries}) == 60
+    assert len(countries) == 190 and len({c['code'] for c in countries}) == 190
+    assert len({c['sha256'] for c in countries}) == 190
+    assert not set(EXCLUDED) & {c['code'] for c in countries}
     (assets/'countries.json').write_text(json.dumps(countries, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
     shutil.copyfile(repo/'LICENSE', assets/'licenses'/'flag-icons-MIT.txt')
     shutil.copyfile(repo/'country.json', assets/'country_source_upstream.json')
@@ -74,7 +85,8 @@ def main():
         'count': len(countries), 'png_size': [900, 675],
         'transform': 'flag-icons standard 4:3 SVG variants rasterized by CairoSVG 2.8.2; not native national flag proportions',
         'difficulty_notice': 'Editorial familiarity groups, not an objective country difficulty ranking.',
-        'excluded_ambiguity_examples': ['Chad/Romania', 'Monaco/Indonesia'],
+        'excluded_ambiguity_examples': ['Chad/Romania', 'Monaco/Indonesia', 'Luxembourg/Netherlands'],
+        'excluded_un_members': sorted(EXCLUDED),
         'offline_runtime': True,
     }
     (assets/'asset_manifest.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
