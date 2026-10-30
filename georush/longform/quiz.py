@@ -71,12 +71,16 @@ def build(catalog, history=None, count=40, seed=None):
         if len(pools[tier])<needed:
             raise ValueError(f'{tier} 검증 국기 부족: 필요 {needed}, 사용 가능 {len(pools[tier])}. '+'; '.join(errors))
     used=history.used_signatures() if history else set()
+    # v1.3.5: keep the flags of the previous two Longforms out of each round whenever the round still has enough others.
+    recent=set().union(*history.recent_longform_country_codes(2)) if history else set()
+    fresh={tier:[r for r in pools[tier] if r['code'] not in recent] for tier in TIERS}
+    draw={tier:(fresh[tier] if len(fresh[tier])>=needed else pools[tier]) for tier,needed in zip(TIERS,counts)}
     rng=random.Random(seed)
     for _ in range(128):
         positions=[i%4 for i in range(count)];rng.shuffle(positions)
         questions=[]
         for tier,needed in zip(TIERS,counts):
-            for row in rng.sample(pools[tier],needed):
+            for row in rng.sample(draw[tier],needed):
                 candidates=[r for r in pools[tier] if r['code']!=row['code']]
                 wrong=rng.sample(candidates if len(candidates)>=3 else [r for r in valid if r['code']!=row['code']],3)
                 options=[r['name'] for r in wrong];answer=positions[len(questions)]

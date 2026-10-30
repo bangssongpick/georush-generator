@@ -10,6 +10,8 @@ from tkinter import font as tkfont
 import sys
 from tkinter import filedialog, messagebox, ttk
 
+from . import __version__
+from .batchsizes import LONGFORM_BATCH_SIZES, SHORTS_BATCH_SIZES
 from .paths import default_output_root, open_folder, history_path
 
 
@@ -19,7 +21,7 @@ class GeoRushApp(tk.Tk):
         if sys.platform == 'win32':
             for name in ('TkDefaultFont', 'TkTextFont', 'TkMenuFont', 'TkHeadingFont', 'TkCaptionFont', 'TkTooltipFont', 'TkFixedFont'):
                 tkfont.nametofont(name).configure(family='Malgun Gothic', size=10)
-        self.title("GeoRush Generator v1.3")
+        self.title(f"GeoRush Generator v{__version__}")
         self.geometry("1000x800")
         self.minsize(780, 680)
         self.configure(bg="#0A1730")
@@ -71,7 +73,7 @@ class GeoRushApp(tk.Tk):
         fields.columnconfigure(1, weight=1)
         fields.columnconfigure(3, weight=1)
         for row, (name, variable, values) in enumerate([
-            ("제작할 영상 개수", self.video_count, ("1", "3", "5", "10")),
+            ("제작할 영상 개수", self.video_count, tuple(str(n) for n in SHORTS_BATCH_SIZES)),
             ("난이도", self.difficulty, ("Easy", "Normal", "Hard", "Mixed")),
         ]):
             ttk.Label(fields, text=name).grid(row=row, column=0, sticky="w", padx=(0, 10), pady=6)
@@ -118,7 +120,7 @@ class GeoRushApp(tk.Tk):
         self.history.pack(fill="both", expand=True)
         history_scroll.pack(fill="x")
         self.history.bind("<Double-1>", self._open_history)
-        ttk.Label(outer, text="첫 설치 시 무료 라이브러리 다운로드가 필요합니다. 설치 후 영상 생성은 인터넷·API 키 없이 실행합니다.", wraplength=900).pack(anchor="w", pady=(12, 0))
+        ttk.Label(outer, text="Python과 FFmpeg가 포함돼 있어 별도 설치가 필요 없습니다. 영상 생성은 인터넷·API 키 없이 실행합니다.", wraplength=900).pack(anchor="w", pady=(12, 0))
         self._write_log("GeoRush Generator 준비 완료. 기본 3문제, BGM 10%, TTS 없음.")
 
     def _mode_changed(self, _event=None):
@@ -151,7 +153,7 @@ class GeoRushApp(tk.Tk):
             longform = self.mode.get() == 'Longform'
             count = int(self.long_video_count.get() if longform else self.video_count.get())
             questions = int(self.long_questions.get() if longform else self.questions.get())
-            valid = count in (1,2,3) and questions in (20,30,40) if longform else count in (1,3,5,10) and 1<=questions<=5
+            valid = count in LONGFORM_BATCH_SIZES and questions in (20,30,40) if longform else count in SHORTS_BATCH_SIZES and 1<=questions<=5
             if not valid:
                 raise ValueError("영상 개수와 문제 수를 확인하세요.")
             if not self.output.get().strip():

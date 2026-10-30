@@ -7,6 +7,7 @@ from georush.catalog import Catalog
 from georush.longform.output import metadata
 from georush.longform.quiz import build
 from georush.longform.timeline import build_timeline
+from georush.textvariants import LONG_COMMENTS, LONG_DISCLAIMER, LONG_FOLLOWS, LONG_INTROS
 
 
 class LongformMetadataTests(unittest.TestCase):
@@ -21,9 +22,12 @@ class LongformMetadataTests(unittest.TestCase):
         self.assertEqual(headers, ['제목', '설명', '고정 댓글', '태그', '카테고리'])
         self.assertNotIn('[챕터]', text)
         description = text.split('[설명]\n', 1)[1].split('\n\n[고정 댓글]', 1)[0]
-        self.assertIn(f'Can you identify all {count} country flags?', description)
-        subscribe = 'Subscribe to GeoRush (@GeoRushGames) for more geography challenges.'
-        self.assertIn(subscribe, description)
+        # v1.3.5: the wording varies per quiz; the structure (intro first, subscribe text before CHAPTERS, hashtags last) does not.
+        self.assertTrue(any(description.startswith(intro.format(count=count)) for intro in LONG_INTROS))
+        subscribes = [line for line in LONG_FOLLOWS if line in description]
+        self.assertEqual(len(subscribes), 1)
+        subscribe = subscribes[0]
+        self.assertIn(LONG_DISCLAIMER, description)
         self.assertEqual(description.count('CHAPTERS\n'), 1)
         actual_chapters = description.split('CHAPTERS\n', 1)[1].split('\n\n', 1)[0]
         self.assertEqual(actual_chapters, expected_chapters)
@@ -32,8 +36,11 @@ class LongformMetadataTests(unittest.TestCase):
         self.assertLess(description.index(subscribe), description.index('CHAPTERS\n'))
         self.assertLess(description.index('CHAPTERS\n'), description.index(hashtags))
         self.assertIn(f'[제목]\nGuess {count} Flags! 🌍 Easy to Expert Geography Quiz\n', text)
-        self.assertIn(f'[고정 댓글]\nHow many flags did you recognize? Share your score out of {count}!\n', text)
-        self.assertIn('[태그]\nGeoRush, guess the flag, flag quiz, geography quiz, world flags, guess the country, geography challenge\n', text)
+        self.assertTrue(any(f'[고정 댓글]\n{comment.format(count=count)}\n' in text for comment in LONG_COMMENTS))
+        tags = re.search(r'\[태그\]\n(.*)\n', text).group(1)
+        self.assertTrue(tags.startswith('GeoRush, guess the flag, flag quiz, geography quiz, '))
+        self.assertEqual(len(tags.split(', ')), 8)
+        self.assertEqual(len(set(tags.split(', '))), 8)
         self.assertTrue(text.endswith('[카테고리]\n교육 / 아동용 아님\n'))
         for question in quiz['questions']:
             self.assertNotIn(question['country_name'], text)

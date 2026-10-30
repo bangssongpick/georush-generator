@@ -34,8 +34,8 @@ class RecentShortsTests(unittest.TestCase):
         run_id = self.history.reserve_quiz(signature, 'Mixed', f'run{self.count}', {'questions': questions})
         self.history.finish(run_id, success=status)
 
-    def test_default_window_is_seven(self):
-        self.assertEqual(RECENT_SHORTS, 7)
+    def test_default_window_is_one_week(self):
+        self.assertEqual(RECENT_SHORTS, 21)  # v1.3.5: was 7; the small 18-flag fixture below still works through the shrinking window
 
     def test_longform_runs_do_not_mark_countries_recent(self):
         # A Longform listing every country used to disable the avoidance entirely.

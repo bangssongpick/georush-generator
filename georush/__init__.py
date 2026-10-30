@@ -1,2 +1,2 @@
 """GeoRush: offline flag-quiz shorts generation."""
-__version__ = '1.3.4'
+__version__ = '1.3.5'

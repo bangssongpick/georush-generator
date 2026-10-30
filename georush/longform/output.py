@@ -3,6 +3,7 @@ from pathlib import Path
 import shutil
 import tempfile
 from PIL import Image,ImageDraw
+from ..textvariants import LONG_HASHTAGS,long_texts
 from .render import background,text,YELLOW,WHITE
 from .timeline import chapters,timestamp
 
@@ -12,17 +13,15 @@ FINAL_FILES={'longform.mp4','longform_metadata.txt','longform_thumbnail.jpg'}
 def metadata(quiz,timeline):
     count=len(quiz['questions'])
     chapter_text='\n'.join(f'{timestamp(at)} {label}' for at,label in chapters(timeline))
+    # v1.3.5: intro, rules, call-to-action, subscribe line, tags and comment vary per quiz; the single copyable
+    # [설명] still holds intro, subscribe text, CHAPTERS (real timestamps) and the hashtags, in that order.
+    top,tags,comment=long_texts(quiz['signature'],count)
     return (f'[제목]\nGuess {count} Flags! 🌍 Easy to Expert Geography Quiz\n\n'
-            f'[설명]\nCan you identify all {count} country flags?\n\n'
-            'Test your geography knowledge in this Easy to Expert challenge!\n'
-            'Choose A, B, C or D. Each question has an 8-second countdown and a 2-second answer reveal.\n'
-            'Difficulty tiers are editorial groupings, not measured player ratings. Familiarity varies by viewer.\n\n'
-            'Watch until the end and share your final score.\n'
-            'Subscribe to GeoRush (@GeoRushGames) for more geography challenges.\n\n'
+            '[설명]\n'+top+'\n\n'
             'CHAPTERS\n'+chapter_text+'\n\n'
-            '#GeoRush #FlagQuiz #GeographyQuiz #GuessTheFlag\n\n'
-            f'[고정 댓글]\nHow many flags did you recognize? Share your score out of {count}!\n\n'
-            '[태그]\nGeoRush, guess the flag, flag quiz, geography quiz, world flags, guess the country, geography challenge\n\n'
+            +LONG_HASHTAGS+'\n\n'
+            f'[고정 댓글]\n{comment}\n\n'
+            f'[태그]\n{tags}\n\n'
             '[카테고리]\n교육 / 아동용 아님\n')
 
 
