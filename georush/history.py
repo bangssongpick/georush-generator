@@ -62,3 +62,12 @@ class History:
                                   "AND signature NOT LIKE 'longform:%' ORDER BY id DESC LIMIT ?", (int(limit),)):
                 runs.append({q['country_code'] for q in json.loads(row[0])['questions']})
         return runs
+
+    def recent_longform_country_codes(self, limit=2):
+        # Newest first; only Longform runs, so the 20-40 flags of one Longform never hide Shorts flags.
+        runs = []
+        with self._connect() as db:
+            for row in db.execute("SELECT quiz_json FROM runs WHERE status IN ('running','success') "
+                                  "AND signature LIKE 'longform:%' ORDER BY id DESC LIMIT ?", (int(limit),)):
+                runs.append({q['country_code'] for q in json.loads(row[0])['questions']})
+        return runs

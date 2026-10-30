@@ -7,7 +7,7 @@ import random
 from .catalog import CatalogError
 
 LEVELS = ('Easy', 'Normal', 'Hard', 'Mixed')
-RECENT_SHORTS = 7  # Shorts whose countries are avoided, newest first
+RECENT_SHORTS = 21  # Shorts whose countries are avoided, newest first: one week at 3 Shorts a day (v1.3.2-v1.3.4: 7)
 
 
 def composition_signature(questions):
