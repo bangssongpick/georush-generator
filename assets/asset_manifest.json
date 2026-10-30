@@ -23,8 +23,11 @@
     "mc",
     "td"
   ],
-  "preserved_flags": 190,
-  "rasterized_flags": 0,
+  "flattened_flags": {
+    "np": "#F4F8FF"
+  },
+  "preserved_flags": 60,
+  "rasterized_flags": 130,
   "rasterizer": "CairoSVG 2.8.2 with cairo 1.18.4",
   "offline_runtime": true
 }

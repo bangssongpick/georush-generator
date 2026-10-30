@@ -65,6 +65,7 @@ def main():
     # Flags already in the catalog are kept byte-for-byte: another cairo version re-rasterizes a few
     # emblem pixels differently (es/mx/bo with cairo 1.18.4). Only new codes are rasterized.
     previous = {row['code']: row for row in json.loads((assets/'countries.json').read_text(encoding='utf-8'))}
+    previous_manifest = json.loads((assets/'asset_manifest.json').read_text(encoding='utf-8'))
     countries, rasterized = [], []
     for difficulty, codes in GROUPS.items():
         for code in codes:
@@ -96,7 +97,12 @@ def main():
     assert len(countries) == 190 and len({c['code'] for c in countries}) == 190
     assert len({c['sha256'] for c in countries}) == 190
     assert not set(EXCLUDED) & {c['code'] for c in countries}
-    (assets/'countries.json').write_text(json.dumps(countries, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
+    # LF on every platform: the manifest hashes these exact bytes.
+    (assets/'countries.json').write_text(json.dumps(countries, ensure_ascii=False, indent=2)+'\n', encoding='utf-8', newline='\n')
+    # Counts are cumulative, so a run with nothing new keeps the provenance of the earlier runs.
+    rasterized_total = previous_manifest.get('rasterized_flags', 0) + len(rasterized)
+    rasterizer = (f'CairoSVG 2.8.2 with cairo {cairocffi.cairo_version_string()}' if rasterized
+                  else previous_manifest.get('rasterizer', ''))
     shutil.copyfile(repo/'LICENSE', assets/'licenses'/'flag-icons-MIT.txt')
     shutil.copyfile(repo/'country.json', assets/'country_source_upstream.json')
     manifest = {
@@ -110,12 +116,13 @@ def main():
         'difficulty_notice': 'Editorial familiarity groups, not an objective country difficulty ranking.',
         'excluded_ambiguity_examples': ['Chad/Romania', 'Monaco/Indonesia', 'Luxembourg/Netherlands'],
         'excluded_un_members': sorted(EXCLUDED),
-        'preserved_flags': len(countries) - len(rasterized),
-        'rasterized_flags': len(rasterized),
-        'rasterizer': f'CairoSVG 2.8.2 with cairo {cairocffi.cairo_version_string()}',
+        'flattened_flags': FLATTEN,
+        'preserved_flags': len(countries) - rasterized_total,
+        'rasterized_flags': rasterized_total,
+        'rasterizer': rasterizer,
         'offline_runtime': True,
     }
-    (assets/'asset_manifest.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
+    (assets/'asset_manifest.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=2)+'\n', encoding='utf-8', newline='\n')
     print(f'Kept {len(countries) - len(rasterized)} existing and rasterized {len(rasterized)} new verified PNGs from {REVISION}')
 
 
