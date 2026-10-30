@@ -11,7 +11,7 @@ if errorlevel 1 goto failed
 ".venv\Scripts\python.exe" "tools\build_windows.py"
 if errorlevel 1 goto failed
 echo.
-echo EXE 및 실제 GUI 영상 검사 성공. dist\GeoRush-v1.3.4-Windows-EXE.zip 생성 완료.
+echo EXE 및 실제 GUI 영상 검사 성공. dist\GeoRush-v1.3.5-Windows-EXE.zip 생성 완료.
 echo 배포 시 ZIP을 완전히 풀고 START_HERE.cmd를 실행하세요. Python 설치는 필요 없습니다.
 pause
 popd

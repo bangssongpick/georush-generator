@@ -15,6 +15,7 @@ from .paths import default_output_root, find_ffmpeg, data_root
 from .output import get_history, combine_metadata, extract_thumbnail, publish, keep_success_evidence
 from .quiz import build_quiz, validate_quiz
 from .render import render_video
+from .textvariants import short_texts
 from .validation import validate_video, extract_encoded_frames
 
 
@@ -22,54 +23,8 @@ def _write(path, document):
     path.write_text(json.dumps(document, ensure_ascii=False, indent=2), encoding='utf-8')
 
 
-# v1.3.4: description, tags and score comment vary per quiz (chosen from the quiz signature, so one quiz always
-# gets the same text). The branding hashtags, the @GeoRushGames mention and the score ask are in every variant.
-INTROS = ['Can you guess all {count} countries from their flags?',
-          'Think you know your flags? Try to name all {count} countries!',
-          'How many of these {count} flags can you name?',
-          'Ready for a quick flag challenge? Guess all {count} countries!',
-          'Can you name every country from its flag? {count} flags, one try each.']
-MIDDLES = ['{difficulty} flag challenge: choose A, B, C, or D before the timer runs out.',
-           'Pick A, B, C or D before the countdown hits zero. This round: {difficulty} flags.',
-           '{difficulty} flags, four choices each. You get 5 seconds per question!',
-           'Choose A, B, C, or D and beat the 5-second timer. Difficulty: {difficulty}.']
-CALLS = ['Test your geography knowledge and share your score in the comments!',
-         'Comment your score and challenge a friend to beat it!',
-         'Tell us your score in the comments: which flag was the hardest?',
-         'Share your score below and see how you compare with other viewers!']
-FOLLOWS = ['Subscribe to GeoRush (@GeoRushGames) for more flag challenges.',
-           'Follow GeoRush (@GeoRushGames) for more flag quizzes.',
-           'More flags are coming: subscribe to GeoRush (@GeoRushGames)!',
-           'Subscribe to GeoRush (@GeoRushGames) and keep guessing flags.']
-CORE_TAGS = ['GeoRush', 'GeoRushGames', 'guess the flag', 'flag quiz', 'geography quiz']
-EXTRA_TAGS = ['country flags', 'geography challenge', 'world flags', 'flags of the world', 'guess the country',
-              'flag game', 'geography trivia', 'general knowledge', 'quiz game', 'flag challenge']
-COMMENTS = ['How many flags did you get right? {scores}? Tell us your score!',
-            'What was your score? {scores}? Drop it in the comments!',
-            'Did you get {count}/{count}? Tell us your score: {scores}!',
-            'Score check! {scores}: comment yours and challenge a friend!',
-            'Which flag tricked you? Share your score ({scores}) below!',
-            'Think you can beat {count}/{count}? Drop your score ({scores}) in the comments!',
-            'Be honest: what was your score? {scores}?',
-            'How did you do? Comment your score ({scores}) and tag a friend who knows flags!']
-
-
 def _metadata(folder, quiz):
-    count = len(quiz['questions'])
-    rng = random.Random(quiz['signature'])
-    titles = [f'Guess These {count} Flags! | GeoRush Geography Quiz #Shorts',
-              f'Can You Get {count}/{count}? Flag Challenge | GeoRush #Shorts',
-              f'{count} Flags. One Challenge. Can You Win? | GeoRush #Shorts']
-    difficulty = quiz['difficulty']
-    scores = ', '.join(f'{n}/{count}' for n in range(count+1))
-    title = rng.choice(titles)
-    description = (rng.choice(INTROS).format(count=count)+'\n\n'
-                   +rng.choice(MIDDLES).format(difficulty=difficulty)+'\n'
-                   +rng.choice(CALLS)+'\n\n'
-                   +rng.choice(FOLLOWS)+'\n\n'
-                   '#GeoRush #GuessTheFlag #FlagQuiz #GeographyQuiz #Shorts\n')
-    tags = ', '.join(CORE_TAGS+rng.sample(EXTRA_TAGS, 4)+['Shorts'])
-    comment = rng.choice(COMMENTS).format(count=count, scores=scores)
+    title, description, tags, comment = short_texts(quiz['signature'], len(quiz['questions']), quiz['difficulty'])
     documents = {'title.txt': title+'\n', 'description.txt': description,
                  'tags.txt': tags+'\n', 'pinned_comment.txt': comment+'\n'}
     for name, value in documents.items():

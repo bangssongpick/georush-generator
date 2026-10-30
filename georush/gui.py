@@ -10,6 +10,7 @@ from tkinter import font as tkfont
 import sys
 from tkinter import filedialog, messagebox, ttk
 
+from . import __version__
 from .paths import default_output_root, open_folder, history_path
 
 
@@ -19,7 +20,7 @@ class GeoRushApp(tk.Tk):
         if sys.platform == 'win32':
             for name in ('TkDefaultFont', 'TkTextFont', 'TkMenuFont', 'TkHeadingFont', 'TkCaptionFont', 'TkTooltipFont', 'TkFixedFont'):
                 tkfont.nametofont(name).configure(family='Malgun Gothic', size=10)
-        self.title("GeoRush Generator v1.3")
+        self.title(f"GeoRush Generator v{__version__}")
         self.geometry("1000x800")
         self.minsize(780, 680)
         self.configure(bg="#0A1730")
@@ -118,7 +119,7 @@ class GeoRushApp(tk.Tk):
         self.history.pack(fill="both", expand=True)
         history_scroll.pack(fill="x")
         self.history.bind("<Double-1>", self._open_history)
-        ttk.Label(outer, text="첫 설치 시 무료 라이브러리 다운로드가 필요합니다. 설치 후 영상 생성은 인터넷·API 키 없이 실행합니다.", wraplength=900).pack(anchor="w", pady=(12, 0))
+        ttk.Label(outer, text="Python과 FFmpeg가 포함돼 있어 별도 설치가 필요 없습니다. 영상 생성은 인터넷·API 키 없이 실행합니다.", wraplength=900).pack(anchor="w", pady=(12, 0))
         self._write_log("GeoRush Generator 준비 완료. 기본 3문제, BGM 10%, TTS 없음.")
 
     def _mode_changed(self, _event=None):

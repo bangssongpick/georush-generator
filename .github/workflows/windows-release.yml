@@ -7,7 +7,7 @@ on:
         type: boolean
         default: false
   push:
-    branches: [feature/v1.3.4-polish]
+    branches: [feature/v1.3.5-small]
 permissions:
   contents: read
 jobs:
@@ -30,14 +30,14 @@ jobs:
         run: python tools/build_windows.py
       - uses: actions/upload-artifact@v4
         with:
-          name: GeoRush-v1.3.4-Windows-EXE
+          name: GeoRush-v1.3.5-Windows-EXE
           path: |
-            dist/GeoRush-v1.3.4-Windows-EXE.zip
-            dist/GeoRush-v1.3.4-Windows-EXE.zip.sha256
+            dist/GeoRush-v1.3.5-Windows-EXE.zip
+            dist/GeoRush-v1.3.5-Windows-EXE.zip.sha256
             dist/WINDOWS_BUILD_REPORT.json
-            dist/GeoRush-v1.3.4-*.mp4
-            dist/GeoRush-v1.3.4-*.jpg
-            dist/GeoRush-v1.3.4-*-metadata.txt
+            dist/GeoRush-v1.3.5-*.mp4
+            dist/GeoRush-v1.3.5-*.jpg
+            dist/GeoRush-v1.3.5-*-metadata.txt
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -56,7 +56,7 @@ jobs:
     steps:
       - uses: actions/download-artifact@v4
         with:
-          name: GeoRush-v1.3.4-Windows-EXE
+          name: GeoRush-v1.3.5-Windows-EXE
           path: release
       - name: Publish tested EXE download
         env:
@@ -66,9 +66,9 @@ jobs:
         run: |
           cat > notes.md <<'NOTES'
           Windows x64 executable distribution. Python and FFmpeg are bundled.
-          Polish release: Shorts call-to-action is 3 seconds (was 1.5; videos are 22.5 s). Shorts description, tags and pinned comment vary per video. Viewer-facing country names are shorter and more familiar (Czechia, Turkey, Ivory Coast, ...). The contested flags of Afghanistan and Syria are no longer asked. Question timing, recent-Shorts avoidance, duplicate prevention, Longform format, SQLite and exact-three-file outputs are unchanged.
+          Small polish release: the window title shows the real version and the stale install note is gone; the Longform description, tags and pinned comment now vary per video (intro, rules wording, call-to-action, subscribe line; the chapters with real timestamps and the hashtags stay in the single copyable description). Shorts, question timing, flags, duplicate prevention, SQLite and exact-three-file outputs are unchanged from v1.3.4.
           Extract the whole ZIP and run START_HERE.cmd or GeoRushGenerator.exe.
           Automated checks: all existing regressions plus recent-Shorts tests. Actual frozen EXE GUI-button renders for Shorts and 20/40-question Longform, full video/audio decode and Korean-path relocation. See WINDOWS_BUILD_REPORT.json.
           Limits: hosted Windows runner; manual visual/audio review and real OneDrive cloud sync remain to be checked on the user PC.
           NOTES
-          gh release create v1.3.4-windows release/* --target "$SOURCE_SHA" --title "GeoRush v1.3.4 — polish" --notes-file notes.md
+          gh release create v1.3.5-windows release/* --target "$SOURCE_SHA" --title "GeoRush v1.3.5 — small polish" --notes-file notes.md
