@@ -29,7 +29,7 @@ def run_check(report_path, output_root=None):
     try:
         catalog = Catalog()
         valid, errors = catalog.valid_countries()
-        assert len(valid) == 190 and not errors
+        assert len(valid) == 188 and not errors  # 190 catalog flags minus the two excluded sensitive ones
         ffmpeg = Path(find_ffmpeg()).resolve()
         report['ffmpeg'] = str(ffmpeg)
         if report['frozen']:

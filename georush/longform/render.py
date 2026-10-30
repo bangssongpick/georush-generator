@@ -8,6 +8,7 @@ import subprocess
 import time
 from PIL import Image,ImageDraw
 from ..render import _font, WHITE, YELLOW, GREEN
+from ..names import display_name
 from ..paths import subprocess_options
 from .timeline import FPS,COUNTDOWN
 from .audio import synthesize
@@ -72,7 +73,7 @@ def question_context(q,index,count):
     d.rounded_rectangle((470,245,1450,655),radius=25,fill='#F4F8FF',outline='#86AEFF',width=3)
     with Image.open(q['flag_path']) as source:
         flag=source.convert('RGB');flag.thumbnail((870,350),Image.Resampling.LANCZOS)
-    for i,name in enumerate(q['options']):option(image,i,name)
+    for i,name in enumerate(q['options']):option(image,i,display_name(name))
     return {'base':image,'flag':flag,'question':q,'index':index,'count':count}
 
 
@@ -93,10 +94,11 @@ def question_frame(context,frame):
         if remaining>0:d.rounded_rectangle((90,960,90+remaining,978),radius=8,fill=color)
     else:
         pulse=1+.025*math.sin(math.pi*min((t-COUNTDOWN)/.3,1))
-        option(image,q['correct_index'],q['country_name'],True,pulse)
+        shown=display_name(q['country_name'])
+        option(image,q['correct_index'],shown,True,pulse)
         d=ImageDraw.Draw(image)
         text(d,'CORRECT!',(1510,370,350,95),50,GREEN)
-        text(d,f'{chr(65+q["correct_index"])}: {q["country_name"]}',(1455,478,405,160),35,WHITE)
+        text(d,f'{chr(65+q["correct_index"])}: {shown}',(1455,478,405,160),35,WHITE)
     return image
 
 
