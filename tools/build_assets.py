@@ -28,10 +28,20 @@ GROUPS = {
              'tl tm to tt tv vc vu ws ye zm').split(),
 }
 EXCLUDED = {'td': 'ro', 'mc': 'id', 'lu': 'nl'}
+# Non-rectangular icons are flattened onto the quiz card colour; Longform draws flags as RGB,
+# which would turn the transparent area black.
+FLATTEN = {'np': '#F4F8FF'}
 
 
 def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def flatten_png(path, colour):
+    from PIL import Image
+    with Image.open(path) as image:
+        flat = Image.alpha_composite(Image.new('RGBA', image.size, colour), image.convert('RGBA')).convert('RGB')
+    flat.save(path)
 
 
 def main():
@@ -71,6 +81,8 @@ def main():
             else:
                 shutil.copyfile(svg, copied_svg)
                 cairosvg.svg2png(url=str(svg), write_to=str(png), output_width=900, output_height=675)
+                if code in FLATTEN:
+                    flatten_png(png, FLATTEN[code])
                 rasterized.append(code)
             with Image.open(png) as im:
                 assert im.size == (900, 675)

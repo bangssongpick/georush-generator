@@ -315,7 +315,7 @@
     "difficulty": "Easy",
     "flag": "flags/np.png",
     "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/np.svg",
-    "sha256": "5fb94ee041d98c7f95dc36c327c25970ec02ebf5861956b8a3d8f2329cac724f",
+    "sha256": "c2fd607eebaf1dda4c09fb6d109b4a65fbd6b2dd68dc3862a13a41f696ffad3b",
     "source_svg_sha256": "b84c02e2fa659d0be6fc6b5963d5e9fbd25c3a6ab4d469aa61f1e3cdbd3f4637",
     "license": "MIT"
   },

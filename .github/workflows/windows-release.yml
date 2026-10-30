@@ -7,7 +7,7 @@ on:
         type: boolean
         default: false
   push:
-    branches: [fix/shorts-recent-countries]
+    branches: [fix/shorts-recent-countries, feature/v1.3.3-190-countries]
 permissions:
   contents: read
 jobs:

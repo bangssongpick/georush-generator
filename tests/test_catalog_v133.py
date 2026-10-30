@@ -82,6 +82,15 @@ class Catalog190Tests(unittest.TestCase):
                                       & (box[:, :, 1] > 140)).sum()))
                 self.assertEqual(green.index(max(green)), correct)
 
+    def test_no_flag_has_a_large_transparent_area(self):
+        # Longform draws flags as RGB, so a mostly transparent area shows black (unflattened Nepal: 64%).
+        # Anti-aliased stripe edges keep their colour and stay well under 1%.
+        import numpy
+        for row in self.valid:
+            with Image.open(row['flag_path']) as image:
+                alpha = numpy.asarray(image.convert('RGBA'))[:, :, 3]
+            self.assertLess((alpha < 128).mean(), 0.01, row['code'])
+
     def test_flag_images_are_900x675(self):
         for row in self.valid:
             with Image.open(row['flag_path']) as image:
