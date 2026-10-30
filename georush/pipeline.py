@@ -48,7 +48,10 @@ COMMENTS = ['How many flags did you get right? {scores}? Tell us your score!',
             'What was your score? {scores}? Drop it in the comments!',
             'Did you get {count}/{count}? Tell us your score: {scores}!',
             'Score check! {scores}: comment yours and challenge a friend!',
-            'Which flag tricked you? Share your score ({scores}) below!']
+            'Which flag tricked you? Share your score ({scores}) below!',
+            'Think you can beat {count}/{count}? Drop your score ({scores}) in the comments!',
+            'Be honest: what was your score? {scores}?',
+            'How did you do? Comment your score ({scores}) and tag a friend who knows flags!']
 
 
 def _metadata(folder, quiz):
