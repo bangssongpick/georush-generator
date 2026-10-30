@@ -53,3 +53,12 @@ class History:
             if row['status'] in ('running', 'success'):
                 codes.update(q['country_code'] for q in json.loads(row['quiz_json'])['questions'])
         return codes
+
+    def recent_shorts_country_codes(self, limit=7):
+        # Longform runs list 20-40 countries and would mark the whole pool as recent.
+        runs = []
+        with self._connect() as db:
+            for row in db.execute("SELECT quiz_json FROM runs WHERE status IN ('running','success') "
+                                  "AND signature NOT LIKE 'longform:%' ORDER BY id DESC LIMIT ?", (int(limit),)):
+                runs.append({q['country_code'] for q in json.loads(row[0])['questions']})
+        return runs
