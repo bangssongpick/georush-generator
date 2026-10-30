@@ -1,6 +1,13 @@
 name: Windows build and real GUI render
 on:
   workflow_dispatch:
+    inputs:
+      publish:
+        description: 'Create a public GitHub Release after the build passes'
+        type: boolean
+        default: false
+  push:
+    branches: [fix/shorts-recent-countries, feature/v1.3.3-190-countries]
 permissions:
   contents: read
 jobs:
@@ -23,14 +30,14 @@ jobs:
         run: python tools/build_windows.py
       - uses: actions/upload-artifact@v4
         with:
-          name: GeoRush-v1.3.1-Windows-EXE
+          name: GeoRush-v1.3.3-Windows-EXE
           path: |
-            dist/GeoRush-v1.3.1-Windows-EXE.zip
-            dist/GeoRush-v1.3.1-Windows-EXE.zip.sha256
+            dist/GeoRush-v1.3.3-Windows-EXE.zip
+            dist/GeoRush-v1.3.3-Windows-EXE.zip.sha256
             dist/WINDOWS_BUILD_REPORT.json
-            dist/GeoRush-v1.3.1-*.mp4
-            dist/GeoRush-v1.3.1-*.jpg
-            dist/GeoRush-v1.3.1-*-metadata.txt
+            dist/GeoRush-v1.3.3-*.mp4
+            dist/GeoRush-v1.3.3-*.jpg
+            dist/GeoRush-v1.3.3-*-metadata.txt
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -40,6 +47,8 @@ jobs:
             build_validation
             build/GeoRushGenerator/warn-GeoRushGenerator.txt
   publish:
+    # Public releases only on an explicit manual run with publish checked; pushes build artifacts only.
+    if: github.event_name == 'workflow_dispatch' && inputs.publish
     needs: verify-build
     runs-on: ubuntu-latest
     permissions:
@@ -47,7 +56,7 @@ jobs:
     steps:
       - uses: actions/download-artifact@v4
         with:
-          name: GeoRush-v1.3.1-Windows-EXE
+          name: GeoRush-v1.3.3-Windows-EXE
           path: release
       - name: Publish tested EXE download
         env:
@@ -57,12 +66,9 @@ jobs:
         run: |
           cat > notes.md <<'NOTES'
           Windows x64 executable distribution. Python and FFmpeg are bundled.
-          Metadata-only patch: Longform description now includes introduction, subscribe text, CHAPTERS timestamps and hashtags. No separate Korean chapter section. Shorts, rendering, GUI, SQLite and exact-three-file outputs are unchanged.
+          Country data: 190 UN member flags (Chad, Monaco and Luxembourg omitted as near-identical 4:3 icons). Easy 40 / Normal 60 / Hard 90; Mixed Shorts keep a one-third chance per group. The v1.3 60 flags are unchanged. Recent-Shorts avoidance, duplicate prevention, rendering, GUI, metadata, SQLite and exact-three-file outputs are unchanged.
           Extract the whole ZIP and run START_HERE.cmd or GeoRushGenerator.exe.
-          Select Shorts (unchanged) or Longform (20/30/40 questions; default 40, 7m04s). Native 1920x1080 landscape, editorial Easy-to-Expert rounds.
-          Output: exactly three MP4/TXT/JPG files per video. Shorts names remain unchanged; Longform uses longform.mp4, longform_metadata.txt and longform_thumbnail.jpg. Internal history/diagnostics are preserved.
-          Automated checks: all 50 Shorts regressions plus Longform tests. Actual frozen EXE GUI-button renders for Shorts and 20/40-question Longform. Full video/audio decode, every flag/answer layout, chapters, metadata, SQLite preservation, exact three output files and Korean-path relocation. See attached actual Windows samples and build report.
+          Automated checks: all existing regressions plus recent-Shorts tests. Actual frozen EXE GUI-button renders for Shorts and 20/40-question Longform, full video/audio decode and Korean-path relocation. See WINDOWS_BUILD_REPORT.json.
           Limits: hosted Windows runner; manual visual/audio review and real OneDrive cloud sync remain to be checked on the user PC.
-          See WINDOWS_BUILD_REPORT.json for actual results and sizes.
           NOTES
-          gh release create v1.3.1-windows release/* --target "$SOURCE_SHA" --title "GeoRush v1.3.1 — Longform metadata patch" --notes-file notes.md
+          gh release create v1.3.3-windows release/* --target "$SOURCE_SHA" --title "GeoRush v1.3.3 — 190 countries" --notes-file notes.md

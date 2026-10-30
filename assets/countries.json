@@ -200,6 +200,206 @@
     "license": "MIT"
   },
   {
+    "code": "ru",
+    "name": "Russia",
+    "difficulty": "Easy",
+    "flag": "flags/ru.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/ru.svg",
+    "sha256": "d2f88a0282fb2242033da9cb39f2804dd18eb507f2d2b4386c98f4472fa89ca7",
+    "source_svg_sha256": "7100aaae51ff3b6a2bf0ca932b3bc518bdc760814725e7cca31d821a26c3dd7c",
+    "license": "MIT"
+  },
+  {
+    "code": "id",
+    "name": "Indonesia",
+    "difficulty": "Easy",
+    "flag": "flags/id.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/id.svg",
+    "sha256": "30abee34f200e5058c1c8471b720975a41d067a997653c9682b40486959e6541",
+    "source_svg_sha256": "5cd3acc4939dd7eae6318c8d75df8c0d1733f650e2504a2635b0dbf3dfabb040",
+    "license": "MIT"
+  },
+  {
+    "code": "sa",
+    "name": "Saudi Arabia",
+    "difficulty": "Easy",
+    "flag": "flags/sa.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/sa.svg",
+    "sha256": "b9deeac20ac35f8dc72360cb86c875d4b260173c7f49b52a0d5df9a82f444f62",
+    "source_svg_sha256": "5738c8cfca5fea63587cbcf69237996c8ce6283f8016853150686f37311b620e",
+    "license": "MIT"
+  },
+  {
+    "code": "ae",
+    "name": "United Arab Emirates",
+    "difficulty": "Easy",
+    "flag": "flags/ae.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/ae.svg",
+    "sha256": "f229cd10cd588ac0ef15792dcbc7e1e6cfeb22802bd3ee68af345b3b546597c7",
+    "source_svg_sha256": "3bc52a4aac7c6c68cd7c0a04013fa14f715abfe6958e7a6e3194f0793c9eb816",
+    "license": "MIT"
+  },
+  {
+    "code": "at",
+    "name": "Austria",
+    "difficulty": "Easy",
+    "flag": "flags/at.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/at.svg",
+    "sha256": "2d26ccce760f25700f94357d59296972caf86559d20bf6a1a2606b58aeb27f17",
+    "source_svg_sha256": "c0e5cb3c1d59fd002afd6e2b0dd03787677ca3c9e7b2321f4af6d9e28256ebcd",
+    "license": "MIT"
+  },
+  {
+    "code": "pk",
+    "name": "Pakistan",
+    "difficulty": "Easy",
+    "flag": "flags/pk.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/pk.svg",
+    "sha256": "658f192fb807343d1eb0211c6b31ab37756037c68f08e6792a58bfc8c9dada80",
+    "source_svg_sha256": "89e851c0d541d8166b297e13bed97e0cb500bdb4ae48fd83a86b606a078352a8",
+    "license": "MIT"
+  },
+  {
+    "code": "ir",
+    "name": "Iran",
+    "difficulty": "Easy",
+    "flag": "flags/ir.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/ir.svg",
+    "sha256": "18fe98c8b1b8d1c68a15276cb1b070452d20bcff84c084aec52d0b36a5e2007d",
+    "source_svg_sha256": "cb363e09bafbff6de7c2fba6a002ca33f0563dc83a2328d34adb492cf80ca629",
+    "license": "MIT"
+  },
+  {
+    "code": "cz",
+    "name": "Czech Republic",
+    "difficulty": "Easy",
+    "flag": "flags/cz.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/cz.svg",
+    "sha256": "da15df4ff04ab11943cfa481287ef4d34db22213ef32f66b0fdc1b10b822b6c6",
+    "source_svg_sha256": "d601fcc2e5b1fd48b79d53c55108af4c0e90793f146db51f3ee449d8d69512bc",
+    "license": "MIT"
+  },
+  {
+    "code": "hu",
+    "name": "Hungary",
+    "difficulty": "Easy",
+    "flag": "flags/hu.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/hu.svg",
+    "sha256": "735abb7bf0fec2e0505ccec1d868e2e36fba3410587e6c8e161d055c3b2acf35",
+    "source_svg_sha256": "4891ce591bf29b5b68609c29d973a30f1ef109032d8dab369208d0d5f615bc74",
+    "license": "MIT"
+  },
+  {
+    "code": "is",
+    "name": "Iceland",
+    "difficulty": "Easy",
+    "flag": "flags/is.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/is.svg",
+    "sha256": "60be6342671d211bd3d7d8e7da0a4fb6a242d8cfe2c4edd0b131572a251e2c1f",
+    "source_svg_sha256": "4ef2de6fb25ff5a16789e8ffc3b68894527e68c89dce3b4e1118f5bbcc0bb7ae",
+    "license": "MIT"
+  },
+  {
+    "code": "kp",
+    "name": "North Korea",
+    "difficulty": "Easy",
+    "flag": "flags/kp.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/kp.svg",
+    "sha256": "86475d68a89169cae21f14d12f8223585402faa98b09e2ebff7bb8f98bf75800",
+    "source_svg_sha256": "f79bc8b6502445b51fd6db4bb9b6fa9d49f7fbe00da77b6af4d052b6d9fec4d3",
+    "license": "MIT"
+  },
+  {
+    "code": "np",
+    "name": "Nepal",
+    "difficulty": "Easy",
+    "flag": "flags/np.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/np.svg",
+    "sha256": "c2fd607eebaf1dda4c09fb6d109b4a65fbd6b2dd68dc3862a13a41f696ffad3b",
+    "source_svg_sha256": "b84c02e2fa659d0be6fc6b5963d5e9fbd25c3a6ab4d469aa61f1e3cdbd3f4637",
+    "license": "MIT"
+  },
+  {
+    "code": "lb",
+    "name": "Lebanon",
+    "difficulty": "Easy",
+    "flag": "flags/lb.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/lb.svg",
+    "sha256": "c2e06b55f0f1f6d32416caeb98b36627b1bf0aaec1f85154d3097c1442291f65",
+    "source_svg_sha256": "94b12b3f1dc43809f93516592f07bb4eb85dabbfdd6010b736f467fa64283e7f",
+    "license": "MIT"
+  },
+  {
+    "code": "cy",
+    "name": "Cyprus",
+    "difficulty": "Easy",
+    "flag": "flags/cy.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/cy.svg",
+    "sha256": "f0d3a5ce4e5cd5a39d60cb5db27a05c730a4891d198a9b4bd99abcb168d0d261",
+    "source_svg_sha256": "d2ddf86c24e9d4dc4e2f5cd298b189b9d04a08c0f6497c35249f07d6f1969e33",
+    "license": "MIT"
+  },
+  {
+    "code": "bd",
+    "name": "Bangladesh",
+    "difficulty": "Easy",
+    "flag": "flags/bd.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/bd.svg",
+    "sha256": "eda9efb8c121e735e9b220a56d33abace61408ae59a1ddad7e7436ee3063f74f",
+    "source_svg_sha256": "1aabb4a772651fb9a673660233d5bc6f3d78dfc71df09d567769bc97b9eb554f",
+    "license": "MIT"
+  },
+  {
+    "code": "ro",
+    "name": "Romania",
+    "difficulty": "Easy",
+    "flag": "flags/ro.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/ro.svg",
+    "sha256": "8fa3c19e95433a5171f8288c386a90593a478ea6290ebbf7b422e2316a7e2d78",
+    "source_svg_sha256": "17a3a747fc5e63302aaa670a667e5812f3676f46768e5a3e87b254bd41762840",
+    "license": "MIT"
+  },
+  {
+    "code": "ve",
+    "name": "Venezuela",
+    "difficulty": "Easy",
+    "flag": "flags/ve.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/ve.svg",
+    "sha256": "175b92475f3a00755fa38bd84d2495705f4d690f94e611f263e0ba20418ed51e",
+    "source_svg_sha256": "5712f1c63ba0bfa25a853c100cdebfd6698cce98fc2e0ba8d3fab35df541efa1",
+    "license": "MIT"
+  },
+  {
+    "code": "qa",
+    "name": "Qatar",
+    "difficulty": "Easy",
+    "flag": "flags/qa.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/qa.svg",
+    "sha256": "a22d5ec2a1b25c2f2716e97a0aa25a9f6f34b1d55e3540ff5a1bb7615e1c356b",
+    "source_svg_sha256": "fb955ef352ff3ba1ea980090c31d5cf15257729d32949d04b18402651e93b986",
+    "license": "MIT"
+  },
+  {
+    "code": "iq",
+    "name": "Iraq",
+    "difficulty": "Easy",
+    "flag": "flags/iq.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/iq.svg",
+    "sha256": "eca00e9fd3a85902ba15ed373fb546690595e0ed01e03e404302676d4e3da6df",
+    "source_svg_sha256": "073b07113d582dfea58fbd7e7e63cd9626bfa4afc87b3446a2a798981e26a412",
+    "license": "MIT"
+  },
+  {
+    "code": "et",
+    "name": "Ethiopia",
+    "difficulty": "Easy",
+    "flag": "flags/et.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/et.svg",
+    "sha256": "f4a288d0b7ff40a0b70428674689020cff60779b66f63b2152708d85f1829c9a",
+    "source_svg_sha256": "a136cd1152e5ab4b02f2ff2eab4f5ae5b48ed3594afd7f3160899f12575b41c7",
+    "license": "MIT"
+  },
+  {
     "code": "nz",
     "name": "New Zealand",
     "difficulty": "Normal",
@@ -400,6 +600,406 @@
     "license": "MIT"
   },
   {
+    "code": "af",
+    "name": "Afghanistan",
+    "difficulty": "Normal",
+    "flag": "flags/af.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/af.svg",
+    "sha256": "5fdc2e5d0da40090ec8da0bcdcdf9aa443ae3e07a23d21a91b2ab1d99b764c1e",
+    "source_svg_sha256": "313a7dd89f3d4bdceae673908ede1bca4a2f1aa0ea3562d8e96fe430d3b4c690",
+    "license": "MIT"
+  },
+  {
+    "code": "dz",
+    "name": "Algeria",
+    "difficulty": "Normal",
+    "flag": "flags/dz.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/dz.svg",
+    "sha256": "371a82c9e14f676145a338cd448023b08721bb3b65ed6790ba72775f6e1647a1",
+    "source_svg_sha256": "9ea0cf93222ab7b5e7b77b9576afcad80dad1eff33827e8e58dbfbb42aeb8213",
+    "license": "MIT"
+  },
+  {
+    "code": "ao",
+    "name": "Angola",
+    "difficulty": "Normal",
+    "flag": "flags/ao.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/ao.svg",
+    "sha256": "78b2212cc86a7cb3c84aa6cd24895f92e5a583948e31eb90a5ca6f517c0d7ae6",
+    "source_svg_sha256": "3a4b1f9b0c95729b128ed86c7446ce82733f29ad9f6387e7a2ca951fa488e763",
+    "license": "MIT"
+  },
+  {
+    "code": "bs",
+    "name": "Bahamas",
+    "difficulty": "Normal",
+    "flag": "flags/bs.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/bs.svg",
+    "sha256": "e189b52c5e1f137eaddb1224295062002cadb4009c46152f91c26a839d9d8fb9",
+    "source_svg_sha256": "1f179c39f296e5e3e062114d62fea394ff0ea487bd29cdffbe3837b7238d46dc",
+    "license": "MIT"
+  },
+  {
+    "code": "bb",
+    "name": "Barbados",
+    "difficulty": "Normal",
+    "flag": "flags/bb.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/bb.svg",
+    "sha256": "edb7d44e66d7cb827a842e45379bf383cc05a42768db232b684e4d6ab3feda8b",
+    "source_svg_sha256": "46cfd88ab5ea96e75627e044d008462586fbd04a346205dfd258984a46ffc27a",
+    "license": "MIT"
+  },
+  {
+    "code": "by",
+    "name": "Belarus",
+    "difficulty": "Normal",
+    "flag": "flags/by.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/by.svg",
+    "sha256": "f0f4fbbfae21a91fb075c7cff1a13294c2c92f9c520db66392f404816658bacb",
+    "source_svg_sha256": "a1efa44ad1167d6d77abbe59ce85aa3a68ff4bd57af79454c08a3ade5c178578",
+    "license": "MIT"
+  },
+  {
+    "code": "bg",
+    "name": "Bulgaria",
+    "difficulty": "Normal",
+    "flag": "flags/bg.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/bg.svg",
+    "sha256": "960f8b6e5a965a7eb76cedd8bfffab4874ca98e3ba3427ae87888c02a83c9887",
+    "source_svg_sha256": "b6d979fc96dc6b46c1697a5e05ecfe1fac1fa912ed480ca7a2a9b450f087faf6",
+    "license": "MIT"
+  },
+  {
+    "code": "kh",
+    "name": "Cambodia",
+    "difficulty": "Normal",
+    "flag": "flags/kh.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/kh.svg",
+    "sha256": "8d267646711efa1fd83d597c8ebc0362ce4e4d9fdfa2dc38108aad790d7aca8f",
+    "source_svg_sha256": "21a9681682a2158cab294bd1826a2dda2e3edf17aff891d692c6c976c3d9c874",
+    "license": "MIT"
+  },
+  {
+    "code": "do",
+    "name": "Dominican Republic",
+    "difficulty": "Normal",
+    "flag": "flags/do.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/do.svg",
+    "sha256": "9f71f0f4168b8c81cd9caab374099704df2168e7b606a8d7b41ee005fdf36b21",
+    "source_svg_sha256": "c14c3f138e9a81ab988a5d58af65ac4250ae63d43d6b156d31b51d2c1e152aba",
+    "license": "MIT"
+  },
+  {
+    "code": "sv",
+    "name": "El Salvador",
+    "difficulty": "Normal",
+    "flag": "flags/sv.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/sv.svg",
+    "sha256": "f6301917b5028e9b1f3a175fd48fc000c28e37024e1a530cc2ccb044cd72f12a",
+    "source_svg_sha256": "4c2b4e2b8bbb85d6cb97a5a35399f6fa9f269dc4b4c17591350441b61137041d",
+    "license": "MIT"
+  },
+  {
+    "code": "ee",
+    "name": "Estonia",
+    "difficulty": "Normal",
+    "flag": "flags/ee.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/ee.svg",
+    "sha256": "7fbbc38c3cad00a52c1dd593e67ba984b9d4e811e71576cc80fbb6f1c6dcf6ed",
+    "source_svg_sha256": "25642310e287fbdc02e1ac3e0e08fadca9a32eae195f67b6863bf0fc6247176b",
+    "license": "MIT"
+  },
+  {
+    "code": "fj",
+    "name": "Fiji",
+    "difficulty": "Normal",
+    "flag": "flags/fj.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/fj.svg",
+    "sha256": "00c0b64afe75967d16f8e646927142855b01faa4cc7c74796138e94215118b93",
+    "source_svg_sha256": "b23cbee897c889ce2d057aaca7c221b74a386ea58efb29da1982418564b58343",
+    "license": "MIT"
+  },
+  {
+    "code": "gt",
+    "name": "Guatemala",
+    "difficulty": "Normal",
+    "flag": "flags/gt.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/gt.svg",
+    "sha256": "70271e4e0302dba59ada2980ff179e3e41c4d3b0cff46992df0ae9c21b8ab71f",
+    "source_svg_sha256": "a20814d011af90ab2e80ea88eae9928cfce824cb9b50edf7b74ce2a98a159059",
+    "license": "MIT"
+  },
+  {
+    "code": "hn",
+    "name": "Honduras",
+    "difficulty": "Normal",
+    "flag": "flags/hn.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/hn.svg",
+    "sha256": "086277603aa59f299ff3fda57e510171a2028f95b29dcb43141ad776af3328b1",
+    "source_svg_sha256": "67130fa043e9d30dda7691e0d59567ff32db435a0d72e4e57309bd439fd79995",
+    "license": "MIT"
+  },
+  {
+    "code": "ht",
+    "name": "Haiti",
+    "difficulty": "Normal",
+    "flag": "flags/ht.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/ht.svg",
+    "sha256": "ccfc6975545fb2452563153ce6e1485f5074a5c3dae3ba769a88cfe96a84c694",
+    "source_svg_sha256": "d45f0285b56379b6816ab02ac0fcef2dc47b3f9a926a661e51a5c546b259e5d6",
+    "license": "MIT"
+  },
+  {
+    "code": "jo",
+    "name": "Jordan",
+    "difficulty": "Normal",
+    "flag": "flags/jo.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/jo.svg",
+    "sha256": "b38adeb748c7b2bae3449856961080737d750fb91b08e37439e2b25c6db9c836",
+    "source_svg_sha256": "e3a570d5c50c15f4aca73d27b2543ee335fd04151847e3d8ef2b42e5ac1ebe12",
+    "license": "MIT"
+  },
+  {
+    "code": "kw",
+    "name": "Kuwait",
+    "difficulty": "Normal",
+    "flag": "flags/kw.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/kw.svg",
+    "sha256": "1caedad198ef7822f615a3c2ad5de26fb5a03e70d7aa31b2327b8c61cbf90253",
+    "source_svg_sha256": "172a4281fdaf4b168471afcffc9e9ea277d6b5e54acc1a18b2f8ddc0a255cd7c",
+    "license": "MIT"
+  },
+  {
+    "code": "kg",
+    "name": "Kyrgyzstan",
+    "difficulty": "Normal",
+    "flag": "flags/kg.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/kg.svg",
+    "sha256": "19c2067d9a0837030c11a475eaa69c1f18235ea45093d54d582944f89362365c",
+    "source_svg_sha256": "b0cf3e6806af23d8712a7007a27e8669403c00aef75faa2d7a15d183fc3d0587",
+    "license": "MIT"
+  },
+  {
+    "code": "lv",
+    "name": "Latvia",
+    "difficulty": "Normal",
+    "flag": "flags/lv.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/lv.svg",
+    "sha256": "b088607bb0a172eafe0f132f1ebc800fb4f621facac30d8a6664b26e81ed5e81",
+    "source_svg_sha256": "d0d1ac1c0e301f808be3db32bcd7cdbc8986b6ec15574f557f440caed8b7bb31",
+    "license": "MIT"
+  },
+  {
+    "code": "lt",
+    "name": "Lithuania",
+    "difficulty": "Normal",
+    "flag": "flags/lt.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/lt.svg",
+    "sha256": "7d5863b674cdaaad2a95e5d6fba1a3bfb6e58d6d0219db329b8519c353051cd9",
+    "source_svg_sha256": "dc0401993f6e14b3a58fa496d874b95dfcb58614052a868b14492166782c1006",
+    "license": "MIT"
+  },
+  {
+    "code": "ly",
+    "name": "Libya",
+    "difficulty": "Normal",
+    "flag": "flags/ly.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/ly.svg",
+    "sha256": "20dafc993c752f3c66c6ba0777b8f926522cad2709254495e305f8e55504b739",
+    "source_svg_sha256": "47d96b6e011cd540bdeb30155cbd7994f929cd2f5b84cffdd50936b876823f41",
+    "license": "MIT"
+  },
+  {
+    "code": "mg",
+    "name": "Madagascar",
+    "difficulty": "Normal",
+    "flag": "flags/mg.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/mg.svg",
+    "sha256": "6463ff66171a5c124ec7317ce3eae3bb8604356e62e8792252c2d13237363eee",
+    "source_svg_sha256": "59246c21300e2456c0c5170791698e43399b089de80a69474deeac00697d2b7b",
+    "license": "MIT"
+  },
+  {
+    "code": "mt",
+    "name": "Malta",
+    "difficulty": "Normal",
+    "flag": "flags/mt.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/mt.svg",
+    "sha256": "95850fddd83e1c72c161d7fb4807a1933ba66e584fc6544be70681a9274e31bb",
+    "source_svg_sha256": "a2ad157eeb5f1bb92dc9706ad90faa111dd39ec019586bc5d12e67c5a6aa6cd5",
+    "license": "MIT"
+  },
+  {
+    "code": "mn",
+    "name": "Mongolia",
+    "difficulty": "Normal",
+    "flag": "flags/mn.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/mn.svg",
+    "sha256": "a6e92819508ff00865784793592bb728ca5d41f52460e98d9be761bdef118998",
+    "source_svg_sha256": "92d5422514f63fc10800714e71e14b576437e69a22645cf74a7ac0f516d67a69",
+    "license": "MIT"
+  },
+  {
+    "code": "me",
+    "name": "Montenegro",
+    "difficulty": "Normal",
+    "flag": "flags/me.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/me.svg",
+    "sha256": "0e1d43ac6e0ca23cdc104d9b0fa9e9d376645505bd3d5b2683ec94e33c35ad38",
+    "source_svg_sha256": "d284332e23ef88ae4f1b957ce1c6d9b9f691f94e4726f15d1a4219840008387b",
+    "license": "MIT"
+  },
+  {
+    "code": "mz",
+    "name": "Mozambique",
+    "difficulty": "Normal",
+    "flag": "flags/mz.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/mz.svg",
+    "sha256": "af9f2c563e9874e497cc288b589326ced5ab5109570b5544fe7d2ce3f46a040c",
+    "source_svg_sha256": "ad91c2f8e6d6f80f19dca1fb080488539e2e39a4670ead32169d491bc88c3c03",
+    "license": "MIT"
+  },
+  {
+    "code": "mm",
+    "name": "Myanmar",
+    "difficulty": "Normal",
+    "flag": "flags/mm.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/mm.svg",
+    "sha256": "8b6ad2c054dba4359552a6c1d477ffdf95c218ed8952a399ec9a38e4983b551c",
+    "source_svg_sha256": "c0b2e23a7e202ff2ad69421ea1b528e58af4e541fc2f4b986479a9cdef7f18e0",
+    "license": "MIT"
+  },
+  {
+    "code": "na",
+    "name": "Namibia",
+    "difficulty": "Normal",
+    "flag": "flags/na.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/na.svg",
+    "sha256": "c93e3a2ae60db80059d0733d3c7cfa2330aed64d0eda1324f451e768c59a5113",
+    "source_svg_sha256": "caa43fcdebb595ebf9808be7c5ba326a65bb40f78172182b1470102dd97a0182",
+    "license": "MIT"
+  },
+  {
+    "code": "ni",
+    "name": "Nicaragua",
+    "difficulty": "Normal",
+    "flag": "flags/ni.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/ni.svg",
+    "sha256": "95823a81d9a5a25621c42e4db7a80e52111f8071593431ee1e5d242143ed5400",
+    "source_svg_sha256": "b9dfe1fc2aded19b2796ad7b9b681b64457250ca6043f2865b4160e9230d097f",
+    "license": "MIT"
+  },
+  {
+    "code": "om",
+    "name": "Oman",
+    "difficulty": "Normal",
+    "flag": "flags/om.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/om.svg",
+    "sha256": "82c256ad11ae56e02cd0f9230069d65c9d1ef29c9764a9e8325ab075aa55c6cf",
+    "source_svg_sha256": "3204f5aa802cf3b2b782ba0ddfd798b42c0ba7c3125606245ac34bbb1cf26cc1",
+    "license": "MIT"
+  },
+  {
+    "code": "py",
+    "name": "Paraguay",
+    "difficulty": "Normal",
+    "flag": "flags/py.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/py.svg",
+    "sha256": "18956734596403a4a11562c644d5d6b1c35cfaca71faf8c2257e178b9f3d7634",
+    "source_svg_sha256": "fe0968470b7910543b23f7621b00cdeeebde8d90cffbd4fbcbfa97783a01cc04",
+    "license": "MIT"
+  },
+  {
+    "code": "pg",
+    "name": "Papua New Guinea",
+    "difficulty": "Normal",
+    "flag": "flags/pg.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/pg.svg",
+    "sha256": "19e3d64ff0a62934afb87a86e8ee35ff46bb9da8ca63d3ffb95a53012382f677",
+    "source_svg_sha256": "43e492331c192a947d9bd72ac6e1f4edcab1d86af097b8840faa9ac24e439d97",
+    "license": "MIT"
+  },
+  {
+    "code": "sn",
+    "name": "Senegal",
+    "difficulty": "Normal",
+    "flag": "flags/sn.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/sn.svg",
+    "sha256": "13fa306bcb6ef2498dd0a2d141a9db8fb79cebac1de68f0f6ebf2c69c7c40b0d",
+    "source_svg_sha256": "d97a004ca8a85c79286ced0b87a9dd12e74035e15e155ee93f261310547ca5e0",
+    "license": "MIT"
+  },
+  {
+    "code": "si",
+    "name": "Slovenia",
+    "difficulty": "Normal",
+    "flag": "flags/si.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/si.svg",
+    "sha256": "d80d3ead70b6ffb1da662373f1ac2559fa89afd88d3595bb0c3563aeb0b88d31",
+    "source_svg_sha256": "3a5e0cac44baaea6b6d8e91054844b6ea72764f6dbe363c11ea11fd81203733a",
+    "license": "MIT"
+  },
+  {
+    "code": "lk",
+    "name": "Sri Lanka",
+    "difficulty": "Normal",
+    "flag": "flags/lk.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/lk.svg",
+    "sha256": "0af020162635483382289d8dbcc6b2548e932b70bf023ca29ade4554eec9bfc0",
+    "source_svg_sha256": "ed3eee24d19872d6adcecd589513c057c6ecfe4997af36e8d25ef9ed58660d23",
+    "license": "MIT"
+  },
+  {
+    "code": "sd",
+    "name": "Sudan",
+    "difficulty": "Normal",
+    "flag": "flags/sd.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/sd.svg",
+    "sha256": "a7beb75615c4b1304b754d1456e811c6788a36a568327953d2fa4f2a38e82f43",
+    "source_svg_sha256": "25b3fa24693ccbb80991235e235e9370895f182c509c687e96824faf6b65809a",
+    "license": "MIT"
+  },
+  {
+    "code": "tn",
+    "name": "Tunisia",
+    "difficulty": "Normal",
+    "flag": "flags/tn.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/tn.svg",
+    "sha256": "ae0bd72bb5103883548c4d15491b36dd6440844867846ef09d4a0f4d4a978a5a",
+    "source_svg_sha256": "8e0274e5762a4d5f783e64f1206dd69008454f750de21d3ba61439d0af3c577c",
+    "license": "MIT"
+  },
+  {
+    "code": "tz",
+    "name": "Tanzania",
+    "difficulty": "Normal",
+    "flag": "flags/tz.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/tz.svg",
+    "sha256": "4ab4779e7432e1a834490450a875addc7b19c3459f2fa6077feafb3110d17a14",
+    "source_svg_sha256": "fd317abae009fa3629c51b82a6b9f1c529a7254406478047734bb52de83611cd",
+    "license": "MIT"
+  },
+  {
+    "code": "ug",
+    "name": "Uganda",
+    "difficulty": "Normal",
+    "flag": "flags/ug.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/ug.svg",
+    "sha256": "9e695840291169799bfa06e238f5779fbe8f82455ed39361891743c0a646430f",
+    "source_svg_sha256": "ab6aa03e1324d54ffbed5ea4560f757797f4729da58fc977527cedd586e928a5",
+    "license": "MIT"
+  },
+  {
+    "code": "zw",
+    "name": "Zimbabwe",
+    "difficulty": "Normal",
+    "flag": "flags/zw.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/zw.svg",
+    "sha256": "52f2dd61267dc931f93144230e04f76f509d0bf688e3ceeb56d570535ad5e736",
+    "source_svg_sha256": "e27fcdcc882d7175cc4c07542779911043dc56262fe43b42f39bdaca09b762d5",
+    "license": "MIT"
+  },
+  {
     "code": "ec",
     "name": "Ecuador",
     "difficulty": "Hard",
@@ -597,6 +1197,706 @@
     "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/sk.svg",
     "sha256": "3f58b0f4f8b6ea28ed2e137c08a71c733adc63c6f1e7b23d5ca8c0f2b071c930",
     "source_svg_sha256": "578d0693bc95214334248b47c5719dd01cfc9839bd909a726df045d499fabbb6",
+    "license": "MIT"
+  },
+  {
+    "code": "ad",
+    "name": "Andorra",
+    "difficulty": "Hard",
+    "flag": "flags/ad.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/ad.svg",
+    "sha256": "de4bcb6837c152234a2272f88640155375ce0274346124d1ff5c0f93cb36c3f1",
+    "source_svg_sha256": "1914f0d751b810056fdde2fa27d5c255082b4eeaa5942f8ac27e48dca3a377ed",
+    "license": "MIT"
+  },
+  {
+    "code": "ag",
+    "name": "Antigua and Barbuda",
+    "difficulty": "Hard",
+    "flag": "flags/ag.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/ag.svg",
+    "sha256": "c72a7b955d58e8f7e4641512a98a00513422ffa6f22e14e1ba55bb049c74d475",
+    "source_svg_sha256": "131282135f0f5cfca72efa3a6dc6a3392b5999b5b15e1cbd0f3f73253c24080d",
+    "license": "MIT"
+  },
+  {
+    "code": "bf",
+    "name": "Burkina Faso",
+    "difficulty": "Hard",
+    "flag": "flags/bf.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/bf.svg",
+    "sha256": "d56bcb6c110fd117e7954bfb75a138b476f77c115cc35760c164293d0958e9f0",
+    "source_svg_sha256": "4723f5e95c0728e89b5715f3206ff24d8db157f325e163779bfac41c3200f93b",
+    "license": "MIT"
+  },
+  {
+    "code": "bh",
+    "name": "Bahrain",
+    "difficulty": "Hard",
+    "flag": "flags/bh.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/bh.svg",
+    "sha256": "4be02801749f929d9833bc1ee33e440f8462c4f9fab226e042e78389509d3862",
+    "source_svg_sha256": "7a519f58c9007731d70a975a48cc81fcf516ab52ab972f9739eace370431e0c2",
+    "license": "MIT"
+  },
+  {
+    "code": "bi",
+    "name": "Burundi",
+    "difficulty": "Hard",
+    "flag": "flags/bi.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/bi.svg",
+    "sha256": "9cc4207cdf55ef9d6bd9bf1fe116e3e12edae98f76bab6862d0dfb373cad46f3",
+    "source_svg_sha256": "5ef1a56b4ebe90326d6d807bbf61bd2d6f0b752fd6966588cd42471a886307bb",
+    "license": "MIT"
+  },
+  {
+    "code": "bj",
+    "name": "Benin",
+    "difficulty": "Hard",
+    "flag": "flags/bj.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/bj.svg",
+    "sha256": "66260ba0bf6eb02f730a692c2adf337f304957ac3cf724a8fe7016e3b92020b1",
+    "source_svg_sha256": "0a46cbae6018acdbc4a485f6b1c4a3df7a7b36680439f6eb5d1bfb957f704888",
+    "license": "MIT"
+  },
+  {
+    "code": "bn",
+    "name": "Brunei Darussalam",
+    "difficulty": "Hard",
+    "flag": "flags/bn.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/bn.svg",
+    "sha256": "b0c9ab0e98d2365322f31cbdf67d0e41a4cc57e920f901fc5116163e8b9f8ccb",
+    "source_svg_sha256": "4fc01eb8e4b3d4776d179cd06dfca4f21ee7ca833751eb564e7943d3203b6851",
+    "license": "MIT"
+  },
+  {
+    "code": "bt",
+    "name": "Bhutan",
+    "difficulty": "Hard",
+    "flag": "flags/bt.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/bt.svg",
+    "sha256": "e14ecd88989e1e8d564f43c0ed8d91687e32e7fedc4f280e8e2f4420d95fdd5d",
+    "source_svg_sha256": "05ff0d4d7258357823180eec1e53baa11846505234f51061a47c2f95641d1f43",
+    "license": "MIT"
+  },
+  {
+    "code": "bw",
+    "name": "Botswana",
+    "difficulty": "Hard",
+    "flag": "flags/bw.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/bw.svg",
+    "sha256": "4c52ed2df90a189884f742a8d9f0038bc743519120c0a699dca8582d3d9ab692",
+    "source_svg_sha256": "180bfa4e76b78fa7b52bf9f3c8e99d3c1b4aa520b97a239661a8953dc90658b3",
+    "license": "MIT"
+  },
+  {
+    "code": "bz",
+    "name": "Belize",
+    "difficulty": "Hard",
+    "flag": "flags/bz.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/bz.svg",
+    "sha256": "f6f7d89c5e745465fb73ce249c628b1feff62b6f1fc4cf720f584c6a1c23c111",
+    "source_svg_sha256": "9aef8f4ef9d86bf989fbdd714d64c5440dceaa2bc1a23e493942129022e6b677",
+    "license": "MIT"
+  },
+  {
+    "code": "cd",
+    "name": "Democratic Republic of the Congo",
+    "difficulty": "Hard",
+    "flag": "flags/cd.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/cd.svg",
+    "sha256": "728a8bb410004cc300a0bae0edfb6a38a8916cf69daa1a090afd3de59702aadc",
+    "source_svg_sha256": "ad93c1afd68e6a7364d141e0989a798e81a202fe4674f21fece3ceea83fd167c",
+    "license": "MIT"
+  },
+  {
+    "code": "cf",
+    "name": "Central African Republic",
+    "difficulty": "Hard",
+    "flag": "flags/cf.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/cf.svg",
+    "sha256": "fe3e0c0e3cb7d01b4a5d40136f1667396053d2a2bf312a9f593114ebca3bd314",
+    "source_svg_sha256": "1b58dc2035ff0039c82e4dfb16a536dcf74ee09ab4d95b75221d404ad616dc0f",
+    "license": "MIT"
+  },
+  {
+    "code": "cg",
+    "name": "Republic of the Congo",
+    "difficulty": "Hard",
+    "flag": "flags/cg.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/cg.svg",
+    "sha256": "83f472c845ee7b1c24e1aaf747fb8d487fce4a28391fa3c4d8a51d4ffd933eb4",
+    "source_svg_sha256": "628dcfc7f00ab09cc9074b837863c31fe4472c7c3e17c30e233332d94c37585b",
+    "license": "MIT"
+  },
+  {
+    "code": "ci",
+    "name": "Côte d'Ivoire",
+    "difficulty": "Hard",
+    "flag": "flags/ci.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/ci.svg",
+    "sha256": "1cd083c9d3c7b2c805e4b9ab2473abf861a7b5524e5b06f9b06c5562e8c74683",
+    "source_svg_sha256": "7a09020c7263a1c35a2fab646bdb4ee16fcc06a292f63d5a1d9f1feb2501ecd2",
+    "license": "MIT"
+  },
+  {
+    "code": "cm",
+    "name": "Cameroon",
+    "difficulty": "Hard",
+    "flag": "flags/cm.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/cm.svg",
+    "sha256": "576acb61f59343f1d8548be6b3ac6a9cbf72561c8f6b63157583c15234ca1f82",
+    "source_svg_sha256": "c9a327dc0e355739a9f2bc0a91e1293f8e08e13910e718bc63fda35a244acef5",
+    "license": "MIT"
+  },
+  {
+    "code": "cv",
+    "name": "Cabo Verde",
+    "difficulty": "Hard",
+    "flag": "flags/cv.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/cv.svg",
+    "sha256": "0af7f79d1f7ea617589b16127170c006f56222dd0ef8a7e2038d86a26f21a0ec",
+    "source_svg_sha256": "2fa67e0a2477306f0427877b78d2276c58c496ff50faf4b3d69252350821e138",
+    "license": "MIT"
+  },
+  {
+    "code": "dj",
+    "name": "Djibouti",
+    "difficulty": "Hard",
+    "flag": "flags/dj.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/dj.svg",
+    "sha256": "16e07def374cb464bfb4350ec5a6b9cd5ce7556b60146f11f10a04dd9bf47639",
+    "source_svg_sha256": "2a22d382f85cef20ba39a9abb6e6ecffdfa806d46afea3f6d26b8a23a5c12e43",
+    "license": "MIT"
+  },
+  {
+    "code": "dm",
+    "name": "Dominica",
+    "difficulty": "Hard",
+    "flag": "flags/dm.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/dm.svg",
+    "sha256": "834b23e5c4b12299a4f58de131a8dd0689b0c5d6d1367300cabecc5f0e0fd5bf",
+    "source_svg_sha256": "0a4bf1a27390308c62675099f3fb7c86ac3098fce4e8c5e95046c7a15c54226d",
+    "license": "MIT"
+  },
+  {
+    "code": "er",
+    "name": "Eritrea",
+    "difficulty": "Hard",
+    "flag": "flags/er.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/er.svg",
+    "sha256": "c5315ae2a70d0765a12d73b22f8949ffe9d6931244293431333e65029bef6ac9",
+    "source_svg_sha256": "64c98a80601fc019f9ca7a71f7dd384ca995da1403e7775edcbfd79118564e45",
+    "license": "MIT"
+  },
+  {
+    "code": "fm",
+    "name": "Federated States of Micronesia",
+    "difficulty": "Hard",
+    "flag": "flags/fm.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/fm.svg",
+    "sha256": "5d16959fcf0fdeedbd21c3e9bb1dac9372702139c033628aff0bcff2732793f5",
+    "source_svg_sha256": "23db3e9fe582cc8dd5d3b9ad58aff1ef5cb359c330bbed59fc053d76355434de",
+    "license": "MIT"
+  },
+  {
+    "code": "ga",
+    "name": "Gabon",
+    "difficulty": "Hard",
+    "flag": "flags/ga.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/ga.svg",
+    "sha256": "2157698579a76aeb854696695a09a74a0f37f3b6a5e9ed9dda7cb81edfaa9e10",
+    "source_svg_sha256": "f7b775c474b0331222ed84a3d1b5a5d66af1c097c8565766db17a5cff5237c93",
+    "license": "MIT"
+  },
+  {
+    "code": "gd",
+    "name": "Grenada",
+    "difficulty": "Hard",
+    "flag": "flags/gd.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/gd.svg",
+    "sha256": "d362169d81902c18346c7abbed82086f08e0e0b805f92a4b8282152d249aa7c8",
+    "source_svg_sha256": "eecc1f130ed02b2166c6f185439b7c95cabfa4a41b33c1a834ca59ffe4780785",
+    "license": "MIT"
+  },
+  {
+    "code": "gh",
+    "name": "Ghana",
+    "difficulty": "Hard",
+    "flag": "flags/gh.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/gh.svg",
+    "sha256": "11625ada6f715799e1fa3302ae5d08ae7dd4b96a2b97992aa739a4ba642fff48",
+    "source_svg_sha256": "53c55ca455293bceecfe6a5d6b12dc0bb670734c50bfd95cb21dc4ef12197405",
+    "license": "MIT"
+  },
+  {
+    "code": "gm",
+    "name": "Gambia",
+    "difficulty": "Hard",
+    "flag": "flags/gm.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/gm.svg",
+    "sha256": "a5f89823f131fa35b276f7b32bba5065624a0214e3621af9eeef26812ad7585c",
+    "source_svg_sha256": "2aa3fad4e8820fb42386f62d3efee1d3923817a49ed2bb05ba364c58d0ca4d3f",
+    "license": "MIT"
+  },
+  {
+    "code": "gn",
+    "name": "Guinea",
+    "difficulty": "Hard",
+    "flag": "flags/gn.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/gn.svg",
+    "sha256": "d0e1d496df867a3b8f19f4dd380d8092f78dccd95cbec4e30b65839270b618bf",
+    "source_svg_sha256": "ee01e7dd4abb0a995980ec8d0ba2bf314b564c73fcaba39fed8a5f48a7c49753",
+    "license": "MIT"
+  },
+  {
+    "code": "gq",
+    "name": "Equatorial Guinea",
+    "difficulty": "Hard",
+    "flag": "flags/gq.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/gq.svg",
+    "sha256": "3ffb008b6c4c98c160b8c63f3ea3c748d6bdef8afaa8c16dac5ceaae938ee53a",
+    "source_svg_sha256": "61ddf0a98d1d4bf93c6ec53eec080662efceabc37d1361eda4e7d291e10976d8",
+    "license": "MIT"
+  },
+  {
+    "code": "gw",
+    "name": "Guinea-Bissau",
+    "difficulty": "Hard",
+    "flag": "flags/gw.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/gw.svg",
+    "sha256": "c0d6d4e15516065d703ab685c35cafc73f1d02c01f8be71ba77d265e92a38a54",
+    "source_svg_sha256": "6b81a234b51ceacb4b67e889bb5b7ccf5f1084ac34b4fded2b97af5336f4797e",
+    "license": "MIT"
+  },
+  {
+    "code": "gy",
+    "name": "Guyana",
+    "difficulty": "Hard",
+    "flag": "flags/gy.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/gy.svg",
+    "sha256": "ebed04d61d95f21f83f4db232d0bd2f9ea33614835cc7d89261d7fab619faaca",
+    "source_svg_sha256": "5bd7a7b326efd9c28c3ec3b23118b241cb7643967fe9410611f392bc3deb65b0",
+    "license": "MIT"
+  },
+  {
+    "code": "ki",
+    "name": "Kiribati",
+    "difficulty": "Hard",
+    "flag": "flags/ki.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/ki.svg",
+    "sha256": "22d6490727622f03678c4aa541fb0205ff61adfea400ecc12086a911a3e38390",
+    "source_svg_sha256": "01206661587925daf1e57d8b6a6eb85f07a8ccf2230b89ed9b6e3a39b83f0ce0",
+    "license": "MIT"
+  },
+  {
+    "code": "km",
+    "name": "Comoros",
+    "difficulty": "Hard",
+    "flag": "flags/km.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/km.svg",
+    "sha256": "ba9b4c5ff4108a5c57f170b8c51b7169c279984e5a3cad970b13ff21ffdcb254",
+    "source_svg_sha256": "81e1befbbdeab3b2a4ec451e060b161bbcc6de00b97ef9d99791bc5741dfddab",
+    "license": "MIT"
+  },
+  {
+    "code": "kn",
+    "name": "Saint Kitts and Nevis",
+    "difficulty": "Hard",
+    "flag": "flags/kn.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/kn.svg",
+    "sha256": "aa2d92f70874dd90255b7e8dc802737e86c131e39aa8af3db47ba8c4e6d76052",
+    "source_svg_sha256": "0832acb7396986c7ba99bdfdadc563df322363f91659775f14aeeeacdd546c7e",
+    "license": "MIT"
+  },
+  {
+    "code": "la",
+    "name": "Laos",
+    "difficulty": "Hard",
+    "flag": "flags/la.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/la.svg",
+    "sha256": "761a4febd35b26486acf9d4ee9cfbaf84b0799d4e7073c4d14e4877efc32b811",
+    "source_svg_sha256": "da591b989d90a90d03c736d8515fe567832eb9f24dcfa7a2870b1cf3196fdb05",
+    "license": "MIT"
+  },
+  {
+    "code": "lc",
+    "name": "Saint Lucia",
+    "difficulty": "Hard",
+    "flag": "flags/lc.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/lc.svg",
+    "sha256": "fb409013fd1023b96b379cd060429e27465d18fe43efe2e3cc5ac69d152602cf",
+    "source_svg_sha256": "99645e005699eba454a0c3bf052b84d161267b615d8be60c41acb41f9355e47d",
+    "license": "MIT"
+  },
+  {
+    "code": "li",
+    "name": "Liechtenstein",
+    "difficulty": "Hard",
+    "flag": "flags/li.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/li.svg",
+    "sha256": "c2a3f4bc195476af26431826997edda5b62a6969bf09d7596a56cd42317973d4",
+    "source_svg_sha256": "77a33513c5288a0f2044f918efd2f82ba789d599f2e934b2af39b60fba8d9458",
+    "license": "MIT"
+  },
+  {
+    "code": "lr",
+    "name": "Liberia",
+    "difficulty": "Hard",
+    "flag": "flags/lr.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/lr.svg",
+    "sha256": "69a422234d4ffef03e71b6f2f011e7a8aae80f825792267ad28980ee3876fb35",
+    "source_svg_sha256": "69f2ce4b9490ab3c94ca30dc94862e5f1e8cb0f84344e5db0eb9300df5c66146",
+    "license": "MIT"
+  },
+  {
+    "code": "ls",
+    "name": "Lesotho",
+    "difficulty": "Hard",
+    "flag": "flags/ls.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/ls.svg",
+    "sha256": "0c5c888df7d9b346c24b0f5fc37a7b59300bc8c4250a948cfd3da8b1cfc87419",
+    "source_svg_sha256": "83d2e4152ef06ed39f5792dd2d5b9aa9953e3cbfe645f0384449e87b73dc96fb",
+    "license": "MIT"
+  },
+  {
+    "code": "md",
+    "name": "Moldova",
+    "difficulty": "Hard",
+    "flag": "flags/md.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/md.svg",
+    "sha256": "f60e65c1eaa85d9bd214ec807f021d919868154f4b0b0b98437cf92eff6a18f8",
+    "source_svg_sha256": "987ca12a752ec2b3594c115923d50160343a7d30af8ea5e316ae04fb12b8e9dd",
+    "license": "MIT"
+  },
+  {
+    "code": "mh",
+    "name": "Marshall Islands",
+    "difficulty": "Hard",
+    "flag": "flags/mh.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/mh.svg",
+    "sha256": "30f92d84b3515d0d4ed4586588f3841d6b75cd172d4004edfcd186a21cfdedb5",
+    "source_svg_sha256": "96d7c0b917a5c064636d11239b2a3031e574bc782e2445ec917208eeb051ccaa",
+    "license": "MIT"
+  },
+  {
+    "code": "mk",
+    "name": "North Macedonia",
+    "difficulty": "Hard",
+    "flag": "flags/mk.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/mk.svg",
+    "sha256": "4e40a271149ad467094a86da6dfc972b238d11bdcec28b296a30a9f5e6eb7eb1",
+    "source_svg_sha256": "22488dc890fe1e5f7a8bea423dfe2e74f8ccf04402e75090cdeca030b12ca010",
+    "license": "MIT"
+  },
+  {
+    "code": "ml",
+    "name": "Mali",
+    "difficulty": "Hard",
+    "flag": "flags/ml.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/ml.svg",
+    "sha256": "b17f336d8603bb070c9257e16991b8ae9f965d6fa48d924451c8c8e3baec0ab9",
+    "source_svg_sha256": "49e84081981f2b8ec245dcc66ebf44521fc91b3eae6e9f10c925616f78951f14",
+    "license": "MIT"
+  },
+  {
+    "code": "mr",
+    "name": "Mauritania",
+    "difficulty": "Hard",
+    "flag": "flags/mr.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/mr.svg",
+    "sha256": "b5d091306e036c707b1d2f96eea33b360aa94e0c32052d3c95ee70d5cb482ca3",
+    "source_svg_sha256": "ea338a9f7744fb25c3664f3cee5b2355e70bed7b0d79d952d246436cb600edb9",
+    "license": "MIT"
+  },
+  {
+    "code": "mu",
+    "name": "Mauritius",
+    "difficulty": "Hard",
+    "flag": "flags/mu.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/mu.svg",
+    "sha256": "57797d0adaf4b223c99bf2b0df5be6251db796847ae7a4c60793045594943715",
+    "source_svg_sha256": "51f86810118855ca9a0b0501f3d363e0556fe74f429a66d1be9af5c027b3b593",
+    "license": "MIT"
+  },
+  {
+    "code": "mv",
+    "name": "Maldives",
+    "difficulty": "Hard",
+    "flag": "flags/mv.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/mv.svg",
+    "sha256": "ca64d9ff931e014815be85190bd76f5417c3b463a50f3aa35929821b4b609e57",
+    "source_svg_sha256": "5546d527d669b3935bbff11e0344fb8522200cf5ea84eba730d8a7a0b1e86f15",
+    "license": "MIT"
+  },
+  {
+    "code": "mw",
+    "name": "Malawi",
+    "difficulty": "Hard",
+    "flag": "flags/mw.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/mw.svg",
+    "sha256": "09efe17e80a64eba2b9dea3ee68b6bf02a952e8bc5bbe84d9f01aebb817558e7",
+    "source_svg_sha256": "29a3e7057ec47f18bd8dd54312074335263b607c1543fcd969f89f14e307985f",
+    "license": "MIT"
+  },
+  {
+    "code": "ne",
+    "name": "Niger",
+    "difficulty": "Hard",
+    "flag": "flags/ne.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/ne.svg",
+    "sha256": "6713a4e131532fdc9ae047a4607aeae9102d4b5e67b0e1d2ebdbfbb0678584f7",
+    "source_svg_sha256": "4b91653d53f76ddaf492a61adad3c1be86528ee9f23d7a18a6044c4eed165cad",
+    "license": "MIT"
+  },
+  {
+    "code": "nr",
+    "name": "Nauru",
+    "difficulty": "Hard",
+    "flag": "flags/nr.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/nr.svg",
+    "sha256": "1f0cb39531a7334700f380e56269236b61f70ea9d360fb2bd3d94f05980fbd7d",
+    "source_svg_sha256": "f1de4b06479d454bb0a23a1bfee221e97d68e0a128002bfef1a1b3ea4c88ad46",
+    "license": "MIT"
+  },
+  {
+    "code": "pw",
+    "name": "Palau",
+    "difficulty": "Hard",
+    "flag": "flags/pw.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/pw.svg",
+    "sha256": "790626cffc2ee1bdd53bc03ed9569fc5f9178f7e597be6ff37e6ad483147b355",
+    "source_svg_sha256": "a61ab9d94f2968304eaf62d838e0ba1674977da8a5056beae5776fe912a8e233",
+    "license": "MIT"
+  },
+  {
+    "code": "rw",
+    "name": "Rwanda",
+    "difficulty": "Hard",
+    "flag": "flags/rw.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/rw.svg",
+    "sha256": "1f8da376cce16fc8abe12f1396d3200127578ba303b7c137bb7d295aba0394b6",
+    "source_svg_sha256": "9512100aa3e8079ed3780e8b3d6cd6a49639d0986ad78a709f81e9d0827b65b2",
+    "license": "MIT"
+  },
+  {
+    "code": "sb",
+    "name": "Solomon Islands",
+    "difficulty": "Hard",
+    "flag": "flags/sb.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/sb.svg",
+    "sha256": "f9ee0bad96c0aeaa0c4448eff8babd65a3a3b0e560f5ca5645e53acf37fdb5db",
+    "source_svg_sha256": "b34eabf373af639cec1d7de7c0dff84df6487737f04510efcc356810147c2cfa",
+    "license": "MIT"
+  },
+  {
+    "code": "sc",
+    "name": "Seychelles",
+    "difficulty": "Hard",
+    "flag": "flags/sc.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/sc.svg",
+    "sha256": "a968374e3104c1c893c8b7794c58f8f0447625a9282f1531917a7a5830c0278a",
+    "source_svg_sha256": "30cdbe42a1aed2dab0b26cb7b510901813cad3289835ef58e07d5ff1b554ec61",
+    "license": "MIT"
+  },
+  {
+    "code": "sl",
+    "name": "Sierra Leone",
+    "difficulty": "Hard",
+    "flag": "flags/sl.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/sl.svg",
+    "sha256": "277a0668eb315c4e3257bb3a34a96f27072876f8125fa64721f61d259629d449",
+    "source_svg_sha256": "d0c384b03a037f4eeb6c967346e3faafb4a09a3706667ac762999e54b55bc647",
+    "license": "MIT"
+  },
+  {
+    "code": "sm",
+    "name": "San Marino",
+    "difficulty": "Hard",
+    "flag": "flags/sm.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/sm.svg",
+    "sha256": "6823fa204002ff65c0c736b0c331d2c0a2085fdfce6e666bdfc56d68e702da74",
+    "source_svg_sha256": "fc3388637c187533a086e1a25253cd96ce657bd7d105886624d21addb380af16",
+    "license": "MIT"
+  },
+  {
+    "code": "so",
+    "name": "Somalia",
+    "difficulty": "Hard",
+    "flag": "flags/so.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/so.svg",
+    "sha256": "3101b95dec5fc7dff32bf90c922c98660115d59df65737277ea77b2d2525ee62",
+    "source_svg_sha256": "249e1acb87efcd0ef0f685285f14f5063f0bf260e0d28ca462e713c3f6178e7d",
+    "license": "MIT"
+  },
+  {
+    "code": "sr",
+    "name": "Suriname",
+    "difficulty": "Hard",
+    "flag": "flags/sr.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/sr.svg",
+    "sha256": "c7cfff493cdbb20841312af1c5e10894234afddb6bd491b8921b36b821ba92f6",
+    "source_svg_sha256": "5194a6af4e0d8a350ba7c1f66873725a9e1c91f2054fb9e85fc59cf7f7f2c0f2",
+    "license": "MIT"
+  },
+  {
+    "code": "ss",
+    "name": "South Sudan",
+    "difficulty": "Hard",
+    "flag": "flags/ss.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/ss.svg",
+    "sha256": "4ffa0c9f7ab4184accba2c57ee0f646ea1ee4efff6265e7ad8ad202cd66bd95a",
+    "source_svg_sha256": "f7ac7017201841eee0b261f66be6787200a80fbeadbb869dc6e8823e3b2ec220",
+    "license": "MIT"
+  },
+  {
+    "code": "st",
+    "name": "Sao Tome and Principe",
+    "difficulty": "Hard",
+    "flag": "flags/st.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/st.svg",
+    "sha256": "70f27e462cdf37c90fe44d9c5164acd53381c6abd143e56ec58f234fcdb20f80",
+    "source_svg_sha256": "880c17f94cb564b1818f604b764ac8c3b87e019d97724a7ebb9e69aa96821238",
+    "license": "MIT"
+  },
+  {
+    "code": "sy",
+    "name": "Syria",
+    "difficulty": "Hard",
+    "flag": "flags/sy.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/sy.svg",
+    "sha256": "8e3e13ee72014f1ba90f5b701c4838ff245c860e621458ab842373f118d5204d",
+    "source_svg_sha256": "04c5e853ade8f2e5585a3c42e9c1a1a80248125acf6a44afa85e9bbf36cd96c5",
+    "license": "MIT"
+  },
+  {
+    "code": "sz",
+    "name": "Eswatini",
+    "difficulty": "Hard",
+    "flag": "flags/sz.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/sz.svg",
+    "sha256": "3b660bcc033ed949d6df875774b9cfc050d46b5b9285cd57fa1d144e0fb518a2",
+    "source_svg_sha256": "5d6399c149d143306981f386048047b984586b2f85b0cf11fd7aeaa5757a81e9",
+    "license": "MIT"
+  },
+  {
+    "code": "tg",
+    "name": "Togo",
+    "difficulty": "Hard",
+    "flag": "flags/tg.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/tg.svg",
+    "sha256": "1965e077e0d2aa8b87ce542d8c06536c8327f44decc7c5bb53e4efa74c5831f9",
+    "source_svg_sha256": "f52b955fb48669d149991f511db818761589e8d45ce4dcc84478737cc0156d75",
+    "license": "MIT"
+  },
+  {
+    "code": "tj",
+    "name": "Tajikistan",
+    "difficulty": "Hard",
+    "flag": "flags/tj.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/tj.svg",
+    "sha256": "0372b9fb6fc5fc490db4db3a4e933205a53a8b9e19b8c7c5a3050f1cd8c70613",
+    "source_svg_sha256": "cd1afa9808833e4983986fa8818b73a9e1640f42c827692123a9639220c4a720",
+    "license": "MIT"
+  },
+  {
+    "code": "tl",
+    "name": "Timor-Leste",
+    "difficulty": "Hard",
+    "flag": "flags/tl.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/tl.svg",
+    "sha256": "e721f24899b6a4022a47d54258e47e2f086cd33e82aa914ba01b6b0d1335fa17",
+    "source_svg_sha256": "09c763aa3e5a48e2092348367b0bc93b1bc0536f5b527b31175e493132c55e19",
+    "license": "MIT"
+  },
+  {
+    "code": "tm",
+    "name": "Turkmenistan",
+    "difficulty": "Hard",
+    "flag": "flags/tm.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/tm.svg",
+    "sha256": "169b862d7024beed8edf1d859b21b9e0d6596b03deab4c272ff2ea894934e223",
+    "source_svg_sha256": "378178e3d5c91c62dafd0416b3f2b789f9505d26db0aef93dab8f5979ad60841",
+    "license": "MIT"
+  },
+  {
+    "code": "to",
+    "name": "Tonga",
+    "difficulty": "Hard",
+    "flag": "flags/to.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/to.svg",
+    "sha256": "3fa0ecc2a2d45874bc49985674a3d14fe019008bce37a387f6ed9b185c030ba1",
+    "source_svg_sha256": "b351703fccc1e08a13d2d57260dd71bee8280e393030b879b9df1c7ccd3a9538",
+    "license": "MIT"
+  },
+  {
+    "code": "tt",
+    "name": "Trinidad and Tobago",
+    "difficulty": "Hard",
+    "flag": "flags/tt.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/tt.svg",
+    "sha256": "03de637fc33b0cdf7bb426fcdc6d73c61c4979943fbb26d84a2e95175e8842e2",
+    "source_svg_sha256": "04c13dcd0b3690f91e752680653def1c2bbe5b4553b9e5dc75748b9339636749",
+    "license": "MIT"
+  },
+  {
+    "code": "tv",
+    "name": "Tuvalu",
+    "difficulty": "Hard",
+    "flag": "flags/tv.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/tv.svg",
+    "sha256": "9472cafbb7e598ac23eb297dbe14f5433c7fe1c70f4a5c82bedd89c6761f34e0",
+    "source_svg_sha256": "d94fa5f107cbacdba29731226bc5ad06edc95784e3d29c20e1ea41fe384530b7",
+    "license": "MIT"
+  },
+  {
+    "code": "vc",
+    "name": "Saint Vincent and the Grenadines",
+    "difficulty": "Hard",
+    "flag": "flags/vc.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/vc.svg",
+    "sha256": "7a0aa5036f8384bd615c226a3f46de52b72b1b2cc2a1ace63cf5b3dd86e45e5c",
+    "source_svg_sha256": "4e0a86447af4924dc11f26179f5cbb91195451ae766b2f777effe9c5f7cbc8f6",
+    "license": "MIT"
+  },
+  {
+    "code": "vu",
+    "name": "Vanuatu",
+    "difficulty": "Hard",
+    "flag": "flags/vu.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/vu.svg",
+    "sha256": "7d091e49961743d700d34ab4bf5d22e50f084476ec3fdbbf110351f587cd5d2e",
+    "source_svg_sha256": "6c711900c98d0d79ec9676f921d4bc9f3a77f57bf8a78964176b45fed1923847",
+    "license": "MIT"
+  },
+  {
+    "code": "ws",
+    "name": "Samoa",
+    "difficulty": "Hard",
+    "flag": "flags/ws.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/ws.svg",
+    "sha256": "5509162c729d6dc126880dec5307958c3b056f3e966aac6366b38f7da1e1d4c1",
+    "source_svg_sha256": "6b1a7ebcce97d75020af84da13b918875ba38ba4535b4d990b2be8985a67b8ad",
+    "license": "MIT"
+  },
+  {
+    "code": "ye",
+    "name": "Yemen",
+    "difficulty": "Hard",
+    "flag": "flags/ye.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/ye.svg",
+    "sha256": "0db0540246a21739e2f40bf78abf0a114a1b472f14137369dc32a7d900cbed25",
+    "source_svg_sha256": "ead644b90bc8cc74407d5f4680ada429bf0dc3d0dbd1e8a11fbfc7663a2d7fc2",
+    "license": "MIT"
+  },
+  {
+    "code": "zm",
+    "name": "Zambia",
+    "difficulty": "Hard",
+    "flag": "flags/zm.png",
+    "source": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97/flags/4x3/zm.svg",
+    "sha256": "f3a6ac86059cc4b52949f70415ab804d2760f92a3795c17f0c462c494cf9a206",
+    "source_svg_sha256": "2753554062cd3761e53a180c3c8f8e245af622fb6ecf1c02020c79db0ff2d644",
     "license": "MIT"
   }
 ]

@@ -7,6 +7,7 @@ import random
 from .catalog import CatalogError
 
 LEVELS = ('Easy', 'Normal', 'Hard', 'Mixed')
+RECENT_SHORTS = 7  # Shorts whose countries are avoided, newest first
 
 
 def composition_signature(questions):
@@ -50,6 +51,20 @@ def validate_quiz(quiz, catalog):
     return True
 
 
+def _tier_balanced_sample(rng, rows, k):
+    # Mixed gives each difficulty an equal chance however many countries it has (Easy 40 / Normal 60 / Hard 90),
+    # matching the v1.3 one-third split of the original 20/20/20 catalog.
+    rows, selected = list(rows), []
+    for _ in range(k):
+        sizes = {}
+        for row in rows:
+            sizes[row['difficulty']] = sizes.get(row['difficulty'], 0) + 1
+        chosen = rng.choices(rows, weights=[1 / sizes[row['difficulty']] for row in rows])[0]
+        selected.append(chosen)
+        rows.remove(chosen)
+    return selected
+
+
 def build_quiz(catalog, history=None, difficulty='Mixed', questions_per_video=3, seed=None):
     if difficulty not in LEVELS:
         raise ValueError('지원하지 않는 난이도입니다.')
@@ -61,11 +76,17 @@ def build_quiz(catalog, history=None, difficulty='Mixed', questions_per_video=3,
     if len(valid) < 4 or len(pool) < questions_per_video:
         raise CatalogError('검증된 국가·국기가 부족해 문제를 만들 수 없습니다. '+ '; '.join(errors[:3]))
     used = history.used_signatures() if history is not None else set()
-    recent = history.recent_country_codes() if history is not None else set()
-    fresh = [row for row in pool if row['code'] not in recent]
-    selection_pool = fresh if len(fresh) >= questions_per_video else pool
+    recent_runs = history.recent_shorts_country_codes(RECENT_SHORTS) if history is not None else []
+    # Drop the oldest Shorts from the avoided set until enough countries remain; 0 means the whole pool.
+    for window in range(len(recent_runs), -1, -1):
+        recent = set().union(*recent_runs[:window])
+        fresh = [row for row in pool if row['code'] not in recent]
+        if len(fresh) >= questions_per_video:
+            break
+    selection_pool = fresh
+    pick = _tier_balanced_sample if difficulty == 'Mixed' else lambda r, rows, k: r.sample(rows, k)
     for attempt in range(512):
-        selected = rng.sample(selection_pool if attempt < 256 else pool, questions_per_video)
+        selected = pick(rng, selection_pool if attempt < 256 else pool, questions_per_video)
         questions = []
         for country in selected:
             candidates = [row for row in valid if row['code'] != country['code']]

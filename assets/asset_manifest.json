@@ -4,9 +4,9 @@
   "source_url": "https://github.com/lipis/flag-icons/blob/ac7e0eb3259eb62aa6100c435607e2fe03896a97",
   "license": "MIT",
   "upstream_country_data_sha256": "f5e99aee5051868b391b9f42e110cb104b7fcd6269807b2dc5e2c80b1e6c9436",
-  "country_manifest_sha256": "ae6f360dcf2a0e736cef9ac6b4a9618ccd2a9432e4d3f0071ac5aaaa2b79d6b3",
+  "country_manifest_sha256": "436516e4f08bd36a30fe1342994f3b5357eab33715db32b36a6c3b74c2f30f14",
   "license_sha256": "8f1195d55a2fd315a07d812328470ca9ba2abb78c8d317ff19619d5125e00cea",
-  "count": 60,
+  "count": 190,
   "png_size": [
     900,
     675
@@ -15,7 +15,19 @@
   "difficulty_notice": "Editorial familiarity groups, not an objective country difficulty ranking.",
   "excluded_ambiguity_examples": [
     "Chad/Romania",
-    "Monaco/Indonesia"
+    "Monaco/Indonesia",
+    "Luxembourg/Netherlands"
   ],
+  "excluded_un_members": [
+    "lu",
+    "mc",
+    "td"
+  ],
+  "flattened_flags": {
+    "np": "#F4F8FF"
+  },
+  "preserved_flags": 60,
+  "rasterized_flags": 130,
+  "rasterizer": "CairoSVG 2.8.2 with cairo 1.18.4",
   "offline_runtime": true
 }

@@ -1,0 +1,66 @@
+name: Build flag assets
+# Rasterizes the pinned flag-icons SVGs with CairoSVG on Linux (the Windows dev PC has no cairo library)
+# and commits the result to the branch that changed tools/build_assets.py.
+on:
+  push:
+    branches: [feature/v1.3.3-190-countries]
+    paths: [tools/build_assets.py, .github/workflows/build-assets.yml]
+permissions:
+  contents: write
+jobs:
+  build-assets:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: sudo apt-get install -y libcairo2
+      - run: python -m pip install CairoSVG==2.8.2 Pillow==12.3.0
+      - name: Pinned flag-icons checkout
+        run: |
+          git clone --quiet https://github.com/lipis/flag-icons.git /tmp/flag-icons
+          # build_assets.py refuses any other revision
+          git -C /tmp/flag-icons checkout --quiet ac7e0eb3259eb62aa6100c435607e2fe03896a97
+      - run: python tools/build_assets.py --upstream /tmp/flag-icons
+      - name: The v1.3 60 flags must be byte-identical
+        run: |
+          python - <<'PY'
+          # Mismatches are also reported as public annotations: SVG bytes, decoded pixels and PNG encoding.
+          import hashlib, io, json, subprocess
+          from pathlib import Path
+          import cairocffi
+          from PIL import Image, ImageChops
+          old = json.loads(Path('tests/v13_catalog_60.json').read_text(encoding='utf-8'))
+          notes = []  # GitHub keeps about ten annotations per step, so the summary goes first
+          bad, same_pixels = [], 0
+          for code, row in old.items():
+              png = Path(f'assets/flags/{code}.png').read_bytes()
+              svg_same = hashlib.sha256(Path(f'assets/source_svg/{code}.svg').read_bytes()).hexdigest() == row['source_svg_sha256']
+              if hashlib.sha256(png).hexdigest() == row['sha256'] and svg_same:
+                  continue
+              bad.append(code)
+              previous = subprocess.run(['git', 'show', f'HEAD:assets/flags/{code}.png'], capture_output=True, check=True).stdout
+              a, b = Image.open(io.BytesIO(previous)), Image.open(io.BytesIO(png))
+              info = f'svg_same={svg_same} mode={a.mode}/{b.mode} size={a.size}/{b.size} bytes={len(previous)}/{len(png)}'
+              if a.size == b.size:
+                  diff = ImageChops.difference(a.convert('RGBA'), b.convert('RGBA'))
+                  extrema = max(high for _, high in diff.getextrema())
+                  changed = sum(1 for p in diff.getdata() if any(p))
+                  same_pixels += extrema == 0
+                  info += f' max_channel_diff={extrema} changed_pixels={changed}'
+              notes.append(f'::notice title=flag {code}::{info}')
+          print(f'::notice title=summary::changed {len(bad)}/60, pixel-identical among changed {same_pixels}: {" ".join(bad)}')
+          print(f'::notice title=environment::cairo {cairocffi.cairo_version_string()}, cairocffi {cairocffi.version}')
+          print('\n'.join(notes[:7]))
+          raise SystemExit(1 if bad else 0)
+          PY
+      - name: Commit assets
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets
+          if git diff --cached --quiet; then echo "assets unchanged"; exit 0; fi
+          git commit -m "Build 190 flag assets with CairoSVG 2.8.2 from pinned flag-icons"
+          git push

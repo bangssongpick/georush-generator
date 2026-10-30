@@ -1,4 +1,4 @@
-"""Editorial longform tiers over the unchanged, hash-verified 60-flag catalog."""
+"""Editorial longform tiers over the hash-verified 190-flag catalog."""
 from collections import Counter
 import hashlib
 import json
@@ -6,11 +6,17 @@ import random
 from ..quiz import validate_quiz, composition_signature
 
 TIERS = ('Easy', 'Normal', 'Hard', 'Expert')
-HARD = frozenset('ec bo pe cl co cr pa cu jm uy'.split())
-EXPERT = frozenset('kz uz ge am az al hr rs ba sk'.split())
+# Catalog 'Hard' flags split into Longform Hard and Expert; the first ten of each are the v1.3 groups.
+HARD = frozenset(('ec bo pe cl co cr pa cu jm uy '
+                  'bf bh bj bn bw bz cd cf cg ci cm ga gh gm gn gy la lr md mk '
+                  'ml mr mu mv mw ne rw sl so sr sy tg tt ye zm').split())
+EXPERT = frozenset(('kz uz ge am az al hr rs ba sk '
+                    'ki mh fm nr pw tv to ws sb vu ag dm gd kn lc vc ad li sm cv '
+                    'km st sc dj er gq gw sz ls ss bi bt tm tj tl').split())
 DIFFICULTY_NOTE = ('Editorial progression, not a measured player difficulty rating. Easy/Normal reuse the '
-                   'existing catalog. Hard: ten Americas/Caribbean flags. Expert: ten Eurasian/Balkan '
-                   'flags with regional symbols or similar tricolours. Familiarity varies by viewer.')
+                   'catalog groups. Hard: less familiar flags from the Americas, Africa and Asia. Expert: '
+                   'microstates, Pacific and Caribbean islands, Balkan and Central Asian flags with similar '
+                   'designs. Familiarity varies by viewer.')
 
 
 def tier_for(row):
