@@ -6,11 +6,14 @@ import json
 import multiprocessing
 from pathlib import Path
 
+from georush.batchsizes import LONGFORM_BATCH_SIZES, SHORTS_BATCH_SIZES
+
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description="GeoRush Generator — local flag quiz Shorts")
     parser.add_argument("--mode", choices=("Shorts", "Longform"), default="Shorts")
-    parser.add_argument("--generate", type=int, choices=(1, 2, 3, 5, 10), help="Generate a batch without the GUI")
+    parser.add_argument("--generate", type=int, choices=sorted(set(SHORTS_BATCH_SIZES) | set(LONGFORM_BATCH_SIZES)),
+                        help="Generate a batch without the GUI (Shorts: 1/2/3/5/10/20, Longform: 1/2/3)")
     parser.add_argument("--difficulty", choices=("Easy", "Normal", "Hard", "Mixed"), default="Mixed")
     parser.add_argument("--questions", type=int)
     parser.add_argument("--bgm", type=float, choices=(0.08, 0.10, 0.12), default=0.10)

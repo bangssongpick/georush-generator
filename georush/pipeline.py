@@ -9,6 +9,7 @@ import sqlite3
 import uuid
 
 from .audio import QUESTION_SECONDS, CTA_SECONDS
+from .batchsizes import SHORTS_BATCH_SIZES
 from .catalog import Catalog
 from .history import History
 from .paths import default_output_root, find_ffmpeg, data_root
@@ -33,8 +34,8 @@ def _metadata(folder, quiz):
 
 def generate_batch(count=1, difficulty='Mixed', questions_per_video=3, bgm_volume=.10,
                    output_root=None, progress_callback=None, seed=None):
-    if count not in (1, 3, 5, 10):
-        raise ValueError('제작 편수는 1 / 3 / 5 / 10 중에서 선택하세요.')
+    if count not in SHORTS_BATCH_SIZES:
+        raise ValueError('제작 편수는 '+' / '.join(str(n) for n in SHORTS_BATCH_SIZES)+' 중에서 선택하세요.')
     if bgm_volume not in (.08, .10, .12):
         raise ValueError('BGM 볼륨은 8% / 10% / 12%입니다.')
     root = Path(output_root if output_root is not None else default_output_root()).expanduser().resolve()
