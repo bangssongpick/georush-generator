@@ -12,6 +12,7 @@ import time
 from PIL import Image, ImageDraw, ImageFont
 
 from .audio import synthesize_audio, QUESTION_SECONDS, COUNTDOWN_SECONDS, CTA_SECONDS
+from .names import display_name
 from .paths import resource_root, subprocess_options
 
 WIDTH, HEIGHT, FPS = 1080, 1920, 30
@@ -65,7 +66,8 @@ def _question_data(question):
     flag_path=Path(question['flag_path'])
     if not flag_path.is_file():
         raise FileNotFoundError(f'Flag image missing: {flag_path}')
-    return names,correct,flag_path
+    # The checks above use the verified names; viewers see the familiar display names.
+    return [display_name(name) for name in names],correct,flag_path
 
 
 def _option(draw, index, name, correct=False):

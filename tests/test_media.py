@@ -27,7 +27,7 @@ class LocalAudioTests(unittest.TestCase):
                     self.assertEqual(wav.getnchannels(), 2)
                     self.assertEqual(wav.getframerate(), 48000)
                     self.assertEqual(wav.getsampwidth(), 2)
-                    self.assertEqual(wav.getnframes(), 21 * 48000)
+                    self.assertEqual(wav.getnframes(), round((3 * 6.5 + 3.0) * 48000))  # v1.3.4: 3 s call-to-action
                     samples = np.frombuffer(wav.readframes(wav.getnframes()), dtype="<i2").reshape(-1, 2)
                 self.assertEqual(report["clipped_samples"], 0)
                 self.assertLess(np.abs(samples.astype(np.int32)).max(), 32767)

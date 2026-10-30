@@ -12,6 +12,14 @@ class CatalogError(ValueError):
     pass
 
 
+# Flags whose current official design is contested or changed very recently. They stay in the data (provenance,
+# old history) but are never asked as a question or offered as an option.
+EXCLUDED_FROM_QUIZ = {
+    'af': 'two competing national flags (UN-recognised republic flag vs the ruling Taliban flag)',
+    'sy': 'national flag changed in 2024-25 and still disputed',
+}
+
+
 class Catalog:
     def __init__(self, assets_root=None):
         self.root = Path(assets_root) if assets_root is not None else resource_root()/'assets'
@@ -82,6 +90,8 @@ class Catalog:
     def valid_countries(self):
         valid, errors = [], []
         for row in self.countries:
+            if row['code'] in EXCLUDED_FROM_QUIZ:
+                continue
             try:
                 valid.append(self.validate_country(row['code']))
             except CatalogError as exc:

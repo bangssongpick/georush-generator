@@ -7,8 +7,9 @@ import unittest
 from PIL import Image, ImageDraw
 
 from georush import render
-from georush.catalog import Catalog
+from georush.catalog import Catalog, EXCLUDED_FROM_QUIZ
 from georush.longform import render as longform_render
+from georush.names import display_name
 from georush.longform.quiz import EXPERT, HARD, build as build_longform, tier_for, validate
 from georush.quiz import build_quiz, composition_signature, validate_quiz
 
@@ -31,8 +32,11 @@ class Catalog190Tests(unittest.TestCase):
     def test_un_members_minus_near_identical_flags(self):
         self.assertEqual(len(UN_MEMBERS), 193)
         self.assertEqual(self.errors, [])
-        self.assertEqual({row['code'] for row in self.valid}, UN_MEMBERS - OMITTED)
-        self.assertEqual(len({row['sha256'] for row in self.valid}), 190)
+        # v1.3.4: the data keeps all 190; the quiz pool leaves out the two contested flags (Afghanistan, Syria).
+        self.assertEqual({row['code'] for row in self.catalog.countries}, UN_MEMBERS - OMITTED)
+        self.assertEqual(len({row['sha256'] for row in self.catalog.countries}), 190)
+        self.assertEqual(set(EXCLUDED_FROM_QUIZ), {'af', 'sy'})
+        self.assertEqual({row['code'] for row in self.valid}, UN_MEMBERS - OMITTED - set(EXCLUDED_FROM_QUIZ))
 
     def test_v13_countries_unchanged(self):
         rows = {row['code']: row for row in self.catalog.countries}
@@ -41,23 +45,27 @@ class Catalog190Tests(unittest.TestCase):
                 self.assertEqual({key: rows[code][key] for key in old}, old)
 
     def test_groups_and_longform_split(self):
-        self.assertEqual(Counter(row['difficulty'] for row in self.valid), {'Easy': 40, 'Normal': 60, 'Hard': 90})
-        hard = {row['code'] for row in self.valid if row['difficulty'] == 'Hard'}
+        self.assertEqual(Counter(row['difficulty'] for row in self.catalog.countries), {'Easy': 40, 'Normal': 60, 'Hard': 90})
+        hard = {row['code'] for row in self.catalog.countries if row['difficulty'] == 'Hard'}
         self.assertFalse(HARD & EXPERT)
         self.assertEqual(HARD | EXPERT, hard)
-        self.assertEqual(Counter(tier_for(row) for row in self.valid)['Expert'], 45)
+        self.assertEqual(Counter(tier_for(row) for row in self.catalog.countries)['Expert'], 45)
+        # Quiz pool without Afghanistan (Normal) and Syria (Longform Hard).
+        self.assertEqual(Counter(row['difficulty'] for row in self.valid), {'Easy': 40, 'Normal': 59, 'Hard': 89})
+        self.assertEqual(Counter(tier_for(row) for row in self.valid), {'Easy': 40, 'Normal': 59, 'Hard': 44, 'Expert': 45})
 
     def test_every_name_fits_shorts_and_longform_layouts(self):
         short = ImageDraw.Draw(Image.new('RGB', (1080, 1920)))
         wide = Image.new('RGB', (1920, 1080))
-        for row in self.valid:
-            with self.subTest(country=row['name']):
-                render._option(short, 3, row['name'], True)  # raises when it cannot fit
-                reveal = f"D · {row['name']}"
+        for row in self.catalog.countries:
+            shown = display_name(row['name'])
+            with self.subTest(country=shown):
+                render._option(short, 3, shown, True)  # raises when it cannot fit
+                reveal = f"D · {shown}"
                 size = render._center(short, reveal, 1105, 48, max_width=900)
                 self.assertLessEqual(short.textbbox((0, 0), reveal, font=render._font(size))[2], 900)
-                longform_render.option(wide, 3, row['name'], True, 1.025)
-                longform_render.text(ImageDraw.Draw(wide), f"D: {row['name']}", (1455, 478, 405, 160), 35)
+                longform_render.option(wide, 3, shown, True, 1.025)
+                longform_render.text(ImageDraw.Draw(wide), f"D: {shown}", (1455, 478, 405, 160), 35)
 
     def test_every_country_links_flag_name_and_revealed_answer(self):
         # Each country as the answer: catalog checks pass and the green card lands on its option.

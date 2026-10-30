@@ -10,7 +10,7 @@ import numpy as np
 SAMPLE_RATE = 48_000
 QUESTION_SECONDS = 6.5
 COUNTDOWN_SECONDS = 5.0
-CTA_SECONDS = 1.5
+CTA_SECONDS = 3.0  # v1.3.4: the score call-to-action stays long enough to read and comment on (was 1.5)
 
 
 def synthesize_audio(destination: Path, question_count: int, bgm_volume: float = .10) -> dict:
