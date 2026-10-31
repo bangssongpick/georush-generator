@@ -79,11 +79,14 @@ def build_quiz(catalog, history=None, difficulty='Mixed', questions_per_video=3,
     used = history.used_signatures() if history is not None else set()
     recent_runs = history.recent_shorts_country_codes(RECENT_SHORTS) if history is not None else []
     # Drop the oldest Shorts from the avoided set until enough countries remain; 0 means the whole pool.
+    avoid = history.avoided_codes() if history is not None else set()  # v1.3.6: flags already on the channel
     for window in range(len(recent_runs), -1, -1):
-        recent = set().union(*recent_runs[:window])
+        recent = set().union(*recent_runs[:window]) | avoid
         fresh = [row for row in pool if row['code'] not in recent]
         if len(fresh) >= questions_per_video:
             break
+    if len(fresh) < questions_per_video:  # the avoid list left too little: it is a preference, not a rule
+        fresh = pool
     selection_pool = fresh
     pick = _tier_balanced_sample if difficulty == 'Mixed' else lambda r, rows, k: r.sample(rows, k)
     for attempt in range(512):

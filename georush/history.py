@@ -63,6 +63,15 @@ class History:
                 runs.append({q['country_code'] for q in json.loads(row[0])['questions']})
         return runs
 
+    def avoided_codes(self):
+        """Flags the user wants kept out of new Shorts, e.g. those already on the channel (v1.3.6).
+        Read from avoid_codes.txt next to the history database: country codes separated by spaces, commas or lines."""
+        try:
+            text = (self.path.parent/'avoid_codes.txt').read_text(encoding='utf-8-sig')
+        except OSError:
+            return set()
+        return {token for token in text.lower().replace(',', ' ').split() if len(token) == 2 and token.isalpha()}
+
     def recent_longform_country_codes(self, limit=2):
         # Newest first; only Longform runs, so the 20-40 flags of one Longform never hide Shorts flags.
         runs = []
