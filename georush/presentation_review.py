@@ -5,13 +5,17 @@ import math
 import subprocess
 import numpy as np
 from PIL import Image, ImageDraw
+from .audio import COUNTDOWN_SECONDS, CTA_SECONDS, QUESTION_SECONDS
 from .render import prepare_animation, animated_frame, _font
 from .paths import subprocess_options
 
 
 def review_video(video, quiz, destination, ffmpeg):
     destination=Path(destination);destination.mkdir(parents=True,exist_ok=True)
-    indices=[0,3,9,21,30,33,75,93,149,151,154,195,629]
+    # Frame numbers follow the real timing constants (v1.3.6: 5.5 s questions, 4 s countdown, 3 s call-to-action).
+    reveal=round(COUNTDOWN_SECONDS*30);second_question=round(QUESTION_SECONDS*30)
+    last=round((len(quiz['questions'])*QUESTION_SECONDS+CTA_SECONDS)*30)-1
+    indices=[0,3,9,21,30,33,75,93,reveal-1,reveal+1,reveal+4,second_question,last]
     select='select='+ '+'.join(f'eq(n\\,{n})' for n in indices)
     result=subprocess.run([str(ffmpeg),'-hide_banner','-v','error','-y','-i',str(video),
                            '-vf',select,'-fps_mode','passthrough','-frames:v',str(len(indices)),
@@ -31,7 +35,7 @@ def review_video(video, quiz, destination, ffmpeg):
     intro_delta=float(np.abs(frames[0][469:921,151:929]-frames[9][469:921,151:929]).mean())
     assert intro_delta>1,('Encoded flag entrance does not move',intro_delta)
     assert frames[0][480:915,170:910].std()>20
-    for n in (151,154):
+    for n in (reveal+1,reveal+4):
         winners=[]
         for option in range(4):
             x=76+option%2*480;y=1255+option//2*178
@@ -39,11 +43,11 @@ def review_video(video, quiz, destination, ffmpeg):
             green=(p[:,:,1]>p[:,:,0]+60)&(p[:,:,1]>p[:,:,2]+25)&(p[:,:,1]>140)
             if green.sum()>1000:winners.append(option)
         assert winners==[quiz['questions'][0]['correct_index']],('Incorrect revealed answer',n,winners)
-    for n in (0,195):
+    for n in (0,second_question):
         p=frames[n][1245:1605,60:1030]
         green=(p[:,:,1]>p[:,:,0]+60)&(p[:,:,1]>p[:,:,2]+25)&(p[:,:,1]>140)
         assert green.sum()<200,('Answer effect leaked into new question',n)
-    selected=[0,9,21,30,75,149,151,195,629]
+    selected=[0,9,21,30,75,reveal-1,reveal+1,second_question,last]
     sheet=Image.new('RGB',(810,1530),'#031025');draw=ImageDraw.Draw(sheet)
     for i,n in enumerate(selected):
         x=i%3*270;y=i//3*510

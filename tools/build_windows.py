@@ -58,15 +58,15 @@ if __name__ == '__main__':
         environment['GEORUSH_LONGFORM_QUESTIONS']=str(count)
         result=check(folder/'GeoRushGenerator.exe','--longform-check',f'WINDOWS_LONGFORM_{count}_VALIDATION.json',1800)
         longforms.append(result)
-        shutil.copy2(Path(result['video_folder'])/'longform.mp4',ROOT/'dist'/f'GeoRush-v1.3.5-Longform-{count}.mp4')
-        shutil.copy2(Path(result['video_folder'])/'longform_thumbnail.jpg',ROOT/'dist'/f'GeoRush-v1.3.5-Longform-{count}-thumbnail.jpg')
-        shutil.copy2(Path(result['video_folder'])/'longform_metadata.txt',ROOT/'dist'/f'GeoRush-v1.3.5-Longform-{count}-metadata.txt')
-        shutil.copy2(Path(result['debug_folder'])/'review'/'CONTACT_SHEET.jpg',ROOT/'dist'/f'GeoRush-v1.3.5-Longform-{count}-frames.jpg')
+        shutil.copy2(Path(result['video_folder'])/'longform.mp4',ROOT/'dist'/f'GeoRush-v1.3.6-Longform-{count}.mp4')
+        shutil.copy2(Path(result['video_folder'])/'longform_thumbnail.jpg',ROOT/'dist'/f'GeoRush-v1.3.6-Longform-{count}-thumbnail.jpg')
+        shutil.copy2(Path(result['video_folder'])/'longform_metadata.txt',ROOT/'dist'/f'GeoRush-v1.3.6-Longform-{count}-metadata.txt')
+        shutil.copy2(Path(result['debug_folder'])/'review'/'CONTACT_SHEET.jpg',ROOT/'dist'/f'GeoRush-v1.3.6-Longform-{count}-frames.jpg')
     moved_root=Path(tempfile.mkdtemp(prefix='GeoRush 이동 검증 '));moved=moved_root/'GeoRush 앱'
     shutil.copytree(folder,moved)
     relocated=check(moved/'GeoRushGenerator.exe','--distribution-check','WINDOWS_RELOCATION_VALIDATION.json')
-    shutil.copy2(Path(short['video_folder'])/'shorts.mp4',ROOT/'dist'/'GeoRush-v1.3.5-Shorts-sample.mp4')
-    archive=ROOT/'dist'/'GeoRush-v1.3.5-Windows-EXE.zip';temporary=archive.with_suffix('.pending.zip')
+    shutil.copy2(Path(short['video_folder'])/'shorts.mp4',ROOT/'dist'/'GeoRush-v1.3.6-Shorts-sample.mp4')
+    archive=ROOT/'dist'/'GeoRush-v1.3.6-Windows-EXE.zip';temporary=archive.with_suffix('.pending.zip')
     with zipfile.ZipFile(temporary,'w',zipfile.ZIP_DEFLATED) as out:
         for path in folder.rglob('*'):
             if path.is_file():out.write(path,'GeoRushGenerator/'+path.relative_to(folder).as_posix())

@@ -7,6 +7,7 @@ import random
 from .catalog import CatalogError
 
 LEVELS = ('Easy', 'Normal', 'Hard', 'Mixed')
+TIER_ORDER = {'Easy': 0, 'Normal': 1, 'Hard': 2}
 RECENT_SHORTS = 21  # Shorts whose countries are avoided, newest first: one week at 3 Shorts a day (v1.3.2-v1.3.4: 7)
 
 
@@ -78,11 +79,14 @@ def build_quiz(catalog, history=None, difficulty='Mixed', questions_per_video=3,
     used = history.used_signatures() if history is not None else set()
     recent_runs = history.recent_shorts_country_codes(RECENT_SHORTS) if history is not None else []
     # Drop the oldest Shorts from the avoided set until enough countries remain; 0 means the whole pool.
+    avoid = history.avoided_codes() if history is not None else set()  # v1.3.6: flags already on the channel
     for window in range(len(recent_runs), -1, -1):
-        recent = set().union(*recent_runs[:window])
+        recent = set().union(*recent_runs[:window]) | avoid
         fresh = [row for row in pool if row['code'] not in recent]
         if len(fresh) >= questions_per_video:
             break
+    if len(fresh) < questions_per_video:  # the avoid list left too little: it is a preference, not a rule
+        fresh = pool
     selection_pool = fresh
     pick = _tier_balanced_sample if difficulty == 'Mixed' else lambda r, rows, k: r.sample(rows, k)
     for attempt in range(512):
@@ -100,6 +104,9 @@ def build_quiz(catalog, history=None, difficulty='Mixed', questions_per_video=3,
                               'flag_sha256': country['sha256'], 'options': options,
                               'correct_index': options.index(country['name']),
                               'difficulty': country['difficulty']})
+        # v1.3.6: easiest flag first (a quick win keeps viewers), hardest last (a reason to stay for the finale).
+        # Python's sort is stable, so flags of the same tier keep their random order. The signature ignores order.
+        questions.sort(key=lambda q: TIER_ORDER.get(q['difficulty'], 1))
         signature = composition_signature(questions)
         if signature not in used:
             quiz = {'schema_version': 1, 'channel': 'GeoRush', 'difficulty': difficulty,

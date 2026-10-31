@@ -7,7 +7,7 @@ on:
         type: boolean
         default: false
   push:
-    branches: [feature/v1.3.5-small]
+    branches: [feature/v1.3.6-retention]
 permissions:
   contents: read
 jobs:
@@ -30,14 +30,14 @@ jobs:
         run: python tools/build_windows.py
       - uses: actions/upload-artifact@v4
         with:
-          name: GeoRush-v1.3.5-Windows-EXE
+          name: GeoRush-v1.3.6-Windows-EXE
           path: |
-            dist/GeoRush-v1.3.5-Windows-EXE.zip
-            dist/GeoRush-v1.3.5-Windows-EXE.zip.sha256
+            dist/GeoRush-v1.3.6-Windows-EXE.zip
+            dist/GeoRush-v1.3.6-Windows-EXE.zip.sha256
             dist/WINDOWS_BUILD_REPORT.json
-            dist/GeoRush-v1.3.5-*.mp4
-            dist/GeoRush-v1.3.5-*.jpg
-            dist/GeoRush-v1.3.5-*-metadata.txt
+            dist/GeoRush-v1.3.6-*.mp4
+            dist/GeoRush-v1.3.6-*.jpg
+            dist/GeoRush-v1.3.6-*-metadata.txt
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -56,7 +56,7 @@ jobs:
     steps:
       - uses: actions/download-artifact@v4
         with:
-          name: GeoRush-v1.3.5-Windows-EXE
+          name: GeoRush-v1.3.6-Windows-EXE
           path: release
       - name: Publish tested EXE download
         env:
@@ -71,4 +71,4 @@ jobs:
           Automated checks: all existing regressions plus recent-Shorts tests. Actual frozen EXE GUI-button renders for Shorts and 20/40-question Longform, full video/audio decode and Korean-path relocation. See WINDOWS_BUILD_REPORT.json.
           Limits: hosted Windows runner; manual visual/audio review and real OneDrive cloud sync remain to be checked on the user PC.
           NOTES
-          gh release create v1.3.5-windows release/* --target "$SOURCE_SHA" --title "GeoRush v1.3.5 — small polish" --notes-file notes.md
+          gh release create v1.3.6-windows release/* --target "$SOURCE_SHA" --title "GeoRush v1.3.6 — retention" --notes-file notes.md

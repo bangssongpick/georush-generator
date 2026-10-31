@@ -8,9 +8,10 @@ import wave
 import numpy as np
 
 SAMPLE_RATE = 48_000
-QUESTION_SECONDS = 6.5
-COUNTDOWN_SECONDS = 5.0
+QUESTION_SECONDS = 5.5   # v1.3.6: was 6.5 - shorter Shorts keep more viewers watching
+COUNTDOWN_SECONDS = 4.0  # v1.3.6: was 5.0 (countdown 4-3-2-1, then a 1.5 s answer reveal)
 CTA_SECONDS = 3.0  # v1.3.4: the score call-to-action stays long enough to read and comment on (was 1.5)
+COUNTDOWN_TICKS = int(COUNTDOWN_SECONDS)
 
 
 def synthesize_audio(destination: Path, question_count: int, bgm_volume: float = .10) -> dict:
@@ -64,8 +65,8 @@ def synthesize_audio(destination: Path, question_count: int, bgm_volume: float =
     for question in range(question_count):
         base = question*QUESTION_SECONDS
         add_tone(base+.12,(740.0,1110.0),.14,.08,'entrance')
-        for tick in range(5):
-            add_tone(base+tick,(1000.0 if tick<4 else 1250.0,),.075,.12,'countdown_tick')
+        for tick in range(COUNTDOWN_TICKS):
+            add_tone(base+tick,(1000.0 if tick<COUNTDOWN_TICKS-1 else 1250.0,),.075,.12,'countdown_tick')
         # A short ascending major chord is an original answer reveal cue.
         for step, frequency in enumerate((523.251,659.255,783.991)):
             add_tone(base+COUNTDOWN_SECONDS+step*.065,(frequency,),.24,.15,'correct_answer')

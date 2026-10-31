@@ -27,16 +27,16 @@ class LocalAudioTests(unittest.TestCase):
                     self.assertEqual(wav.getnchannels(), 2)
                     self.assertEqual(wav.getframerate(), 48000)
                     self.assertEqual(wav.getsampwidth(), 2)
-                    self.assertEqual(wav.getnframes(), round((3 * 6.5 + 3.0) * 48000))  # v1.3.4: 3 s call-to-action
+                    self.assertEqual(wav.getnframes(), round((3 * 5.5 + 3.0) * 48000))  # v1.3.4: 3 s call-to-action
                     samples = np.frombuffer(wav.readframes(wav.getnframes()), dtype="<i2").reshape(-1, 2)
                 self.assertEqual(report["clipped_samples"], 0)
                 self.assertLess(np.abs(samples.astype(np.int32)).max(), 32767)
                 self.assertLessEqual(report["peak_pcm"], .921)
                 self.assertEqual(report["bgm_gain"], gain)
                 events = report["events"]
-                self.assertEqual(sum(e["kind"] == "countdown_tick" for e in events), 15)
+                self.assertEqual(sum(e["kind"] == "countdown_tick" for e in events), 12)
                 self.assertEqual(sum(e["kind"] == "transition" for e in events), 2)
-                for start in (5.0, 11.5, 18.0):
+                for start in (4.0, 9.5, 15.0):
                     self.assertTrue(any(e["kind"] == "correct_answer" and e["time_seconds"] == start
                                         for e in events))
                 # No effects occur from .40 to .60s: measure the actual music gain.
@@ -80,7 +80,7 @@ class PillowLayoutTests(unittest.TestCase):
                 self.assertLessEqual(right, WIDTH - 45)
                 self.assertGreaterEqual(top, 45)
                 self.assertLessEqual(bottom, HEIGHT - 45)
-        self.assertTrue(any(text == "Which country is this?" for text, _ in seen))
+        self.assertTrue(any(text == "Can you get all 3?" for text, _ in seen))  # v1.3.6: the first flag carries a hook
         self.assertTrue(any(text == "CORRECT ANSWER" for text, _ in seen))
         self.assertFalse(any("..." in text or "…" in text for text, _ in seen))
 

@@ -11,7 +11,7 @@ import time
 
 from PIL import Image, ImageDraw, ImageFont
 
-from .audio import synthesize_audio, QUESTION_SECONDS, COUNTDOWN_SECONDS, CTA_SECONDS
+from .audio import synthesize_audio, QUESTION_SECONDS, COUNTDOWN_SECONDS, COUNTDOWN_TICKS, CTA_SECONDS
 from .names import display_name
 from .paths import resource_root, subprocess_options
 
@@ -100,11 +100,21 @@ def _option(draw, index, name, correct=False):
         top+=line_height
 
 
+def _headline(index,count):
+    """v1.3.6: a hook on the first flag and a 'final flag' tease on the last, to keep viewers from swiping away."""
+    if count>1 and index==0:
+        return 'GUESS THE FLAG!',f'Can you get all {count}?'
+    if count>1 and index==count-1:
+        return 'FINAL FLAG!','Get it right for a perfect score!'
+    return 'GUESS THE FLAG!','Which country is this?'
+
+
 def _question_static(question,index,count,background,reveal=False):
     options,correct,flag_path=_question_data(question)
     image=background.copy();draw=ImageDraw.Draw(image)
-    _center(draw,'GUESS THE FLAG!',250,66,YELLOW)
-    _center(draw,'Which country is this?',346,40,WHITE)
+    title,subtitle=_headline(index,count)
+    _center(draw,title,250,66,YELLOW)
+    _center(draw,subtitle,346,40,WHITE)
     draw.rounded_rectangle((130,445,950,945),radius=30,fill='#F4F8FF',outline='#86AEFF',width=4)
     with Image.open(flag_path) as source:
         flag=source.convert('RGBA')
@@ -143,7 +153,7 @@ def animation_state(second, question_count):
     state = {'question_index': index, 'local': local, 'cta': index >= question_count,
              'reveal': local >= COUNTDOWN_SECONDS, 'flag_scale': 1.0,
              'title_offset': 0, 'digit_scale': 1.0, 'answer_scale': 1.0,
-             'urgent': 3.0 <= local < COUNTDOWN_SECONDS,
+             'urgent': COUNTDOWN_SECONDS-2.0 <= local < COUNTDOWN_SECONDS,
              'progress': max(0.0, 1-local/COUNTDOWN_SECONDS)}
     if local < .28:
         state['flag_scale'] = .84+.185*(1-(1-local/.28)**3)
@@ -152,9 +162,9 @@ def animation_state(second, question_count):
         state['flag_scale'] = 1.025-.025*(t*t*(3-2*t))
     state['title_offset'] = round(8*(1-min(local/.35,1))**2)
     if local < COUNTDOWN_SECONDS:
-        tick = min(4, int(local+1e-8))
+        tick = min(COUNTDOWN_TICKS-1, int(local+1e-8))
         phase = max(0, local-tick)
-        state['remaining'] = 5-tick
+        state['remaining'] = COUNTDOWN_TICKS-tick
         state['digit_scale'] = 1+.13*math.sin(math.pi*min(phase/.18,1))
     else:
         elapsed=local-COUNTDOWN_SECONDS
@@ -196,8 +206,9 @@ def animated_frame(context, second):
         if state['title_offset']:
             image.paste(context['background'].crop((80,232,1000,420)),(80,232))
             draw=ImageDraw.Draw(image)
-            _center(draw,'GUESS THE FLAG!',250+state['title_offset'],66,YELLOW)
-            _center(draw,'Which country is this?',346+state['title_offset'],40,WHITE)
+            title,subtitle=_headline(index,len(questions))
+            _center(draw,title,250+state['title_offset'],66,YELLOW)
+            _center(draw,subtitle,346+state['title_offset'],40,WHITE)
         color='#FFC663' if state['urgent'] else YELLOW
         draw=ImageDraw.Draw(image)
         draw.arc((450,1033,630,1213),-90,270,fill='#34558B',width=9)
@@ -262,7 +273,7 @@ def render_video(quiz, destination, bgm_volume=.10, progress_callback=None, ffmp
                 if (number%round(QUESTION_SECONDS*FPS)==0 or
                     number%round(QUESTION_SECONDS*FPS)==round(2.0*FPS) or
                     number%round(QUESTION_SECONDS*FPS)==round(COUNTDOWN_SECONDS*FPS)) and question_index<count:
-                    label='start' if local<.01 else 'countdown' if local<5 else 'answer'
+                    label='start' if local<.01 else 'countdown' if local<COUNTDOWN_SECONDS else 'answer'
                     name=f'question_{question_index+1:02d}_{label}.jpg'
                     image.save(inspection/name,quality=92)
                     inspections.append({'file':name,'time_seconds':second,'frame':number})

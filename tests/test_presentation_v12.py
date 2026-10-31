@@ -9,7 +9,7 @@ from PIL import ImageDraw
 from georush.catalog import Catalog
 from georush.quiz import build_quiz
 from georush.render import prepare_animation, animated_frame, animation_state
-from georush.audio import synthesize_audio, QUESTION_SECONDS, COUNTDOWN_SECONDS
+from georush.audio import synthesize_audio, QUESTION_SECONDS, COUNTDOWN_SECONDS, COUNTDOWN_TICKS
 
 
 class PresentationV12Tests(unittest.TestCase):
@@ -35,7 +35,7 @@ class PresentationV12Tests(unittest.TestCase):
         for q in range(3):
             w,h=self.context['flags'][q].size
             for step in range(31):
-                s=animation_state(q*6.5+step/30,3)['flag_scale']
+                s=animation_state(q*QUESTION_SECONDS+step/30,3)['flag_scale']
                 self.assertGreaterEqual((1080-w*s)/2,130)
                 self.assertLessEqual((1080+w*s)/2,950)
                 self.assertGreaterEqual(695-h*s/2,445)
@@ -47,12 +47,12 @@ class PresentationV12Tests(unittest.TestCase):
             seen.append((str(text),draw.textbbox(xy,text,font=kwargs.get('font'))))
             return original(draw,xy,text,*args,**kwargs)
         with patch.object(ImageDraw.ImageDraw,'text',measured):
-            for t in (0,.1,.3,.7,1,3.09,4.99,5,5.13,6.49):
+            for t in (0,.1,.3,.7,1,2.59,3.99,4,4.13,5.49):
                 animated_frame(self.context,t)
         for text,(x0,y0,x1,y1) in seen:
             self.assertGreaterEqual(x0,45,text);self.assertLessEqual(x1,1035,text)
             self.assertGreaterEqual(y0,45,text);self.assertLessEqual(y1,1875,text)
-        options=[animated_frame(self.context,t).crop((60,1245,1030,1605)).tobytes() for t in (0,.3,.7,1,3.09,4.99)]
+        options=[animated_frame(self.context,t).crop((60,1245,1030,1605)).tobytes() for t in (0,.3,.7,1,2.59,3.99)]
         self.assertTrue(all(p==options[0] for p in options))
         before=np.asarray(animated_frame(self.context,0),dtype=float)
         after=np.asarray(animated_frame(self.context,.3),dtype=float)
@@ -65,28 +65,28 @@ class PresentationV12Tests(unittest.TestCase):
     def test_countdown_tick_pulse_progress_and_urgent_color_timing(self):
         for q in range(3):
             progress=[]
-            for tick in range(5):
-                base=q*6.5+tick
-                self.assertEqual(animation_state(base,3)['remaining'],5-tick)
+            for tick in range(COUNTDOWN_TICKS):
+                base=q*QUESTION_SECONDS+tick
+                self.assertEqual(animation_state(base,3)['remaining'],COUNTDOWN_TICKS-tick)
                 self.assertGreater(animation_state(base+.09,3)['digit_scale'],1.12)
                 self.assertAlmostEqual(animation_state(base+.30,3)['digit_scale'],1)
                 progress.append(animation_state(base,3)['progress'])
             self.assertEqual(progress,sorted(progress,reverse=True))
-            self.assertFalse(animation_state(q*6.5+2.99,3)['urgent'])
-            self.assertTrue(animation_state(q*6.5+3,3)['urgent'])
+            self.assertFalse(animation_state(q*QUESTION_SECONDS+1.99,3)['urgent'])
+            self.assertTrue(animation_state(q*QUESTION_SECONDS+2,3)['urgent'])
 
     def test_answer_has_unchanged_hold_and_short_scale_reward(self):
-        self.assertEqual((QUESTION_SECONDS,COUNTDOWN_SECONDS),(6.5,5.0))
+        self.assertEqual((QUESTION_SECONDS,COUNTDOWN_SECONDS),(5.5,4.0))
         for q in range(3):
-            base=q*6.5
-            self.assertFalse(animation_state(base+4.99,3)['reveal'])
-            self.assertTrue(animation_state(base+5,3)['reveal'])
-            self.assertGreater(animation_state(base+5.14,3)['answer_scale'],1.039)
-            self.assertAlmostEqual(animation_state(base+5.4,3)['answer_scale'],1)
-            self.assertTrue(animation_state(base+6.49,3)['reveal'])
+            base=q*QUESTION_SECONDS
+            self.assertFalse(animation_state(base+3.99,3)['reveal'])
+            self.assertTrue(animation_state(base+4,3)['reveal'])
+            self.assertGreater(animation_state(base+4.14,3)['answer_scale'],1.039)
+            self.assertAlmostEqual(animation_state(base+4.4,3)['answer_scale'],1)
+            self.assertTrue(animation_state(base+5.49,3)['reveal'])
 
     def test_answer_card_stays_safe_in_every_position(self):
-        scale=animation_state(5.14,3)['answer_scale']
+        scale=animation_state(4.14,3)['answer_scale']
         for i in range(4):
             x=76+(i%2)*480;y=1255+(i//2)*178
             self.assertGreaterEqual(x-(449*scale-449)/2,45)
@@ -96,10 +96,10 @@ class PresentationV12Tests(unittest.TestCase):
 
     def test_next_question_resets_answer_effect(self):
         for q in (1,2):
-            state=animation_state(q*6.5,3)
+            state=animation_state(q*QUESTION_SECONDS,3)
             self.assertFalse(state['reveal']);self.assertEqual(state['answer_scale'],1)
-            self.assertEqual(state['remaining'],5)
-            actual=animated_frame(self.context,q*6.5).crop((60,1245,1030,1605)).tobytes()
+            self.assertEqual(state['remaining'],COUNTDOWN_TICKS)
+            actual=animated_frame(self.context,q*QUESTION_SECONDS).crop((60,1245,1030,1605)).tobytes()
             expected=self.context['boards'][q][0].crop((60,1245,1030,1605)).tobytes()
             self.assertEqual(actual,expected)
 
@@ -112,15 +112,15 @@ class PresentationV12Tests(unittest.TestCase):
                 events=report['events'];keys=[(e['kind'],round(e['time_seconds'],6)) for e in events]
                 self.assertEqual(len(keys),len(set(keys)))
                 for q in range(3):
-                    self.assertIn(('entrance',round(q*6.5+.12,6)),keys)
-                    for tick in range(5):self.assertIn(('countdown_tick',q*6.5+tick),keys)
-                    self.assertIn(('correct_answer',q*6.5+5),keys)
+                    self.assertIn(('entrance',round(q*QUESTION_SECONDS+.12,6)),keys)
+                    for tick in range(COUNTDOWN_TICKS):self.assertIn(('countdown_tick',q*QUESTION_SECONDS+tick),keys)
+                    self.assertIn(('correct_answer',q*QUESTION_SECONDS+COUNTDOWN_SECONDS),keys)
                 self.assertEqual(report['clipped_samples'],0)
                 self.assertLess(float(np.abs(np.diff(pcm,axis=0)).max()),.15)
                 self.assertTrue(np.all(pcm[-1]==0));self.assertEqual(report['end_fade_seconds'],.45)
 
     def test_visual_frames_change_and_cta_fills_the_canvas(self):
-        frames=[animated_frame(self.context,t) for t in (0,.3,.7,1,2.5,4.9666667,5.0333333,6.5,20.9666667)]
+        frames=[animated_frame(self.context,t) for t in (0,.3,.7,1,2.5,3.9666667,4.0333333,5.5,18.9666667)]
         self.assertEqual(len({im.tobytes() for im in frames}),len(frames))
         self.assertTrue(all(im.size==(1080,1920) for im in frames))
         self.assertGreater(float(np.asarray(frames[-1]).std()),20)
