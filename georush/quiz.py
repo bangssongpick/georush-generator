@@ -7,6 +7,7 @@ import random
 from .catalog import CatalogError
 
 LEVELS = ('Easy', 'Normal', 'Hard', 'Mixed')
+TIER_ORDER = {'Easy': 0, 'Normal': 1, 'Hard': 2}
 RECENT_SHORTS = 21  # Shorts whose countries are avoided, newest first: one week at 3 Shorts a day (v1.3.2-v1.3.4: 7)
 
 
@@ -100,6 +101,9 @@ def build_quiz(catalog, history=None, difficulty='Mixed', questions_per_video=3,
                               'flag_sha256': country['sha256'], 'options': options,
                               'correct_index': options.index(country['name']),
                               'difficulty': country['difficulty']})
+        # v1.3.6: easiest flag first (a quick win keeps viewers), hardest last (a reason to stay for the finale).
+        # Python's sort is stable, so flags of the same tier keep their random order. The signature ignores order.
+        questions.sort(key=lambda q: TIER_ORDER.get(q['difficulty'], 1))
         signature = composition_signature(questions)
         if signature not in used:
             quiz = {'schema_version': 1, 'channel': 'GeoRush', 'difficulty': difficulty,
