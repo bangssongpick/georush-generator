@@ -19,7 +19,7 @@ class RetentionTests(unittest.TestCase):
         self.assertEqual(QUESTION_SECONDS - COUNTDOWN_SECONDS, 1.5)      # the answer is still shown for 1.5 s
 
     def test_headlines_hook_first_tease_last(self):
-        self.assertEqual(render._headline(0, 3), ('GUESS THE FLAG!', 'Can you get all 3?'))
+        self.assertEqual(render._headline(0, 3), ('WHICH COUNTRY IS THIS?', 'Can you get all 3?'))  # v1.3.7
         self.assertEqual(render._headline(1, 3), ('GUESS THE FLAG!', 'Which country is this?'))
         self.assertEqual(render._headline(2, 3), ('FINAL FLAG!', 'Get it right for a perfect score!'))
         self.assertEqual(render._headline(0, 1), ('GUESS THE FLAG!', 'Which country is this?'))

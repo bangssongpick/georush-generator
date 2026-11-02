@@ -20,6 +20,10 @@ YELLOW = '#FFE451'
 WHITE = '#F5FAFF'
 MUTED = '#B8D2FF'
 GREEN = '#5DFFC2'
+TITLE_SIZE = 74      # v1.3.7: larger first-screen question (was 66 / 40) so it reads at phone size
+SUBTITLE_SIZE = 50
+FLAG_POP_SECONDS = .35
+HEADLINE_WIDTH = 900  # stays inside the 80-1000 px band that the title animation repaints
 ASSETS = resource_root()/'assets'
 
 
@@ -101,9 +105,10 @@ def _option(draw, index, name, correct=False):
 
 
 def _headline(index,count):
-    """v1.3.6: a hook on the first flag and a 'final flag' tease on the last, to keep viewers from swiping away."""
+    """v1.3.6: a hook on the first flag and a 'final flag' tease on the last, to keep viewers from swiping away.
+    v1.3.7: the very first screen states the actual question, large, with the hook under it."""
     if count>1 and index==0:
-        return 'GUESS THE FLAG!',f'Can you get all {count}?'
+        return 'WHICH COUNTRY IS THIS?',f'Can you get all {count}?'
     if count>1 and index==count-1:
         return 'FINAL FLAG!','Get it right for a perfect score!'
     return 'GUESS THE FLAG!','Which country is this?'
@@ -113,8 +118,8 @@ def _question_static(question,index,count,background,reveal=False):
     options,correct,flag_path=_question_data(question)
     image=background.copy();draw=ImageDraw.Draw(image)
     title,subtitle=_headline(index,count)
-    _center(draw,title,250,66,YELLOW)
-    _center(draw,subtitle,346,40,WHITE)
+    _center(draw,title,250,TITLE_SIZE,YELLOW,max_width=HEADLINE_WIDTH)
+    _center(draw,subtitle,346,SUBTITLE_SIZE,WHITE,max_width=HEADLINE_WIDTH)
     draw.rounded_rectangle((130,445,950,945),radius=30,fill='#F4F8FF',outline='#86AEFF',width=4)
     with Image.open(flag_path) as source:
         flag=source.convert('RGBA')
@@ -155,11 +160,9 @@ def animation_state(second, question_count):
              'title_offset': 0, 'digit_scale': 1.0, 'answer_scale': 1.0,
              'urgent': COUNTDOWN_SECONDS-2.0 <= local < COUNTDOWN_SECONDS,
              'progress': max(0.0, 1-local/COUNTDOWN_SECONDS)}
-    if local < .28:
-        state['flag_scale'] = .84+.185*(1-(1-local/.28)**3)
-    elif local < .65:
-        t=(local-.28)/.37
-        state['flag_scale'] = 1.025-.025*(t*t*(3-2*t))
+    if local < FLAG_POP_SECONDS:
+        # v1.3.7: the flag is full size on the very first frame (it used to start at 84%) and gives a short pop.
+        state['flag_scale'] = 1+.06*math.sin(math.pi*local/FLAG_POP_SECONDS)
     state['title_offset'] = round(8*(1-min(local/.35,1))**2)
     if local < COUNTDOWN_SECONDS:
         tick = min(COUNTDOWN_TICKS-1, int(local+1e-8))
@@ -197,7 +200,7 @@ def animated_frame(context, second):
     image=context['boards'][index][int(state['reveal'])].copy()
     draw=ImageDraw.Draw(image)
     if not state['reveal']:
-        if local < .65:
+        if local < FLAG_POP_SECONDS:
             # Keep the whole flag visible, including frame zero. No blackout/fade.
             draw.rectangle((151,469,929,921),fill='#F4F8FF')
             flag=context['flags'][index]
@@ -207,8 +210,8 @@ def animated_frame(context, second):
             image.paste(context['background'].crop((80,232,1000,420)),(80,232))
             draw=ImageDraw.Draw(image)
             title,subtitle=_headline(index,len(questions))
-            _center(draw,title,250+state['title_offset'],66,YELLOW)
-            _center(draw,subtitle,346+state['title_offset'],40,WHITE)
+            _center(draw,title,250+state['title_offset'],TITLE_SIZE,YELLOW,max_width=HEADLINE_WIDTH)
+            _center(draw,subtitle,346+state['title_offset'],SUBTITLE_SIZE,WHITE,max_width=HEADLINE_WIDTH)
         color='#FFC663' if state['urgent'] else YELLOW
         draw=ImageDraw.Draw(image)
         draw.arc((450,1033,630,1213),-90,270,fill='#34558B',width=9)
@@ -308,7 +311,7 @@ def render_video(quiz, destination, bgm_volume=.10, progress_callback=None, ffmp
             'layout_safety':{'horizontal_margin':51,'minimum_option_font':23,'option_count':4,
                              'flag_aspect_preserved':True,'no_text_truncation':True},
             'ffmpeg_log':log_path.name}
-    report['presentation']={'version':'1.2','intro_seconds':.65,'first_flag_scale':.84,
+    report['presentation']={'version':'1.2','intro_seconds':FLAG_POP_SECONDS,'first_flag_scale':1.0,
                             'countdown_seconds':COUNTDOWN_SECONDS,'answer_hold_seconds':QUESTION_SECONDS-COUNTDOWN_SECONDS,
                             'digit_pulse_seconds':.18,'answer_pulse_seconds':.28,'global_flashes':False,'camera_shake':False}
     (destination.parent/'render_report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
