@@ -7,6 +7,7 @@ import multiprocessing
 from pathlib import Path
 
 from georush.batchsizes import LONGFORM_BATCH_SIZES, SHORTS_BATCH_SIZES
+from georush.themes import THEMES
 
 
 def main(argv=None):
@@ -15,6 +16,8 @@ def main(argv=None):
     parser.add_argument("--generate", type=int, choices=sorted(set(SHORTS_BATCH_SIZES) | set(LONGFORM_BATCH_SIZES)),
                         help="Generate a batch without the GUI (Shorts: 1/2/3/5/10/20, Longform: 1/2/3)")
     parser.add_argument("--difficulty", choices=("Easy", "Normal", "Hard", "Mixed"), default="Mixed")
+    parser.add_argument("--theme", choices=THEMES, default="Classic",
+                        help="Shorts series: Classic flags, one region, look-alike flags or capital cities")
     parser.add_argument("--questions", type=int)
     parser.add_argument("--bgm", type=float, choices=(0.08, 0.10, 0.12), default=0.10)
     parser.add_argument("--output", type=Path)
@@ -38,14 +41,18 @@ def main(argv=None):
         return 0
     if args.generate is not None:
         from georush.paths import default_output_root
+        extra = {}
         if args.mode == 'Longform':
+            if args.theme != 'Classic':
+                parser.error('--theme is for Shorts only')
             from georush.longform.pipeline import generate_batch
         else:
             from georush.pipeline import generate_batch
+            extra['theme'] = args.theme
         rows = generate_batch(count=args.generate, difficulty=args.difficulty, questions_per_video=args.questions if args.questions is not None else (40 if args.mode=="Longform" else 3),
                               bgm_volume=args.bgm, output_root=args.output or default_output_root(),
                               progress_callback=lambda event: print(json.dumps(event, ensure_ascii=False), flush=True),
-                              seed=args.seed)
+                              seed=args.seed, **extra)
         print(json.dumps({"results": rows}, ensure_ascii=False, indent=2))
         return 0 if all(row.get("status") == "success" for row in rows) else 1
     from georush.gui import launch

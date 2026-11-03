@@ -13,6 +13,7 @@ from tkinter import filedialog, messagebox, ttk
 from . import __version__
 from .batchsizes import LONGFORM_BATCH_SIZES, SHORTS_BATCH_SIZES
 from .paths import default_output_root, open_folder, history_path
+from .themes import THEMES
 
 
 class GeoRushApp(tk.Tk):
@@ -32,6 +33,7 @@ class GeoRushApp(tk.Tk):
         self.long_questions = tk.StringVar(value="40")
         self.video_count = tk.StringVar(value="1")
         self.difficulty = tk.StringVar(value="Mixed")
+        self.theme = tk.StringVar(value="Classic")
         self.questions = tk.IntVar(value=3)
         self.bgm = tk.StringVar(value="10%")
         self.output = tk.StringVar(value=str(default_output_root()))
@@ -75,6 +77,7 @@ class GeoRushApp(tk.Tk):
         for row, (name, variable, values) in enumerate([
             ("제작할 영상 개수", self.video_count, tuple(str(n) for n in SHORTS_BATCH_SIZES)),
             ("난이도", self.difficulty, ("Easy", "Normal", "Hard", "Mixed")),
+            ("시리즈 주제", self.theme, THEMES),
         ]):
             ttk.Label(fields, text=name).grid(row=row, column=0, sticky="w", padx=(0, 10), pady=6)
             ttk.Combobox(fields, textvariable=variable, values=values, state="readonly", width=18).grid(row=row, column=1, sticky="w")
@@ -85,10 +88,10 @@ class GeoRushApp(tk.Tk):
         self.short_controls = [widget for widget in fields.winfo_children()
                                if widget.grid_info() and (int(widget.grid_info()['column'])<2
                                or int(widget.grid_info()['row'])==0)]
-        ttk.Label(fields, text="출력 폴더").grid(row=2, column=0, sticky="w", pady=(12, 0))
-        ttk.Entry(fields, textvariable=self.output).grid(row=2, column=1, columnspan=3, sticky="ew", pady=(12, 0))
+        ttk.Label(fields, text="출력 폴더").grid(row=3, column=0, sticky="w", pady=(12, 0))
+        ttk.Entry(fields, textvariable=self.output).grid(row=3, column=1, columnspan=3, sticky="ew", pady=(12, 0))
         folder_buttons = ttk.Frame(fields)
-        folder_buttons.grid(row=3, column=1, columnspan=3, sticky="w", pady=(8, 0))
+        folder_buttons.grid(row=4, column=1, columnspan=3, sticky="w", pady=(8, 0))
         ttk.Button(folder_buttons, text="폴더 선택", command=self._choose_folder).pack(side="left", padx=(0, 8))
         ttk.Button(folder_buttons, text="출력 폴더 열기", command=self._open_output).pack(side="left")
         actions = ttk.Frame(outer)
@@ -161,6 +164,8 @@ class GeoRushApp(tk.Tk):
             arguments = dict(_mode=self.mode.get(), count=count, difficulty="Mixed" if longform else self.difficulty.get(), questions_per_video=questions,
                              bgm_volume=int(self.bgm.get().rstrip("%"))/100,
                              output_root=Path(self.output.get()).expanduser(), progress_callback=self.events.put)
+            if not longform:
+                arguments['theme'] = self.theme.get()
         except (ValueError, tk.TclError) as exc:
             messagebox.showerror("설정 오류", str(exc), parent=self)
             return
@@ -169,7 +174,8 @@ class GeoRushApp(tk.Tk):
         self.status.set("제작을 시작합니다. 이 창에서 진행 상황을 확인할 수 있습니다.")
         self.start_button.configure(state="disabled")
         self.mode_box.configure(state="disabled")
-        self._write_log(f"배치 시작: {count}편 / {questions}문제 / {self.difficulty.get()} / BGM {self.bgm.get()}")
+        theme = "" if longform else f" / {self.theme.get()}"
+        self._write_log(f"배치 시작: {count}편 / {questions}문제 / {self.difficulty.get()}{theme} / BGM {self.bgm.get()}")
         self.worker = threading.Thread(target=self._run, args=(arguments,), name="GeoRush-render", daemon=True)
         self.worker.start()
 
