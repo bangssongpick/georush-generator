@@ -61,11 +61,14 @@ def _question_data(question):
     correct=int(question['correct_index'])
     if len(names)!=4 or len(set(names))!=4 or correct not in range(4):
         raise ValueError('A question requires exactly four unique options and one correct index')
-    if names[correct] != question['country_name']:
+    capital=question.get('kind')=='capital'
+    if names[correct] != (question.get('answer_name') if capital else question['country_name']):
         raise ValueError('Correct answer does not match the question country')
     flag_path=Path(question['flag_path'])
     if not flag_path.is_file():
         raise FileNotFoundError(f'Flag image missing: {flag_path}')
+    if capital:  # v1.4.0: capital-city options are shown as they are
+        return names,correct,flag_path
     # The checks above use the verified names; viewers see the familiar display names.
     return [display_name(name) for name in names],correct,flag_path
 
@@ -100,8 +103,12 @@ def _option(draw, index, name, correct=False):
         top+=line_height
 
 
-def _headline(index,count):
-    """v1.3.6: a hook on the first flag and a 'final flag' tease on the last, to keep viewers from swiping away."""
+def _headline(index,count,question=None):
+    """v1.3.6: a hook on the first flag and a 'final flag' tease on the last, to keep viewers from swiping away.
+    v1.4.0: a capital-city question names the country (its flag is on screen) and asks for its capital."""
+    if question is not None and question.get('kind')=='capital':
+        title='FINAL CAPITAL!' if count>1 and index==count-1 else 'NAME THE CAPITAL!'
+        return title,f'Capital of {display_name(question["country_name"])}?'
     if count>1 and index==0:
         return 'GUESS THE FLAG!',f'Can you get all {count}?'
     if count>1 and index==count-1:
@@ -112,9 +119,9 @@ def _headline(index,count):
 def _question_static(question,index,count,background,reveal=False):
     options,correct,flag_path=_question_data(question)
     image=background.copy();draw=ImageDraw.Draw(image)
-    title,subtitle=_headline(index,count)
+    title,subtitle=_headline(index,count,question)
     _center(draw,title,250,66,YELLOW)
-    _center(draw,subtitle,346,40,WHITE)
+    _center(draw,subtitle,346,40,WHITE,max_width=900)  # inside the 80-1000 px band the title animation repaints
     draw.rounded_rectangle((130,445,950,945),radius=30,fill='#F4F8FF',outline='#86AEFF',width=4)
     with Image.open(flag_path) as source:
         flag=source.convert('RGBA')
@@ -125,7 +132,8 @@ def _question_static(question,index,count,background,reveal=False):
     for option_index,name in enumerate(options):
         _option(draw,option_index,name,reveal and option_index==correct)
     _center(draw,'@GeoRushGames',1735,31,MUTED)
-    _center(draw,f'{count} flag{"s" if count != 1 else ""}. One challenge.',1790,26,MUTED)
+    noun='capital' if question.get('kind')=='capital' else 'flag'
+    _center(draw,f'{count} {noun}{"s" if count != 1 else ""}. One challenge.',1790,26,MUTED)
     if reveal:
         _center(draw,'CORRECT ANSWER',1050,30,GREEN)
         _center(draw,f'{chr(65+correct)} · {options[correct]}',1105,48,WHITE,max_width=900)
@@ -206,9 +214,9 @@ def animated_frame(context, second):
         if state['title_offset']:
             image.paste(context['background'].crop((80,232,1000,420)),(80,232))
             draw=ImageDraw.Draw(image)
-            title,subtitle=_headline(index,len(questions))
+            title,subtitle=_headline(index,len(questions),questions[index])
             _center(draw,title,250+state['title_offset'],66,YELLOW)
-            _center(draw,subtitle,346+state['title_offset'],40,WHITE)
+            _center(draw,subtitle,346+state['title_offset'],40,WHITE,max_width=900)
         color='#FFC663' if state['urgent'] else YELLOW
         draw=ImageDraw.Draw(image)
         draw.arc((450,1033,630,1213),-90,270,fill='#34558B',width=9)

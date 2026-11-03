@@ -25,7 +25,8 @@ def _write(path, document):
 
 
 def _metadata(folder, quiz):
-    title, description, tags, comment = short_texts(quiz['signature'], len(quiz['questions']), quiz['difficulty'])
+    title, description, tags, comment = short_texts(quiz['signature'], len(quiz['questions']), quiz['difficulty'],
+                                                    quiz.get('theme', 'Classic'))
     documents = {'title.txt': title+'\n', 'description.txt': description,
                  'tags.txt': tags+'\n', 'pinned_comment.txt': comment+'\n'}
     for name, value in documents.items():
@@ -33,7 +34,7 @@ def _metadata(folder, quiz):
 
 
 def generate_batch(count=1, difficulty='Mixed', questions_per_video=3, bgm_volume=.10,
-                   output_root=None, progress_callback=None, seed=None):
+                   output_root=None, progress_callback=None, seed=None, theme='Classic'):
     if count not in SHORTS_BATCH_SIZES:
         raise ValueError('제작 편수는 '+' / '.join(str(n) for n in SHORTS_BATCH_SIZES)+' 중에서 선택하세요.')
     if bgm_volume not in (.08, .10, .12):
@@ -74,7 +75,7 @@ def generate_batch(count=1, difficulty='Mixed', questions_per_video=3, bgm_volum
                 work.mkdir(parents=True, exist_ok=False)
                 for retry in range(8):
                     quiz = build_quiz(catalog, history, difficulty, questions_per_video,
-                                      None if seed is None else seed+index-1+retry*1009)
+                                      None if seed is None else seed+index-1+retry*1009, theme)
                     validate_quiz(quiz, catalog)
                     try:
                         run_id = history.reserve_quiz(quiz['signature'], difficulty, directory, quiz)

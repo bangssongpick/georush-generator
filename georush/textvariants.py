@@ -38,8 +38,56 @@ COMMENTS = ['How many flags did you get right? {scores}? Tell us your score!',
 SHORT_HASHTAGS = '#GeoRush #GuessTheFlag #FlagQuiz #GeographyQuiz #Shorts'
 
 
-def short_texts(signature, count, difficulty):
+# v1.4.0 series themes: own titles, intro line, tags and hashtag. {n} is the question count.
+REGION_ADJ = {'Africa': 'African', 'Asia': 'Asian', 'Europe': 'European', 'Americas': 'Americas', 'Oceania': 'Oceania'}
+REGION_NAME = {'Americas': 'the Americas'}
+THEME_TITLES = {
+    'region': ['Guess These {n} Flags From {region}! | GeoRush #Shorts',
+               '{n} Flags From {region}: Can You Name Them All? | GeoRush #Shorts',
+               '{adj} Flag Challenge: Can You Get {n}/{n}? | GeoRush #Shorts'],
+    'Lookalike': ['These Flags Look Almost the Same! Can You Tell? | GeoRush #Shorts',
+                  'Look-Alike Flags: Can You Get {n}/{n}? | GeoRush #Shorts',
+                  'Most People Mix Up These {n} Flags! | GeoRush #Shorts'],
+    'Capital': ['Guess the Capital City! {n} Questions | GeoRush #Shorts',
+                'Can You Name These {n} Capitals? | GeoRush #Shorts',
+                'Capital City Quiz: Can You Get {n}/{n}? | GeoRush #Shorts'],
+}
+THEME_INTROS = {
+    'region': 'Every flag in this round is from {region}. Can you name all {n} countries?',
+    'Lookalike': 'Every flag in this round has a look-alike among the answers. Can you tell all {n} apart?',
+    'Capital': 'You see the flag and the country: now name its capital city. {n} questions!',
+}
+THEME_TAGS = {'region': ['{region} flags'], 'Lookalike': ['similar flags', 'look alike flags'],
+              'Capital': ['capital cities', 'capital city quiz']}
+THEME_HASHTAG = {'region': '#{tag}Flags', 'Lookalike': '#SimilarFlags', 'Capital': '#CapitalCities'}
+CAPITAL_COMMENTS = ['How many capitals did you get right? {scores}? Tell us your score!',
+                    'Which capital tricked you? Share your score ({scores}) below!',
+                    'Did you get {count}/{count}? Drop your capital score: {scores}!']
+
+
+def _themed_short_texts(signature, count, difficulty, theme):
+    rng = random.Random(f'{theme}:{signature}')
+    key = 'region' if theme in REGION_ADJ else theme
+    values = {'n': count, 'region': REGION_NAME.get(theme, theme), 'adj': REGION_ADJ.get(theme, ''), 'tag': theme}
+    title = rng.choice(THEME_TITLES[key]).format(**values)
+    scores = ', '.join(f'{n}/{count}' for n in range(count+1))
+    hashtags = SHORT_HASHTAGS.replace(' #Shorts', ' '+THEME_HASHTAG[key].format(**values)+' #Shorts')
+    if key == 'Capital':
+        hashtags = hashtags.replace('#GuessTheFlag ', '')
+        middle = f'Pick A, B, C or D before the countdown hits zero. Flags: {difficulty}.'
+    else:
+        middle = rng.choice(MIDDLES).format(difficulty=difficulty)
+    description = (THEME_INTROS[key].format(**values)+'\n\n'+middle+'\n'+rng.choice(CALLS)+'\n\n'
+                   +rng.choice(FOLLOWS)+'\n\n'+hashtags+'\n')
+    tags = ', '.join(CORE_TAGS+[tag.format(**values) for tag in THEME_TAGS[key]]+rng.sample(EXTRA_TAGS, 3)+['Shorts'])
+    comment = rng.choice(CAPITAL_COMMENTS if key == 'Capital' else COMMENTS).format(count=count, scores=scores)
+    return title, description, tags, comment
+
+
+def short_texts(signature, count, difficulty, theme='Classic'):
     """(title, description, tags, pinned comment) of a Shorts quiz. The draw order is fixed: changing it changes old texts."""
+    if theme != 'Classic':
+        return _themed_short_texts(signature, count, difficulty, theme)
     rng = random.Random(signature)
     titles = [f'Guess These {count} Flags! | GeoRush Geography Quiz #Shorts',
               f'Can You Get {count}/{count}? Flag Challenge | GeoRush #Shorts',
