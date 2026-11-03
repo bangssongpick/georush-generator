@@ -139,7 +139,7 @@ class ThemeScreenAndTextTests(unittest.TestCase):
             return original(draw, xy, text, *args, **kwargs)
         image = render._background()
         with patch.object(ImageDraw.ImageDraw, 'text', measured):
-            render._center(ImageDraw.Draw(image), subtitle, 346, 40, render.WHITE, max_width=900)
+            render._center(ImageDraw.Draw(image), subtitle, 346, render.SUBTITLE_SIZE, render.WHITE, max_width=render.HEADLINE_WIDTH)
         x0, _, x1, _ = seen[-1][1]
         self.assertGreaterEqual(x0, 80)
         self.assertLessEqual(x1, 1000)

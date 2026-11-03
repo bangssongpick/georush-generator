@@ -24,7 +24,7 @@ class PresentationV12Tests(unittest.TestCase):
         self.assertGreater(int(((flag.max(axis=2)-flag.min(axis=2))>35).sum()),10000)
         title=pixels[250:410,140:940]
         self.assertGreater(int(((title[:,:,0]>200)&(title[:,:,1]>170)).sum()),1000)
-        self.assertEqual(animation_state(0,3)['flag_scale'],.84)
+        self.assertEqual(animation_state(0,3)['flag_scale'],1.0)  # v1.3.7: full size on the first frame
 
     def test_flag_intro_moves_then_settles_before_one_second(self):
         crops=[animated_frame(self.context,t).crop((150,465,930,925)).tobytes() for t in (0,.3,.7,1)]
