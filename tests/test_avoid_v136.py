@@ -6,6 +6,7 @@ import unittest
 from georush.catalog import Catalog
 from georush.history import History
 from georush.quiz import build_quiz
+from georush.themes import FIRST_FLAGS
 
 
 class AvoidTests(unittest.TestCase):
@@ -25,11 +26,17 @@ class AvoidTests(unittest.TestCase):
 
     def test_listed_flags_never_appear(self):
         codes = sorted(row['code'] for row in self.catalog.valid_countries()[0])
-        avoid = set(codes[:140])
+        avoid = set(codes[:140]) - set(FIRST_FLAGS)
         (self.root/'avoid_codes.txt').write_text(' '.join(sorted(avoid)), encoding='utf-8')
         for seed in range(40):
             quiz = build_quiz(self.catalog, self.history, 'Mixed', 3, seed)
             self.assertFalse({q['country_code'] for q in quiz['questions']} & avoid, seed)
+
+    def test_the_famous_first_flag_ignores_the_list(self):  # v1.4.2: a quick win matters more than a new flag
+        (self.root/'avoid_codes.txt').write_text(' '.join(FIRST_FLAGS), encoding='utf-8')
+        quiz = build_quiz(self.catalog, self.history, 'Mixed', 3, 2)
+        self.assertIn(quiz['questions'][0]['country_code'], FIRST_FLAGS)
+        self.assertFalse({q['country_code'] for q in quiz['questions'][1:]} & set(FIRST_FLAGS))
 
     def test_too_long_a_list_is_only_a_preference(self):
         codes = [row['code'] for row in self.catalog.valid_countries()[0]]

@@ -21,9 +21,12 @@ WHITE = '#F5FAFF'
 MUTED = '#B8D2FF'
 GREEN = '#5DFFC2'
 TITLE_SIZE = 74      # v1.3.7: larger first-screen question (was 66 / 40) so it reads at phone size
-SUBTITLE_SIZE = 50
 FLAG_POP_SECONDS = .35
 HEADLINE_WIDTH = 900  # stays inside the 80-1000 px band that the title animation repaints
+HEADLINE_Y = 216
+FLAG_CARD = (40,298,1040,1024)  # v1.4.2: the flag fills the width of the screen (was a 553 px wide flag)
+FLAG_MAX = (900,675)
+FLAG_CENTER_Y = 661
 OPTION_SIZE = 44      # v1.4.1: answer choices read at phone size (was 37); long names still wrap and shrink
 OPTION_TEXT_HEIGHT = 138  # lines of a choice stay inside its 146 px card
 ASSETS = resource_root()/'assets'
@@ -111,32 +114,28 @@ def _option(draw, index, name, correct=False):
 
 
 def _headline(index,count,question=None):
-    """v1.3.6: a hook on the first flag and a 'final flag' tease on the last, to keep viewers from swiping away.
-    v1.3.7: the very first screen states the actual question, large, with the hook under it.
-    v1.4.0: a capital-city question names the country (its flag is on screen) and asks for its capital."""
+    """v1.4.2: one short challenge line, so the flag is what a viewer sees first in the feed.
+    A capital-city question names the country (its flag is on screen) and asks for its capital."""
     if question is not None and question.get('kind')=='capital':
-        title='FINAL CAPITAL!' if count>1 and index==count-1 else 'NAME THE CAPITAL!'
-        return title,f'Capital of {display_name(question["country_name"])}?'
+        return f'CAPITAL OF {display_name(question["country_name"]).upper()}?'
     if count>1 and index==0:
-        return 'WHICH COUNTRY IS THIS?',f'Can you get all {count}?'
+        return f'CAN YOU GET ALL {count}?'
     if count>1 and index==count-1:
-        return 'FINAL FLAG!','Get it right for a perfect score!'
-    return 'GUESS THE FLAG!','Which country is this?'
+        return 'FINAL FLAG!'
+    return 'GUESS THE FLAG!'
 
 
 def _question_static(question,index,count,background,reveal=False):
     options,correct,flag_path=_question_data(question)
     image=background.copy();draw=ImageDraw.Draw(image)
-    title,subtitle=_headline(index,count,question)
-    _center(draw,title,250,TITLE_SIZE,YELLOW,max_width=HEADLINE_WIDTH)
-    _center(draw,subtitle,346,SUBTITLE_SIZE,WHITE,max_width=HEADLINE_WIDTH)
-    draw.rounded_rectangle((130,445,950,945),radius=30,fill='#F4F8FF',outline='#86AEFF',width=4)
+    _center(draw,_headline(index,count,question),HEADLINE_Y,TITLE_SIZE,YELLOW,max_width=HEADLINE_WIDTH)
+    draw.rounded_rectangle(FLAG_CARD,radius=30,fill='#F4F8FF',outline='#86AEFF',width=4)
     with Image.open(flag_path) as source:
         flag=source.convert('RGBA')
-        flag.thumbnail((742,415),Image.Resampling.LANCZOS)
-        image.paste(flag,((WIDTH-flag.width)//2,695-flag.height//2),flag)
+        flag.thumbnail(FLAG_MAX,Image.Resampling.LANCZOS)
+        image.paste(flag,((WIDTH-flag.width)//2,FLAG_CENTER_Y-flag.height//2),flag)
     draw=ImageDraw.Draw(image)
-    _center(draw,f'QUESTION {index+1} / {count}',985,27,MUTED)
+    _center(draw,f'QUESTION {index+1} / {count}',122,27,MUTED,x=578)  # in the header, between the logo and FLAG QUIZ
     for option_index,name in enumerate(options):
         _option(draw,option_index,name,reveal and option_index==correct)
     _center(draw,'@GeoRushGames',1735,31,MUTED)
@@ -169,7 +168,7 @@ def animation_state(second, question_count):
     state = {'question_index': index, 'local': local, 'cta': index >= question_count,
              'reveal': local >= COUNTDOWN_SECONDS, 'flag_scale': 1.0,
              'title_offset': 0, 'digit_scale': 1.0, 'answer_scale': 1.0,
-             'urgent': COUNTDOWN_SECONDS-2.0 <= local < COUNTDOWN_SECONDS,
+             'urgent': COUNTDOWN_SECONDS-1.0 <= local < COUNTDOWN_SECONDS,
              'progress': max(0.0, 1-local/COUNTDOWN_SECONDS)}
     if local < FLAG_POP_SECONDS:
         # v1.3.7: the flag is full size on the very first frame (it used to start at 84%) and gives a short pop.
@@ -193,7 +192,7 @@ def prepare_animation(questions):
     flags=[]
     for question in questions:
         with Image.open(question['flag_path']) as source:
-            flag=source.convert('RGBA');flag.thumbnail((742,415),Image.Resampling.LANCZOS)
+            flag=source.convert('RGBA');flag.thumbnail(FLAG_MAX,Image.Resampling.LANCZOS)
             flags.append(flag.copy())
     return {'background':background,'boards':boards,'flags':flags,
             'cta':_cta(background,len(questions)),'questions':questions}
@@ -213,16 +212,14 @@ def animated_frame(context, second):
     if not state['reveal']:
         if local < FLAG_POP_SECONDS:
             # Keep the whole flag visible, including frame zero. No blackout/fade.
-            draw.rectangle((151,469,929,921),fill='#F4F8FF')
+            draw.rectangle((FLAG_CARD[0]+4,FLAG_CARD[1]+4,FLAG_CARD[2]-4,FLAG_CARD[3]-4),fill='#F4F8FF')
             flag=context['flags'][index]
             scaled=flag.resize((round(flag.width*state['flag_scale']),round(flag.height*state['flag_scale'])),Image.Resampling.LANCZOS)
-            image.paste(scaled,((WIDTH-scaled.width)//2,695-scaled.height//2),scaled)
+            image.paste(scaled,((WIDTH-scaled.width)//2,FLAG_CENTER_Y-scaled.height//2),scaled)
         if state['title_offset']:
-            image.paste(context['background'].crop((80,232,1000,420)),(80,232))
+            image.paste(context['background'].crop((80,HEADLINE_Y-8,1000,FLAG_CARD[1]-2)),(80,HEADLINE_Y-8))
             draw=ImageDraw.Draw(image)
-            title,subtitle=_headline(index,len(questions),questions[index])
-            _center(draw,title,250+state['title_offset'],TITLE_SIZE,YELLOW,max_width=HEADLINE_WIDTH)
-            _center(draw,subtitle,346+state['title_offset'],SUBTITLE_SIZE,WHITE,max_width=HEADLINE_WIDTH)
+            _center(draw,_headline(index,len(questions),questions[index]),HEADLINE_Y+state['title_offset'],TITLE_SIZE,YELLOW,max_width=HEADLINE_WIDTH)
         color='#FFC663' if state['urgent'] else YELLOW
         draw=ImageDraw.Draw(image)
         draw.arc((450,1033,630,1213),-90,270,fill='#34558B',width=9)

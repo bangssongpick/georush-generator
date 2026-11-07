@@ -8,8 +8,8 @@ import wave
 import numpy as np
 
 SAMPLE_RATE = 48_000
-QUESTION_SECONDS = 5.5   # v1.3.6: was 6.5 - shorter Shorts keep more viewers watching
-COUNTDOWN_SECONDS = 4.0  # v1.3.6: was 5.0 (countdown 4-3-2-1, then a 1.5 s answer reveal)
+QUESTION_SECONDS = 4.5   # v1.4.2: was 5.5 - a 16.5 s Short with a faster pace from the first second
+COUNTDOWN_SECONDS = 3.0  # v1.4.2: was 4.0 (countdown 3-2-1, then a 1.5 s answer reveal)
 CTA_SECONDS = 3.0  # v1.3.4: the score call-to-action stays long enough to read and comment on (was 1.5)
 COUNTDOWN_TICKS = int(COUNTDOWN_SECONDS)
 

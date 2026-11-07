@@ -24,16 +24,16 @@ class PolishTests(unittest.TestCase):
 
     # --- call-to-action length ---------------------------------------------------------------------------
     def test_cta_is_three_seconds_and_timing_of_questions_is_unchanged(self):
-        self.assertEqual((QUESTION_SECONDS, COUNTDOWN_SECONDS, CTA_SECONDS), (5.5, 4.0, 3.0))
-        self.assertEqual(3 * QUESTION_SECONDS + CTA_SECONDS, 19.5)
+        self.assertEqual((QUESTION_SECONDS, COUNTDOWN_SECONDS, CTA_SECONDS), (4.5, 3.0, 3.0))
+        self.assertEqual(3 * QUESTION_SECONDS + CTA_SECONDS, 16.5)
         quiz = build_quiz(self.catalog, None, seed=1)
         context = render.prepare_animation(quiz['questions'])
-        for second in (0.0, 5.5, 11.0, 16.49):  # all three questions, up to the last instant before the CTA
+        for second in (0.0, 4.5, 9.0, 13.49):  # all three questions, up to the last instant before the CTA
             self.assertFalse(render.animation_state(second, 3)['cta'], second)
-        for second in (16.5, 18.0, 19.49):
+        for second in (13.5, 15.0, 16.49):
             self.assertTrue(render.animation_state(second, 3)['cta'], second)
         # The card is fully drawn (progress line complete) and identical for the rest of the 3 seconds.
-        self.assertEqual(render.animated_frame(context, 17.5).tobytes(), render.animated_frame(context, 19.4).tobytes())
+        self.assertEqual(render.animated_frame(context, 14.5).tobytes(), render.animated_frame(context, 16.4).tobytes())
 
     # --- display names --------------------------------------------------------------------------------------
     def test_display_names_are_reviewed_unique_and_only_for_known_names(self):

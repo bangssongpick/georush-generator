@@ -12,6 +12,10 @@ THEMES = ('Classic', 'Africa', 'Asia', 'Europe', 'Americas', 'Oceania', 'Lookali
 REGIONS = {'Africa': {'Africa'}, 'Asia': {'Asia'}, 'Europe': {'Europe'},
            'Americas': {'North America', 'South America'}, 'Oceania': {'Oceania'}}
 
+# v1.4.2: the first flag of a Mixed Short comes from these world-famous flags, so a viewer starts with a quick win.
+FIRST_FLAGS = ('jp', 'br', 'us', 'ca', 'gb', 'fr', 'de', 'it', 'es', 'kr', 'cn', 'in', 'mx', 'ar', 'au', 'ru', 'gr', 'se',
+               'ch', 'za', 'no', 'sa')  # more than the 21 Shorts of the no-repeat window
+
 # Hand-checked groups of flags that viewers commonly confuse. Every code must be in the catalog (checked by tests).
 LOOKALIKE_GROUPS = (
     ('id', 'pl'),              # red over white / white over red (Monaco is not in the catalog)

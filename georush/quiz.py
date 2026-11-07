@@ -5,7 +5,7 @@ from pathlib import Path
 import random
 
 from .catalog import CatalogError
-from .themes import THEMES, capital_of, continent_of, lookalike_mates, theme_pool
+from .themes import FIRST_FLAGS, THEMES, capital_of, continent_of, lookalike_mates, theme_pool
 
 LEVELS = ('Easy', 'Normal', 'Hard', 'Mixed')
 TIER_ORDER = {'Easy': 0, 'Normal': 1, 'Hard': 2}
@@ -63,17 +63,32 @@ def validate_quiz(quiz, catalog):
     return True
 
 
-def _tier_balanced_sample(rng, rows, k):
-    # Mixed gives each difficulty an equal chance however many countries it has (Easy 40 / Normal 60 / Hard 90),
-    # matching the v1.3 one-third split of the original 20/20/20 catalog.
-    rows, selected = list(rows), []
-    for _ in range(k):
-        sizes = {}
-        for row in rows:
-            sizes[row['difficulty']] = sizes.get(row['difficulty'], 0) + 1
-        chosen = rng.choices(rows, weights=[1 / sizes[row['difficulty']] for row in rows])[0]
-        selected.append(chosen)
-        rows.remove(chosen)
+def _first_flag(rng, pool, recent_runs):
+    """A famous flag, the one least recently used. The avoid list does not apply: a quick win matters more here."""
+    famous = [row for row in pool if row['code'] in FIRST_FLAGS]
+    candidates = famous or [row for row in pool if row['difficulty'] == 'Easy'] or pool
+    for window in range(len(recent_runs), -1, -1):
+        unused = [row for row in candidates if row['code'] not in set().union(*recent_runs[:window])]
+        if unused:
+            return rng.choice(unused)
+    return rng.choice(candidates)
+
+
+def _progression_sample(rng, fresh, pool, k, recent_runs):
+    """v1.4.2 Mixed order: famous first flag, Normal flags in the middle, a Hard flag last."""
+    selected = [_first_flag(rng, pool, recent_runs)]
+
+    def take(tier, count):
+        for rows in ([row for row in fresh if row['difficulty'] == tier], fresh,
+                     [row for row in pool if row['difficulty'] == tier], pool):
+            rows = [row for row in rows if row not in selected]
+            if len(rows) >= count:
+                selected.extend(rng.sample(rows, count))
+                return
+        raise CatalogError('문제를 만들 국가가 부족합니다.')
+    if k > 1:
+        take('Hard', 1)
+        take('Normal', k-2)
     return selected
 
 
@@ -124,9 +139,12 @@ def build_quiz(catalog, history=None, difficulty='Mixed', questions_per_video=3,
     if len(fresh) < questions_per_video:  # the avoid list left too little: it is a preference, not a rule
         fresh = pool
     selection_pool = fresh
-    pick = _tier_balanced_sample if difficulty == 'Mixed' else lambda r, rows, k: r.sample(rows, k)
     for attempt in range(512):
-        selected = pick(rng, selection_pool if attempt < 256 else pool, questions_per_video)
+        rows = selection_pool if attempt < 256 else pool
+        if difficulty == 'Mixed':
+            selected = _progression_sample(rng, rows, pool, questions_per_video, recent_runs)
+        else:
+            selected = rng.sample(rows, questions_per_video)
         if theme == 'Lookalike' and any(row['code'] in lookalike_mates(other['code'])
                                         for row in selected for other in selected):
             continue  # two flags of one look-alike group in a video would give each other away
@@ -146,7 +164,7 @@ def build_quiz(catalog, history=None, difficulty='Mixed', questions_per_video=3,
                 question.update(kind='capital', answer_name=answer)
             questions.append(question)
         # v1.3.6: easiest flag first (a quick win keeps viewers), hardest last (a reason to stay for the finale).
-        # Python's sort is stable, so flags of the same tier keep their random order. The signature ignores order.
+        # Python's sort is stable, so the famous first flag stays first. The signature ignores order.
         questions.sort(key=lambda q: TIER_ORDER.get(q['difficulty'], 1))
         signature = composition_signature(questions)
         if signature not in used:

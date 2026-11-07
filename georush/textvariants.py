@@ -13,8 +13,8 @@ INTROS = ['Can you guess all {count} countries from their flags?',
           'Can you name every country from its flag? {count} flags, one try each.']
 MIDDLES = ['{difficulty} flag challenge: choose A, B, C, or D before the timer runs out.',
            'Pick A, B, C or D before the countdown hits zero. This round: {difficulty} flags.',
-           '{difficulty} flags, four choices each. You get 5 seconds per question!',
-           'Choose A, B, C, or D and beat the 5-second timer. Difficulty: {difficulty}.']
+           '{difficulty} flags, four choices each. You get 3 seconds per question!',
+           'Choose A, B, C, or D and beat the 3-second timer. Difficulty: {difficulty}.']
 CALLS = ['Test your geography knowledge and share your score in the comments!',
          'Comment your score and challenge a friend to beat it!',
          'Tell us your score in the comments: which flag was the hardest?',

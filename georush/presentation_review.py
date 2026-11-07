@@ -12,10 +12,10 @@ from .paths import subprocess_options
 
 def review_video(video, quiz, destination, ffmpeg):
     destination=Path(destination);destination.mkdir(parents=True,exist_ok=True)
-    # Frame numbers follow the real timing constants (v1.3.6: 5.5 s questions, 4 s countdown, 3 s call-to-action).
+    # Frame numbers follow the real timing constants and stay ascending: FFmpeg writes them in video order.
     reveal=round(COUNTDOWN_SECONDS*30);second_question=round(QUESTION_SECONDS*30)
     last=round((len(quiz['questions'])*QUESTION_SECONDS+CTA_SECONDS)*30)-1
-    indices=[0,3,9,21,30,33,75,93,reveal-1,reveal+1,reveal+4,second_question,last]
+    indices=sorted({0,3,9,21,30,33,60,75,reveal-1,reveal+1,reveal+4,second_question,last})
     select='select='+ '+'.join(f'eq(n\\,{n})' for n in indices)
     result=subprocess.run([str(ffmpeg),'-hide_banner','-v','error','-y','-i',str(video),
                            '-vf',select,'-fps_mode','passthrough','-frames:v',str(len(indices)),
@@ -32,7 +32,7 @@ def review_video(video, quiz, destination, ffmpeg):
         assert psnr>28,('Encoded frame differs from intended presentation',n,psnr)
         frames[n]=pixels
         checks.append({'frame':n,'seconds':n/30,'file':path.name,'intended_frame_psnr_db':round(psnr,3)})
-    intro_delta=float(np.abs(frames[0][469:921,151:929]-frames[9][469:921,151:929]).mean())
+    intro_delta=float(np.abs(frames[0][310:1012,60:1020]-frames[9][310:1012,60:1020]).mean())
     assert intro_delta>1,('Encoded flag entrance does not move',intro_delta)
     assert frames[0][480:915,170:910].std()>20
     for n in (reveal+1,reveal+4):

@@ -13,25 +13,25 @@ class RetentionTests(unittest.TestCase):
         cls.catalog = Catalog()
 
     def test_shorter_questions_keep_the_three_second_call_to_action(self):
-        self.assertEqual((QUESTION_SECONDS, COUNTDOWN_SECONDS, CTA_SECONDS), (5.5, 4.0, 3.0))
-        self.assertEqual(COUNTDOWN_TICKS, 4)
-        self.assertEqual(3 * QUESTION_SECONDS + CTA_SECONDS, 19.5)       # was 22.5
+        self.assertEqual((QUESTION_SECONDS, COUNTDOWN_SECONDS, CTA_SECONDS), (4.5, 3.0, 3.0))
+        self.assertEqual(COUNTDOWN_TICKS, 3)
+        self.assertEqual(3 * QUESTION_SECONDS + CTA_SECONDS, 16.5)       # was 19.5
         self.assertEqual(QUESTION_SECONDS - COUNTDOWN_SECONDS, 1.5)      # the answer is still shown for 1.5 s
 
     def test_headlines_hook_first_tease_last(self):
-        self.assertEqual(render._headline(0, 3), ('WHICH COUNTRY IS THIS?', 'Can you get all 3?'))  # v1.3.7
-        self.assertEqual(render._headline(1, 3), ('GUESS THE FLAG!', 'Which country is this?'))
-        self.assertEqual(render._headline(2, 3), ('FINAL FLAG!', 'Get it right for a perfect score!'))
-        self.assertEqual(render._headline(0, 1), ('GUESS THE FLAG!', 'Which country is this?'))
-        self.assertEqual(render._headline(0, 5)[1], 'Can you get all 5?')
-        self.assertEqual(render._headline(4, 5)[0], 'FINAL FLAG!')
+        self.assertEqual(render._headline(0, 3), 'CAN YOU GET ALL 3?')  # v1.4.2: one line only
+        self.assertEqual(render._headline(1, 3), 'GUESS THE FLAG!')
+        self.assertEqual(render._headline(2, 3), 'FINAL FLAG!')
+        self.assertEqual(render._headline(0, 1), 'GUESS THE FLAG!')
+        self.assertEqual(render._headline(0, 5), 'CAN YOU GET ALL 5?')
+        self.assertEqual(render._headline(4, 5), 'FINAL FLAG!')
 
     def test_frames_show_the_headlines_and_stay_different_between_questions(self):
         quiz = build_quiz(self.catalog, None, seed=7)
         context = render.prepare_animation(quiz['questions'])
-        first = render.animated_frame(context, 1.0).crop((60, 232, 1020, 420)).tobytes()
-        middle = render.animated_frame(context, QUESTION_SECONDS + 1.0).crop((60, 232, 1020, 420)).tobytes()
-        last = render.animated_frame(context, 2 * QUESTION_SECONDS + 1.0).crop((60, 232, 1020, 420)).tobytes()
+        first = render.animated_frame(context, 1.0).crop((60, 208, 1020, 296)).tobytes()
+        middle = render.animated_frame(context, QUESTION_SECONDS + 1.0).crop((60, 208, 1020, 296)).tobytes()
+        last = render.animated_frame(context, 2 * QUESTION_SECONDS + 1.0).crop((60, 208, 1020, 296)).tobytes()
         self.assertEqual(len({first, middle, last}), 3)
 
     def test_mixed_quizzes_go_from_easy_to_hard(self):

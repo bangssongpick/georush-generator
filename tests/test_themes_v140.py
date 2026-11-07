@@ -118,10 +118,7 @@ class ThemeScreenAndTextTests(unittest.TestCase):
         question = quiz['questions'][0]
         options, correct, _ = render._question_data(question)
         self.assertEqual(options, question['options'])
-        title, subtitle = render._headline(0, 3, question)
-        self.assertEqual(title, 'NAME THE CAPITAL!')
-        self.assertEqual(subtitle, f'Capital of {display_name(question["country_name"])}?')
-        self.assertEqual(render._headline(2, 3, quiz['questions'][2])[0], 'FINAL CAPITAL!')
+        self.assertEqual(render._headline(0, 3, question), f'CAPITAL OF {display_name(question["country_name"]).upper()}?')
         context = render.prepare_animation(quiz['questions'])
         for second in (0.0, 2.0, 4.6, 11.0):
             render.animated_frame(context, second)
@@ -130,7 +127,7 @@ class ThemeScreenAndTextTests(unittest.TestCase):
         longest = max((row for row in self.catalog.countries if capital_of(row['code'])),
                       key=lambda row: len(display_name(row['name'])))
         question = {'kind': 'capital', 'country_name': longest['name']}
-        _, subtitle = render._headline(1, 3, question)
+        title = render._headline(1, 3, question)
         seen = []
         original = ImageDraw.ImageDraw.text
 
@@ -139,7 +136,7 @@ class ThemeScreenAndTextTests(unittest.TestCase):
             return original(draw, xy, text, *args, **kwargs)
         image = render._background()
         with patch.object(ImageDraw.ImageDraw, 'text', measured):
-            render._center(ImageDraw.Draw(image), subtitle, 346, render.SUBTITLE_SIZE, render.WHITE, max_width=render.HEADLINE_WIDTH)
+            render._center(ImageDraw.Draw(image), title, render.HEADLINE_Y, render.TITLE_SIZE, render.YELLOW, max_width=render.HEADLINE_WIDTH)
         x0, _, x1, _ = seen[-1][1]
         self.assertGreaterEqual(x0, 80)
         self.assertLessEqual(x1, 1000)
