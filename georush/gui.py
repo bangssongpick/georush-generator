@@ -67,8 +67,8 @@ class GeoRushApp(tk.Tk):
         ttk.Label(self.long_settings, text="제작 편수").grid(row=0,column=0,padx=8)
         ttk.Combobox(self.long_settings,textvariable=self.long_video_count,values=("1","2","3"),state="readonly",width=8).grid(row=0,column=1)
         ttk.Label(self.long_settings, text="문제 수").grid(row=0,column=2,padx=8)
-        ttk.Combobox(self.long_settings,textvariable=self.long_questions,values=("20","30","40"),state="readonly",width=8).grid(row=0,column=3)
-        ttk.Label(self.long_settings,text="Easy → Normal → Hard → Expert (편집 기준)\n20문제 3:44 · 30문제 5:24 · 40문제 7:04").grid(row=1,column=0,columnspan=4,sticky="w",pady=6)
+        ttk.Combobox(self.long_settings,textvariable=self.long_questions,values=("20","30","40","100"),state="readonly",width=8).grid(row=0,column=3)
+        ttk.Label(self.long_settings,text="Easy → Normal → Hard → Expert (편집 기준)\n20문제 3:44 · 30문제 5:24 · 40문제 7:04 · 100문제(5초) 10:24").grid(row=1,column=0,columnspan=4,sticky="w",pady=6)
         fields = ttk.LabelFrame(outer, text="Shorts 설정 / 공통 BGM·출력", padding=12)
         self.settings_fields = fields
         fields.pack(fill="x")
@@ -82,7 +82,7 @@ class GeoRushApp(tk.Tk):
             ttk.Label(fields, text=name).grid(row=row, column=0, sticky="w", padx=(0, 10), pady=6)
             ttk.Combobox(fields, textvariable=variable, values=values, state="readonly", width=18).grid(row=row, column=1, sticky="w")
         ttk.Label(fields, text="한 영상당 문제 수").grid(row=0, column=2, sticky="w", padx=(20, 10))
-        ttk.Spinbox(fields, from_=1, to=5, textvariable=self.questions, width=8, state="readonly").grid(row=0, column=3, sticky="w")
+        ttk.Spinbox(fields, from_=1, to=10, textvariable=self.questions, width=8, state="readonly").grid(row=0, column=3, sticky="w")
         ttk.Label(fields, text="BGM 볼륨").grid(row=1, column=2, sticky="w", padx=(20, 10))
         ttk.Combobox(fields, textvariable=self.bgm, values=("8%", "10%", "12%"), state="readonly", width=8).grid(row=1, column=3, sticky="w")
         self.short_controls = [widget for widget in fields.winfo_children()
@@ -156,7 +156,7 @@ class GeoRushApp(tk.Tk):
             longform = self.mode.get() == 'Longform'
             count = int(self.long_video_count.get() if longform else self.video_count.get())
             questions = int(self.long_questions.get() if longform else self.questions.get())
-            valid = count in LONGFORM_BATCH_SIZES and questions in (20,30,40) if longform else count in SHORTS_BATCH_SIZES and 1<=questions<=5
+            valid = count in LONGFORM_BATCH_SIZES and questions in (20,30,40,100) if longform else count in SHORTS_BATCH_SIZES and 1<=questions<=10
             if not valid:
                 raise ValueError("영상 개수와 문제 수를 확인하세요.")
             if not self.output.get().strip():

@@ -24,9 +24,9 @@ def _write(path, document):
     path.write_text(json.dumps(document, ensure_ascii=False, indent=2), encoding='utf-8')
 
 
-def _metadata(folder, quiz):
+def _metadata(folder, quiz, episode=None):
     title, description, tags, comment = short_texts(quiz['signature'], len(quiz['questions']), quiz['difficulty'],
-                                                    quiz.get('theme', 'Classic'))
+                                                    quiz.get('theme', 'Classic'), episode)
     documents = {'title.txt': title+'\n', 'description.txt': description,
                  'tags.txt': tags+'\n', 'pinned_comment.txt': comment+'\n'}
     for name, value in documents.items():
@@ -84,7 +84,7 @@ def generate_batch(count=1, difficulty='Mixed', questions_per_video=3, bgm_volum
                         if retry == 7:
                             raise ValueError('다른 제작 작업과 문제 구성이 충돌했습니다.')
                 _write(work/'quiz_data.json', quiz)
-                _metadata(work, quiz)
+                _metadata(work, quiz, history.next_shorts_episode())
                 for warning in quiz['asset_warnings']:
                     logger.warning(warning)
                 report = render_video(quiz, work/'video.mp4', bgm_volume,

@@ -12,13 +12,14 @@ from .timeline import FPS,COUNTDOWN,chapters
 
 def review(video,quiz,timeline,folder,ffmpeg):
     folder=Path(folder);folder.mkdir(parents=True,exist_ok=True)
-    checks={0:('intro',None,0)}
+    checks={0:('intro',None,0)};countdowns={}
     for segment in timeline['segments']:
         if segment['kind']=='question':
             base=segment['start']*FPS;index=segment['question_index']
-            for offset in (0,9,COUNTDOWN*FPS+3):
+            cd=countdowns[index]=segment.get('countdown',COUNTDOWN)
+            for offset in (0,9,cd*FPS+3):
                 checks[base+offset]=('question',index,offset)
-            if index==0:checks[base+COUNTDOWN*FPS-1]=('question',index,COUNTDOWN*FPS-1)
+            if index==0:checks[base+cd*FPS-1]=('question',index,cd*FPS-1)
         elif segment['kind']=='chapter':checks[segment['start']*FPS]=('chapter',segment,0)
     checks[timeline['frames']-1]=('outro',timeline['segments'][-1],0)
     indices=sorted(checks)
@@ -34,10 +35,10 @@ def review(video,quiz,timeline,folder,ffmpeg):
         kind,info,offset=checks[frame]
         if kind=='question':
             if info not in contexts:
-                contexts={info:question_context(quiz['questions'][info],info,len(quiz['questions']))}
-            canonical=offset
-            if 14<=offset<COUNTDOWN*FPS and offset%30>=5:canonical=offset//30*30+5
-            if offset>=COUNTDOWN*FPS+10:canonical=COUNTDOWN*FPS+10
+                contexts={info:question_context(quiz['questions'][info],info,len(quiz['questions']),countdowns[info])}
+            cd=countdowns[info];canonical=offset
+            if 14<=offset<cd*FPS and offset%30>=5:canonical=offset//30*30+5
+            if offset>=cd*FPS+10:canonical=cd*FPS+10
             intended=question_frame(contexts[info],canonical)
         else:intended=screen(timeline['segments'][0] if kind=='intro' else info,len(quiz['questions']))
         with Image.open(path) as source:actual=source.convert('RGB')

@@ -72,6 +72,13 @@ class History:
             return set()
         return {token for token in text.lower().replace(',', ' ').split() if len(token) == 2 and token.isalpha()}
 
+    def next_shorts_episode(self):
+        """v1.5.0: series number of the next Short = finished Shorts so far + 1 (failed runs do not count)."""
+        with self._connect() as db:
+            done = db.execute("SELECT COUNT(*) FROM runs WHERE status='success' "
+                              "AND quiz_json NOT LIKE '%\"mode\": \"Longform\"%'").fetchone()[0]
+        return int(done)+1
+
     def recent_longform_country_codes(self, limit=2):
         # Newest first; only Longform runs, so the 20-40 flags of one Longform never hide Shorts flags.
         runs = []

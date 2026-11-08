@@ -46,7 +46,7 @@ class LocalAudioTests(unittest.TestCase):
 
     def test_unsupported_audio_settings_are_rejected(self):
         with tempfile.TemporaryDirectory() as folder:
-            for count, gain in ((0, .10), (6, .10), (3, .50)):
+            for count, gain in ((0, .10), (11, .10), (3, .50)):  # v1.5.0: up to 10 questions
                 with self.subTest(count=count, gain=gain):
                     with self.assertRaises(ValueError):
                         synthesize_audio(Path(folder) / "invalid.wav", count, gain)

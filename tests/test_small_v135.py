@@ -58,7 +58,7 @@ class SmallPolishTests(unittest.TestCase):
         for pool in (LONG_INTROS, LONG_BODIES, LONG_RULES, LONG_CALLS, LONG_FOLLOWS, LONG_COMMENTS):
             self.assertEqual(len(set(pool)), len(pool))
             for line in pool:
-                self.assertIsNone(re.search(r'\{(?!count\})[a-z]+\}', line), line)
+                self.assertIsNone(re.search(r'\{(?!count\}|cd\}|rv\})[a-z]+\}', line), line)
 
 
 if __name__ == '__main__':

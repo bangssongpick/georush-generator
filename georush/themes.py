@@ -8,7 +8,10 @@ import json
 
 from .paths import resource_root
 
-THEMES = ('Classic', 'Africa', 'Asia', 'Europe', 'Americas', 'Oceania', 'Lookalike', 'Capital')
+THEMES = ('Classic', 'Africa', 'Asia', 'Europe', 'Americas', 'Oceania', 'Lookalike', 'Capital', 'Zoom')
+# v1.5.0 Zoom: the flag starts zoomed in on one spot (ZOOM_START of its width) and zooms out during the countdown.
+ZOOM_START = .3
+ZOOM_MARGIN = ZOOM_START/2
 REGIONS = {'Africa': {'Africa'}, 'Asia': {'Asia'}, 'Europe': {'Europe'},
            'Americas': {'North America', 'South America'}, 'Oceania': {'Oceania'}}
 
@@ -81,7 +84,7 @@ def theme_pool(theme, rows, upstream=None):
     """Countries that can be asked in this theme (already validated rows)."""
     if theme not in THEMES:
         raise ValueError(f'지원하지 않는 주제입니다: {theme}')
-    if theme == 'Classic':
+    if theme in ('Classic', 'Zoom'):
         return list(rows)
     upstream = upstream or _upstream()
     if theme in REGIONS:

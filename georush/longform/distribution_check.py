@@ -20,7 +20,7 @@ def run_check(report_path,output_root=None):
     output=Path(output_root or report_path.parent/'OneDrive 테스트'/'바탕 화면'/'GeoRush_Output')
     report={'platform':sys.platform,'frozen':bool(getattr(sys,'frozen',False)),'mode':'Longform'};app=None
     try:
-        count=int(os.environ.get('GEORUSH_LONGFORM_QUESTIONS','20'));assert count in (20,30,40)
+        count=int(os.environ.get('GEORUSH_LONGFORM_QUESTIONS','20'));assert count in (20,30,40,100)
         ffmpeg=Path(find_ffmpeg()).resolve()
         if report['frozen']:assert ffmpeg.is_relative_to(resource_root().resolve())
         app=GeoRushApp();app.output.set(str(output));app.mode.set('Longform');app._mode_changed()

@@ -5,25 +5,27 @@ from pathlib import Path
 import random
 
 from .catalog import CatalogError
-from .themes import FIRST_FLAGS, THEMES, capital_of, continent_of, lookalike_mates, theme_pool
+from .themes import ZOOM_MARGIN, ZOOM_START, FIRST_FLAGS, THEMES, capital_of, continent_of, lookalike_mates, theme_pool
 
 LEVELS = ('Easy', 'Normal', 'Hard', 'Mixed')
 TIER_ORDER = {'Easy': 0, 'Normal': 1, 'Hard': 2}
+MAX_QUESTIONS = 10  # v1.5.0: speed rounds of up to 10 flags (was 5)
 RECENT_SHORTS = 21  # Shorts whose countries are avoided, newest first: one week at 3 Shorts a day (v1.3.2-v1.3.4: 7)
 
 
 def composition_signature(questions):
     # Reordering answers or questions must not bypass duplicate-composition checks.
     # v1.4.0: a capital-city question about a country is a different video than its flag question.
-    codes = sorted(('capital:' if question.get('kind') == 'capital' else '')+question['country_code']
+    # v1.5.0: so is a zoomed-in question.
+    codes = sorted((question['kind']+':' if question.get('kind') in ('capital', 'zoom') else '')+question['country_code']
                    for question in questions)
     return hashlib.sha256(json.dumps(codes, separators=(',', ':')).encode()).hexdigest()
 
 
 def validate_quiz(quiz, catalog):
     questions = quiz.get('questions', [])
-    if not questions or len(questions) > 5:
-        raise ValueError('문제 수는 1~5개여야 합니다.')
+    if not questions or len(questions) > MAX_QUESTIONS:
+        raise ValueError(f'문제 수는 1~{MAX_QUESTIONS}개여야 합니다.')
     seen = set()
     for question in questions:
         code = question.get('country_code')
@@ -39,6 +41,10 @@ def validate_quiz(quiz, catalog):
         capital = question.get('kind') == 'capital'
         if capital and (not capital_of(code) or question.get('answer_name') != capital_of(code)):
             raise ValueError('수도 문제의 정답이 해당 국가의 수도와 일치하지 않습니다.')
+        if question.get('kind') == 'zoom':
+            center = question.get('zoom_center')
+            if not (isinstance(center, list) and len(center) == 2 and all(ZOOM_MARGIN <= v <= 1-ZOOM_MARGIN for v in center)):
+                raise ValueError('확대 문제의 확대 위치가 올바르지 않습니다.')
         expected = Path(country['flag_path']).resolve()
         if Path(question.get('flag_path', '')).resolve() != expected:
             raise ValueError('문제의 국기 파일이 해당 국가와 일치하지 않습니다.')
@@ -61,6 +67,23 @@ def validate_quiz(quiz, catalog):
     if quiz.get('signature') != composition_signature(questions):
         raise ValueError('문제 구성 서명이 일치하지 않습니다.')
     return True
+
+
+def _zoom_center(rng, flag_path):
+    """The most detailed of a few random spots, so a zoomed-in corner is never a plain stripe of colour."""
+    from PIL import Image, ImageStat
+    with Image.open(flag_path) as source:
+        image = source.convert('RGB')
+    best, score = None, -1.0
+    for _ in range(12):
+        center = [round(rng.uniform(ZOOM_MARGIN, 1-ZOOM_MARGIN), 3) for _ in range(2)]
+        w, h = image.size[0]*ZOOM_START, image.size[1]*ZOOM_START
+        box = (round(center[0]*image.size[0]-w/2), round(center[1]*image.size[1]-h/2))
+        crop = image.crop((box[0], box[1], box[0]+round(w), box[1]+round(h)))
+        value = sum(ImageStat.Stat(crop).stddev)
+        if value > score:
+            best, score = center, value
+    return best
 
 
 def _first_flag(rng, pool, recent_runs):
@@ -119,8 +142,8 @@ def build_quiz(catalog, history=None, difficulty='Mixed', questions_per_video=3,
         raise ValueError('지원하지 않는 난이도입니다.')
     if theme not in THEMES:
         raise ValueError('지원하지 않는 주제입니다.')
-    if not isinstance(questions_per_video, int) or not 1 <= questions_per_video <= 5:
-        raise ValueError('한 영상의 문제 수는 1~5개입니다.')
+    if not isinstance(questions_per_video, int) or not 1 <= questions_per_video <= MAX_QUESTIONS:
+        raise ValueError(f'한 영상의 문제 수는 1~{MAX_QUESTIONS}개입니다.')
     rng = random.Random(seed)
     valid, errors = catalog.valid_countries()
     pool = valid if difficulty == 'Mixed' else [row for row in valid if row['difficulty'] == difficulty]
@@ -162,6 +185,8 @@ def build_quiz(catalog, history=None, difficulty='Mixed', questions_per_video=3,
                         'difficulty': country['difficulty']}
             if theme == 'Capital':
                 question.update(kind='capital', answer_name=answer)
+            elif theme == 'Zoom':
+                question.update(kind='zoom', zoom_center=_zoom_center(rng, country['flag_path']))
             questions.append(question)
         # v1.3.6: easiest flag first (a quick win keeps viewers), hardest last (a reason to stay for the finale).
         # Python's sort is stable, so the famous first flag stays first. The signature ignores order.

@@ -5,6 +5,7 @@ from pathlib import Path
 from functools import lru_cache
 import json
 import math
+import random
 import shutil
 import subprocess
 import time
@@ -13,6 +14,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 from .audio import synthesize_audio, QUESTION_SECONDS, COUNTDOWN_SECONDS, COUNTDOWN_TICKS, CTA_SECONDS
 from .names import display_name
+from .themes import ZOOM_START
 from .paths import resource_root, subprocess_options
 
 WIDTH, HEIGHT, FPS = 1080, 1920, 30
@@ -118,6 +120,8 @@ def _headline(index,count,question=None):
     A capital-city question names the country (its flag is on screen) and asks for its capital."""
     if question is not None and question.get('kind')=='capital':
         return f'CAPITAL OF {display_name(question["country_name"]).upper()}?'
+    if question is not None and question.get('kind')=='zoom' and not (count>1 and index==count-1):
+        return 'ZOOMED IN! WHICH FLAG?'
     if count>1 and index==0:
         return f'CAN YOU GET ALL {count}?'
     if count>1 and index==count-1:
@@ -189,13 +193,45 @@ def prepare_animation(questions):
     background = _background()
     boards = [(_question_static(q,i,len(questions),background),
                _question_static(q,i,len(questions),background,True)) for i,q in enumerate(questions)]
-    flags=[]
+    flags=[];sources=[]
     for question in questions:
         with Image.open(question['flag_path']) as source:
-            flag=source.convert('RGBA');flag.thumbnail(FLAG_MAX,Image.Resampling.LANCZOS)
-            flags.append(flag.copy())
-    return {'background':background,'boards':boards,'flags':flags,
+            full=source.convert('RGBA')
+            flag=full.copy();flag.thumbnail(FLAG_MAX,Image.Resampling.LANCZOS)
+            flags.append(flag)
+            sources.append(full if question.get('kind')=='zoom' else None)
+    return {'background':background,'boards':boards,'flags':flags,'sources':sources,
             'cta':_cta(background,len(questions)),'questions':questions}
+
+
+CONFETTI_SECONDS = 1.0
+CONFETTI_COLORS = ('#FFE451', '#FF7AA8', '#7FC8FF', '#FFB265', '#FFFFFF')  # never green: green marks the answer
+
+
+def _confetti(draw, index, x, y, elapsed):
+    """v1.5.0: a short, deterministic burst from the correct card when the answer is revealed."""
+    if not 0 <= elapsed < CONFETTI_SECONDS:
+        return
+    rng = random.Random(1000+index)
+    for piece in range(36):
+        angle = rng.uniform(math.pi*1.1, math.pi*1.9)
+        speed = rng.uniform(420, 820)
+        px = x+math.cos(angle)*speed*elapsed
+        py = y+math.sin(angle)*speed*elapsed+900*elapsed*elapsed
+        size = rng.choice((8, 10, 12))
+        if 0 <= px < WIDTH and 0 <= py < HEIGHT:
+            draw.rectangle((px, py, px+size, py+size*.6), fill=CONFETTI_COLORS[piece % len(CONFETTI_COLORS)])
+
+
+def _zoomed(source, size, center, local):
+    """v1.5.0 Zoom: a crop around center that widens from ZOOM_START to the whole flag by the end of the countdown."""
+    progress = min(max(local/COUNTDOWN_SECONDS, 0), 1)
+    fraction = ZOOM_START+(1-ZOOM_START)*progress**1.6
+    w, h = source.size[0]*fraction, source.size[1]*fraction
+    cx = min(max(center[0]*source.size[0], w/2), source.size[0]-w/2)
+    cy = min(max(center[1]*source.size[1], h/2), source.size[1]-h/2)
+    crop = source.crop((round(cx-w/2), round(cy-h/2), round(cx+w/2), round(cy+h/2)))
+    return crop.resize(size, Image.Resampling.LANCZOS)
 
 
 def animated_frame(context, second):
@@ -210,7 +246,11 @@ def animated_frame(context, second):
     image=context['boards'][index][int(state['reveal'])].copy()
     draw=ImageDraw.Draw(image)
     if not state['reveal']:
-        if local < FLAG_POP_SECONDS:
+        if questions[index].get('kind')=='zoom':
+            draw.rectangle((FLAG_CARD[0]+4,FLAG_CARD[1]+4,FLAG_CARD[2]-4,FLAG_CARD[3]-4),fill='#F4F8FF')
+            flag=_zoomed(context['sources'][index],context['flags'][index].size,questions[index]['zoom_center'],local)
+            image.paste(flag,((WIDTH-flag.width)//2,FLAG_CENTER_Y-flag.height//2),flag)
+        elif local < FLAG_POP_SECONDS:
             # Keep the whole flag visible, including frame zero. No blackout/fade.
             draw.rectangle((FLAG_CARD[0]+4,FLAG_CARD[1]+4,FLAG_CARD[2]-4,FLAG_CARD[3]-4),fill='#F4F8FF')
             flag=context['flags'][index]
@@ -239,6 +279,7 @@ def animated_frame(context, second):
         draw=ImageDraw.Draw(image)
         draw.rounded_rectangle((left,top,left+width-1,top+height-1),radius=26,
                                outline='#A8FFE0' if local-COUNTDOWN_SECONDS<.35 else GREEN,width=6)
+        _confetti(draw,index,x+224,y+73,local-COUNTDOWN_SECONDS)
     if index>0 and local<.16:
         draw.rectangle((0,214,int(WIDTH*(local/.16)),222),fill=YELLOW)
     return image
@@ -248,7 +289,7 @@ def render_video(quiz, destination, bgm_volume=.10, progress_callback=None, ffmp
     """Create a local video atomically. Failed temporary output is never promoted."""
     started=time.monotonic();destination=Path(destination)
     questions=quiz['questions'];count=len(questions)
-    if not 1<=count<=5:raise ValueError('Question count must be between 1 and 5')
+    if not 1<=count<=10:raise ValueError('Question count must be between 1 and 10')
     destination.parent.mkdir(parents=True,exist_ok=True)
     if ffmpeg_path is None:
         try:

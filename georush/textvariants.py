@@ -48,6 +48,9 @@ THEME_TITLES = {
     'Lookalike': ['These Flags Look Almost the Same! Can You Tell? | GeoRush #Shorts',
                   'Look-Alike Flags: Can You Get {n}/{n}? | GeoRush #Shorts',
                   'Most People Mix Up These {n} Flags! | GeoRush #Shorts'],
+    'Zoom': ['Zoomed-In Flags: Can You Guess Them? | GeoRush #Shorts',
+             'Guess the Flag From a Tiny Corner! | GeoRush #Shorts',
+             'Zoom Quiz: Name These {n} Flags! | GeoRush #Shorts'],
     'Capital': ['Guess the Capital City! {n} Questions | GeoRush #Shorts',
                 'Can You Name These {n} Capitals? | GeoRush #Shorts',
                 'Capital City Quiz: Can You Get {n}/{n}? | GeoRush #Shorts'],
@@ -56,10 +59,11 @@ THEME_INTROS = {
     'region': 'Every flag in this round is from {region}. Can you name all {n} countries?',
     'Lookalike': 'Every flag in this round has a look-alike among the answers. Can you tell all {n} apart?',
     'Capital': 'You see the flag and the country: now name its capital city. {n} questions!',
+    'Zoom': 'Every flag starts zoomed in on one small spot. Name the country before the full flag appears!',
 }
 THEME_TAGS = {'region': ['{region} flags'], 'Lookalike': ['similar flags', 'look alike flags'],
-              'Capital': ['capital cities', 'capital city quiz']}
-THEME_HASHTAG = {'region': '#{tag}Flags', 'Lookalike': '#SimilarFlags', 'Capital': '#CapitalCities'}
+              'Capital': ['capital cities', 'capital city quiz'], 'Zoom': ['zoomed in flags', 'flag zoom quiz']}
+THEME_HASHTAG = {'region': '#{tag}Flags', 'Lookalike': '#SimilarFlags', 'Capital': '#CapitalCities', 'Zoom': '#FlagZoom'}
 CAPITAL_COMMENTS = ['How many capitals did you get right? {scores}? Tell us your score!',
                     'Which capital tricked you? Share your score ({scores}) below!',
                     'Did you get {count}/{count}? Drop your capital score: {scores}!']
@@ -84,10 +88,26 @@ def _themed_short_texts(signature, count, difficulty, theme):
     return title, description, tags, comment
 
 
-def short_texts(signature, count, difficulty, theme='Classic'):
+def with_episode(title, episode):
+    """v1.5.0: 'Flag Challenge #37' style series numbers, so the Shorts read as one running series."""
+    if not episode:
+        return title
+    for brand in (' | GeoRush', ' #Shorts'):
+        if brand in title:
+            return title.replace(brand, f' #{episode}{brand}', 1)
+    return f'{title} #{episode}'
+
+
+def short_texts(signature, count, difficulty, theme='Classic', episode=None):
     """(title, description, tags, pinned comment) of a Shorts quiz. The draw order is fixed: changing it changes old texts."""
     if theme != 'Classic':
-        return _themed_short_texts(signature, count, difficulty, theme)
+        title, description, tags, comment = _themed_short_texts(signature, count, difficulty, theme)
+        return with_episode(title, episode), description, tags, comment
+    title, description, tags, comment = _classic_short_texts(signature, count, difficulty)
+    return with_episode(title, episode), description, tags, comment
+
+
+def _classic_short_texts(signature, count, difficulty):
     rng = random.Random(signature)
     titles = [f'Guess These {count} Flags! | GeoRush Geography Quiz #Shorts',
               f'Can You Get {count}/{count}? Flag Challenge | GeoRush #Shorts',
@@ -114,9 +134,9 @@ LONG_BODIES = ['Test your geography knowledge in this Easy to Expert challenge!'
                'Start with easy flags and work your way up to the experts!',
                'From well-known flags to real head-scratchers: how far can you get?',
                'Find out whether you are a flag rookie or a geography pro!']
-LONG_RULES = ['Choose A, B, C or D. Each question has an 8-second countdown and a 2-second answer reveal.',
-              'Pick A, B, C or D before the 8-second countdown ends, then see the answer in a 2-second reveal.',
-              'Every question gives you 8 seconds to choose A, B, C or D, followed by a 2-second answer reveal.']
+LONG_RULES = ['Choose A, B, C or D. Each question has a {cd}-second countdown and a {rv}-second answer reveal.',
+              'Pick A, B, C or D before the {cd}-second countdown ends, then see the answer in a {rv}-second reveal.',
+              'Every question gives you {cd} seconds to choose A, B, C or D, followed by a {rv}-second answer reveal.']
 LONG_DISCLAIMER = 'Difficulty tiers are editorial groupings, not measured player ratings. Familiarity varies by viewer.'
 LONG_CALLS = ['Watch until the end and share your final score.',
               'Stay until the end and tell us your final score in the comments!',
@@ -136,12 +156,12 @@ LONG_COMMENTS = ['How many flags did you recognize? Share your score out of {cou
 LONG_HASHTAGS = '#GeoRush #FlagQuiz #GeographyQuiz #GuessTheFlag'
 
 
-def long_texts(signature, count):
+def long_texts(signature, count, countdown=8, reveal=2):
     """(description top part, tags, pinned comment) of a Longform quiz. The chapters and hashtags are added by the caller."""
     rng = random.Random('longform:'+signature)
     top = (rng.choice(LONG_INTROS).format(count=count)+'\n\n'
            +rng.choice(LONG_BODIES)+'\n'
-           +rng.choice(LONG_RULES)+'\n'
+           +rng.choice(LONG_RULES).format(cd=countdown, rv=reveal)+'\n'
            +LONG_DISCLAIMER+'\n\n'
            +rng.choice(LONG_CALLS)+'\n'
            +rng.choice(LONG_FOLLOWS))

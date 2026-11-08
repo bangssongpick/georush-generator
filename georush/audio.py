@@ -22,8 +22,8 @@ def synthesize_audio(destination: Path, question_count: int, bgm_volume: float =
     """
     if bgm_volume not in (.08, .10, .12):
         raise ValueError('BGM volume must be 0.08, 0.10 or 0.12')
-    if not 1 <= question_count <= 5:
-        raise ValueError('Question count must be between 1 and 5')
+    if not 1 <= question_count <= 10:
+        raise ValueError('Question count must be between 1 and 10')
     destination = Path(destination)
     duration = QUESTION_SECONDS * question_count + CTA_SECONDS
     size = round(duration * SAMPLE_RATE)
