@@ -121,6 +121,7 @@ FIND_FLAG_MAX = (420,250)
 
 
 def _find_grid(image, question, correct=None):
+    """Find and Population grids. Population cards also show each country's people at the reveal."""
     draw=ImageDraw.Draw(image)
     for i,(x0,y0,x1,y1) in enumerate(FIND_CELLS):
         draw.rounded_rectangle((x0,y0,x1,y1),radius=22,fill='#FFFFFF',outline='#86AEFF',width=3)
@@ -137,6 +138,11 @@ def _find_grid(image, question, correct=None):
             draw.rounded_rectangle((x0-4,y0-4,x1+4,y1+4),radius=26,outline=GREEN,width=10)
         draw.ellipse((x0+12,y0+12,x0+72,y0+72),fill=GREEN if correct==i else '#12356B')
         _center(draw,chr(65+i),y0+24,36,'#082E3F' if correct==i else YELLOW,x=x0+42)
+        if correct is not None and question.get('kind')=='population':
+            from .population import short_number
+            label=short_number(question['populations'][i])
+            draw.rounded_rectangle((x1-190,y1-70,x1-12,y1-12),radius=16,fill=GREEN if i==correct else '#0B2A60')
+            _center(draw,label,y1-60,38,'#082E3F' if i==correct else WHITE,max_width=160,x=x1-101)
 
 
 def _headline(index,count,question=None):
@@ -144,6 +150,8 @@ def _headline(index,count,question=None):
     A capital-city question names the country (its flag is on screen) and asks for its capital."""
     if question is not None and question.get('kind')=='capital':
         return f'CAPITAL OF {display_name(question["country_name"]).upper()}?'
+    if question is not None and question.get('kind')=='population':
+        return 'WHICH HAS THE MOST PEOPLE?' if index==0 else 'MOST PEOPLE?'
     if question is not None and question.get('kind')=='find':
         return f'FIND {display_name(question["country_name"]).upper()}!'
     if question is not None and question.get('kind')=='zoom' and not (count>1 and index==count-1):
@@ -159,7 +167,8 @@ def _question_static(question,index,count,background,reveal=False):
     options,correct,flag_path=_question_data(question)
     image=background.copy();draw=ImageDraw.Draw(image)
     _center(draw,_headline(index,count,question),HEADLINE_Y,TITLE_SIZE,YELLOW,max_width=HEADLINE_WIDTH)
-    find=question.get('kind')=='find'
+    find=question.get('kind') in ('find','population')
+    names_shown=question.get('kind')=='population'
     draw.rounded_rectangle(FLAG_CARD,radius=30,fill='#16457F' if find else '#F4F8FF',outline='#86AEFF',width=4)
     if find:
         _find_grid(image,question,correct if reveal else None)
@@ -171,14 +180,18 @@ def _question_static(question,index,count,background,reveal=False):
     draw=ImageDraw.Draw(image)
     _center(draw,f'QUESTION {index+1} / {count}',122,27,MUTED,x=578)  # in the header, between the logo and FLAG QUIZ
     for option_index,name in enumerate(options):
-        if find:  # the letters only: a name on a card would give the flag away
+        if find and not names_shown:  # the letters only: a name on a card would give the flag away
             name=options[correct] if reveal and option_index==correct else f'FLAG {chr(65+option_index)}'
         _option(draw,option_index,name,reveal and option_index==correct)
     if reveal and index==count-1:
         # v1.6.1: the score ask sits on the last answer, so the Short can loop without a closing screen.
         draw.rounded_rectangle((117,1620,963,1820),radius=34,fill=YELLOW)
-        _center(draw,'COMMENT YOUR SCORE',1652,46,'#0B2A60',max_width=790)
-        _center(draw,'+ WHERE YOU’RE FROM!',1732,40,'#0B2A60',max_width=790)
+        _center(draw,'COMMENT YOUR SCORE + COUNTRY!',1652,42,'#0B2A60',max_width=790)
+        _center(draw,'LIKE & SUBSCRIBE FOR MORE!',1732,40,'#0B2A60',max_width=790)
+    elif names_shown:
+        from .population import SOURCE_LINE
+        _center(draw,'@GeoRushGames',1735,31,MUTED)
+        _center(draw,SOURCE_LINE,1790,26,MUTED)
     else:
         _center(draw,'@GeoRushGames',1735,31,MUTED)
         noun='capital' if question.get('kind')=='capital' else 'round' if find else 'flag'
@@ -207,6 +220,8 @@ def _cta(background,count):
 def animation_state(second, question_count):
     """Shared timing in seconds; effects are local to the current question."""
     index = int((second+1e-8)//QUESTION_SECONDS)
+    if index >= question_count and second < question_count*QUESTION_SECONDS+CTA_SECONDS:
+        index = question_count-1  # v1.6.2: the last answer is held for CTA_SECONDS (spoken comment/subscribe ask)
     local = max(0.0, second-index*QUESTION_SECONDS)
     state = {'question_index': index, 'local': local, 'cta': index >= question_count,
              'reveal': local >= COUNTDOWN_SECONDS, 'flag_scale': 1.0,
@@ -289,7 +304,7 @@ def animated_frame(context, second):
             draw.rectangle((FLAG_CARD[0]+4,FLAG_CARD[1]+4,FLAG_CARD[2]-4,FLAG_CARD[3]-4),fill='#F4F8FF')
             flag=_zoomed(context['sources'][index],context['flags'][index].size,questions[index]['zoom_center'],local)
             image.paste(flag,((WIDTH-flag.width)//2,FLAG_CENTER_Y-flag.height//2),flag)
-        elif local < FLAG_POP_SECONDS and questions[index].get('kind')!='find':
+        elif local < FLAG_POP_SECONDS and questions[index].get('kind') not in ('find','population'):
             # Keep the whole flag visible, including frame zero. No blackout/fade.
             draw.rectangle((FLAG_CARD[0]+4,FLAG_CARD[1]+4,FLAG_CARD[2]-4,FLAG_CARD[3]-4),fill='#F4F8FF')
             flag=context['flags'][index]
@@ -338,7 +353,7 @@ def render_video(quiz, destination, bgm_volume=.10, progress_callback=None, ffmp
             ffmpeg_path=shutil.which('ffmpeg')
     if not ffmpeg_path:raise FileNotFoundError('FFmpeg is not installed or bundled')
     audio_path=destination.parent/'original_audio.wav'
-    audio_report=synthesize_audio(audio_path,count,bgm_volume)
+    audio_report=synthesize_audio(audio_path,count,bgm_volume,questions)
     animation=prepare_animation(questions)
     inspection=destination.parent/'inspection';inspection.mkdir(exist_ok=True)
     duration=count*QUESTION_SECONDS+CTA_SECONDS

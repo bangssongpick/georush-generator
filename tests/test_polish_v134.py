@@ -25,13 +25,14 @@ class PolishTests(unittest.TestCase):
     # --- call-to-action length ---------------------------------------------------------------------------
     def test_cta_is_three_seconds_and_timing_of_questions_is_unchanged(self):
         # v1.6.1: the closing CTA screen is gone; the Short ends on the last answer (with the score ask) and loops.
-        self.assertEqual((QUESTION_SECONDS, COUNTDOWN_SECONDS, CTA_SECONDS), (4.5, 3.0, 0.0))
-        self.assertEqual(3 * QUESTION_SECONDS + CTA_SECONDS, 13.5)
+        self.assertEqual((QUESTION_SECONDS, COUNTDOWN_SECONDS, CTA_SECONDS), (4.5, 3.0, 2.5))
+        self.assertEqual(3 * QUESTION_SECONDS + CTA_SECONDS, 16.0)
         quiz = build_quiz(self.catalog, None, seed=1)
         context = render.prepare_animation(quiz['questions'])
-        for second in (0.0, 4.5, 9.0, 13.49):
+        for second in (0.0, 4.5, 9.0, 13.49, 14.0, 15.45):  # v1.6.2: no CTA screen, the last answer is held
             self.assertFalse(render.animation_state(second, 3)['cta'], second)
-        last = render.animated_frame(context, 13.4)
+        self.assertEqual(render.animation_state(15.0, 3)['question_index'], 2)
+        last = render.animated_frame(context, 15.4)
         self.assertEqual(last.getpixel((540, 1640))[:3], (255, 228, 81))  # the yellow score-ask banner
 
     # --- display names --------------------------------------------------------------------------------------

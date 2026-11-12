@@ -1,4 +1,4 @@
-"""Original local synthesis for GeoRush: no recordings, downloads or TTS."""
+"""Original local synthesis for GeoRush, plus v1.6.2 voice lines pre-rendered with Kokoro (Apache-2.0, assets/voice)."""
 from __future__ import annotations
 
 from pathlib import Path
@@ -12,11 +12,72 @@ QUESTION_SECONDS = 4.5   # v1.4.2: was 5.5 - a 16.5 s Short with a faster pace f
 COUNTDOWN_SECONDS = 3.0  # v1.4.2: was 4.0 (countdown 3-2-1, then a 1.5 s answer reveal)
 # v1.6.1: no closing CTA screen - the Short ends on the last answer and loops straight back to the first flag
 # (the one Short that viewers rewatched had the highest watch time). The score ask moved onto the last answer.
-CTA_SECONDS = 0.0  # v1.3.4-v1.6.0: 3.0
+# v1.6.2: the last answer stays 2.5 s longer for the spoken 'Comment your score, and subscribe for more!' (no separate screen).
+CTA_SECONDS = 2.5  # v1.3.4-v1.6.0: 3.0 closing screen, v1.6.1: 0.0
 COUNTDOWN_TICKS = int(COUNTDOWN_SECONDS)
 
 
-def synthesize_audio(destination: Path, question_count: int, bgm_volume: float = .10) -> dict:
+VOICE_GAIN = .62
+
+
+def _voice_clip(key):
+    """A Kokoro clip from assets/voice resampled to 48 kHz, or None when the clip is not bundled."""
+    from .paths import resource_root
+    path = resource_root()/'assets'/'voice'/f'{key}.wav'
+    if not path.is_file():
+        return None
+    with wave.open(str(path), 'rb') as source:
+        rate = source.getframerate()
+        data = np.frombuffer(source.readframes(source.getnframes()), dtype='<i2').astype(np.float64)/32767
+    positions = np.arange(round(len(data)*SAMPLE_RATE/rate))*rate/SAMPLE_RATE
+    return np.interp(positions, np.arange(len(data)), data)
+
+
+def voice_plan(questions):
+    """(seconds, clip key) pairs: the prompt as each flag appears, the answer at the reveal, the ask at the very end."""
+    plan, count = [], len(questions)
+    for index, question in enumerate(questions):
+        base, kind, code = index*QUESTION_SECONDS, question.get('kind'), question['country_code']
+        last = count > 1 and index == count-1
+        if kind == 'capital':
+            continue  # capital names are not in the clip set
+        if kind == 'find':
+            prompt = 'find_'+code
+        elif kind == 'population':
+            prompt = 'pop_first' if index == 0 else 'pop'
+        elif last:
+            prompt = 'final'
+        elif kind == 'zoom':
+            prompt = 'zoom'
+        else:
+            prompt = 'first' if count > 1 and index == 0 else 'guess'
+        plan.append((base+.12, prompt))
+        plan.append((base+COUNTDOWN_SECONDS+.08, 'name_'+code))
+    if questions and questions[-1].get('kind') != 'capital':
+        plan.append(((count-1)*QUESTION_SECONDS+COUNTDOWN_SECONDS+1.05, 'outro'))
+    return plan
+
+
+def _add_voice(track, events, questions, size):
+    voiced, end = False, 0.0
+    for at, key in voice_plan(questions):
+        clip = _voice_clip(key)
+        if clip is None:
+            continue
+        if key == 'outro':
+            at = max(at, end+.12)  # never over a long country name
+        start = round(at*SAMPLE_RATE)
+        length = min(len(clip), size-start)
+        if length <= 0:
+            continue
+        track[start:start+length] += (clip[:length]*VOICE_GAIN)[:, None]
+        events.append({'kind': 'voice', 'clip': key, 'time_seconds': at, 'duration_seconds': length/SAMPLE_RATE})
+        end = at+length/SAMPLE_RATE
+        voiced = True
+    return voiced
+
+
+def synthesize_audio(destination: Path, question_count: int, bgm_volume: float = .10, questions=None) -> dict:
     """Write a deterministic stereo PCM track and report its measured peak.
 
     The selectable gain applies to the original music component before effects
@@ -83,7 +144,9 @@ def synthesize_audio(destination: Path, question_count: int, bgm_volume: float =
             noise *= .07*np.sin(np.pi*t/.16)**2
             track[start:start+length] += noise[:,None]
             events.append({'kind':'transition','time_seconds':base+QUESTION_SECONDS-.16,'duration_seconds':.16})
-    add_tone(question_count*QUESTION_SECONDS,(659.255,783.991),.42,.11,'cta')
+    voiced = _add_voice(track, events, questions or [], size)
+    if not voiced:
+        add_tone(question_count*QUESTION_SECONDS,(659.255,783.991),.42,.11,'cta')
     fade = min(round(.08*SAMPLE_RATE),size)
     track[:fade] *= np.linspace(0,1,fade)[:,None]
     end_fade=min(round(.45*SAMPLE_RATE),size)

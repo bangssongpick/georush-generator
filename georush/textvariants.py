@@ -55,6 +55,10 @@ THEME_TITLES = {
                 'Can You Name These {n} Capitals? | GeoRush #Shorts',
                 'Capital City Quiz: Can You Get {n}/{n}? | GeoRush #Shorts'],
     # v1.6.0 Find: challenge-style titles, the style of the channel's best Shorts in Nov 2026.
+    'Population': ['Which Country Has the Most People? \U0001F30F | GeoRush #Shorts',
+                   'Bigger Population? Most People Get This Wrong! | GeoRush #Shorts',
+                   'Guess the Most Populated Country! {n} Rounds | GeoRush #Shorts',
+                   'Population Quiz: Can You Get {n}/{n}? | GeoRush #Shorts'],
     'Find': ['Find the Right Flag! Can You Get {n}/{n}? 😈 | GeoRush #Shorts',
              'Can You Find Your Country’s Flag? | GeoRush #Shorts',
              'Pick the Right Flag! Most People Miss One | GeoRush #Shorts',
@@ -65,12 +69,14 @@ THEME_INTROS = {
     'Lookalike': 'Every flag in this round has a look-alike among the answers. Can you tell all {n} apart?',
     'Capital': 'You see the flag and the country: now name its capital city. {n} questions!',
     'Zoom': 'Every flag starts zoomed in on one small spot. Name the country before the full flag appears!',
+    'Population': 'Four flags, one question: which country has the most people? Population data: World Bank (2025), CC BY 4.0.',
     'Find': 'Each round names a country: find its flag among four look-alike flags before the timer runs out!',
 }
 THEME_TAGS = {'region': ['{region} flags'], 'Lookalike': ['similar flags', 'look alike flags'],
               'Capital': ['capital cities', 'capital city quiz'], 'Zoom': ['zoomed in flags', 'flag zoom quiz'],
-              'Find': ['find the flag', 'which flag is it']}
-THEME_HASHTAG = {'region': '#{tag}Flags', 'Lookalike': '#SimilarFlags', 'Capital': '#CapitalCities', 'Zoom': '#FlagZoom', 'Find': '#FindTheFlag'}
+              'Find': ['find the flag', 'which flag is it'],
+              'Population': ['population quiz', 'most populated countries']}
+THEME_HASHTAG = {'region': '#{tag}Flags', 'Lookalike': '#SimilarFlags', 'Capital': '#CapitalCities', 'Zoom': '#FlagZoom', 'Find': '#FindTheFlag', 'Population': '#PopulationQuiz'}
 CAPITAL_COMMENTS = ['How many capitals did you get right? {scores}? Tell us your score!',
                     'Which capital tricked you? Share your score ({scores}) below!',
                     'Did you get {count}/{count}? Drop your capital score: {scores}!']

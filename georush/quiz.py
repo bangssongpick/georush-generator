@@ -18,7 +18,7 @@ def composition_signature(questions):
     # Reordering answers or questions must not bypass duplicate-composition checks.
     # v1.4.0: a capital-city question about a country is a different video than its flag question.
     # v1.5.0: so is a zoomed-in question.
-    codes = sorted((question['kind']+':' if question.get('kind') in ('capital', 'zoom', 'find') else '')+question['country_code']
+    codes = sorted((question['kind']+':' if question.get('kind') in ('capital', 'zoom', 'find', 'population') else '')+question['country_code']
                    for question in questions)
     return hashlib.sha256(json.dumps(codes, separators=(',', ':')).encode()).hexdigest()
 
@@ -46,7 +46,13 @@ def validate_quiz(quiz, catalog):
             center = question.get('zoom_center')
             if not (isinstance(center, list) and len(center) == 2 and all(ZOOM_MARGIN <= v <= 1-ZOOM_MARGIN for v in center)):
                 raise ValueError('확대 문제의 확대 위치가 올바르지 않습니다.')
-        if question.get('kind') == 'find':
+        if question.get('kind') == 'population':
+            from .population import margin_ok, population
+            names = {row['name']: row['code'] for row in catalog.countries}
+            codes = [names.get(o) for o in question.get('options', [])]
+            if None in codes or max(codes, key=population) != code or not margin_ok(codes, 'Hard'):
+                raise ValueError('인구 문제의 정답이 인구가 가장 많은 나라가 아니거나 차이가 너무 작습니다.')
+        if question.get('kind') in ('find', 'population'):
             paths = question.get('option_flag_paths')
             names = {row['name']: row['code'] for row in catalog.countries}
             if (not isinstance(paths, list) or len(paths) != 4 or any(o not in names for o in question.get('options', []))
@@ -152,6 +158,40 @@ def _distractors(rng, country, valid, theme):
     raise CatalogError('선택지를 만들 국가가 부족합니다.')
 
 
+def _population_questions(rng, valid, k, recent_runs, avoid):
+    """v1.6.2: k rounds of 'which has the most people?', easy -> hard margins, every country used once per video.
+    Most rounds include one of the channel's big audience countries."""
+    from .population import margin_ok, population
+    tiers = (['Easy'] + ['Normal']*(k-2) + ['Hard']) if k > 1 else ['Easy']
+    recent = set().union(*recent_runs) if recent_runs else set()
+    used, questions = set(), []
+    for tier in tiers[:k]:
+        for attempt in range(4000):
+            pool = [row for row in valid if row['code'] not in used]
+            home = [row for row in pool if row['code'] in AUDIENCE_FIND]
+            first = rng.choice(home) if home and rng.random() < .7 else rng.choice(pool)
+            rows = [first] + rng.sample([row for row in pool if row is not first], 3)
+            codes = [row['code'] for row in rows]
+            harder = {'Easy': None, 'Normal': 'Easy', 'Hard': 'Normal'}[tier]  # a Hard round is not also a Normal one
+            if not margin_ok(codes, tier) or (harder and margin_ok(codes, harder)):
+                continue
+            answer = max(rows, key=lambda row: population(row['code']))
+            if answer['code'] in (recent | avoid) and attempt < 3000:
+                continue
+            break
+        else:
+            raise CatalogError('인구 문제를 만들 국가 조합을 찾지 못했습니다.')
+        used.update(codes)
+        rng.shuffle(rows)
+        options = [row['name'] for row in rows]
+        questions.append({'country_code': answer['code'], 'country_name': answer['name'],
+                          'flag_path': answer['flag_path'], 'flag': answer['flag'], 'flag_sha256': answer['sha256'],
+                          'options': options, 'correct_index': options.index(answer['name']), 'difficulty': tier,
+                          'kind': 'population', 'option_flag_paths': [row['flag_path'] for row in rows],
+                          'populations': [population(row['code']) for row in rows]})
+    return questions
+
+
 def build_quiz(catalog, history=None, difficulty='Mixed', questions_per_video=3, seed=None, theme='Classic'):
     if difficulty not in LEVELS:
         raise ValueError('지원하지 않는 난이도입니다.')
@@ -177,6 +217,16 @@ def build_quiz(catalog, history=None, difficulty='Mixed', questions_per_video=3,
     if len(fresh) < questions_per_video:  # the avoid list left too little: it is a preference, not a rule
         fresh = pool
     selection_pool = fresh
+    if theme == 'Population':
+        for attempt in range(64):
+            questions = _population_questions(rng, valid, questions_per_video, recent_runs, avoid)
+            signature = composition_signature(questions)
+            if signature not in used:
+                quiz = {'schema_version': 1, 'channel': 'GeoRush', 'difficulty': difficulty, 'questions': questions,
+                        'signature': signature, 'asset_warnings': errors, 'seed': seed, 'theme': theme}
+                validate_quiz(quiz, catalog)
+                return quiz
+        raise ValueError('새 인구 문제 구성을 찾지 못했습니다.')
     for attempt in range(512):
         rows = selection_pool if attempt < 256 else pool
         if difficulty == 'Mixed':

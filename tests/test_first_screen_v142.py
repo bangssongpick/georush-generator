@@ -46,7 +46,7 @@ class FirstScreenV142Tests(unittest.TestCase):
 
     def test_timer_is_three_seconds_and_the_short_is_about_fifteen(self):
         self.assertEqual((COUNTDOWN_SECONDS, COUNTDOWN_TICKS), (3.0, 3))
-        self.assertEqual(3*QUESTION_SECONDS+CTA_SECONDS, 13.5)  # v1.6.1: no closing screen
+        self.assertEqual(3*QUESTION_SECONDS+CTA_SECONDS, 16.0)  # v1.6.2: last answer held 2.5 s
         self.assertEqual(render.animation_state(0.0, 3)['remaining'], 3)
         self.assertTrue(render.animation_state(2.0, 3)['urgent'])
         self.assertFalse(render.animation_state(1.99, 3)['urgent'])

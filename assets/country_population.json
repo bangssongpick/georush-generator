@@ -1,0 +1,760 @@
+{
+ "source": "World Bank, World Development Indicators, SP.POP.TOTL (Population, total), most recent value",
+ "license": "CC BY 4.0 (https://datacatalog.worldbank.org/public-licenses)",
+ "retrieved": "2026-11-12",
+ "url": "https://api.worldbank.org/v2/country/all/indicator/SP.POP.TOTL?format=json&mrnev=1",
+ "countries": {
+  "us": {
+   "population": 341784857,
+   "year": "2025"
+  },
+  "ca": {
+   "population": 41651653,
+   "year": "2025"
+  },
+  "gb": {
+   "population": 69487000,
+   "year": "2025"
+  },
+  "fr": {
+   "population": 68720337,
+   "year": "2025"
+  },
+  "de": {
+   "population": 83491249,
+   "year": "2025"
+  },
+  "it": {
+   "population": 58915656,
+   "year": "2025"
+  },
+  "es": {
+   "population": 49355143,
+   "year": "2025"
+  },
+  "jp": {
+   "population": 123366734,
+   "year": "2025"
+  },
+  "kr": {
+   "population": 51684564,
+   "year": "2025"
+  },
+  "cn": {
+   "population": 1406585000,
+   "year": "2025"
+  },
+  "br": {
+   "population": 212812405,
+   "year": "2025"
+  },
+  "au": {
+   "population": 27614411,
+   "year": "2025"
+  },
+  "in": {
+   "population": 1463865525,
+   "year": "2025"
+  },
+  "za": {
+   "population": 64747319,
+   "year": "2025"
+  },
+  "mx": {
+   "population": 131946900,
+   "year": "2025"
+  },
+  "ch": {
+   "population": 9092436,
+   "year": "2025"
+  },
+  "se": {
+   "population": 10596620,
+   "year": "2025"
+  },
+  "no": {
+   "population": 5610870,
+   "year": "2025"
+  },
+  "gr": {
+   "population": 10413962,
+   "year": "2025"
+  },
+  "ar": {
+   "population": 45851378,
+   "year": "2025"
+  },
+  "ru": {
+   "population": 143513328,
+   "year": "2025"
+  },
+  "id": {
+   "population": 285721236,
+   "year": "2025"
+  },
+  "sa": {
+   "population": 36973555,
+   "year": "2025"
+  },
+  "ae": {
+   "population": 11513149,
+   "year": "2025"
+  },
+  "at": {
+   "population": 9208163,
+   "year": "2025"
+  },
+  "pk": {
+   "population": 255219554,
+   "year": "2025"
+  },
+  "ir": {
+   "population": 92417681,
+   "year": "2025"
+  },
+  "cz": {
+   "population": 10886878,
+   "year": "2025"
+  },
+  "hu": {
+   "population": 9514251,
+   "year": "2025"
+  },
+  "is": {
+   "population": 392404,
+   "year": "2025"
+  },
+  "kp": {
+   "population": 26571036,
+   "year": "2025"
+  },
+  "np": {
+   "population": 29618118,
+   "year": "2025"
+  },
+  "lb": {
+   "population": 5849421,
+   "year": "2025"
+  },
+  "cy": {
+   "population": 1370754,
+   "year": "2025"
+  },
+  "bd": {
+   "population": 175686899,
+   "year": "2025"
+  },
+  "ro": {
+   "population": 19020271,
+   "year": "2025"
+  },
+  "ve": {
+   "population": 28516896,
+   "year": "2025"
+  },
+  "qa": {
+   "population": 2972215,
+   "year": "2025"
+  },
+  "iq": {
+   "population": 47020774,
+   "year": "2025"
+  },
+  "et": {
+   "population": 135472051,
+   "year": "2025"
+  },
+  "nz": {
+   "population": 5324700,
+   "year": "2025"
+  },
+  "dk": {
+   "population": 6009169,
+   "year": "2025"
+  },
+  "fi": {
+   "population": 5646436,
+   "year": "2025"
+  },
+  "nl": {
+   "population": 18087633,
+   "year": "2025"
+  },
+  "be": {
+   "population": 11941781,
+   "year": "2025"
+  },
+  "pt": {
+   "population": 10804871,
+   "year": "2025"
+  },
+  "ie": {
+   "population": 5484367,
+   "year": "2025"
+  },
+  "pl": {
+   "population": 36435861,
+   "year": "2025"
+  },
+  "ua": {
+   "population": 38980376,
+   "year": "2025"
+  },
+  "tr": {
+   "population": 85878556,
+   "year": "2025"
+  },
+  "eg": {
+   "population": 118365995,
+   "year": "2025"
+  },
+  "ke": {
+   "population": 57532493,
+   "year": "2025"
+  },
+  "ma": {
+   "population": 38430770,
+   "year": "2025"
+  },
+  "ng": {
+   "population": 237527782,
+   "year": "2025"
+  },
+  "vn": {
+   "population": 101598527,
+   "year": "2025"
+  },
+  "th": {
+   "population": 71619863,
+   "year": "2025"
+  },
+  "ph": {
+   "population": 116786962,
+   "year": "2025"
+  },
+  "my": {
+   "population": 35977838,
+   "year": "2025"
+  },
+  "sg": {
+   "population": 6111175,
+   "year": "2025"
+  },
+  "il": {
+   "population": 10122800,
+   "year": "2025"
+  },
+  "dz": {
+   "population": 47435312,
+   "year": "2025"
+  },
+  "ao": {
+   "population": 39040039,
+   "year": "2025"
+  },
+  "bs": {
+   "population": 403033,
+   "year": "2025"
+  },
+  "bb": {
+   "population": 282623,
+   "year": "2025"
+  },
+  "by": {
+   "population": 9085991,
+   "year": "2025"
+  },
+  "bg": {
+   "population": 6433302,
+   "year": "2025"
+  },
+  "kh": {
+   "population": 17847982,
+   "year": "2025"
+  },
+  "do": {
+   "population": 11520487,
+   "year": "2025"
+  },
+  "sv": {
+   "population": 6365503,
+   "year": "2025"
+  },
+  "ee": {
+   "population": 1366475,
+   "year": "2025"
+  },
+  "fj": {
+   "population": 933154,
+   "year": "2025"
+  },
+  "gt": {
+   "population": 18687881,
+   "year": "2025"
+  },
+  "hn": {
+   "population": 11005850,
+   "year": "2025"
+  },
+  "ht": {
+   "population": 11906095,
+   "year": "2025"
+  },
+  "jo": {
+   "population": 11520684,
+   "year": "2025"
+  },
+  "kw": {
+   "population": 4865298,
+   "year": "2025"
+  },
+  "kg": {
+   "population": 7343064,
+   "year": "2025"
+  },
+  "lv": {
+   "population": 1847785,
+   "year": "2025"
+  },
+  "lt": {
+   "population": 2888774,
+   "year": "2025"
+  },
+  "ly": {
+   "population": 7458555,
+   "year": "2025"
+  },
+  "mg": {
+   "population": 32740678,
+   "year": "2025"
+  },
+  "mt": {
+   "population": 579704,
+   "year": "2025"
+  },
+  "mn": {
+   "population": 3568978,
+   "year": "2025"
+  },
+  "me": {
+   "population": 623129,
+   "year": "2025"
+  },
+  "mz": {
+   "population": 35631653,
+   "year": "2025"
+  },
+  "mm": {
+   "population": 54850648,
+   "year": "2025"
+  },
+  "na": {
+   "population": 3092816,
+   "year": "2025"
+  },
+  "ni": {
+   "population": 7007502,
+   "year": "2025"
+  },
+  "om": {
+   "population": 5494691,
+   "year": "2025"
+  },
+  "py": {
+   "population": 7013078,
+   "year": "2025"
+  },
+  "pg": {
+   "population": 10762817,
+   "year": "2025"
+  },
+  "sn": {
+   "population": 18931966,
+   "year": "2025"
+  },
+  "si": {
+   "population": 2130986,
+   "year": "2025"
+  },
+  "lk": {
+   "population": 21756000,
+   "year": "2025"
+  },
+  "sd": {
+   "population": 51662147,
+   "year": "2025"
+  },
+  "tn": {
+   "population": 12348573,
+   "year": "2025"
+  },
+  "tz": {
+   "population": 70545865,
+   "year": "2025"
+  },
+  "ug": {
+   "population": 51384894,
+   "year": "2025"
+  },
+  "zw": {
+   "population": 16950795,
+   "year": "2025"
+  },
+  "ec": {
+   "population": 18289896,
+   "year": "2025"
+  },
+  "bo": {
+   "population": 12581843,
+   "year": "2025"
+  },
+  "pe": {
+   "population": 34576665,
+   "year": "2025"
+  },
+  "cl": {
+   "population": 19859921,
+   "year": "2025"
+  },
+  "co": {
+   "population": 53425635,
+   "year": "2025"
+  },
+  "cr": {
+   "population": 5152950,
+   "year": "2025"
+  },
+  "pa": {
+   "population": 4571189,
+   "year": "2025"
+  },
+  "cu": {
+   "population": 10937203,
+   "year": "2025"
+  },
+  "jm": {
+   "population": 2837077,
+   "year": "2025"
+  },
+  "uy": {
+   "population": 3384688,
+   "year": "2025"
+  },
+  "kz": {
+   "population": 20843754,
+   "year": "2025"
+  },
+  "uz": {
+   "population": 37053428,
+   "year": "2025"
+  },
+  "ge": {
+   "population": 3935766,
+   "year": "2025"
+  },
+  "am": {
+   "population": 3086700,
+   "year": "2025"
+  },
+  "az": {
+   "population": 10246996,
+   "year": "2025"
+  },
+  "al": {
+   "population": 2349580,
+   "year": "2025"
+  },
+  "hr": {
+   "population": 3876200,
+   "year": "2025"
+  },
+  "rs": {
+   "population": 6549143,
+   "year": "2025"
+  },
+  "ba": {
+   "population": 3140095,
+   "year": "2025"
+  },
+  "sk": {
+   "population": 5413813,
+   "year": "2025"
+  },
+  "ad": {
+   "population": 82904,
+   "year": "2025"
+  },
+  "ag": {
+   "population": 94209,
+   "year": "2025"
+  },
+  "bf": {
+   "population": 24074580,
+   "year": "2025"
+  },
+  "bh": {
+   "population": 1600366,
+   "year": "2025"
+  },
+  "bi": {
+   "population": 14390003,
+   "year": "2025"
+  },
+  "bj": {
+   "population": 14814460,
+   "year": "2025"
+  },
+  "bn": {
+   "population": 466330,
+   "year": "2025"
+  },
+  "bt": {
+   "population": 796682,
+   "year": "2025"
+  },
+  "bw": {
+   "population": 2562122,
+   "year": "2025"
+  },
+  "bz": {
+   "population": 422924,
+   "year": "2025"
+  },
+  "cd": {
+   "population": 112832473,
+   "year": "2025"
+  },
+  "cf": {
+   "population": 5513282,
+   "year": "2025"
+  },
+  "cg": {
+   "population": 6484437,
+   "year": "2025"
+  },
+  "ci": {
+   "population": 32711547,
+   "year": "2025"
+  },
+  "cm": {
+   "population": 29879337,
+   "year": "2025"
+  },
+  "cv": {
+   "population": 527326,
+   "year": "2025"
+  },
+  "dj": {
+   "population": 1184076,
+   "year": "2025"
+  },
+  "dm": {
+   "population": 65871,
+   "year": "2025"
+  },
+  "er": {
+   "population": 3607003,
+   "year": "2025"
+  },
+  "fm": {
+   "population": 113683,
+   "year": "2025"
+  },
+  "ga": {
+   "population": 2593130,
+   "year": "2025"
+  },
+  "gd": {
+   "population": 117303,
+   "year": "2025"
+  },
+  "gh": {
+   "population": 35064272,
+   "year": "2025"
+  },
+  "gm": {
+   "population": 2822093,
+   "year": "2025"
+  },
+  "gn": {
+   "population": 15099727,
+   "year": "2025"
+  },
+  "gq": {
+   "population": 1938431,
+   "year": "2025"
+  },
+  "gw": {
+   "population": 2249515,
+   "year": "2025"
+  },
+  "gy": {
+   "population": 835986,
+   "year": "2025"
+  },
+  "ki": {
+   "population": 136488,
+   "year": "2025"
+  },
+  "km": {
+   "population": 882847,
+   "year": "2025"
+  },
+  "kn": {
+   "population": 46922,
+   "year": "2025"
+  },
+  "la": {
+   "population": 7873046,
+   "year": "2025"
+  },
+  "lc": {
+   "population": 180149,
+   "year": "2025"
+  },
+  "li": {
+   "population": 41024,
+   "year": "2025"
+  },
+  "lr": {
+   "population": 5731206,
+   "year": "2025"
+  },
+  "ls": {
+   "population": 2363325,
+   "year": "2025"
+  },
+  "md": {
+   "population": 2360527,
+   "year": "2025"
+  },
+  "mh": {
+   "population": 36282,
+   "year": "2025"
+  },
+  "mk": {
+   "population": 1820909,
+   "year": "2025"
+  },
+  "ml": {
+   "population": 25198821,
+   "year": "2025"
+  },
+  "mr": {
+   "population": 5315065,
+   "year": "2025"
+  },
+  "mu": {
+   "population": 1243741,
+   "year": "2025"
+  },
+  "mv": {
+   "population": 529676,
+   "year": "2025"
+  },
+  "mw": {
+   "population": 22216120,
+   "year": "2025"
+  },
+  "ne": {
+   "population": 27917831,
+   "year": "2025"
+  },
+  "nr": {
+   "population": 12025,
+   "year": "2025"
+  },
+  "pw": {
+   "population": 17663,
+   "year": "2025"
+  },
+  "rw": {
+   "population": 14569341,
+   "year": "2025"
+  },
+  "sb": {
+   "population": 838645,
+   "year": "2025"
+  },
+  "sc": {
+   "population": 122730,
+   "year": "2025"
+  },
+  "sl": {
+   "population": 8819794,
+   "year": "2025"
+  },
+  "sm": {
+   "population": 34109,
+   "year": "2025"
+  },
+  "so": {
+   "population": 19654739,
+   "year": "2025"
+  },
+  "sr": {
+   "population": 639850,
+   "year": "2025"
+  },
+  "ss": {
+   "population": 12188788,
+   "year": "2025"
+  },
+  "st": {
+   "population": 240254,
+   "year": "2025"
+  },
+  "sz": {
+   "population": 1256174,
+   "year": "2025"
+  },
+  "tg": {
+   "population": 8591626,
+   "year": "2025"
+  },
+  "tj": {
+   "population": 10786734,
+   "year": "2025"
+  },
+  "tl": {
+   "population": 1418517,
+   "year": "2025"
+  },
+  "tm": {
+   "population": 7618847,
+   "year": "2025"
+  },
+  "to": {
+   "population": 103742,
+   "year": "2025"
+  },
+  "tt": {
+   "population": 1367764,
+   "year": "2025"
+  },
+  "tv": {
+   "population": 9492,
+   "year": "2025"
+  },
+  "vc": {
+   "population": 99924,
+   "year": "2025"
+  },
+  "vu": {
+   "population": 335169,
+   "year": "2025"
+  },
+  "ws": {
+   "population": 219306,
+   "year": "2025"
+  },
+  "ye": {
+   "population": 41773878,
+   "year": "2025"
+  },
+  "zm": {
+   "population": 21913874,
+   "year": "2025"
+  }
+ }
+}
