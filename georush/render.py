@@ -115,11 +115,37 @@ def _option(draw, index, name, correct=False):
         top+=line_height
 
 
+# v1.6.0 Find: four flags in a 2x2 grid inside the flag card; the bottom cards only carry the letters.
+FIND_CELLS = [(60+(i%2)*490, 318+(i//2)*353, 60+(i%2)*490+470, 318+(i//2)*353+333) for i in range(4)]
+FIND_FLAG_MAX = (420,250)
+
+
+def _find_grid(image, question, correct=None):
+    draw=ImageDraw.Draw(image)
+    for i,(x0,y0,x1,y1) in enumerate(FIND_CELLS):
+        draw.rounded_rectangle((x0,y0,x1,y1),radius=22,fill='#FFFFFF',outline='#86AEFF',width=3)
+        with Image.open(question['option_flag_paths'][i]) as source:
+            flag=source.convert('RGBA')
+        flag.thumbnail(FIND_FLAG_MAX,Image.Resampling.LANCZOS)
+        cx=(x0+x1)//2;cy=(y0+y1)//2+14
+        image.paste(flag,(cx-flag.width//2,cy-flag.height//2),flag)
+        draw=ImageDraw.Draw(image)
+        if correct is not None and i!=correct:  # the wrong flags fade out at the reveal
+            shade=Image.new('RGBA',(x1-x0-6,y1-y0-6),(10,30,70,170))
+            image.paste(shade,(x0+3,y0+3),shade);draw=ImageDraw.Draw(image)
+        if correct is not None and i==correct:
+            draw.rounded_rectangle((x0-4,y0-4,x1+4,y1+4),radius=26,outline=GREEN,width=10)
+        draw.ellipse((x0+12,y0+12,x0+72,y0+72),fill=GREEN if correct==i else '#12356B')
+        _center(draw,chr(65+i),y0+24,36,'#082E3F' if correct==i else YELLOW,x=x0+42)
+
+
 def _headline(index,count,question=None):
     """v1.4.2: one short challenge line, so the flag is what a viewer sees first in the feed.
     A capital-city question names the country (its flag is on screen) and asks for its capital."""
     if question is not None and question.get('kind')=='capital':
         return f'CAPITAL OF {display_name(question["country_name"]).upper()}?'
+    if question is not None and question.get('kind')=='find':
+        return f'FIND {display_name(question["country_name"]).upper()}!'
     if question is not None and question.get('kind')=='zoom' and not (count>1 and index==count-1):
         return 'ZOOMED IN! WHICH FLAG?'
     if count>1 and index==0:
@@ -133,17 +159,23 @@ def _question_static(question,index,count,background,reveal=False):
     options,correct,flag_path=_question_data(question)
     image=background.copy();draw=ImageDraw.Draw(image)
     _center(draw,_headline(index,count,question),HEADLINE_Y,TITLE_SIZE,YELLOW,max_width=HEADLINE_WIDTH)
-    draw.rounded_rectangle(FLAG_CARD,radius=30,fill='#F4F8FF',outline='#86AEFF',width=4)
-    with Image.open(flag_path) as source:
-        flag=source.convert('RGBA')
-        flag.thumbnail(FLAG_MAX,Image.Resampling.LANCZOS)
-        image.paste(flag,((WIDTH-flag.width)//2,FLAG_CENTER_Y-flag.height//2),flag)
+    find=question.get('kind')=='find'
+    draw.rounded_rectangle(FLAG_CARD,radius=30,fill='#16457F' if find else '#F4F8FF',outline='#86AEFF',width=4)
+    if find:
+        _find_grid(image,question,correct if reveal else None)
+    else:
+        with Image.open(flag_path) as source:
+            flag=source.convert('RGBA')
+            flag.thumbnail(FLAG_MAX,Image.Resampling.LANCZOS)
+            image.paste(flag,((WIDTH-flag.width)//2,FLAG_CENTER_Y-flag.height//2),flag)
     draw=ImageDraw.Draw(image)
     _center(draw,f'QUESTION {index+1} / {count}',122,27,MUTED,x=578)  # in the header, between the logo and FLAG QUIZ
     for option_index,name in enumerate(options):
+        if find:  # the letters only: a name on a card would give the flag away
+            name=options[correct] if reveal and option_index==correct else f'FLAG {chr(65+option_index)}'
         _option(draw,option_index,name,reveal and option_index==correct)
     _center(draw,'@GeoRushGames',1735,31,MUTED)
-    noun='capital' if question.get('kind')=='capital' else 'flag'
+    noun='capital' if question.get('kind')=='capital' else 'round' if find else 'flag'
     _center(draw,f'{count} {noun}{"s" if count != 1 else ""}. One challenge.',1790,26,MUTED)
     if reveal:
         _center(draw,'CORRECT ANSWER',1050,30,GREEN)
@@ -157,8 +189,9 @@ def _cta(background,count):
     _center(draw,'HOW MANY DID',565,70)
     _center(draw,'YOU GET RIGHT?',657,70)
     _center(draw,f'0/{count}   1/{count}   2/{count}   {count}/{count}' if count==3 else f'SHARE YOUR SCORE: 0\u2013{count}',855,58,YELLOW)
-    draw.rounded_rectangle((117,1110,963,1260),radius=34,fill='#FFE451')
-    _center(draw,'COMMENT YOUR SCORE',1160,46,'#0B2A60',max_width=790)
+    draw.rounded_rectangle((117,1090,963,1290),radius=34,fill='#FFE451')
+    _center(draw,'COMMENT YOUR SCORE',1122,46,'#0B2A60',max_width=790)
+    _center(draw,'+ WHERE YOU’RE FROM!',1202,40,'#0B2A60',max_width=790)  # v1.6.0: home-country replies
     _center(draw,'Follow @GeoRushGames',1405,48)
     _center(draw,'More flags. More fun.',1495,38,MUTED)
     _center(draw,'GeoRush',1740,53,WHITE)
@@ -250,7 +283,7 @@ def animated_frame(context, second):
             draw.rectangle((FLAG_CARD[0]+4,FLAG_CARD[1]+4,FLAG_CARD[2]-4,FLAG_CARD[3]-4),fill='#F4F8FF')
             flag=_zoomed(context['sources'][index],context['flags'][index].size,questions[index]['zoom_center'],local)
             image.paste(flag,((WIDTH-flag.width)//2,FLAG_CENTER_Y-flag.height//2),flag)
-        elif local < FLAG_POP_SECONDS:
+        elif local < FLAG_POP_SECONDS and questions[index].get('kind')!='find':
             # Keep the whole flag visible, including frame zero. No blackout/fade.
             draw.rectangle((FLAG_CARD[0]+4,FLAG_CARD[1]+4,FLAG_CARD[2]-4,FLAG_CARD[3]-4),fill='#F4F8FF')
             flag=context['flags'][index]

@@ -5,7 +5,8 @@ from pathlib import Path
 import random
 
 from .catalog import CatalogError
-from .themes import ZOOM_MARGIN, ZOOM_START, FIRST_FLAGS, THEMES, capital_of, continent_of, lookalike_mates, theme_pool
+from .themes import (ZOOM_MARGIN, ZOOM_START, FIRST_FLAGS, THEMES, AUDIENCE_FIND, AUDIENCE_NORMAL, AUDIENCE_NORMAL_SHARE,
+                     capital_of, continent_of, lookalike_mates, theme_pool)
 
 LEVELS = ('Easy', 'Normal', 'Hard', 'Mixed')
 TIER_ORDER = {'Easy': 0, 'Normal': 1, 'Hard': 2}
@@ -17,7 +18,7 @@ def composition_signature(questions):
     # Reordering answers or questions must not bypass duplicate-composition checks.
     # v1.4.0: a capital-city question about a country is a different video than its flag question.
     # v1.5.0: so is a zoomed-in question.
-    codes = sorted((question['kind']+':' if question.get('kind') in ('capital', 'zoom') else '')+question['country_code']
+    codes = sorted((question['kind']+':' if question.get('kind') in ('capital', 'zoom', 'find') else '')+question['country_code']
                    for question in questions)
     return hashlib.sha256(json.dumps(codes, separators=(',', ':')).encode()).hexdigest()
 
@@ -45,6 +46,13 @@ def validate_quiz(quiz, catalog):
             center = question.get('zoom_center')
             if not (isinstance(center, list) and len(center) == 2 and all(ZOOM_MARGIN <= v <= 1-ZOOM_MARGIN for v in center)):
                 raise ValueError('확대 문제의 확대 위치가 올바르지 않습니다.')
+        if question.get('kind') == 'find':
+            paths = question.get('option_flag_paths')
+            names = {row['name']: row['code'] for row in catalog.countries}
+            if (not isinstance(paths, list) or len(paths) != 4 or any(o not in names for o in question.get('options', []))
+                    or any(Path(p).resolve() != Path(catalog.validate_country(names[o])['flag_path']).resolve()
+                           for o, p in zip(question['options'], paths))):
+                raise ValueError('국기 찾기 문제의 보기 국기가 국가와 일치하지 않습니다.')
         expected = Path(country['flag_path']).resolve()
         if Path(question.get('flag_path', '')).resolve() != expected:
             raise ValueError('문제의 국기 파일이 해당 국가와 일치하지 않습니다.')
@@ -86,9 +94,9 @@ def _zoom_center(rng, flag_path):
     return best
 
 
-def _first_flag(rng, pool, recent_runs):
+def _first_flag(rng, pool, recent_runs, first_codes=FIRST_FLAGS):
     """A famous flag, the one least recently used. The avoid list does not apply: a quick win matters more here."""
-    famous = [row for row in pool if row['code'] in FIRST_FLAGS]
+    famous = [row for row in pool if row['code'] in first_codes]
     candidates = famous or [row for row in pool if row['difficulty'] == 'Easy'] or pool
     for window in range(len(recent_runs), -1, -1):
         unused = [row for row in candidates if row['code'] not in set().union(*recent_runs[:window])]
@@ -97,9 +105,16 @@ def _first_flag(rng, pool, recent_runs):
     return rng.choice(candidates)
 
 
-def _progression_sample(rng, fresh, pool, k, recent_runs):
-    """v1.4.2 Mixed order: famous first flag, Normal flags in the middle, a Hard flag last."""
-    selected = [_first_flag(rng, pool, recent_runs)]
+def _progression_sample(rng, fresh, pool, k, recent_runs, first_codes=FIRST_FLAGS):
+    """v1.4.2 Mixed order: famous first flag, Normal flags in the middle, a Hard flag last.
+    v1.6.0: half of the time one middle flag is from the channel's big audience countries (if not used lately)."""
+    selected = [_first_flag(rng, pool, recent_runs, first_codes)]
+    if k > 2 and rng.random() < AUDIENCE_NORMAL_SHARE:
+        recent = set().union(*recent_runs) if recent_runs else set()
+        home = [row for row in fresh if row['code'] in AUDIENCE_NORMAL and row['code'] not in recent
+                and row['difficulty'] == 'Normal' and row not in selected]
+        if home:
+            selected.append(rng.choice(home))
 
     def take(tier, count):
         for rows in ([row for row in fresh if row['difficulty'] == tier], fresh,
@@ -111,7 +126,7 @@ def _progression_sample(rng, fresh, pool, k, recent_runs):
         raise CatalogError('문제를 만들 국가가 부족합니다.')
     if k > 1:
         take('Hard', 1)
-        take('Normal', k-2)
+        take('Normal', k-len(selected))
     return selected
 
 
@@ -125,7 +140,7 @@ def _distractors(rng, country, valid, theme):
     if theme == 'Capital':
         candidates = [row for row in candidates if capital_of(row['code'])]
     wrong = []
-    if theme == 'Lookalike':
+    if theme in ('Lookalike', 'Find'):  # v1.6.0: a Find round is only hard when the other flags look alike
         mates = [row for row in candidates if row['code'] in lookalike_mates(country['code'])]
         wrong = rng.sample(mates, min(3, len(mates)))
     # Regional and capital questions take wrong answers from the same continent, so they cannot be guessed by region.
@@ -165,7 +180,8 @@ def build_quiz(catalog, history=None, difficulty='Mixed', questions_per_video=3,
     for attempt in range(512):
         rows = selection_pool if attempt < 256 else pool
         if difficulty == 'Mixed':
-            selected = _progression_sample(rng, rows, pool, questions_per_video, recent_runs)
+            first_codes = AUDIENCE_FIND if theme == 'Find' else FIRST_FLAGS
+            selected = _progression_sample(rng, rows, pool, questions_per_video, recent_runs, first_codes)
         else:
             selected = rng.sample(rows, questions_per_video)
         if theme == 'Lookalike' and any(row['code'] in lookalike_mates(other['code'])
@@ -173,7 +189,9 @@ def build_quiz(catalog, history=None, difficulty='Mixed', questions_per_video=3,
             continue  # two flags of one look-alike group in a video would give each other away
         questions = []
         for country in selected:
-            wrong = _distractors(rng, country, valid, theme)
+            # v1.6.0 Find: another round's answer is never a wrong flag here (it would give that round away).
+            choices = [row for row in valid if row is country or row not in selected] if theme == 'Find' else valid
+            wrong = _distractors(rng, country, choices, theme)
             label = (lambda row: capital_of(row['code'])) if theme == 'Capital' else (lambda row: row['name'])
             answer = label(country)
             options = [answer] + [label(row) for row in wrong]
@@ -187,6 +205,9 @@ def build_quiz(catalog, history=None, difficulty='Mixed', questions_per_video=3,
                 question.update(kind='capital', answer_name=answer)
             elif theme == 'Zoom':
                 question.update(kind='zoom', zoom_center=_zoom_center(rng, country['flag_path']))
+            elif theme == 'Find':
+                by_name = {row['name']: row['flag_path'] for row in [country]+wrong}
+                question.update(kind='find', option_flag_paths=[by_name[name] for name in options])
             questions.append(question)
         # v1.3.6: easiest flag first (a quick win keeps viewers), hardest last (a reason to stay for the finale).
         # Python's sort is stable, so the famous first flag stays first. The signature ignores order.

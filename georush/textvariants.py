@@ -54,16 +54,23 @@ THEME_TITLES = {
     'Capital': ['Guess the Capital City! {n} Questions | GeoRush #Shorts',
                 'Can You Name These {n} Capitals? | GeoRush #Shorts',
                 'Capital City Quiz: Can You Get {n}/{n}? | GeoRush #Shorts'],
+    # v1.6.0 Find: challenge-style titles, the style of the channel's best Shorts in Nov 2026.
+    'Find': ['Find the Right Flag! Can You Get {n}/{n}? 😈 | GeoRush #Shorts',
+             'Can You Find Your Country’s Flag? | GeoRush #Shorts',
+             'Pick the Right Flag! Most People Miss One | GeoRush #Shorts',
+             'Which Flag Is It? Find {n} Countries Fast! | GeoRush #Shorts'],
 }
 THEME_INTROS = {
     'region': 'Every flag in this round is from {region}. Can you name all {n} countries?',
     'Lookalike': 'Every flag in this round has a look-alike among the answers. Can you tell all {n} apart?',
     'Capital': 'You see the flag and the country: now name its capital city. {n} questions!',
     'Zoom': 'Every flag starts zoomed in on one small spot. Name the country before the full flag appears!',
+    'Find': 'Each round names a country: find its flag among four look-alike flags before the timer runs out!',
 }
 THEME_TAGS = {'region': ['{region} flags'], 'Lookalike': ['similar flags', 'look alike flags'],
-              'Capital': ['capital cities', 'capital city quiz'], 'Zoom': ['zoomed in flags', 'flag zoom quiz']}
-THEME_HASHTAG = {'region': '#{tag}Flags', 'Lookalike': '#SimilarFlags', 'Capital': '#CapitalCities', 'Zoom': '#FlagZoom'}
+              'Capital': ['capital cities', 'capital city quiz'], 'Zoom': ['zoomed in flags', 'flag zoom quiz'],
+              'Find': ['find the flag', 'which flag is it']}
+THEME_HASHTAG = {'region': '#{tag}Flags', 'Lookalike': '#SimilarFlags', 'Capital': '#CapitalCities', 'Zoom': '#FlagZoom', 'Find': '#FindTheFlag'}
 CAPITAL_COMMENTS = ['How many capitals did you get right? {scores}? Tell us your score!',
                     'Which capital tricked you? Share your score ({scores}) below!',
                     'Did you get {count}/{count}? Drop your capital score: {scores}!']
@@ -112,6 +119,12 @@ def _classic_short_texts(signature, count, difficulty):
     titles = [f'Guess These {count} Flags! | GeoRush Geography Quiz #Shorts',
               f'Can You Get {count}/{count}? Flag Challenge | GeoRush #Shorts',
               f'{count} Flags. One Challenge. Can You Win? | GeoRush #Shorts']
+    if difficulty == 'Mixed' and count > 1:
+        # v1.6.0: challenge-style titles (the channel's top Short is 'Only 1 of These 3 Flags Is Hard').
+        # Both claims are true of a Mixed Short: its last flag is the only Hard one.
+        titles = [f'Only 1 of These {count} Flags Is Hard 😈 | GeoRush #Shorts',
+                  f'Most People Miss the Last Flag! Can You Get {count}/{count}? | GeoRush #Shorts',
+                  f'Can You Get {count}/{count}? Flag Challenge | GeoRush #Shorts']
     scores = ', '.join(f'{n}/{count}' for n in range(count+1))
     title = rng.choice(titles)
     description = (rng.choice(INTROS).format(count=count)+'\n\n'
