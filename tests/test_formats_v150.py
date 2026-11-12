@@ -42,6 +42,10 @@ class EpisodeTests(unittest.TestCase):
             long_run = history.reserve_quiz('c', 'Mixed', Path(folder)/'z', {'mode': 'Longform', 'questions': []})
             history.finish(long_run, True)
             self.assertEqual(history.next_shorts_episode(), 2)
+            (Path(folder)/'episode_base.txt').write_text('1', encoding='utf-8')  # v1.6.3: restart the series at #1
+            self.assertEqual(history.next_shorts_episode(), 1)
+            (Path(folder)/'episode_base.txt').write_text('oops', encoding='utf-8')
+            self.assertEqual(history.next_shorts_episode(), 2)
 
 
 class ConfettiTests(unittest.TestCase):
