@@ -10,7 +10,9 @@ import numpy as np
 SAMPLE_RATE = 48_000
 QUESTION_SECONDS = 4.5   # v1.4.2: was 5.5 - a 16.5 s Short with a faster pace from the first second
 COUNTDOWN_SECONDS = 3.0  # v1.4.2: was 4.0 (countdown 3-2-1, then a 1.5 s answer reveal)
-CTA_SECONDS = 3.0  # v1.3.4: the score call-to-action stays long enough to read and comment on (was 1.5)
+# v1.6.1: no closing CTA screen - the Short ends on the last answer and loops straight back to the first flag
+# (the one Short that viewers rewatched had the highest watch time). The score ask moved onto the last answer.
+CTA_SECONDS = 0.0  # v1.3.4-v1.6.0: 3.0
 COUNTDOWN_TICKS = int(COUNTDOWN_SECONDS)
 
 

@@ -13,9 +13,9 @@ class RetentionTests(unittest.TestCase):
         cls.catalog = Catalog()
 
     def test_shorter_questions_keep_the_three_second_call_to_action(self):
-        self.assertEqual((QUESTION_SECONDS, COUNTDOWN_SECONDS, CTA_SECONDS), (4.5, 3.0, 3.0))
+        self.assertEqual((QUESTION_SECONDS, COUNTDOWN_SECONDS, CTA_SECONDS), (4.5, 3.0, 0.0))  # v1.6.1: no CTA screen
         self.assertEqual(COUNTDOWN_TICKS, 3)
-        self.assertEqual(3 * QUESTION_SECONDS + CTA_SECONDS, 16.5)       # was 19.5
+        self.assertEqual(3 * QUESTION_SECONDS + CTA_SECONDS, 13.5)       # was 19.5, then 16.5
         self.assertEqual(QUESTION_SECONDS - COUNTDOWN_SECONDS, 1.5)      # the answer is still shown for 1.5 s
 
     def test_headlines_hook_first_tease_last(self):

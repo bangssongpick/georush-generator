@@ -174,9 +174,15 @@ def _question_static(question,index,count,background,reveal=False):
         if find:  # the letters only: a name on a card would give the flag away
             name=options[correct] if reveal and option_index==correct else f'FLAG {chr(65+option_index)}'
         _option(draw,option_index,name,reveal and option_index==correct)
-    _center(draw,'@GeoRushGames',1735,31,MUTED)
-    noun='capital' if question.get('kind')=='capital' else 'round' if find else 'flag'
-    _center(draw,f'{count} {noun}{"s" if count != 1 else ""}. One challenge.',1790,26,MUTED)
+    if reveal and index==count-1:
+        # v1.6.1: the score ask sits on the last answer, so the Short can loop without a closing screen.
+        draw.rounded_rectangle((117,1620,963,1820),radius=34,fill=YELLOW)
+        _center(draw,'COMMENT YOUR SCORE',1652,46,'#0B2A60',max_width=790)
+        _center(draw,'+ WHERE YOU’RE FROM!',1732,40,'#0B2A60',max_width=790)
+    else:
+        _center(draw,'@GeoRushGames',1735,31,MUTED)
+        noun='capital' if question.get('kind')=='capital' else 'round' if find else 'flag'
+        _center(draw,f'{count} {noun}{"s" if count != 1 else ""}. One challenge.',1790,26,MUTED)
     if reveal:
         _center(draw,'CORRECT ANSWER',1050,30,GREEN)
         _center(draw,f'{chr(65+correct)} · {options[correct]}',1105,48,WHITE,max_width=900)
