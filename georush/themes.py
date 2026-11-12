@@ -8,9 +8,24 @@ import json
 
 from .paths import resource_root
 
-THEMES = ('Classic', 'Africa', 'Asia', 'Europe', 'Americas', 'Oceania', 'Lookalike', 'Capital')
+THEMES = ('Classic', 'Africa', 'Asia', 'Europe', 'Americas', 'Oceania', 'Lookalike', 'Capital', 'Zoom', 'Find', 'Population')
+# v1.6.2 Population: four flags, which country has the most people (World Bank data, see population.py).
+# v1.6.0 Find: a country is named and the viewer picks its flag out of four (look-alikes first).
+# The channel's biggest audiences (Studio, Nov 2026: Indonesia, Korea, Philippines, Uzbekistan, USA, India, Vietnam,
+# Brazil, Malaysia, Mexico) open a Find Short, so viewers there see their own country first.
+AUDIENCE_FIND = ('id', 'kr', 'ph', 'in', 'us', 'vn', 'br', 'my', 'mx', 'th')
+# v1.6.0: in a Mixed Short the middle (Normal) flag is often one of these audience flags.
+AUDIENCE_NORMAL = ('ph', 'vn', 'my', 'th')
+AUDIENCE_NORMAL_SHARE = .5
+# v1.5.0 Zoom: the flag starts zoomed in on one spot (ZOOM_START of its width) and zooms out during the countdown.
+ZOOM_START = .3
+ZOOM_MARGIN = ZOOM_START/2
 REGIONS = {'Africa': {'Africa'}, 'Asia': {'Asia'}, 'Europe': {'Europe'},
            'Americas': {'North America', 'South America'}, 'Oceania': {'Oceania'}}
+
+# v1.4.2: the first flag of a Mixed Short comes from these world-famous flags, so a viewer starts with a quick win.
+FIRST_FLAGS = ('jp', 'br', 'us', 'ca', 'gb', 'fr', 'de', 'it', 'es', 'kr', 'cn', 'in', 'mx', 'ar', 'au', 'ru', 'gr', 'se',
+               'ch', 'za', 'no', 'sa', 'id')  # more than the 21 Shorts of the no-repeat window
 
 # Hand-checked groups of flags that viewers commonly confuse. Every code must be in the catalog (checked by tests).
 LOOKALIKE_GROUPS = (
@@ -77,7 +92,7 @@ def theme_pool(theme, rows, upstream=None):
     """Countries that can be asked in this theme (already validated rows)."""
     if theme not in THEMES:
         raise ValueError(f'지원하지 않는 주제입니다: {theme}')
-    if theme == 'Classic':
+    if theme in ('Classic', 'Zoom', 'Find', 'Population'):
         return list(rows)
     upstream = upstream or _upstream()
     if theme in REGIONS:

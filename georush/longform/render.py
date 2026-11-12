@@ -64,7 +64,7 @@ def option(image,index,name,correct=False,scale=1.):
     image.paste(card,(round((x1+x2-card.width)/2),round((y1+y2-card.height)/2)))
 
 
-def question_context(q,index,count):
+def question_context(q,index,count,countdown=COUNTDOWN):
     image=background().copy();d=ImageDraw.Draw(image)
     accent=ACCENTS[q['longform_tier']]
     text(d,q['longform_tier'].upper(),(650,48,620,58),34,accent)
@@ -74,11 +74,12 @@ def question_context(q,index,count):
     with Image.open(q['flag_path']) as source:
         flag=source.convert('RGB');flag.thumbnail((870,350),Image.Resampling.LANCZOS)
     for i,name in enumerate(q['options']):option(image,i,display_name(name))
-    return {'base':image,'flag':flag,'question':q,'index':index,'count':count}
+    return {'base':image,'flag':flag,'question':q,'index':index,'count':count,'countdown':countdown}
 
 
 def question_frame(context,frame):
     t=frame/FPS;q=context['question'];image=context['base'].copy();d=ImageDraw.Draw(image)
+    COUNTDOWN=context.get('countdown',8)
     flag=context['flag'];scale=.86+.14*(1-(1-min(t/.45,1))**3)
     flag=flag.resize((round(flag.width*scale),round(flag.height*scale)),Image.Resampling.LANCZOS)
     image.paste(flag,((WIDTH-flag.width)//2,450-flag.height//2))
@@ -104,13 +105,13 @@ def question_frame(context,frame):
 
 def screen(item,count):
     image=background().copy();d=ImageDraw.Draw(image)
-    kind=item['kind']
+    kind=item['kind'];seconds=item.get('countdown',COUNTDOWN)
     if kind=='intro':
         lines=[('GUESS '+str(count)+' FLAGS!',330,90,YELLOW),('EASY TO EXPERT',480,52,WHITE),
-               (f'CAN YOU GET {count}/{count}?',595,52,WHITE),('8 seconds to choose. Then reveal!',735,32,'#B8D2FF')]
+               (f'CAN YOU GET {count}/{count}?',595,52,WHITE),(f'{seconds} seconds to choose. Then reveal!',735,32,'#B8D2FF')]
     elif kind=='chapter':
         lines=[(item['tier'].upper(),360,100,ACCENTS[item['tier']]),('NEXT ROUND',540,48,WHITE),
-               ('New flags. Same 8-second timer.',680,34,'#B8D2FF')]
+               (f'New flags. Same {seconds}-second timer.',680,34,'#B8D2FF')]
     else:
         lines=[("WHAT'S YOUR SCORE?",300,78,YELLOW),(f'COMMENT YOUR RESULT: __ / {count}',445,54,WHITE),
                ('SUBSCRIBE FOR MORE',620,48,WHITE),('GEOGRAPHY CHALLENGES!',700,48,YELLOW)]
@@ -145,12 +146,13 @@ def render(quiz,timeline,work,ffmpeg,bgm,progress=None):
         encoded=work/f'segment_{si:03d}.mp4'
         images=[]
         if item['kind']=='question':
-            context=question_context(quiz['questions'][item['question_index']],item['question_index'],len(quiz['questions']))
+            countdown=item.get('countdown',COUNTDOWN)
+            context=question_context(quiz['questions'][item['question_index']],item['question_index'],len(quiz['questions']),countdown)
             # Short animations at native 30fps; stable states use exact-duration image holds.
             def key(f):
-                if f<14 or f<COUNTDOWN*FPS and f%30<5 or COUNTDOWN*FPS<=f<COUNTDOWN*FPS+10:
+                if f<14 or f<countdown*FPS and f%30<5 or countdown*FPS<=f<countdown*FPS+10:
                     return ('animated',f)
-                if f<COUNTDOWN*FPS:
+                if f<countdown*FPS:
                     return ('hold',f//30)
                 return ('answer',)
             start=0;previous=key(0)
@@ -177,5 +179,5 @@ def render(quiz,timeline,work,ffmpeg,bgm,progress=None):
     for path in segments:path.unlink()
     return {'width':WIDTH,'height':HEIGHT,'fps':FPS,'duration':timeline['duration'],'frames':timeline['frames'],
             'upscaled':False,'audio':audio,'elapsed_seconds':round(time.monotonic()-started,3),
-            'bounded_memory':'one question, keyframe PNGs and 1-second PCM chunks','countdown':COUNTDOWN,
-            'answer_seconds':2,'maximum_flag_size':[870,350],'layout':'native landscape, two by two options'}
+            'bounded_memory':'one question, keyframe PNGs and 1-second PCM chunks','countdown':timeline.get('countdown',COUNTDOWN),
+            'answer_seconds':timeline['segments'][1]['duration']-timeline.get('countdown',COUNTDOWN),'maximum_flag_size':[870,350],'layout':'native landscape, two by two options'}

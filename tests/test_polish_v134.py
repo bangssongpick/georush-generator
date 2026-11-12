@@ -24,16 +24,16 @@ class PolishTests(unittest.TestCase):
 
     # --- call-to-action length ---------------------------------------------------------------------------
     def test_cta_is_three_seconds_and_timing_of_questions_is_unchanged(self):
-        self.assertEqual((QUESTION_SECONDS, COUNTDOWN_SECONDS, CTA_SECONDS), (5.5, 4.0, 3.0))
-        self.assertEqual(3 * QUESTION_SECONDS + CTA_SECONDS, 19.5)
+        # v1.6.1: the closing CTA screen is gone; the Short ends on the last answer (with the score ask) and loops.
+        self.assertEqual((QUESTION_SECONDS, COUNTDOWN_SECONDS, CTA_SECONDS), (4.5, 3.0, 2.5))
+        self.assertEqual(3 * QUESTION_SECONDS + CTA_SECONDS, 16.0)
         quiz = build_quiz(self.catalog, None, seed=1)
         context = render.prepare_animation(quiz['questions'])
-        for second in (0.0, 5.5, 11.0, 16.49):  # all three questions, up to the last instant before the CTA
+        for second in (0.0, 4.5, 9.0, 13.49, 14.0, 15.45):  # v1.6.2: no CTA screen, the last answer is held
             self.assertFalse(render.animation_state(second, 3)['cta'], second)
-        for second in (16.5, 18.0, 19.49):
-            self.assertTrue(render.animation_state(second, 3)['cta'], second)
-        # The card is fully drawn (progress line complete) and identical for the rest of the 3 seconds.
-        self.assertEqual(render.animated_frame(context, 17.5).tobytes(), render.animated_frame(context, 19.4).tobytes())
+        self.assertEqual(render.animation_state(15.0, 3)['question_index'], 2)
+        last = render.animated_frame(context, 15.4)
+        self.assertEqual(last.getpixel((540, 1640))[:3], (255, 228, 81))  # the yellow score-ask banner
 
     # --- display names --------------------------------------------------------------------------------------
     def test_display_names_are_reviewed_unique_and_only_for_known_names(self):

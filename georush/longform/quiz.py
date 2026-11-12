@@ -6,6 +6,7 @@ import random
 from ..quiz import validate_quiz, composition_signature
 
 TIERS = ('Easy', 'Normal', 'Hard', 'Expert')
+COUNTS = (20, 30, 40, 100)  # v1.5.0: 100 = fast 'Guess 100 Flags' challenge
 # Catalog 'Hard' flags split into Longform Hard and Expert; the first ten of each are the v1.3 groups.
 HARD = frozenset(('ec bo pe cl co cr pa cu jm uy '
                   'bf bh bj bn bw bz cd cf cg ci cm ga gh gm gn gy la lr md mk '
@@ -30,8 +31,8 @@ def tier_for(row):
 
 
 def allocations(count):
-    if type(count) is not int or count not in (20, 30, 40):
-        raise ValueError('롱폼 문제 수는 20 / 30 / 40입니다.')
+    if type(count) is not int or count not in COUNTS:
+        raise ValueError('롱폼 문제 수는 20 / 30 / 40 / 100입니다.')
     return [count//4 + int(i<count%4) for i in range(4)]
 
 

@@ -5,7 +5,7 @@ import tempfile
 from PIL import Image,ImageDraw
 from ..textvariants import LONG_HASHTAGS,long_texts
 from .render import background,text,YELLOW,WHITE
-from .timeline import chapters,timestamp
+from .timeline import chapters,timestamp,timing
 
 FINAL_FILES={'longform.mp4','longform_metadata.txt','longform_thumbnail.jpg'}
 
@@ -15,7 +15,8 @@ def metadata(quiz,timeline):
     chapter_text='\n'.join(f'{timestamp(at)} {label}' for at,label in chapters(timeline))
     # v1.3.5: intro, rules, call-to-action, subscribe line, tags and comment vary per quiz; the single copyable
     # [설명] still holds intro, subscribe text, CHAPTERS (real timestamps) and the hashtags, in that order.
-    top,tags,comment=long_texts(quiz['signature'],count)
+    question,countdown=timing(count)
+    top,tags,comment=long_texts(quiz['signature'],count,countdown,question-countdown)
     return (f'[제목]\nGuess {count} Flags! 🌍 Easy to Expert Geography Quiz\n\n'
             '[설명]\n'+top+'\n\n'
             'CHAPTERS\n'+chapter_text+'\n\n'
@@ -28,7 +29,8 @@ def metadata(quiz,timeline):
 def thumbnail(quiz,destination):
     count=len(quiz['questions']);image=background().copy();d=ImageDraw.Draw(image)
     text(d,f'GUESS {count} FLAGS!',(100,160,1720,150),110,YELLOW)
-    text(d,'EASY TO EXPERT',(100,330,1720,100),58,WHITE)
+    question,countdown=timing(count)
+    text(d,'EASY TO EXPERT' if countdown==8 else f'EASY TO EXPERT · {countdown} SECONDS EACH',(100,330,1720,100),58,WHITE)
     # Five actual challenge flags, distributed across the four editorial rounds.
     indices=[0,count//4,count//2,3*count//4,count-1]
     for n,index in enumerate(indices):

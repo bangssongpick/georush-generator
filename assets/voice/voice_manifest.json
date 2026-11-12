@@ -1,0 +1,1540 @@
+{
+ "engine": "Kokoro-82M (Apache-2.0)",
+ "voice": "af_heart",
+ "speed": 1.08,
+ "sample_rate": 24000,
+ "clips": {
+  "final": {
+   "text": "Final flag!",
+   "seconds": 0.777
+  },
+  "find_ad": {
+   "text": "Find Andorra!",
+   "seconds": 0.768
+  },
+  "find_ae": {
+   "text": "Find United Arab Emirates!",
+   "seconds": 1.533
+  },
+  "find_ag": {
+   "text": "Find Antigua and Barbuda!",
+   "seconds": 1.451
+  },
+  "find_al": {
+   "text": "Find Albania!",
+   "seconds": 0.82
+  },
+  "find_am": {
+   "text": "Find Armenia!",
+   "seconds": 0.822
+  },
+  "find_ao": {
+   "text": "Find Angola!",
+   "seconds": 0.75
+  },
+  "find_ar": {
+   "text": "Find Argentina!",
+   "seconds": 0.912
+  },
+  "find_at": {
+   "text": "Find Austria!",
+   "seconds": 0.787
+  },
+  "find_au": {
+   "text": "Find Australia!",
+   "seconds": 0.851
+  },
+  "find_az": {
+   "text": "Find Azerbaijan!",
+   "seconds": 1.026
+  },
+  "find_ba": {
+   "text": "Find Bosnia and Herzegovina!",
+   "seconds": 1.737
+  },
+  "find_bb": {
+   "text": "Find Barbados!",
+   "seconds": 0.91
+  },
+  "find_bd": {
+   "text": "Find Bangladesh!",
+   "seconds": 1.017
+  },
+  "find_be": {
+   "text": "Find Belgium!",
+   "seconds": 0.794
+  },
+  "find_bf": {
+   "text": "Find Burkina Faso!",
+   "seconds": 1.164
+  },
+  "find_bg": {
+   "text": "Find Bulgaria!",
+   "seconds": 0.904
+  },
+  "find_bh": {
+   "text": "Find Bahrain!",
+   "seconds": 0.777
+  },
+  "find_bi": {
+   "text": "Find Burundi!",
+   "seconds": 0.838
+  },
+  "find_bj": {
+   "text": "Find Benin!",
+   "seconds": 0.776
+  },
+  "find_bn": {
+   "text": "Find Brunei!",
+   "seconds": 0.765
+  },
+  "find_bo": {
+   "text": "Find Bolivia!",
+   "seconds": 0.834
+  },
+  "find_br": {
+   "text": "Find Brazil!",
+   "seconds": 0.796
+  },
+  "find_bs": {
+   "text": "Find Bahamas!",
+   "seconds": 0.866
+  },
+  "find_bt": {
+   "text": "Find Bhutan!",
+   "seconds": 0.846
+  },
+  "find_bw": {
+   "text": "Find Botswana!",
+   "seconds": 0.901
+  },
+  "find_by": {
+   "text": "Find Belarus!",
+   "seconds": 0.861
+  },
+  "find_bz": {
+   "text": "Find Belize!",
+   "seconds": 0.801
+  },
+  "find_ca": {
+   "text": "Find Canada!",
+   "seconds": 0.802
+  },
+  "find_cd": {
+   "text": "Find DR Congo!",
+   "seconds": 1.147
+  },
+  "find_cf": {
+   "text": "Find Central African Republic!",
+   "seconds": 1.753
+  },
+  "find_cg": {
+   "text": "Find Republic of the Congo!",
+   "seconds": 1.437
+  },
+  "find_ch": {
+   "text": "Find Switzerland!",
+   "seconds": 0.957
+  },
+  "find_ci": {
+   "text": "Find Ivory Coast!",
+   "seconds": 1.031
+  },
+  "find_cl": {
+   "text": "Find Chile!",
+   "seconds": 0.682
+  },
+  "find_cm": {
+   "text": "Find Cameroon!",
+   "seconds": 0.87
+  },
+  "find_cn": {
+   "text": "Find China!",
+   "seconds": 0.688
+  },
+  "find_co": {
+   "text": "Find Colombia!",
+   "seconds": 0.886
+  },
+  "find_cr": {
+   "text": "Find Costa Rica!",
+   "seconds": 1.079
+  },
+  "find_cu": {
+   "text": "Find Cuba!",
+   "seconds": 0.726
+  },
+  "find_cv": {
+   "text": "Find Cape Verde!",
+   "seconds": 0.902
+  },
+  "find_cy": {
+   "text": "Find Cyprus!",
+   "seconds": 0.807
+  },
+  "find_cz": {
+   "text": "Find Czechia!",
+   "seconds": 0.751
+  },
+  "find_de": {
+   "text": "Find Germany!",
+   "seconds": 0.781
+  },
+  "find_dj": {
+   "text": "Find Djibouti!",
+   "seconds": 0.752
+  },
+  "find_dk": {
+   "text": "Find Denmark!",
+   "seconds": 0.877
+  },
+  "find_dm": {
+   "text": "Find Dominica!",
+   "seconds": 0.915
+  },
+  "find_do": {
+   "text": "Find Dominican Republic!",
+   "seconds": 1.341
+  },
+  "find_dz": {
+   "text": "Find Algeria!",
+   "seconds": 0.835
+  },
+  "find_ec": {
+   "text": "Find Ecuador!",
+   "seconds": 0.846
+  },
+  "find_ee": {
+   "text": "Find Estonia!",
+   "seconds": 0.832
+  },
+  "find_eg": {
+   "text": "Find Egypt!",
+   "seconds": 0.766
+  },
+  "find_er": {
+   "text": "Find Eritrea!",
+   "seconds": 0.884
+  },
+  "find_es": {
+   "text": "Find Spain!",
+   "seconds": 0.748
+  },
+  "find_et": {
+   "text": "Find Ethiopia!",
+   "seconds": 0.908
+  },
+  "find_fi": {
+   "text": "Find Finland!",
+   "seconds": 0.79
+  },
+  "find_fj": {
+   "text": "Find Fiji!",
+   "seconds": 0.773
+  },
+  "find_fm": {
+   "text": "Find Micronesia!",
+   "seconds": 0.953
+  },
+  "find_fr": {
+   "text": "Find France!",
+   "seconds": 0.773
+  },
+  "find_ga": {
+   "text": "Find Gabon!",
+   "seconds": 0.752
+  },
+  "find_gb": {
+   "text": "Find United Kingdom!",
+   "seconds": 1.179
+  },
+  "find_gd": {
+   "text": "Find Grenada!",
+   "seconds": 0.838
+  },
+  "find_ge": {
+   "text": "Find Georgia!",
+   "seconds": 0.726
+  },
+  "find_gh": {
+   "text": "Find Ghana!",
+   "seconds": 0.7
+  },
+  "find_gm": {
+   "text": "Find Gambia!",
+   "seconds": 0.833
+  },
+  "find_gn": {
+   "text": "Find Guinea!",
+   "seconds": 0.668
+  },
+  "find_gq": {
+   "text": "Find Equatorial Guinea!",
+   "seconds": 1.228
+  },
+  "find_gr": {
+   "text": "Find Greece!",
+   "seconds": 0.715
+  },
+  "find_gt": {
+   "text": "Find Guatemala!",
+   "seconds": 0.959
+  },
+  "find_gw": {
+   "text": "Find Guinea-Bissau!",
+   "seconds": 0.942
+  },
+  "find_gy": {
+   "text": "Find Guyana!",
+   "seconds": 0.786
+  },
+  "find_hn": {
+   "text": "Find Honduras!",
+   "seconds": 0.869
+  },
+  "find_hr": {
+   "text": "Find Croatia!",
+   "seconds": 0.904
+  },
+  "find_ht": {
+   "text": "Find Haiti!",
+   "seconds": 0.665
+  },
+  "find_hu": {
+   "text": "Find Hungary!",
+   "seconds": 0.813
+  },
+  "find_id": {
+   "text": "Find Indonesia!",
+   "seconds": 0.896
+  },
+  "find_ie": {
+   "text": "Find Ireland!",
+   "seconds": 0.836
+  },
+  "find_il": {
+   "text": "Find Israel!",
+   "seconds": 0.792
+  },
+  "find_in": {
+   "text": "Find India!",
+   "seconds": 0.728
+  },
+  "find_iq": {
+   "text": "Find Iraq!",
+   "seconds": 0.713
+  },
+  "find_ir": {
+   "text": "Find Iran!",
+   "seconds": 0.718
+  },
+  "find_is": {
+   "text": "Find Iceland!",
+   "seconds": 0.825
+  },
+  "find_it": {
+   "text": "Find Italy!",
+   "seconds": 0.714
+  },
+  "find_jm": {
+   "text": "Find Jamaica!",
+   "seconds": 0.796
+  },
+  "find_jo": {
+   "text": "Find Jordan!",
+   "seconds": 0.758
+  },
+  "find_jp": {
+   "text": "Find Japan!",
+   "seconds": 0.73
+  },
+  "find_ke": {
+   "text": "Find Kenya!",
+   "seconds": 0.762
+  },
+  "find_kg": {
+   "text": "Find Kyrgyzstan!",
+   "seconds": 0.971
+  },
+  "find_kh": {
+   "text": "Find Cambodia!",
+   "seconds": 0.911
+  },
+  "find_ki": {
+   "text": "Find Kiribati!",
+   "seconds": 0.901
+  },
+  "find_km": {
+   "text": "Find Comoros!",
+   "seconds": 0.886
+  },
+  "find_kn": {
+   "text": "Find Saint Kitts and Nevis!",
+   "seconds": 1.356
+  },
+  "find_kp": {
+   "text": "Find North Korea!",
+   "seconds": 0.978
+  },
+  "find_kr": {
+   "text": "Find South Korea!",
+   "seconds": 0.973
+  },
+  "find_kw": {
+   "text": "Find Kuwait!",
+   "seconds": 0.812
+  },
+  "find_kz": {
+   "text": "Find Kazakhstan!",
+   "seconds": 1.046
+  },
+  "find_la": {
+   "text": "Find Laos!",
+   "seconds": 0.726
+  },
+  "find_lb": {
+   "text": "Find Lebanon!",
+   "seconds": 0.838
+  },
+  "find_lc": {
+   "text": "Find Saint Lucia!",
+   "seconds": 0.887
+  },
+  "find_li": {
+   "text": "Find Liechtenstein!",
+   "seconds": 0.994
+  },
+  "find_lk": {
+   "text": "Find Sri Lanka!",
+   "seconds": 0.913
+  },
+  "find_lr": {
+   "text": "Find Liberia!",
+   "seconds": 0.822
+  },
+  "find_ls": {
+   "text": "Find Lesotho!",
+   "seconds": 0.844
+  },
+  "find_lt": {
+   "text": "Find Lithuania!",
+   "seconds": 0.95
+  },
+  "find_lv": {
+   "text": "Find Latvia!",
+   "seconds": 0.762
+  },
+  "find_ly": {
+   "text": "Find Libya!",
+   "seconds": 0.691
+  },
+  "find_ma": {
+   "text": "Find Morocco!",
+   "seconds": 0.821
+  },
+  "find_md": {
+   "text": "Find Moldova!",
+   "seconds": 0.845
+  },
+  "find_me": {
+   "text": "Find Montenegro!",
+   "seconds": 1.056
+  },
+  "find_mg": {
+   "text": "Find Madagascar!",
+   "seconds": 1.011
+  },
+  "find_mh": {
+   "text": "Find Marshall Islands!",
+   "seconds": 1.147
+  },
+  "find_mk": {
+   "text": "Find North Macedonia!",
+   "seconds": 1.224
+  },
+  "find_ml": {
+   "text": "Find Mali!",
+   "seconds": 0.703
+  },
+  "find_mm": {
+   "text": "Find Myanmar!",
+   "seconds": 0.816
+  },
+  "find_mn": {
+   "text": "Find Mongolia!",
+   "seconds": 0.907
+  },
+  "find_mr": {
+   "text": "Find Mauritania!",
+   "seconds": 0.948
+  },
+  "find_mt": {
+   "text": "Find Malta!",
+   "seconds": 0.761
+  },
+  "find_mu": {
+   "text": "Find Mauritius!",
+   "seconds": 0.83
+  },
+  "find_mv": {
+   "text": "Find Maldives!",
+   "seconds": 0.881
+  },
+  "find_mw": {
+   "text": "Find Malawi!",
+   "seconds": 0.764
+  },
+  "find_mx": {
+   "text": "Find Mexico!",
+   "seconds": 0.828
+  },
+  "find_my": {
+   "text": "Find Malaysia!",
+   "seconds": 0.791
+  },
+  "find_mz": {
+   "text": "Find Mozambique!",
+   "seconds": 0.918
+  },
+  "find_na": {
+   "text": "Find Namibia!",
+   "seconds": 0.802
+  },
+  "find_ne": {
+   "text": "Find Niger!",
+   "seconds": 0.663
+  },
+  "find_ng": {
+   "text": "Find Nigeria!",
+   "seconds": 0.858
+  },
+  "find_ni": {
+   "text": "Find Nicaragua!",
+   "seconds": 0.932
+  },
+  "find_nl": {
+   "text": "Find Netherlands!",
+   "seconds": 0.864
+  },
+  "find_no": {
+   "text": "Find Norway!",
+   "seconds": 0.716
+  },
+  "find_np": {
+   "text": "Find Nepal!",
+   "seconds": 0.82
+  },
+  "find_nr": {
+   "text": "Find Nauru!",
+   "seconds": 0.753
+  },
+  "find_nz": {
+   "text": "Find New Zealand!",
+   "seconds": 0.894
+  },
+  "find_om": {
+   "text": "Find Oman!",
+   "seconds": 0.718
+  },
+  "find_pa": {
+   "text": "Find Panama!",
+   "seconds": 0.799
+  },
+  "find_pe": {
+   "text": "Find Peru!",
+   "seconds": 0.702
+  },
+  "find_pg": {
+   "text": "Find Papua New Guinea!",
+   "seconds": 1.166
+  },
+  "find_ph": {
+   "text": "Find Philippines!",
+   "seconds": 0.911
+  },
+  "find_pk": {
+   "text": "Find Pakistan!",
+   "seconds": 0.936
+  },
+  "find_pl": {
+   "text": "Find Poland!",
+   "seconds": 0.81
+  },
+  "find_pt": {
+   "text": "Find Portugal!",
+   "seconds": 0.868
+  },
+  "find_pw": {
+   "text": "Find Palau!",
+   "seconds": 0.726
+  },
+  "find_py": {
+   "text": "Find Paraguay!",
+   "seconds": 0.89
+  },
+  "find_qa": {
+   "text": "Find Qatar!",
+   "seconds": 0.841
+  },
+  "find_ro": {
+   "text": "Find Romania!",
+   "seconds": 0.82
+  },
+  "find_rs": {
+   "text": "Find Serbia!",
+   "seconds": 0.781
+  },
+  "find_ru": {
+   "text": "Find Russia!",
+   "seconds": 0.727
+  },
+  "find_rw": {
+   "text": "Find Rwanda!",
+   "seconds": 0.774
+  },
+  "find_sa": {
+   "text": "Find Saudi Arabia!",
+   "seconds": 1.07
+  },
+  "find_sb": {
+   "text": "Find Solomon Islands!",
+   "seconds": 1.193
+  },
+  "find_sc": {
+   "text": "Find Seychelles!",
+   "seconds": 0.879
+  },
+  "find_sd": {
+   "text": "Find Sudan!",
+   "seconds": 0.76
+  },
+  "find_se": {
+   "text": "Find Sweden!",
+   "seconds": 0.794
+  },
+  "find_sg": {
+   "text": "Find Singapore!",
+   "seconds": 0.818
+  },
+  "find_si": {
+   "text": "Find Slovenia!",
+   "seconds": 0.897
+  },
+  "find_sk": {
+   "text": "Find Slovakia!",
+   "seconds": 0.952
+  },
+  "find_sl": {
+   "text": "Find Sierra Leone!",
+   "seconds": 1.012
+  },
+  "find_sm": {
+   "text": "Find San Marino!",
+   "seconds": 0.997
+  },
+  "find_sn": {
+   "text": "Find Senegal!",
+   "seconds": 0.806
+  },
+  "find_so": {
+   "text": "Find Somalia!",
+   "seconds": 0.82
+  },
+  "find_sr": {
+   "text": "Find Suriname!",
+   "seconds": 0.823
+  },
+  "find_ss": {
+   "text": "Find South Sudan!",
+   "seconds": 0.979
+  },
+  "find_st": {
+   "text": "Find Sao Tome and Principe!",
+   "seconds": 1.333
+  },
+  "find_sv": {
+   "text": "Find El Salvador!",
+   "seconds": 0.993
+  },
+  "find_sz": {
+   "text": "Find Eswatini!",
+   "seconds": 0.915
+  },
+  "find_tg": {
+   "text": "Find Togo!",
+   "seconds": 0.733
+  },
+  "find_th": {
+   "text": "Find Thailand!",
+   "seconds": 0.816
+  },
+  "find_tj": {
+   "text": "Find Tajikistan!",
+   "seconds": 1.058
+  },
+  "find_tl": {
+   "text": "Find Timor-Leste!",
+   "seconds": 0.968
+  },
+  "find_tm": {
+   "text": "Find Turkmenistan!",
+   "seconds": 1.056
+  },
+  "find_tn": {
+   "text": "Find Tunisia!",
+   "seconds": 0.806
+  },
+  "find_to": {
+   "text": "Find Tonga!",
+   "seconds": 0.753
+  },
+  "find_tr": {
+   "text": "Find Turkey!",
+   "seconds": 0.794
+  },
+  "find_tt": {
+   "text": "Find Trinidad and Tobago!",
+   "seconds": 1.406
+  },
+  "find_tv": {
+   "text": "Find Tuvalu!",
+   "seconds": 0.796
+  },
+  "find_tz": {
+   "text": "Find Tanzania!",
+   "seconds": 0.945
+  },
+  "find_ua": {
+   "text": "Find Ukraine!",
+   "seconds": 0.827
+  },
+  "find_ug": {
+   "text": "Find Uganda!",
+   "seconds": 0.804
+  },
+  "find_us": {
+   "text": "Find United States!",
+   "seconds": 1.119
+  },
+  "find_uy": {
+   "text": "Find Uruguay!",
+   "seconds": 0.818
+  },
+  "find_uz": {
+   "text": "Find Uzbekistan!",
+   "seconds": 1.06
+  },
+  "find_vc": {
+   "text": "Find Saint Vincent and the Grenadines!",
+   "seconds": 1.774
+  },
+  "find_ve": {
+   "text": "Find Venezuela!",
+   "seconds": 0.976
+  },
+  "find_vn": {
+   "text": "Find Vietnam!",
+   "seconds": 0.855
+  },
+  "find_vu": {
+   "text": "Find Vanuatu!",
+   "seconds": 0.878
+  },
+  "find_ws": {
+   "text": "Find Samoa!",
+   "seconds": 0.736
+  },
+  "find_ye": {
+   "text": "Find Yemen!",
+   "seconds": 0.727
+  },
+  "find_za": {
+   "text": "Find South Africa!",
+   "seconds": 1.055
+  },
+  "find_zm": {
+   "text": "Find Zambia!",
+   "seconds": 0.824
+  },
+  "find_zw": {
+   "text": "Find Zimbabwe!",
+   "seconds": 0.943
+  },
+  "first": {
+   "text": "Can you get all three?",
+   "seconds": 1.005
+  },
+  "guess": {
+   "text": "Guess the flag!",
+   "seconds": 0.756
+  },
+  "name_ad": {
+   "text": "Andorra!",
+   "seconds": 0.594
+  },
+  "name_ae": {
+   "text": "United Arab Emirates!",
+   "seconds": 1.289
+  },
+  "name_ag": {
+   "text": "Antigua and Barbuda!",
+   "seconds": 1.184
+  },
+  "name_al": {
+   "text": "Albania!",
+   "seconds": 0.619
+  },
+  "name_am": {
+   "text": "Armenia!",
+   "seconds": 0.593
+  },
+  "name_ao": {
+   "text": "Angola!",
+   "seconds": 0.568
+  },
+  "name_ar": {
+   "text": "Argentina!",
+   "seconds": 0.711
+  },
+  "name_at": {
+   "text": "Austria!",
+   "seconds": 0.582
+  },
+  "name_au": {
+   "text": "Australia!",
+   "seconds": 0.666
+  },
+  "name_az": {
+   "text": "Azerbaijan!",
+   "seconds": 0.771
+  },
+  "name_ba": {
+   "text": "Bosnia and Herzegovina!",
+   "seconds": 1.432
+  },
+  "name_bb": {
+   "text": "Barbados!",
+   "seconds": 0.656
+  },
+  "name_bd": {
+   "text": "Bangladesh!",
+   "seconds": 0.782
+  },
+  "name_be": {
+   "text": "Belgium!",
+   "seconds": 0.535
+  },
+  "name_bf": {
+   "text": "Burkina Faso!",
+   "seconds": 0.939
+  },
+  "name_bg": {
+   "text": "Bulgaria!",
+   "seconds": 0.678
+  },
+  "name_bh": {
+   "text": "Bahrain!",
+   "seconds": 0.55
+  },
+  "name_bi": {
+   "text": "Burundi!",
+   "seconds": 0.549
+  },
+  "name_bj": {
+   "text": "Benin!",
+   "seconds": 0.524
+  },
+  "name_bn": {
+   "text": "Brunei!",
+   "seconds": 0.506
+  },
+  "name_bo": {
+   "text": "Bolivia!",
+   "seconds": 0.587
+  },
+  "name_br": {
+   "text": "Brazil!",
+   "seconds": 0.555
+  },
+  "name_bs": {
+   "text": "Bahamas!",
+   "seconds": 0.657
+  },
+  "name_bt": {
+   "text": "Bhutan!",
+   "seconds": 0.596
+  },
+  "name_bw": {
+   "text": "Botswana!",
+   "seconds": 0.682
+  },
+  "name_by": {
+   "text": "Belarus!",
+   "seconds": 0.644
+  },
+  "name_bz": {
+   "text": "Belize!",
+   "seconds": 0.584
+  },
+  "name_ca": {
+   "text": "Canada!",
+   "seconds": 0.532
+  },
+  "name_cd": {
+   "text": "DR Congo!",
+   "seconds": 0.859
+  },
+  "name_cf": {
+   "text": "Central African Republic!",
+   "seconds": 1.489
+  },
+  "name_cg": {
+   "text": "Republic of the Congo!",
+   "seconds": 1.192
+  },
+  "name_ch": {
+   "text": "Switzerland!",
+   "seconds": 0.744
+  },
+  "name_ci": {
+   "text": "Ivory Coast!",
+   "seconds": 0.798
+  },
+  "name_cl": {
+   "text": "Chile!",
+   "seconds": 0.466
+  },
+  "name_cm": {
+   "text": "Cameroon!",
+   "seconds": 0.616
+  },
+  "name_cn": {
+   "text": "China!",
+   "seconds": 0.475
+  },
+  "name_co": {
+   "text": "Colombia!",
+   "seconds": 0.641
+  },
+  "name_cr": {
+   "text": "Costa Rica!",
+   "seconds": 0.801
+  },
+  "name_cu": {
+   "text": "Cuba!",
+   "seconds": 0.485
+  },
+  "name_cv": {
+   "text": "Cape Verde!",
+   "seconds": 0.634
+  },
+  "name_cy": {
+   "text": "Cyprus!",
+   "seconds": 0.638
+  },
+  "name_cz": {
+   "text": "Czechia!",
+   "seconds": 0.534
+  },
+  "name_de": {
+   "text": "Germany!",
+   "seconds": 0.535
+  },
+  "name_dj": {
+   "text": "Djibouti!",
+   "seconds": 0.532
+  },
+  "name_dk": {
+   "text": "Denmark!",
+   "seconds": 0.619
+  },
+  "name_dm": {
+   "text": "Dominica!",
+   "seconds": 0.695
+  },
+  "name_do": {
+   "text": "Dominican Republic!",
+   "seconds": 1.145
+  },
+  "name_dz": {
+   "text": "Algeria!",
+   "seconds": 0.62
+  },
+  "name_ec": {
+   "text": "Ecuador!",
+   "seconds": 0.588
+  },
+  "name_ee": {
+   "text": "Estonia!",
+   "seconds": 0.636
+  },
+  "name_eg": {
+   "text": "Egypt!",
+   "seconds": 0.544
+  },
+  "name_er": {
+   "text": "Eritrea!",
+   "seconds": 0.651
+  },
+  "name_es": {
+   "text": "Spain!",
+   "seconds": 0.543
+  },
+  "name_et": {
+   "text": "Ethiopia!",
+   "seconds": 0.697
+  },
+  "name_fi": {
+   "text": "Finland!",
+   "seconds": 0.617
+  },
+  "name_fj": {
+   "text": "Fiji!",
+   "seconds": 0.528
+  },
+  "name_fm": {
+   "text": "Micronesia!",
+   "seconds": 0.745
+  },
+  "name_fr": {
+   "text": "France!",
+   "seconds": 0.536
+  },
+  "name_ga": {
+   "text": "Gabon!",
+   "seconds": 0.547
+  },
+  "name_gb": {
+   "text": "United Kingdom!",
+   "seconds": 0.939
+  },
+  "name_gd": {
+   "text": "Grenada!",
+   "seconds": 0.566
+  },
+  "name_ge": {
+   "text": "Georgia!",
+   "seconds": 0.474
+  },
+  "name_gh": {
+   "text": "Ghana!",
+   "seconds": 0.454
+  },
+  "name_gm": {
+   "text": "Gambia!",
+   "seconds": 0.558
+  },
+  "name_gn": {
+   "text": "Guinea!",
+   "seconds": 0.443
+  },
+  "name_gq": {
+   "text": "Equatorial Guinea!",
+   "seconds": 0.963
+  },
+  "name_gr": {
+   "text": "Greece!",
+   "seconds": 0.551
+  },
+  "name_gt": {
+   "text": "Guatemala!",
+   "seconds": 0.667
+  },
+  "name_gw": {
+   "text": "Guinea-Bissau!",
+   "seconds": 0.655
+  },
+  "name_gy": {
+   "text": "Guyana!",
+   "seconds": 0.481
+  },
+  "name_hn": {
+   "text": "Honduras!",
+   "seconds": 0.655
+  },
+  "name_hr": {
+   "text": "Croatia!",
+   "seconds": 0.633
+  },
+  "name_ht": {
+   "text": "Haiti!",
+   "seconds": 0.505
+  },
+  "name_hu": {
+   "text": "Hungary!",
+   "seconds": 0.565
+  },
+  "name_id": {
+   "text": "Indonesia!",
+   "seconds": 0.695
+  },
+  "name_ie": {
+   "text": "Ireland!",
+   "seconds": 0.606
+  },
+  "name_il": {
+   "text": "Israel!",
+   "seconds": 0.542
+  },
+  "name_in": {
+   "text": "India!",
+   "seconds": 0.526
+  },
+  "name_iq": {
+   "text": "Iraq!",
+   "seconds": 0.526
+  },
+  "name_ir": {
+   "text": "Iran!",
+   "seconds": 0.493
+  },
+  "name_is": {
+   "text": "Iceland!",
+   "seconds": 0.583
+  },
+  "name_it": {
+   "text": "Italy!",
+   "seconds": 0.47
+  },
+  "name_jm": {
+   "text": "Jamaica!",
+   "seconds": 0.607
+  },
+  "name_jo": {
+   "text": "Jordan!",
+   "seconds": 0.499
+  },
+  "name_jp": {
+   "text": "Japan!",
+   "seconds": 0.548
+  },
+  "name_ke": {
+   "text": "Kenya!",
+   "seconds": 0.487
+  },
+  "name_kg": {
+   "text": "Kyrgyzstan!",
+   "seconds": 0.714
+  },
+  "name_kh": {
+   "text": "Cambodia!",
+   "seconds": 0.662
+  },
+  "name_ki": {
+   "text": "Kiribati!",
+   "seconds": 0.672
+  },
+  "name_km": {
+   "text": "Comoros!",
+   "seconds": 0.642
+  },
+  "name_kn": {
+   "text": "Saint Kitts and Nevis!",
+   "seconds": 1.171
+  },
+  "name_kp": {
+   "text": "North Korea!",
+   "seconds": 0.76
+  },
+  "name_kr": {
+   "text": "South Korea!",
+   "seconds": 0.746
+  },
+  "name_kw": {
+   "text": "Kuwait!",
+   "seconds": 0.589
+  },
+  "name_kz": {
+   "text": "Kazakhstan!",
+   "seconds": 0.802
+  },
+  "name_la": {
+   "text": "Laos!",
+   "seconds": 0.526
+  },
+  "name_lb": {
+   "text": "Lebanon!",
+   "seconds": 0.61
+  },
+  "name_lc": {
+   "text": "Saint Lucia!",
+   "seconds": 0.711
+  },
+  "name_li": {
+   "text": "Liechtenstein!",
+   "seconds": 0.762
+  },
+  "name_lk": {
+   "text": "Sri Lanka!",
+   "seconds": 0.702
+  },
+  "name_lr": {
+   "text": "Liberia!",
+   "seconds": 0.6
+  },
+  "name_ls": {
+   "text": "Lesotho!",
+   "seconds": 0.658
+  },
+  "name_lt": {
+   "text": "Lithuania!",
+   "seconds": 0.708
+  },
+  "name_lv": {
+   "text": "Latvia!",
+   "seconds": 0.598
+  },
+  "name_ly": {
+   "text": "Libya!",
+   "seconds": 0.512
+  },
+  "name_ma": {
+   "text": "Morocco!",
+   "seconds": 0.574
+  },
+  "name_md": {
+   "text": "Moldova!",
+   "seconds": 0.666
+  },
+  "name_me": {
+   "text": "Montenegro!",
+   "seconds": 0.839
+  },
+  "name_mg": {
+   "text": "Madagascar!",
+   "seconds": 0.817
+  },
+  "name_mh": {
+   "text": "Marshall Islands!",
+   "seconds": 0.93
+  },
+  "name_mk": {
+   "text": "North Macedonia!",
+   "seconds": 1.011
+  },
+  "name_ml": {
+   "text": "Mali!",
+   "seconds": 0.474
+  },
+  "name_mm": {
+   "text": "Myanmar!",
+   "seconds": 0.59
+  },
+  "name_mn": {
+   "text": "Mongolia!",
+   "seconds": 0.673
+  },
+  "name_mr": {
+   "text": "Mauritania!",
+   "seconds": 0.759
+  },
+  "name_mt": {
+   "text": "Malta!",
+   "seconds": 0.556
+  },
+  "name_mu": {
+   "text": "Mauritius!",
+   "seconds": 0.655
+  },
+  "name_mv": {
+   "text": "Maldives!",
+   "seconds": 0.668
+  },
+  "name_mw": {
+   "text": "Malawi!",
+   "seconds": 0.534
+  },
+  "name_mx": {
+   "text": "Mexico!",
+   "seconds": 0.665
+  },
+  "name_my": {
+   "text": "Malaysia!",
+   "seconds": 0.579
+  },
+  "name_mz": {
+   "text": "Mozambique!",
+   "seconds": 0.742
+  },
+  "name_na": {
+   "text": "Namibia!",
+   "seconds": 0.583
+  },
+  "name_ne": {
+   "text": "Niger!",
+   "seconds": 0.485
+  },
+  "name_ng": {
+   "text": "Nigeria!",
+   "seconds": 0.617
+  },
+  "name_ni": {
+   "text": "Nicaragua!",
+   "seconds": 0.694
+  },
+  "name_nl": {
+   "text": "Netherlands!",
+   "seconds": 0.738
+  },
+  "name_no": {
+   "text": "Norway!",
+   "seconds": 0.489
+  },
+  "name_np": {
+   "text": "Nepal!",
+   "seconds": 0.581
+  },
+  "name_nr": {
+   "text": "Nauru!",
+   "seconds": 0.531
+  },
+  "name_nz": {
+   "text": "New Zealand!",
+   "seconds": 0.742
+  },
+  "name_om": {
+   "text": "Oman!",
+   "seconds": 0.486
+  },
+  "name_pa": {
+   "text": "Panama!",
+   "seconds": 0.564
+  },
+  "name_pe": {
+   "text": "Peru!",
+   "seconds": 0.47
+  },
+  "name_pg": {
+   "text": "Papua New Guinea!",
+   "seconds": 0.802
+  },
+  "name_ph": {
+   "text": "Philippines!",
+   "seconds": 0.701
+  },
+  "name_pk": {
+   "text": "Pakistan!",
+   "seconds": 0.685
+  },
+  "name_pl": {
+   "text": "Poland!",
+   "seconds": 0.559
+  },
+  "name_pt": {
+   "text": "Portugal!",
+   "seconds": 0.617
+  },
+  "name_pw": {
+   "text": "Palau!",
+   "seconds": 0.483
+  },
+  "name_py": {
+   "text": "Paraguay!",
+   "seconds": 0.583
+  },
+  "name_qa": {
+   "text": "Qatar!",
+   "seconds": 0.566
+  },
+  "name_ro": {
+   "text": "Romania!",
+   "seconds": 0.617
+  },
+  "name_rs": {
+   "text": "Serbia!",
+   "seconds": 0.584
+  },
+  "name_ru": {
+   "text": "Russia!",
+   "seconds": 0.496
+  },
+  "name_rw": {
+   "text": "Rwanda!",
+   "seconds": 0.569
+  },
+  "name_sa": {
+   "text": "Saudi Arabia!",
+   "seconds": 0.838
+  },
+  "name_sb": {
+   "text": "Solomon Islands!",
+   "seconds": 0.984
+  },
+  "name_sc": {
+   "text": "Seychelles!",
+   "seconds": 0.595
+  },
+  "name_sd": {
+   "text": "Sudan!",
+   "seconds": 0.55
+  },
+  "name_se": {
+   "text": "Sweden!",
+   "seconds": 0.564
+  },
+  "name_sg": {
+   "text": "Singapore!",
+   "seconds": 0.634
+  },
+  "name_si": {
+   "text": "Slovenia!",
+   "seconds": 0.681
+  },
+  "name_sk": {
+   "text": "Slovakia!",
+   "seconds": 0.738
+  },
+  "name_sl": {
+   "text": "Sierra Leone!",
+   "seconds": 0.795
+  },
+  "name_sm": {
+   "text": "San Marino!",
+   "seconds": 0.812
+  },
+  "name_sn": {
+   "text": "Senegal!",
+   "seconds": 0.607
+  },
+  "name_so": {
+   "text": "Somalia!",
+   "seconds": 0.601
+  },
+  "name_sr": {
+   "text": "Suriname!",
+   "seconds": 0.629
+  },
+  "name_ss": {
+   "text": "South Sudan!",
+   "seconds": 0.768
+  },
+  "name_st": {
+   "text": "Sao Tome and Principe!",
+   "seconds": 1.101
+  },
+  "name_sv": {
+   "text": "El Salvador!",
+   "seconds": 0.799
+  },
+  "name_sz": {
+   "text": "Eswatini!",
+   "seconds": 0.71
+  },
+  "name_tg": {
+   "text": "Togo!",
+   "seconds": 0.475
+  },
+  "name_th": {
+   "text": "Thailand!",
+   "seconds": 0.589
+  },
+  "name_tj": {
+   "text": "Tajikistan!",
+   "seconds": 0.781
+  },
+  "name_tl": {
+   "text": "Timor-Leste!",
+   "seconds": 0.713
+  },
+  "name_tm": {
+   "text": "Turkmenistan!",
+   "seconds": 0.902
+  },
+  "name_tn": {
+   "text": "Tunisia!",
+   "seconds": 0.602
+  },
+  "name_to": {
+   "text": "Tonga!",
+   "seconds": 0.501
+  },
+  "name_tr": {
+   "text": "Turkey!",
+   "seconds": 0.544
+  },
+  "name_tt": {
+   "text": "Trinidad and Tobago!",
+   "seconds": 1.248
+  },
+  "name_tv": {
+   "text": "Tuvalu!",
+   "seconds": 0.523
+  },
+  "name_tz": {
+   "text": "Tanzania!",
+   "seconds": 0.687
+  },
+  "name_ua": {
+   "text": "Ukraine!",
+   "seconds": 0.612
+  },
+  "name_ug": {
+   "text": "Uganda!",
+   "seconds": 0.579
+  },
+  "name_us": {
+   "text": "United States!",
+   "seconds": 0.915
+  },
+  "name_uy": {
+   "text": "Uruguay!",
+   "seconds": 0.575
+  },
+  "name_uz": {
+   "text": "Uzbekistan!",
+   "seconds": 0.838
+  },
+  "name_vc": {
+   "text": "Saint Vincent and the Grenadines!",
+   "seconds": 1.613
+  },
+  "name_ve": {
+   "text": "Venezuela!",
+   "seconds": 0.762
+  },
+  "name_vn": {
+   "text": "Vietnam!",
+   "seconds": 0.653
+  },
+  "name_vu": {
+   "text": "Vanuatu!",
+   "seconds": 0.642
+  },
+  "name_ws": {
+   "text": "Samoa!",
+   "seconds": 0.561
+  },
+  "name_ye": {
+   "text": "Yemen!",
+   "seconds": 0.494
+  },
+  "name_za": {
+   "text": "South Africa!",
+   "seconds": 0.845
+  },
+  "name_zm": {
+   "text": "Zambia!",
+   "seconds": 0.576
+  },
+  "name_zw": {
+   "text": "Zimbabwe!",
+   "seconds": 0.685
+  },
+  "outro": {
+   "text": "Comment your score, and subscribe for more!",
+   "seconds": 2.061
+  },
+  "pop": {
+   "text": "Most people?",
+   "seconds": 0.812
+  },
+  "pop_first": {
+   "text": "Which country has the most people?",
+   "seconds": 1.515
+  },
+  "zoom": {
+   "text": "Zoomed in! Which flag?",
+   "seconds": 1.207
+  }
+ }
+}

@@ -72,6 +72,19 @@ class History:
             return set()
         return {token for token in text.lower().replace(',', ' ').split() if len(token) == 2 and token.isalpha()}
 
+    def next_shorts_episode(self):
+        """v1.5.0: series number of the next Short = finished Shorts so far + 1 (failed runs do not count)."""
+        with self._connect() as db:
+            done = db.execute("SELECT COUNT(*) FROM runs WHERE status='success' "
+                              "AND quiz_json NOT LIKE '%\"mode\": \"Longform\"%'").fetchone()[0]
+        # v1.6.3: episode_base.txt next to the database shifts the series start (the channel restarted at #1 on
+        # 2026-11-13 although 127 earlier Shorts had been made: base = Shorts made before the new #1).
+        try:
+            base = int((self.path.parent/'episode_base.txt').read_text(encoding='utf-8-sig').split()[0])
+        except (OSError, ValueError, IndexError):
+            base = 0
+        return max(1, int(done)+1-base)
+
     def recent_longform_country_codes(self, limit=2):
         # Newest first; only Longform runs, so the 20-40 flags of one Longform never hide Shorts flags.
         runs = []

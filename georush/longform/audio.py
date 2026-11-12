@@ -14,10 +14,11 @@ def synthesize(destination,timeline,bgm=.10):
         start=item['start']
         if item['kind']=='question':
             events.append({'kind':'entrance','time':start+.12,'length':.14,'frequency':740,'gain':.06})
-            for tick in range(COUNTDOWN):
-                events.append({'kind':'tick','time':start+tick,'length':.075,'frequency':1000 if tick<6 else 1250,'gain':.065})
+            countdown=item.get('countdown',COUNTDOWN)
+            for tick in range(countdown):
+                events.append({'kind':'tick','time':start+tick,'length':.075,'frequency':1000 if tick<countdown-2 else 1250,'gain':.065})
             for step,freq in enumerate((523.251,659.255,783.991)):
-                events.append({'kind':'answer','time':start+COUNTDOWN+step*.065,'length':.24,'frequency':freq,'gain':.10})
+                events.append({'kind':'answer','time':start+countdown+step*.065,'length':.24,'frequency':freq,'gain':.10})
         elif item['kind'] in ('chapter','outro'):
             events.append({'kind':item['kind'],'time':start,'length':.4,'frequency':659.255,'gain':.08})
     duration=timeline['duration'];peak=0.;clipped=0
