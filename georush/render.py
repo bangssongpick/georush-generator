@@ -145,7 +145,7 @@ def _find_grid(image, question, correct=None):
             _center(draw,label,y1-60,38,'#082E3F' if i==correct else WHITE,max_width=160,x=x1-101)
 
 
-def _headline(index,count,question=None):
+def _headline(index,count,question=None,hook=None):
     """v1.4.2: one short challenge line, so the flag is what a viewer sees first in the feed.
     A capital-city question names the country (its flag is on screen) and asks for its capital."""
     if question is not None and question.get('kind')=='capital':
@@ -157,16 +157,16 @@ def _headline(index,count,question=None):
     if question is not None and question.get('kind')=='zoom' and not (count>1 and index==count-1):
         return 'ZOOMED IN! WHICH FLAG?'
     if count>1 and index==0:
-        return f'CAN YOU GET ALL {count}?'
+        return hook or f'CAN YOU GET ALL {count}?'  # v1.6.4: rotating challenge hook (hooks.py)
     if count>1 and index==count-1:
         return 'FINAL FLAG!'
     return 'GUESS THE FLAG!'
 
 
-def _question_static(question,index,count,background,reveal=False):
+def _question_static(question,index,count,background,reveal=False,hook=None):
     options,correct,flag_path=_question_data(question)
     image=background.copy();draw=ImageDraw.Draw(image)
-    _center(draw,_headline(index,count,question),HEADLINE_Y,TITLE_SIZE,YELLOW,max_width=HEADLINE_WIDTH)
+    _center(draw,_headline(index,count,question,hook),HEADLINE_Y,TITLE_SIZE,YELLOW,max_width=HEADLINE_WIDTH)
     find=question.get('kind') in ('find','population')
     names_shown=question.get('kind')=='population'
     draw.rounded_rectangle(FLAG_CARD,radius=30,fill='#16457F' if find else '#F4F8FF',outline='#86AEFF',width=4)
@@ -245,8 +245,10 @@ def animation_state(second, question_count):
 
 def prepare_animation(questions):
     background = _background()
-    boards = [(_question_static(q,i,len(questions),background),
-               _question_static(q,i,len(questions),background,True)) for i,q in enumerate(questions)]
+    from .hooks import choose
+    hook = choose(questions)[0]
+    boards = [(_question_static(q,i,len(questions),background,hook=hook),
+               _question_static(q,i,len(questions),background,True,hook=hook)) for i,q in enumerate(questions)]
     flags=[];sources=[]
     for question in questions:
         with Image.open(question['flag_path']) as source:
@@ -255,7 +257,7 @@ def prepare_animation(questions):
             flags.append(flag)
             sources.append(full if question.get('kind')=='zoom' else None)
     return {'background':background,'boards':boards,'flags':flags,'sources':sources,
-            'cta':_cta(background,len(questions)),'questions':questions}
+            'cta':_cta(background,len(questions)),'questions':questions,'hook':hook}
 
 
 CONFETTI_SECONDS = 1.0
@@ -313,7 +315,7 @@ def animated_frame(context, second):
         if state['title_offset']:
             image.paste(context['background'].crop((80,HEADLINE_Y-8,1000,FLAG_CARD[1]-2)),(80,HEADLINE_Y-8))
             draw=ImageDraw.Draw(image)
-            _center(draw,_headline(index,len(questions),questions[index]),HEADLINE_Y+state['title_offset'],TITLE_SIZE,YELLOW,max_width=HEADLINE_WIDTH)
+            _center(draw,_headline(index,len(questions),questions[index],context.get('hook')),HEADLINE_Y+state['title_offset'],TITLE_SIZE,YELLOW,max_width=HEADLINE_WIDTH)
         color='#FFC663' if state['urgent'] else YELLOW
         draw=ImageDraw.Draw(image)
         draw.arc((450,1033,630,1213),-90,270,fill='#34558B',width=9)

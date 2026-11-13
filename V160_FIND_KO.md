@@ -19,3 +19,8 @@
 - **새 주제 Population:** 국기 4개(나라 이름 표시) 중 인구가 가장 많은 나라 고르기. 정답 때 네 나라 인구(예: 286M)를 보여 줌. 데이터는 세계은행 WDI SP.POP.TOTL(2025, CC BY 4.0)을 assets/country_population.json에 고정해 넣음(실행 중 인터넷 안 씀). 화면 아래 출처 "Population: World Bank (2025)". 1위가 2위보다 쉬움 3배↑, 보통 1.6~3배, 어려움 1.25~1.6배 차이 나는 조합만. 면적은 원본 값(캐나다 등)이 일반 통계와 달라 쓰지 않음.
 - **영어 음성:** Kokoro-82M(Apache-2.0, 목소리 af_heart)로 미리 만든 클립 384개(assets/voice, 15MB)를 영상에 섞음 — 문제 시작 멘트(Guess the flag / Find Indonesia / Final flag / Which has the most people?), 정답 국가명, 마지막 "Comment your score, and subscribe for more!". EXE는 Kokoro를 실행하지 않고 파일만 재생. 클립 다시 만들기: Kokoro venv로 tools/make_voice.py.
 - **마지막 정답 2.5초 연장(총 16초):** 구독 멘트 자리. 노란 띠 문구 "COMMENT YOUR SCORE + COUNTRY! / LIKE & SUBSCRIBE FOR MORE!". 별도 끝 화면은 여전히 없음(반복 재생 유지).
+
+## v1.6.4 — 첫 화면 도전 문구 돌리기, 나라 묻는 댓글
+- Mixed 3문제 쇼츠의 첫 화면 문구가 5종에서 영상마다(국기 조합 기준) 정해짐: CAN YOU GET ALL 3? / 99% MISS THE LAST ONE! / THE LAST FLAG IS HARD! / ONLY EXPERTS GET 3/3! / MOST PEOPLE FAIL #3! — 모두 Mixed 구성(마지막만 Hard)에서 사실. 음성도 같은 문장(Kokoro 클립 4개 추가).
+- 고정 댓글 후보에 "점수 + 어느 나라에서 보는지" 묻는 문구 4개 추가(총 12개).
+- 개발: tools/make_voice.py 기본 Kokoro 경로 = 바탕화면\뱅으니\Inkmap History\도구_Kokoro, 키를 주면 그 클립만 다시 만듦.

@@ -14,7 +14,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-KOKORO_DIR = Path(os.environ.get('KOKORO_TOOL', r'C:\Users\82105\Desktop\뱅으니\롱폼A 역사\도구_Kokoro'))
+KOKORO_DIR = Path(os.environ.get('KOKORO_TOOL', r'C:\Users\82105\Desktop\뱅으니\Inkmap History\도구_Kokoro'))
 sys.path.insert(0, str(KOKORO_DIR))
 
 VOICE, SPEED, SR = 'af_heart', 1.08, 24000
@@ -34,6 +34,7 @@ def slug(text):
 
 
 def main():
+    only = set(sys.argv[1:])  # optional clip keys: re-render just these
     import numpy as np
     import narrate  # the Kokoro tool's helpers (espeak path fix for non-ASCII folders)
     narrate.fix_espeak()
@@ -43,12 +44,17 @@ def main():
     pipe = KPipeline(lang_code='a', repo_id='hexgrad/Kokoro-82M')
     out = ROOT/'assets'/'voice'
     out.mkdir(parents=True, exist_ok=True)
-    texts = dict(PHRASES)
+    from georush.hooks import VOICE_LINES
+    texts = dict(PHRASES, **VOICE_LINES)
     valid, _ = Catalog().valid_countries()
     for row in valid:
         name = display_name(row['name'])
         texts['name_'+row['code']] = name + '!'
         texts['find_'+row['code']] = f'Find {name}!'
+    manifest_path = out/'voice_manifest.json'
+    old = json.loads(manifest_path.read_text(encoding='utf-8'))['clips'] if only and manifest_path.is_file() else {}
+    if only:
+        texts = {k: v for k, v in texts.items() if k in only}
     manifest = {'engine': 'Kokoro-82M (Apache-2.0)', 'voice': VOICE, 'speed': SPEED, 'sample_rate': SR, 'clips': {}}
     for index, (key, text) in enumerate(sorted(texts.items())):
         audio = np.concatenate([np.asarray(a) for _, _, a in pipe(text, voice=VOICE, speed=SPEED)])
@@ -62,6 +68,7 @@ def main():
         manifest['clips'][key] = {'text': text, 'seconds': round(len(pcm)/SR, 3)}
         if index % 25 == 0:
             print(index, key, text, manifest['clips'][key]['seconds'], flush=True)
+    manifest['clips'] = dict(old, **manifest['clips'])
     (out/'voice_manifest.json').write_text(json.dumps(manifest, indent=1, ensure_ascii=False), encoding='utf-8')
     print('done', len(manifest['clips']))
 

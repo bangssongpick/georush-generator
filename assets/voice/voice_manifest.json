@@ -1535,6 +1535,22 @@
   "zoom": {
    "text": "Zoomed in! Which flag?",
    "seconds": 1.207
+  },
+  "hook_99": {
+   "text": "Ninety-nine percent miss the last one!",
+   "seconds": 1.847
+  },
+  "hook_experts": {
+   "text": "Only experts get all three!",
+   "seconds": 1.448
+  },
+  "hook_fail": {
+   "text": "Most people fail number three!",
+   "seconds": 1.519
+  },
+  "hook_last": {
+   "text": "The last flag is really hard!",
+   "seconds": 1.496
   }
  }
 }

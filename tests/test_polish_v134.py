@@ -121,7 +121,7 @@ class PolishTests(unittest.TestCase):
                     self.assertNotIn(question['country_name'], value)
         self.assertGreaterEqual(len(descriptions), 40)
         self.assertGreaterEqual(len(tags), 40)
-        self.assertEqual(len(comments), 8)
+        self.assertEqual(len(comments), 12)  # v1.6.4: +4 country-ask comments
 
     def test_same_quiz_always_gets_the_same_text(self):
         self.assertEqual(self.metadata_for(7)[1], self.metadata_for(7)[1])
