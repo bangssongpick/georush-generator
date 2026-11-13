@@ -112,4 +112,36 @@ class PopulationAndVoiceTests(unittest.TestCase):
         self.assertEqual(keys[-1], 'outro')
         self.assertIn('name_'+quiz['questions'][-1]['country_code'], keys)
         classic = [key for _, key in voice_plan(build_quiz(self.catalog, None, seed=4)['questions'])]
-        self.assertEqual([classic[0], classic[2], classic[4]], ['first', 'guess', 'final'])
+        from georush.hooks import choose
+        first = choose(build_quiz(self.catalog, None, seed=4)['questions'])[1]
+        self.assertEqual([classic[0], classic[2], classic[4]], [first, 'guess', 'final'])
+
+
+class HookTests(unittest.TestCase):
+    def test_hooks_rotate_only_on_mixed_three_flag_shorts(self):
+        from georush import hooks
+        catalog = Catalog()
+        seen = set()
+        for seed in range(40):
+            quiz = build_quiz(catalog, None, 'Mixed', 3, seed)
+            text, key = hooks.choose(quiz['questions'])
+            seen.add(text)
+            context = render.prepare_animation(quiz['questions'])
+            self.assertEqual(context['hook'], text)
+        self.assertGreaterEqual(len(seen), 3)
+        find = build_quiz(catalog, None, seed=3, theme='Find')['questions']
+        self.assertEqual(hooks.choose(find), hooks.DEFAULT)
+        easy = build_quiz(catalog, None, 'Easy', 3, 3)['questions']
+        self.assertEqual(hooks.choose(easy), hooks.DEFAULT)
+        self.assertEqual(render._headline(0, 3), 'CAN YOU GET ALL 3?')
+
+    def test_every_hook_fits_and_has_a_voice_clip(self):
+        from pathlib import Path
+        from PIL import Image, ImageDraw
+        from georush import hooks
+        from georush.paths import resource_root
+        draw = ImageDraw.Draw(Image.new('RGB', (10, 10)))
+        for text, key in hooks.HOOKS:
+            self.assertTrue((resource_root()/'assets'/'voice'/f'{key}.wav').is_file(), key)
+            size = render._center(draw, text, 0, render.TITLE_SIZE, max_width=render.HEADLINE_WIDTH)
+            self.assertGreaterEqual(size, 56, text)  # still big on a phone

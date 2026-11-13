@@ -33,7 +33,12 @@ COMMENTS = ['How many flags did you get right? {scores}? Tell us your score!',
             'Which flag tricked you? Share your score ({scores}) below!',
             'Think you can beat {count}/{count}? Drop your score ({scores}) in the comments!',
             'Be honest: what was your score? {scores}?',
-            'How did you do? Comment your score ({scores}) and tag a friend who knows flags!']
+            'How did you do? Comment your score ({scores}) and tag a friend who knows flags!',
+            # v1.6.4: the video now ends asking for the viewer's country too
+            'Score + country! {scores}? And where are you watching from? 🌏',
+            'Drop your score ({scores}) and your country below! 🌏',
+            'Which country are you from? And your score: {scores}? 👇',
+            'Comment your score ({scores}) + your flag! Let’s see who wins 🏆']
 
 SHORT_HASHTAGS = '#GeoRush #GuessTheFlag #FlagQuiz #GeographyQuiz #Shorts'
 

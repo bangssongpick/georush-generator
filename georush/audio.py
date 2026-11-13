@@ -35,6 +35,7 @@ def _voice_clip(key):
 
 def voice_plan(questions):
     """(seconds, clip key) pairs: the prompt as each flag appears, the answer at the reveal, the ask at the very end."""
+    from .hooks import choose
     plan, count = [], len(questions)
     for index, question in enumerate(questions):
         base, kind, code = index*QUESTION_SECONDS, question.get('kind'), question['country_code']
@@ -50,7 +51,7 @@ def voice_plan(questions):
         elif kind == 'zoom':
             prompt = 'zoom'
         else:
-            prompt = 'first' if count > 1 and index == 0 else 'guess'
+            prompt = choose(questions)[1] if count > 1 and index == 0 else 'guess'
         plan.append((base+.12, prompt))
         plan.append((base+COUNTDOWN_SECONDS+.08, 'name_'+code))
     if questions and questions[-1].get('kind') != 'capital':
