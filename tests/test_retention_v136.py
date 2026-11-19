@@ -29,9 +29,10 @@ class RetentionTests(unittest.TestCase):
     def test_frames_show_the_headlines_and_stay_different_between_questions(self):
         quiz = build_quiz(self.catalog, None, seed=7)
         context = render.prepare_animation(quiz['questions'])
-        first = render.animated_frame(context, 1.0).crop((60, 208, 1020, 296)).tobytes()
-        middle = render.animated_frame(context, QUESTION_SECONDS + 1.0).crop((60, 208, 1020, 296)).tobytes()
-        last = render.animated_frame(context, 2 * QUESTION_SECONDS + 1.0).crop((60, 208, 1020, 296)).tobytes()
+        box = (60, 326, 1020, 512)  # banner and badge
+        first = render.animated_frame(context, 1.0).crop(box).tobytes()
+        middle = render.animated_frame(context, QUESTION_SECONDS + 1.0).crop(box).tobytes()
+        last = render.animated_frame(context, 2 * QUESTION_SECONDS + 1.0).crop(box).tobytes()
         self.assertEqual(len({first, middle, last}), 3)
 
     def test_mixed_quizzes_go_from_easy_to_hard(self):

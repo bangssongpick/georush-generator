@@ -33,14 +33,15 @@ class OptionSizeTests(unittest.TestCase):
         catalog = Catalog()
         names = {display_name(row['name']) for row in catalog.countries}
         names |= {capital_of(row['code']) for row in catalog.countries} - {''}
-        x, y = 76+480, 1255+178  # card D
+        x, y = render._option_box(3)  # card D, the right-hand card: its right edge stays left of the Shorts buttons
+        self.assertLessEqual(x+render.OPTION_W, 930)
         for name in sorted(names):
             for text, size, (x0, y0, x1, y1) in drawn(name):
                 self.assertGreaterEqual(size, 23, name)
-                self.assertGreaterEqual(x0, x+90, name)
-                self.assertLessEqual(x1, x+440, name)
+                self.assertGreaterEqual(x0, x+88, name)
+                self.assertLessEqual(x1, x+render.OPTION_W-6, name)
                 self.assertGreaterEqual(y0, y+2, name)
-                self.assertLessEqual(y1, y+144, name)
+                self.assertLessEqual(y1, y+render.OPTION_H-2, name)
 
 
 if __name__ == '__main__':

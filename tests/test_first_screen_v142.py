@@ -55,7 +55,7 @@ class FirstScreenV142Tests(unittest.TestCase):
         quiz = build_quiz(self.catalog, None, seed=1)
         context = render.prepare_animation(quiz['questions'])
         for flag in context['flags']:
-            self.assertGreaterEqual(flag.width, 880)  # was 553 of the 1080 px screen
+            self.assertGreaterEqual(flag.width, 780)  # was 553 of the 1080 px screen; v1.6.5: 787 under the logo
 
 
 if __name__ == '__main__':

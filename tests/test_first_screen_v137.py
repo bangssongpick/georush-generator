@@ -29,8 +29,8 @@ class FirstScreenTests(unittest.TestCase):
 
     def test_frame_zero_shows_question_hook_and_all_four_choices(self):
         image, seen = self.drawn_text(0.0)
-        texts = [text for text, _ in seen]
-        self.assertIn('CAN YOU GET ALL 3?', texts)
+        # v1.6.5: the headline is part of the pre-drawn banner, so it is checked while the board is built (below)
+        self.assertEqual(render._headline(0, 3, None, self.context['hook']), self.context['hook'])
         # The four choices are part of the pre-drawn board: they must be drawn while the board is built, and be the
         # same on frame zero as later in the question (no delayed or changing choices).
         seen_board = []
@@ -41,14 +41,15 @@ class FirstScreenTests(unittest.TestCase):
             return original(draw, xy, text, *args, **kwargs)
         with patch.object(ImageDraw.ImageDraw, 'text', measured):
             render._question_static(self.quiz['questions'][0], 0, 3, self.context['background'])
+        self.assertIn(self.context['hook'], seen_board)
         joined = ' '.join(seen_board)  # long names wrap onto two or three drawn lines
         for name in render._question_data(self.quiz['questions'][0])[0]:
             self.assertIn(name, joined)
-        options = lambda second: render.animated_frame(self.context, second).crop((60, 1245, 1030, 1605)).tobytes()
+        options = lambda second: render.animated_frame(self.context, second).crop((30, 1340, 940, 1580)).tobytes()
         self.assertEqual(options(0.0), options(2.0))
         pixels = np.asarray(image, dtype=np.int16)
         self.assertGreater(float(pixels.mean()), 40)                   # no black frame
-        flag = pixels[340:980, 100:980]
+        flag = pixels[600:1100, 100:980]
         self.assertGreater(int(((flag.max(axis=2) - flag.min(axis=2)) > 35).sum()), 10000)  # coloured flag visible
 
     def test_no_intro_or_delay_before_the_question(self):

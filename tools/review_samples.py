@@ -15,8 +15,8 @@ for i,d in enumerate(sorted(p for p in folder.iterdir() if p.is_dir()),1):
  row={'sample':i,'folder':str(d),'signature':quiz['signature'],'questions':[]}
  for j,q in enumerate(quiz['questions'],1):
   all_codes.append(q['country_code'])
-  expected=np.asarray(_question_static(q,j-1,3,_background()).crop((130,445,950,945)),dtype=float)
-  actual=np.asarray(Image.open(d/f'encoded_inspection/q{j}_start.jpg').convert('RGB').crop((130,445,950,945)),dtype=float)
+  expected=np.asarray(_question_static(q,j-1,3,_background()).crop((130,600,950,1080)),dtype=float)
+  actual=np.asarray(Image.open(d/f'encoded_inspection/q{j}_start.jpg').convert('RGB').crop((130,600,950,1080)),dtype=float)
   mse=float(np.mean((expected-actual)**2));psnr=10*math.log10(255**2/max(mse,1e-12))
   assert psnr>29, (d,j,psnr)
   row['questions'].append({'code':q['country_code'],'country':q['country_name'],'answer':q['options'][q['correct_index']], 'answer_letter':chr(65+q['correct_index']),'flag_region_psnr_db':round(psnr,3),'options':q['options']})

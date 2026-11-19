@@ -8,6 +8,7 @@ import numpy as np
 from PIL import ImageDraw
 from georush.catalog import Catalog
 from georush.quiz import build_quiz
+from georush import render
 from georush.render import prepare_animation, animated_frame, animation_state
 from georush.audio import synthesize_audio, QUESTION_SECONDS, COUNTDOWN_SECONDS, COUNTDOWN_TICKS
 
@@ -20,14 +21,14 @@ class PresentationV12Tests(unittest.TestCase):
 
     def test_first_frame_has_recognizable_flag_and_question(self):
         pixels=np.asarray(animated_frame(self.context,0),dtype=np.int16)
-        flag=pixels[480:915,170:910]
+        flag=pixels[600:1100,170:910]
         self.assertGreater(int(((flag.max(axis=2)-flag.min(axis=2))>35).sum()),10000)
-        title=pixels[250:410,140:940]
+        title=pixels[330:450,100:980]  # the yellow banner
         self.assertGreater(int(((title[:,:,0]>200)&(title[:,:,1]>170)).sum()),1000)
         self.assertEqual(animation_state(0,3)['flag_scale'],1.0)  # v1.3.7: full size on the first frame
 
     def test_flag_intro_moves_then_settles_before_one_second(self):
-        crops=[animated_frame(self.context,t).crop((150,465,930,925)).tobytes() for t in (0,.3,.7,1)]
+        crops=[animated_frame(self.context,t).crop((150,560,930,1080)).tobytes() for t in (0,.3,.7,1)]
         self.assertNotEqual(crops[0],crops[1]);self.assertNotEqual(crops[1],crops[2])
         self.assertEqual(crops[2],crops[3])
 
@@ -38,8 +39,8 @@ class PresentationV12Tests(unittest.TestCase):
                 s=animation_state(q*QUESTION_SECONDS+step/30,3)['flag_scale']
                 self.assertGreaterEqual((1080-w*s)/2,44)
                 self.assertLessEqual((1080+w*s)/2,1036)
-                self.assertGreaterEqual(661-h*s/2,302)
-                self.assertLessEqual(661+h*s/2,1020)
+                self.assertGreaterEqual(render.FLAG_CENTER_Y-h*s/2,render.FLAG_CARD[1]+4)
+                self.assertLessEqual(render.FLAG_CENTER_Y+h*s/2,render.FLAG_CARD[3]-4)
 
     def test_question_and_choices_remain_legible_without_global_flash(self):
         seen=[];original=ImageDraw.ImageDraw.text
@@ -52,14 +53,13 @@ class PresentationV12Tests(unittest.TestCase):
         for text,(x0,y0,x1,y1) in seen:
             self.assertGreaterEqual(x0,45,text);self.assertLessEqual(x1,1035,text)
             self.assertGreaterEqual(y0,45,text);self.assertLessEqual(y1,1875,text)
-        options=[animated_frame(self.context,t).crop((60,1245,1030,1605)).tobytes() for t in (0,.3,.7,1,2.59,2.99)]
+        options=[animated_frame(self.context,t).crop((30,1340,940,1580)).tobytes() for t in (0,.3,.7,1,2.59,2.99)]
         self.assertTrue(all(p==options[0] for p in options))
         before=np.asarray(animated_frame(self.context,0),dtype=float)
         after=np.asarray(animated_frame(self.context,.3),dtype=float)
         stable=np.ones((1920,1080),dtype=bool)
-        stable[208:296,80:1000]=False
-        stable[302:1021,44:1037]=False
-        stable[1030:1233,155:925]=False
+        stable[534:1181,30:1050]=False   # the flag card
+        stable[1180:1340,155:925]=False  # the countdown and its bar
         self.assertEqual(float(np.abs(after-before)[stable].max()),0)
 
     def test_countdown_tick_pulse_progress_and_urgent_color_timing(self):
@@ -87,20 +87,21 @@ class PresentationV12Tests(unittest.TestCase):
 
     def test_answer_card_stays_safe_in_every_position(self):
         scale=animation_state(3.14,3)['answer_scale']
+        w,h=render.OPTION_W+1,render.OPTION_H+1
         for i in range(4):
-            x=76+(i%2)*480;y=1255+(i//2)*178
-            self.assertGreaterEqual(x-(449*scale-449)/2,45)
-            self.assertLessEqual(x+449+(449*scale-449)/2,1035)
-            self.assertGreaterEqual(y-(147*scale-147)/2,1230)
-            self.assertLessEqual(y+147+(147*scale-147)/2,1610)
+            x,y=render._option_box(i)
+            self.assertGreaterEqual(x-(w*scale-w)/2,30)
+            self.assertLessEqual(x+w+(w*scale-w)/2,940)  # clear of the Shorts buttons
+            self.assertGreaterEqual(y-(h*scale-h)/2,1340)
+            self.assertLessEqual(y+h+(h*scale-h)/2,1590)  # clear of the Shorts caption
 
     def test_next_question_resets_answer_effect(self):
         for q in (1,2):
             state=animation_state(q*QUESTION_SECONDS,3)
             self.assertFalse(state['reveal']);self.assertEqual(state['answer_scale'],1)
             self.assertEqual(state['remaining'],COUNTDOWN_TICKS)
-            actual=animated_frame(self.context,q*QUESTION_SECONDS).crop((60,1245,1030,1605)).tobytes()
-            expected=self.context['boards'][q][0].crop((60,1245,1030,1605)).tobytes()
+            actual=animated_frame(self.context,q*QUESTION_SECONDS).crop((30,1340,940,1580)).tobytes()
+            expected=self.context['boards'][q][0].crop((30,1340,940,1580)).tobytes()
             self.assertEqual(actual,expected)
 
     def test_pcm_cues_are_unique_synced_and_fade_without_clipping(self):

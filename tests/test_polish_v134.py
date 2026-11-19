@@ -33,7 +33,7 @@ class PolishTests(unittest.TestCase):
             self.assertFalse(render.animation_state(second, 3)['cta'], second)
         self.assertEqual(render.animation_state(15.0, 3)['question_index'], 2)
         last = render.animated_frame(context, 15.4)
-        self.assertEqual(last.getpixel((540, 1640))[:3], (255, 228, 81))  # the yellow score-ask banner
+        self.assertEqual(last.getpixel((125, 1250))[:3], (255, 228, 81))  # the yellow score-ask banner (v1.6.5: moved up out of the Shorts caption zone)
 
     # --- display names --------------------------------------------------------------------------------------
     def test_display_names_are_reviewed_unique_and_only_for_known_names(self):

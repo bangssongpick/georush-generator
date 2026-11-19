@@ -6,7 +6,7 @@ import subprocess
 import numpy as np
 from PIL import Image, ImageDraw
 from .audio import COUNTDOWN_SECONDS, CTA_SECONDS, QUESTION_SECONDS
-from .render import prepare_animation, animated_frame, _font
+from .render import prepare_animation, animated_frame, _font, _option_box
 from .paths import subprocess_options
 
 
@@ -32,19 +32,19 @@ def review_video(video, quiz, destination, ffmpeg):
         assert psnr>28,('Encoded frame differs from intended presentation',n,psnr)
         frames[n]=pixels
         checks.append({'frame':n,'seconds':n/30,'file':path.name,'intended_frame_psnr_db':round(psnr,3)})
-    intro_delta=float(np.abs(frames[0][310:1012,60:1020]-frames[9][310:1012,60:1020]).mean())
+    intro_delta=float(np.abs(frames[0][560:1080,60:1020]-frames[9][560:1080,60:1020]).mean())
     assert intro_delta>1,('Encoded flag entrance does not move',intro_delta)
-    assert frames[0][480:915,170:910].std()>20
+    assert frames[0][600:1060,170:910].std()>20
     for n in (reveal+1,reveal+4):
         winners=[]
         for option in range(4):
-            x=76+option%2*480;y=1255+option//2*178
-            p=frames[n][y:y+147,x:x+449]
+            x,y=_option_box(option)
+            p=frames[n][y:y+131,x:x+431]
             green=(p[:,:,1]>p[:,:,0]+60)&(p[:,:,1]>p[:,:,2]+25)&(p[:,:,1]>140)
             if green.sum()>1000:winners.append(option)
         assert winners==[quiz['questions'][0]['correct_index']],('Incorrect revealed answer',n,winners)
     for n in (0,second_question):
-        p=frames[n][1245:1605,60:1030]
+        p=frames[n][1280:1580,30:940]
         green=(p[:,:,1]>p[:,:,0]+60)&(p[:,:,1]>p[:,:,2]+25)&(p[:,:,1]>140)
         assert green.sum()<200,('Answer effect leaked into new question',n)
     selected=[0,9,21,30,75,reveal-1,reveal+1,second_question,last]

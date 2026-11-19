@@ -84,8 +84,8 @@ class Catalog190Tests(unittest.TestCase):
                 pixels = numpy.asarray(render._question_static(question, 0, 3, background, reveal=True)).astype(int)
                 green = []
                 for option in range(4):
-                    x, y = 76 + (option % 2) * 480, 1255 + (option // 2) * 178
-                    box = pixels[y:y + 146, x:x + 448]
+                    x, y = render._option_box(option)
+                    box = pixels[y:y + render.OPTION_H, x:x + render.OPTION_W]
                     green.append(int(((box[:, :, 1] > box[:, :, 0] + 60) & (box[:, :, 1] > box[:, :, 2] + 25)
                                       & (box[:, :, 1] > 140)).sum()))
                 self.assertEqual(green.index(max(green)), correct)

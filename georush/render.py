@@ -10,7 +10,7 @@ import shutil
 import subprocess
 import time
 
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 from .audio import synthesize_audio, QUESTION_SECONDS, COUNTDOWN_SECONDS, COUNTDOWN_TICKS, CTA_SECONDS
 from .names import display_name
@@ -22,15 +22,32 @@ YELLOW = '#FFE451'
 WHITE = '#F5FAFF'
 MUTED = '#B8D2FF'
 GREEN = '#5DFFC2'
-TITLE_SIZE = 74      # v1.3.7: larger first-screen question (was 66 / 40) so it reads at phone size
+TITLE_SIZE = 84      # v1.6.5: the headline sits in the big yellow banner of the approved design (was 74 on the plain background)
 FLAG_POP_SECONDS = .35
-HEADLINE_WIDTH = 900  # stays inside the 80-1000 px band that the title animation repaints
-HEADLINE_Y = 216
-FLAG_CARD = (40,298,1040,1024)  # v1.4.2: the flag fills the width of the screen (was a 553 px wide flag)
-FLAG_MAX = (900,675)
-FLAG_CENTER_Y = 661
+HEADLINE_WIDTH = 900  # the banner is 960 px wide; the italic lean needs the rest
+SHEAR = .2            # italic lean of the banner and badge text
+BANNER = (60,326,1020,456)   # v1.6.5 design: glowing yellow banner under the globe logo
+BADGE = (270,444,810,512)    # red badge on the banner's lower edge: "90% FAIL", "ROUND 2 / 3", "FINAL ROUND!"
+# Shorts draws its own buttons over the right edge (x > 930, y 1000-1650) and its caption over the bottom (y > 1600):
+# everything the viewer has to read stays left of x=930 in the lower half and above y=1580.
+FLAG_CARD = (40,534,1040,1180)  # single-flag card (the flag is 787 px wide, 73% of the screen; it was 83% before the logo took the top)
+FLAG_MAX = (860,590)
+FLAG_CENTER_Y = 857
+FIND_CARD = (40,534,1040,1244)  # Find: the 2x2 grid takes the room the answer cards used to use
 OPTION_SIZE = 44      # v1.4.1: answer choices read at phone size (was 37); long names still wrap and shrink
-OPTION_TEXT_HEIGHT = 138  # lines of a choice stay inside its 146 px card
+OPTION_TEXT_HEIGHT = 96  # lines of a choice stay inside its 104 px card
+OPTION_W, OPTION_H = 430, 104
+OPTION_X = (40,500)   # v1.6.5: right edge 930, clear of the Shorts buttons (was 1004)
+OPTION_Y = (1350,1468)
+OPTION_TEXT_WIDTH = 316
+REVEAL_FX_SECONDS = .3  # v1.6.5: a short flash and pop on the right answer (local, never full screen)
+# Where the countdown, the answer label and the last-answer banner sit for each kind of question.
+LAYOUTS = {
+    'find': {'ring':(465,1262,615,1412),'bar_y':1428,'label_y':1262,'name_y':1308,
+             'last_box':(117,1380,963,1560),'last_lines':(1412,1494),'last_label':True},
+    'std': {'ring':(480,1190,600,1310),'bar_y':1322,'label_y':1196,'name_y':1240,
+            'last_box':(117,1190,963,1335),'last_lines':(1208,1268),'last_label':False},
+}
 ASSETS = resource_root()/'assets'
 
 
@@ -42,28 +59,81 @@ def _font(size):
     return ImageFont.truetype(str(path),size)
 
 
-def _center(draw, text, y, size, fill=WHITE, max_width=940, x=WIDTH//2):
+def _center(draw, text, y, size, fill=WHITE, max_width=940, x=WIDTH//2, stroke=0):
     size = int(size)
     while size > 20 and draw.textbbox((0,0),text,font=_font(size))[2] > max_width:
         size -= 1
     box = draw.textbbox((0,0),text,font=_font(size))
-    draw.text((x-(box[2]-box[0])/2,y-box[1]),text,font=_font(size),fill=fill)
+    extra = {'stroke_width':stroke,'stroke_fill':fill} if stroke else {}
+    draw.text((x-(box[2]-box[0])/2,y-box[1]),text,font=_font(size),fill=fill,**extra)
     return size
 
 
+def _italic_center(image, text, cy, size, fill, max_width, stroke=0):
+    """Heavy italic text centred on cy: drawn upright on a full-frame layer, then leaned by SHEAR around its own middle."""
+    layer = Image.new('RGBA',image.size,(0,0,0,0));draw = ImageDraw.Draw(layer)
+    size = int(size)
+    while size > 20 and draw.textbbox((0,0),text,font=_font(size))[2]+SHEAR*size > max_width:
+        size -= 1
+    box = draw.textbbox((0,0),text,font=_font(size))
+    _center(draw,text,cy-(box[3]-box[1])/2,size,fill,max_width=10**6,stroke=stroke)
+    layer = layer.transform(layer.size,Image.Transform.AFFINE,(1,SHEAR,-SHEAR*cy,0,1,0),resample=Image.Resampling.BICUBIC)
+    image.paste(layer,(0,0),layer)
+    return size
+
+
+@lru_cache(maxsize=1)
+def _plate():
+    path = ASSETS/'bg_v165.jpg'
+    if not path.is_file():
+        raise FileNotFoundError(f'Background plate missing: {path}')
+    return Image.open(path).convert('RGB')
+
+
 def _background():
-    import numpy as np
-    top=np.array([10,45,110]);bottom=np.array([4,19,54])
-    value=np.linspace(0,1,HEIGHT)[:,None,None]
-    pixels=np.tile(((1-value)*top+value*bottom).astype('uint8'),(1,WIDTH,1))
-    image=Image.fromarray(pixels,'RGB')
-    draw=ImageDraw.Draw(image)
-    draw.arc((-390,370,1200,1960),218,314,fill='#163E7A',width=4)
-    draw.arc((780,-460,1560,320),80,230,fill='#215391',width=4)
-    draw.rounded_rectangle((74,74,1006,196),radius=30,fill='#103B80',outline='#2861A7',width=2)
-    draw.text((110,97),'GeoRush',font=_font(58),fill=WHITE)
-    draw.text((755,118),'FLAG QUIZ',font=_font(25),fill=YELLOW)
-    return image
+    """v1.6.5: the approved design's globe logo, world maps and plane on top, a navy gradient, the grid floor at the bottom."""
+    return _plate().copy()
+
+
+def _glow(image, box, radius, color, blur=14, grow=6, alpha=180):
+    """A soft neon halo behind a rounded box."""
+    x0,y0,x1,y1 = box;pad = blur*3+grow
+    layer = Image.new('RGBA',(x1-x0+2*pad,y1-y0+2*pad),(0,0,0,0))
+    ImageDraw.Draw(layer).rounded_rectangle((pad-grow,pad-grow,pad+x1-x0+grow,pad+y1-y0+grow),radius=radius+grow,fill=color+(alpha,))
+    layer = layer.filter(ImageFilter.GaussianBlur(blur))
+    image.paste(layer,(x0-pad,y0-pad),layer)
+
+
+def _gradient_box(image, box, top, bottom, radius, outline=None, width=0):
+    x0,y0,x1,y1 = box;w,h = x1-x0,y1-y0
+    colour = Image.composite(Image.new('RGB',(w,h),bottom),Image.new('RGB',(w,h),top),Image.linear_gradient('L').resize((w,h)))
+    mask = Image.new('L',(w,h),0);ImageDraw.Draw(mask).rounded_rectangle((0,0,w-1,h-1),radius=radius,fill=255)
+    image.paste(colour,(x0,y0),mask)
+    if outline:
+        ImageDraw.Draw(image).rounded_rectangle(box,radius=radius,outline=outline,width=width)
+
+
+def _banner(image, headline, sub):
+    """v1.6.5: the approved banner design with swappable text: yellow headline banner and red badge under the logo."""
+    _glow(image,BANNER,34,(255,64,64),blur=16,grow=4,alpha=200)
+    _gradient_box(image,BANNER,(255,238,96),(255,196,26),34,outline='#FF4A3D',width=6)
+    draw = ImageDraw.Draw(image)
+    for sign in (-1,1):  # the two small flares beside the banner
+        x = BANNER[0]-26 if sign<0 else BANNER[2]+26
+        for dy,tilt in ((378,26),(420,4)):
+            draw.line((x-sign*22,dy-tilt,x+sign*22,dy+tilt),fill='#FFE14A',width=9)
+    _italic_center(image,headline,(BANNER[1]+BANNER[3])//2-4,TITLE_SIZE,'#0E0E12',HEADLINE_WIDTH,stroke=2)
+    _glow(image,BADGE,30,(255,40,60),blur=12,grow=3,alpha=210)
+    _gradient_box(image,BADGE,(255,96,96),(204,16,30),30,outline='#FF9A90',width=3)
+    _italic_center(image,sub,(BADGE[1]+BADGE[3])//2,48,'#FFFFFF',BADGE[2]-BADGE[0]-70,stroke=1)
+
+
+def _card(image, box):
+    """The white card with the blue neon rim that holds the flag or the four flags."""
+    _glow(image,box,40,(46,134,255),blur=18,grow=8,alpha=210)
+    draw = ImageDraw.Draw(image)
+    draw.rounded_rectangle(box,radius=38,fill='#F7FAFF',outline='#2E86FF',width=7)
+    draw.rounded_rectangle((box[0]+10,box[1]+10,box[2]-10,box[3]-10),radius=30,outline='#D3E3FF',width=3)
 
 
 def _question_data(question):
@@ -84,65 +154,81 @@ def _question_data(question):
     return [display_name(name) for name in names],correct,flag_path
 
 
+def _option_box(index):
+    return OPTION_X[index%2],OPTION_Y[index//2]
+
+
 def _option(draw, index, name, correct=False):
-    x=76+(index%2)*480;y=1255+(index//2)*178
-    draw.rounded_rectangle((x,y,x+448,y+146),radius=25,
+    x,y=_option_box(index)
+    draw.rounded_rectangle((x,y,x+OPTION_W,y+OPTION_H),radius=25,
                            fill='#0F584F' if correct else '#12356B',
                            outline=GREEN if correct else '#5078B4',width=5 if correct else 2)
-    draw.rounded_rectangle((x+17,y+36,x+80,y+106),radius=14,
+    top_pad=(OPTION_H-70)//2
+    draw.rounded_rectangle((x+14,y+top_pad,x+74,y+top_pad+70),radius=14,
                            fill=GREEN if correct else '#2C5189')
-    draw.text((x+34,y+48),chr(65+index),font=_font(34),fill='#082E3F' if correct else YELLOW)
+    draw.text((x+29,y+top_pad+11),chr(65+index),font=_font(34),fill='#082E3F' if correct else YELLOW)
     # Names wrap into at most three measured lines that also fit the card height. No ellipsis/truncation.
     words=name.split();size=OPTION_SIZE
     while size>=23:
         lines=[];line=''
         for word in words:
             candidate=f'{line} {word}'.strip()
-            if draw.textbbox((0,0),candidate,font=_font(size))[2] > 324 and line:
+            if draw.textbbox((0,0),candidate,font=_font(size))[2] > OPTION_TEXT_WIDTH and line:
                 lines.append(line);line=word
             else:line=candidate
         if line:lines.append(line)
         if (len(lines)<=3 and len(lines)*(size+6)<=OPTION_TEXT_HEIGHT
-                and all(draw.textbbox((0,0),line,font=_font(size))[2]<=324 for line in lines)):break
+                and all(draw.textbbox((0,0),line,font=_font(size))[2]<=OPTION_TEXT_WIDTH for line in lines)):break
         size-=1
-    if size<23 or len(lines)>3 or any(draw.textbbox((0,0),line,font=_font(size))[2]>324 for line in lines):
+    if size<23 or len(lines)>3 or any(draw.textbbox((0,0),line,font=_font(size))[2]>OPTION_TEXT_WIDTH for line in lines):
         raise ValueError(f'Option cannot fit safely on mobile layout: {name}')
     line_height=size+6
-    top=y+(146-len(lines)*line_height)/2
+    top=y+(OPTION_H-len(lines)*line_height)/2
     for line in lines:
         box=draw.textbbox((0,0),line,font=_font(size))
-        draw.text((x+101,top-box[1]),line,font=_font(size),fill=WHITE)
+        draw.text((x+92,top-box[1]),line,font=_font(size),fill=WHITE)
         top+=line_height
 
 
-# v1.6.0 Find: four flags in a 2x2 grid inside the flag card; the bottom cards only carry the letters.
-FIND_CELLS = [(60+(i%2)*490, 318+(i//2)*353, 60+(i%2)*490+470, 318+(i//2)*353+333) for i in range(4)]
+# v1.6.0 Find: four flags in a 2x2 grid inside the flag card. v1.6.5: light cells on the white neon card; Population uses
+# the shorter card because its answer cards (the country names) still need room under the countdown.
+FIND_CELLS = [(60+(i%2)*490, 552+(i//2)*350, 60+(i%2)*490+470, 552+(i//2)*350+336) for i in range(4)]
+POP_CELLS = [(60+(i%2)*490, 552+(i//2)*306, 60+(i%2)*490+470, 552+(i//2)*306+296) for i in range(4)]
 FIND_FLAG_MAX = (420,250)
+POP_FLAG_MAX = (420,240)
+
+
+def _mode(question):
+    """'find' = four flags and no answer cards, 'std' = one flag and four answer cards (Population: four flags, short card)."""
+    return 'find' if question.get('kind')=='find' else 'std'
 
 
 def _find_grid(image, question, correct=None):
-    """Find and Population grids. Population cards also show each country's people at the reveal."""
+    """Find and Population grids. Population cells also show each country's people at the reveal."""
+    population=question.get('kind')=='population'
+    cells,flag_max=(POP_CELLS,POP_FLAG_MAX) if population else (FIND_CELLS,FIND_FLAG_MAX)
     draw=ImageDraw.Draw(image)
-    for i,(x0,y0,x1,y1) in enumerate(FIND_CELLS):
-        draw.rounded_rectangle((x0,y0,x1,y1),radius=22,fill='#FFFFFF',outline='#86AEFF',width=3)
+    for i,(x0,y0,x1,y1) in enumerate(cells):
+        draw.rounded_rectangle((x0,y0+5,x1,y1+5),radius=26,fill='#B7C8E4')
+        draw.rounded_rectangle((x0,y0,x1,y1),radius=26,fill='#DCE6F5')
         with Image.open(question['option_flag_paths'][i]) as source:
             flag=source.convert('RGBA')
-        flag.thumbnail(FIND_FLAG_MAX,Image.Resampling.LANCZOS)
-        cx=(x0+x1)//2;cy=(y0+y1)//2+14
+        flag.thumbnail(flag_max,Image.Resampling.LANCZOS)
+        cx=(x0+x1)//2;cy=(y0+y1)//2+(14 if not population else 8)
         image.paste(flag,(cx-flag.width//2,cy-flag.height//2),flag)
         draw=ImageDraw.Draw(image)
         if correct is not None and i!=correct:  # the wrong flags fade out at the reveal
             shade=Image.new('RGBA',(x1-x0-6,y1-y0-6),(10,30,70,170))
             image.paste(shade,(x0+3,y0+3),shade);draw=ImageDraw.Draw(image)
         if correct is not None and i==correct:
-            draw.rounded_rectangle((x0-4,y0-4,x1+4,y1+4),radius=26,outline=GREEN,width=10)
-        draw.ellipse((x0+12,y0+12,x0+72,y0+72),fill=GREEN if correct==i else '#12356B')
-        _center(draw,chr(65+i),y0+24,36,'#082E3F' if correct==i else YELLOW,x=x0+42)
-        if correct is not None and question.get('kind')=='population':
+            draw.rounded_rectangle((x0-4,y0-4,x1+4,y1+4),radius=30,outline=GREEN,width=10)
+        draw.ellipse((x0+10,y0+10,x0+70,y0+70),fill=GREEN if correct==i else '#0F2F6B',outline='#FFFFFF',width=3)
+        _center(draw,chr(65+i),y0+22,38,'#082E3F' if correct==i else YELLOW,x=x0+40)
+        if correct is not None and population:
             from .population import short_number
             label=short_number(question['populations'][i])
-            draw.rounded_rectangle((x1-190,y1-70,x1-12,y1-12),radius=16,fill=GREEN if i==correct else '#0B2A60')
-            _center(draw,label,y1-60,38,'#082E3F' if i==correct else WHITE,max_width=160,x=x1-101)
+            draw.rounded_rectangle((x1-190,y1-62,x1-12,y1-12),radius=16,fill=GREEN if i==correct else '#0B2A60')
+            _center(draw,label,y1-54,36,'#082E3F' if i==correct else WHITE,max_width=160,x=x1-101)
 
 
 def _headline(index,count,question=None,hook=None):
@@ -163,14 +249,23 @@ def _headline(index,count,question=None,hook=None):
     return 'GUESS THE FLAG!'
 
 
+def _subline(index,count,question):
+    """The red badge under the headline. The first Find round carries the challenge claim; the rest count the rounds."""
+    if count>1 and index==count-1:
+        return 'FINAL ROUND!'
+    if question is not None and question.get('kind')=='find' and index==0:
+        return '90% FAIL!'
+    return f'ROUND {index+1} / {count}' if count>1 else 'ONE ROUND'
+
+
 def _question_static(question,index,count,background,reveal=False,hook=None):
     options,correct,flag_path=_question_data(question)
-    image=background.copy();draw=ImageDraw.Draw(image)
-    _center(draw,_headline(index,count,question,hook),HEADLINE_Y,TITLE_SIZE,YELLOW,max_width=HEADLINE_WIDTH)
-    find=question.get('kind') in ('find','population')
-    names_shown=question.get('kind')=='population'
-    draw.rounded_rectangle(FLAG_CARD,radius=30,fill='#16457F' if find else '#F4F8FF',outline='#86AEFF',width=4)
-    if find:
+    image=background.copy()
+    mode=_mode(question);layout=LAYOUTS[mode];last=index==count-1
+    kind=question.get('kind');grid=kind in ('find','population')
+    _banner(image,_headline(index,count,question,hook),_subline(index,count,question))
+    _card(image,FIND_CARD if mode=='find' else FLAG_CARD)
+    if grid:
         _find_grid(image,question,correct if reveal else None)
     else:
         with Image.open(flag_path) as source:
@@ -178,27 +273,22 @@ def _question_static(question,index,count,background,reveal=False,hook=None):
             flag.thumbnail(FLAG_MAX,Image.Resampling.LANCZOS)
             image.paste(flag,((WIDTH-flag.width)//2,FLAG_CENTER_Y-flag.height//2),flag)
     draw=ImageDraw.Draw(image)
-    _center(draw,f'QUESTION {index+1} / {count}',122,27,MUTED,x=578)  # in the header, between the logo and FLAG QUIZ
-    for option_index,name in enumerate(options):
-        if find and not names_shown:  # the letters only: a name on a card would give the flag away
-            name=options[correct] if reveal and option_index==correct else f'FLAG {chr(65+option_index)}'
-        _option(draw,option_index,name,reveal and option_index==correct)
-    if reveal and index==count-1:
-        # v1.6.1: the score ask sits on the last answer, so the Short can loop without a closing screen.
-        draw.rounded_rectangle((117,1620,963,1820),radius=34,fill=YELLOW)
-        _center(draw,'COMMENT YOUR SCORE + COUNTRY!',1652,42,'#0B2A60',max_width=790)
-        _center(draw,'LIKE & SUBSCRIBE FOR MORE!',1732,40,'#0B2A60',max_width=790)
-    elif names_shown:
+    if mode=='std':  # Find has no answer cards: the letters sit on the flags and the answer is spelled out below
+        for option_index,name in enumerate(options):
+            _option(draw,option_index,name,reveal and option_index==correct)
+    if kind=='population':  # CC BY 4.0 credit, kept above the Shorts caption
         from .population import SOURCE_LINE
-        _center(draw,'@GeoRushGames',1735,31,MUTED)
-        _center(draw,SOURCE_LINE,1790,26,MUTED)
-    else:
-        _center(draw,'@GeoRushGames',1735,31,MUTED)
-        noun='capital' if question.get('kind')=='capital' else 'round' if find else 'flag'
-        _center(draw,f'{count} {noun}{"s" if count != 1 else ""}. One challenge.',1790,26,MUTED)
-    if reveal:
-        _center(draw,'CORRECT ANSWER',1050,30,GREEN)
-        _center(draw,f'{chr(65+correct)} · {options[correct]}',1105,48,WHITE,max_width=900)
+        _center(draw,SOURCE_LINE,1590,24,MUTED)
+    if reveal and last:
+        # v1.6.1: the score ask sits on the last answer, so the Short can loop without a closing screen.
+        # v1.6.5: it moved up out of the zone the Shorts caption covers.
+        x0,y0,x1,y1=layout['last_box']
+        draw.rounded_rectangle((x0,y0,x1,y1),radius=34,fill=YELLOW)
+        _center(draw,'COMMENT YOUR SCORE + COUNTRY!',layout['last_lines'][0],40,'#0B2A60',max_width=790)
+        _center(draw,'LIKE & SUBSCRIBE FOR MORE!',layout['last_lines'][1],38,'#0B2A60',max_width=790)
+    if reveal and (not last or layout['last_label']):
+        _center(draw,'CORRECT ANSWER',layout['label_y'],30,GREEN)
+        _center(draw,f'{chr(65+correct)} · {options[correct]}',layout['name_y'],48 if not last else 44,WHITE,max_width=900)
     return image
 
 
@@ -279,6 +369,21 @@ def _confetti(draw, index, x, y, elapsed):
             draw.rectangle((px, py, px+size, py+size*.6), fill=CONFETTI_COLORS[piece % len(CONFETTI_COLORS)])
 
 
+def _reveal_pop(image, board, box, elapsed, strength):
+    """v1.6.5: for REVEAL_FX_SECONDS the right answer swells by `strength` and glows white, then settles. Local to box."""
+    if not 0 <= elapsed < REVEAL_FX_SECONDS:
+        return
+    t = elapsed/REVEAL_FX_SECONDS
+    scale = 1+strength*math.sin(math.pi*t)
+    x0,y0,x1,y1 = box;w,h = x1-x0,y1-y0
+    pop = board.crop(box).resize((round(w*scale),round(h*scale)),Image.Resampling.LANCZOS).convert('RGBA')
+    glow = Image.new('RGBA',pop.size,(0,0,0,0))
+    inset = round(14*scale)
+    ImageDraw.Draw(glow).rounded_rectangle((inset,inset,pop.width-inset,pop.height-inset),radius=26,fill=(255,255,255,round(120*(1-t))))
+    pop = Image.alpha_composite(pop,glow).convert('RGB')
+    image.paste(pop,(x0-(pop.width-w)//2,y0-(pop.height-h)//2))
+
+
 def _zoomed(source, size, center, local):
     """v1.5.0 Zoom: a crop around center that widens from ZOOM_START to the whole flag by the end of the countdown."""
     progress = min(max(local/COUNTDOWN_SECONDS, 0), 1)
@@ -301,43 +406,52 @@ def animated_frame(context, second):
         return image
     image=context['boards'][index][int(state['reveal'])].copy()
     draw=ImageDraw.Draw(image)
+    question=questions[index];mode=_mode(question);layout=LAYOUTS[mode]
+    inner=(FLAG_CARD[0]+14,FLAG_CARD[1]+14,FLAG_CARD[2]-14,FLAG_CARD[3]-14)
     if not state['reveal']:
-        if questions[index].get('kind')=='zoom':
-            draw.rectangle((FLAG_CARD[0]+4,FLAG_CARD[1]+4,FLAG_CARD[2]-4,FLAG_CARD[3]-4),fill='#F4F8FF')
-            flag=_zoomed(context['sources'][index],context['flags'][index].size,questions[index]['zoom_center'],local)
+        if question.get('kind')=='zoom':
+            draw.rectangle(inner,fill='#F7FAFF')
+            flag=_zoomed(context['sources'][index],context['flags'][index].size,question['zoom_center'],local)
             image.paste(flag,((WIDTH-flag.width)//2,FLAG_CENTER_Y-flag.height//2),flag)
-        elif local < FLAG_POP_SECONDS and questions[index].get('kind') not in ('find','population'):
+        elif local < FLAG_POP_SECONDS and question.get('kind') not in ('find','population'):
             # Keep the whole flag visible, including frame zero. No blackout/fade.
-            draw.rectangle((FLAG_CARD[0]+4,FLAG_CARD[1]+4,FLAG_CARD[2]-4,FLAG_CARD[3]-4),fill='#F4F8FF')
+            draw.rectangle(inner,fill='#F7FAFF')
             flag=context['flags'][index]
             scaled=flag.resize((round(flag.width*state['flag_scale']),round(flag.height*state['flag_scale'])),Image.Resampling.LANCZOS)
             image.paste(scaled,((WIDTH-scaled.width)//2,FLAG_CENTER_Y-scaled.height//2),scaled)
-        if state['title_offset']:
-            image.paste(context['background'].crop((80,HEADLINE_Y-8,1000,FLAG_CARD[1]-2)),(80,HEADLINE_Y-8))
-            draw=ImageDraw.Draw(image)
-            _center(draw,_headline(index,len(questions),questions[index],context.get('hook')),HEADLINE_Y+state['title_offset'],TITLE_SIZE,YELLOW,max_width=HEADLINE_WIDTH)
         color='#FFC663' if state['urgent'] else YELLOW
         draw=ImageDraw.Draw(image)
-        draw.arc((450,1033,630,1213),-90,270,fill='#34558B',width=9)
-        draw.arc((450,1033,630,1213),-90,-90+360*state['progress'],fill=color,width=10)
-        size=round(104*state['digit_scale'])
-        _center(draw,str(state['remaining']),1061-round((size-104)/2),size,color,max_width=170)
-        draw.rounded_rectangle((160,1219,920,1231),radius=6,fill='#34558B')
+        x0,y0,x1,y1=layout['ring'];ring=x1-x0
+        draw.arc(layout['ring'],-90,270,fill='#34558B',width=9)
+        draw.arc(layout['ring'],-90,-90+360*state['progress'],fill=color,width=10)
+        base=round(104*ring/180);size=round(base*state['digit_scale'])
+        _center(draw,str(state['remaining']),y0+round(28*ring/180)-round((size-base)/2),size,color,max_width=round(170*ring/180))
+        bar=layout['bar_y']
+        draw.rounded_rectangle((160,bar,920,bar+12),radius=6,fill='#34558B')
         end=160+round(760*state['progress'])
-        if end>161:draw.rounded_rectangle((160,1219,end,1231),radius=6,fill=color)
+        if end>161:draw.rounded_rectangle((160,bar,end,bar+12),radius=6,fill=color)
     else:
-        correct=int(questions[index]['correct_index'])
-        x=76+(correct%2)*480;y=1255+(correct//2)*178
-        card=context['boards'][index][1].crop((x,y,x+449,y+147))
-        width=round(449*state['answer_scale']);height=round(147*state['answer_scale'])
-        left=x-(width-449)//2;top=y-(height-147)//2
-        image.paste(card.resize((width,height),Image.Resampling.LANCZOS),(left,top))
+        correct=int(question['correct_index']);elapsed=local-COUNTDOWN_SECONDS
+        if mode=='std':
+            x,y=_option_box(correct)
+            card=context['boards'][index][1].crop((x,y,x+OPTION_W+1,y+OPTION_H+1))
+            width=round((OPTION_W+1)*state['answer_scale']);height=round((OPTION_H+1)*state['answer_scale'])
+            left=x-(width-OPTION_W-1)//2;top=y-(height-OPTION_H-1)//2
+            image.paste(card.resize((width,height),Image.Resampling.LANCZOS),(left,top))
+            draw=ImageDraw.Draw(image)
+            draw.rounded_rectangle((left,top,left+width-1,top+height-1),radius=26,
+                                   outline='#A8FFE0' if elapsed<.35 else GREEN,width=6)
+            origin=(x+OPTION_W//2,y+OPTION_H//2)
+        else:
+            cx0,cy0,cx1,cy1=FIND_CELLS[correct];origin=((cx0+cx1)//2,(cy0+cy1)//2)
+        # v1.6.5: the right answer pops and flashes for a moment (a local glow that fades out, never a full-screen flash)
+        box=(cx0-14,cy0-14,cx1+14,cy1+14) if mode=='find' else FLAG_CARD if question.get('kind')!='population' else POP_CELLS[correct]
+        if question.get('kind')=='population':box=(box[0]-14,box[1]-14,box[2]+14,box[3]+14)
+        _reveal_pop(image,context['boards'][index][1],box,elapsed,.05 if mode=='find' or question.get('kind')=='population' else .025)
         draw=ImageDraw.Draw(image)
-        draw.rounded_rectangle((left,top,left+width-1,top+height-1),radius=26,
-                               outline='#A8FFE0' if local-COUNTDOWN_SECONDS<.35 else GREEN,width=6)
-        _confetti(draw,index,x+224,y+73,local-COUNTDOWN_SECONDS)
+        _confetti(draw,index,origin[0],origin[1],elapsed)
     if index>0 and local<.16:
-        draw.rectangle((0,214,int(WIDTH*(local/.16)),222),fill=YELLOW)
+        draw.rectangle((0,516,int(WIDTH*(local/.16)),522),fill=YELLOW)
     return image
 
 
@@ -413,7 +527,7 @@ def render_video(quiz, destination, bgm_volume=.10, progress_callback=None, ffmp
             'native_resolution':[WIDTH,HEIGHT],'upscaled':False,'encoder':'libx264',
             'audio_codec':'aac','audio':audio_report,'elapsed_seconds':round(time.monotonic()-started,3),
             'inspection':inspections,
-            'layout_safety':{'horizontal_margin':51,'minimum_option_font':23,'option_count':4,
+            'layout_safety':{'horizontal_margin':40,'right_edge_clear_of_shorts_buttons':930,'bottom_clear_of_caption':1580,'minimum_option_font':23,'option_count':4,
                              'flag_aspect_preserved':True,'no_text_truncation':True},
             'ffmpeg_log':log_path.name}
     report['presentation']={'version':'1.2','intro_seconds':FLAG_POP_SECONDS,'first_flag_scale':1.0,

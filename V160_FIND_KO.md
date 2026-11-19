@@ -24,3 +24,10 @@
 - Mixed 3문제 쇼츠의 첫 화면 문구가 5종에서 영상마다(국기 조합 기준) 정해짐: CAN YOU GET ALL 3? / 99% MISS THE LAST ONE! / THE LAST FLAG IS HARD! / ONLY EXPERTS GET 3/3! / MOST PEOPLE FAIL #3! — 모두 Mixed 구성(마지막만 Hard)에서 사실. 음성도 같은 문장(Kokoro 클립 4개 추가).
 - 고정 댓글 후보에 "점수 + 어느 나라에서 보는지" 묻는 문구 4개 추가(총 12개).
 - 개발: tools/make_voice.py 기본 Kokoro 경로 = 바탕화면\뱅으니\Inkmap History\도구_Kokoro, 키를 주면 그 클립만 다시 만듦.
+
+## v1.6.5 — 승인된 디자인(지구본 로고·노란 배너·빨간 배지), 안전 여백, 정답 반짝임
+- **새 화면:** 사용자가 고른 시안 그대로 — 위에 지구본 로고·세계지도·비행기, 노란 배너(안 글씨만 바뀜: `FIND MALAYSIA!`, `CAN YOU GET ALL 3?`, `FINAL FLAG!`, `WHICH HAS THE MOST PEOPLE?`), 그 아래 빨간 배지(Find 첫 문제 `90% FAIL!`, 그 외 `ROUND 2 / 3`, 마지막 `FINAL ROUND!`), 파란 네온 흰 카드. 배경은 시안에서 로고·지도 부분만 떼어 `assets/bg_v165.jpg`로 만들었다(`tools/make_bg.py`, 원본 `assets/design/find_mock_v165.webp`). 배너·배지·카드는 코드로 그려 글씨를 마음대로 바꿀 수 있다. 헤더 "QUESTION 1/3" 칸은 배지로 대체.
+- **안전 여백(쇼츠 화면 버튼·설명이 덮는 곳):** 보기 카드를 오른쪽 끝 930px 안으로(전엔 1004px), 아래쪽 1580px 위로. 화면 맨 아래 `@GeoRushGames / 3 rounds. One challenge.`는 유튜브 설명에 가려 보이지 않아 삭제. 마지막 정답의 노란 "COMMENT YOUR SCORE + COUNTRY! / LIKE & SUBSCRIBE" 띠를 1620~1820px에서 위로 올림(전엔 아래 절반이 가려짐). 인구 퀴즈의 출처 한 줄은 1590px로 옮김(보이도록 유지).
+- **Find는 정답 카드(FLAG A~D)를 없앰:** 글자가 이미 국기 칸에 있고 정답은 "CORRECT ANSWER D · Malaysia"로 보여 준다. 그 자리를 4국기 칸을 키우는 데 씀. 1문제 국기·Population은 보기 카드(국가 이름)가 필요해서 유지(카드 높이 130→104).
+- **정답 순간:** 맞는 칸/카드가 0.3초 동안 5%(2.5%) 커지며 흰빛이 퍼졌다 사라짐(국소 효과, 화면 전체 번쩍임 아님). 기존 상승 화음·색종이·초록 테두리 유지.
+- 1문제 국기 크기: 83%→73% 화면 너비(로고 자리를 위해). 시간(4.5초/문제, 16초)과 음성은 그대로.

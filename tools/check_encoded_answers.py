@@ -2,6 +2,7 @@ from pathlib import Path
 import json
 import numpy as np
 from PIL import Image
+from georush.render import _option_box
 root=Path(__file__).resolve().parents[1]
 records=[]
 for folder in sorted((root/'samples/GeoRush_Output').glob('GeoRush_*')):
@@ -10,8 +11,8 @@ for folder in sorted((root/'samples/GeoRush_Output').glob('GeoRush_*')):
   image=np.asarray(Image.open(folder/f'encoded_inspection/q{i}_answer.jpg').convert('RGB'),dtype=np.int16)
   counts=[]
   for option in range(4):
-   x=76+option%2*480;y=1255+option//2*178
-   pixels=image[y:y+147,x:x+449]
+   x,y=_option_box(option)
+   pixels=image[y:y+131,x:x+431]
    mask=(pixels[:,:,1]>pixels[:,:,0]+60)&(pixels[:,:,1]>pixels[:,:,2]+25)&(pixels[:,:,1]>140)
    counts.append(int(mask.sum()))
   winners=[j for j,v in enumerate(counts) if v>1000]
