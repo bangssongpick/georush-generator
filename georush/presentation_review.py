@@ -6,7 +6,7 @@ import subprocess
 import numpy as np
 from PIL import Image, ImageDraw
 from .audio import COUNTDOWN_SECONDS, CTA_SECONDS, QUESTION_SECONDS
-from .render import prepare_animation, animated_frame, _font, _option_box
+from .render import prepare_animation, animated_frame, _font, _option_box, FIND_CELLS, OPTION_W, OPTION_H
 from .paths import subprocess_options
 
 
@@ -33,13 +33,17 @@ def review_video(video, quiz, destination, ffmpeg):
         frames[n]=pixels
         checks.append({'frame':n,'seconds':n/30,'file':path.name,'intended_frame_psnr_db':round(psnr,3)})
     intro_delta=float(np.abs(frames[0][560:1080,60:1020]-frames[9][560:1080,60:1020]).mean())
-    assert intro_delta>1,('Encoded flag entrance does not move',intro_delta)
+    if quiz['questions'][0].get('kind') not in ('find','population'):  # the four-flag grids have no entrance pop
+        assert intro_delta>1,('Encoded flag entrance does not move',intro_delta)
     assert frames[0][600:1060,170:910].std()>20
+    if quiz['questions'][0].get('kind')=='find':  # v1.6.5: Find has no answer cards; the right flag gets the green ring
+        boxes=list(FIND_CELLS)  # exactly the cells: the pop of the right one grows its ring into the gap, not into a neighbour
+    else:
+        boxes=[(x,y,x+OPTION_W+1,y+OPTION_H+1) for x,y in map(_option_box,range(4))]
     for n in (reveal+1,reveal+4):
         winners=[]
-        for option in range(4):
-            x,y=_option_box(option)
-            p=frames[n][y:y+131,x:x+431]
+        for option,(x0,y0,x1,y1) in enumerate(boxes):
+            p=frames[n][y0:y1,x0:x1]
             green=(p[:,:,1]>p[:,:,0]+60)&(p[:,:,1]>p[:,:,2]+25)&(p[:,:,1]>140)
             if green.sum()>1000:winners.append(option)
         assert winners==[quiz['questions'][0]['correct_index']],('Incorrect revealed answer',n,winners)
