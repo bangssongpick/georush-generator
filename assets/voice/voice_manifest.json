@@ -1551,6 +1551,10 @@
   "hook_last": {
    "text": "The last flag is really hard!",
    "seconds": 1.496
+  },
+  "outro_tag": {
+   "text": "Tag a friend who can't get three!",
+   "seconds": 1.472
   }
  }
 }

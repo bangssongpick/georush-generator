@@ -258,7 +258,7 @@ def _subline(index,count,question):
     return f'ROUND {index+1} / {count}' if count>1 else 'ONE ROUND'
 
 
-def _question_static(question,index,count,background,reveal=False,hook=None):
+def _question_static(question,index,count,background,reveal=False,hook=None,cta=None):
     options,correct,flag_path=_question_data(question)
     image=background.copy()
     mode=_mode(question);layout=LAYOUTS[mode];last=index==count-1
@@ -284,8 +284,9 @@ def _question_static(question,index,count,background,reveal=False,hook=None):
         # v1.6.5: it moved up out of the zone the Shorts caption covers.
         x0,y0,x1,y1=layout['last_box']
         draw.rounded_rectangle((x0,y0,x1,y1),radius=34,fill=YELLOW)
-        _center(draw,'COMMENT YOUR SCORE + COUNTRY!',layout['last_lines'][0],40,'#0B2A60',max_width=790)
-        _center(draw,'LIKE & SUBSCRIBE FOR MORE!',layout['last_lines'][1],38,'#0B2A60',max_width=790)
+        line1,line2=cta or ('COMMENT YOUR SCORE + COUNTRY!','LIKE & SUBSCRIBE FOR MORE!')  # v1.6.6: cta.py picks the ask
+        _center(draw,line1,layout['last_lines'][0],40,'#0B2A60',max_width=790)
+        _center(draw,line2,layout['last_lines'][1],38,'#0B2A60',max_width=790)
     if reveal and (not last or layout['last_label']):
         _center(draw,'CORRECT ANSWER',layout['label_y'],30,GREEN)
         _center(draw,f'{chr(65+correct)} · {options[correct]}',layout['name_y'],48 if not last else 44,WHITE,max_width=900)
@@ -336,9 +337,11 @@ def animation_state(second, question_count):
 def prepare_animation(questions):
     background = _background()
     from .hooks import choose
+    from .cta import choose as choose_cta
     hook = choose(questions)[0]
-    boards = [(_question_static(q,i,len(questions),background,hook=hook),
-               _question_static(q,i,len(questions),background,True,hook=hook)) for i,q in enumerate(questions)]
+    ask = choose_cta(questions)
+    boards = [(_question_static(q,i,len(questions),background,hook=hook,cta=ask[:2]),
+               _question_static(q,i,len(questions),background,True,hook=hook,cta=ask[:2])) for i,q in enumerate(questions)]
     flags=[];sources=[]
     for question in questions:
         with Image.open(question['flag_path']) as source:
@@ -347,7 +350,7 @@ def prepare_animation(questions):
             flags.append(flag)
             sources.append(full if question.get('kind')=='zoom' else None)
     return {'background':background,'boards':boards,'flags':flags,'sources':sources,
-            'cta':_cta(background,len(questions)),'questions':questions,'hook':hook}
+            'cta':_cta(background,len(questions)),'questions':questions,'hook':hook,'cta_variant':ask[3]}
 
 
 CONFETTI_SECONDS = 1.0

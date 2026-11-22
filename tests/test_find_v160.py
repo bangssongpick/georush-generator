@@ -109,7 +109,7 @@ class PopulationAndVoiceTests(unittest.TestCase):
         quiz = build_quiz(self.catalog, None, seed=4, theme='Find')
         keys = [key for _, key in voice_plan(quiz['questions'])]
         self.assertEqual(keys[0], 'find_'+quiz['questions'][0]['country_code'])
-        self.assertEqual(keys[-1], 'outro')
+        self.assertIn(keys[-1], ('outro', 'outro_tag'))  # v1.6.6: two closing asks (cta.py)
         self.assertIn('name_'+quiz['questions'][-1]['country_code'], keys)
         classic = [key for _, key in voice_plan(build_quiz(self.catalog, None, seed=4)['questions'])]
         from georush.hooks import choose

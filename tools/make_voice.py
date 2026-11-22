@@ -14,7 +14,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-KOKORO_DIR = Path(os.environ.get('KOKORO_TOOL', r'C:\Users\82105\Desktop\뱅으니\Inkmap History\도구_Kokoro'))
+KOKORO_DIR = Path(os.environ.get('KOKORO_TOOL', r'C:\Users\82105\Desktop\클로드코드\히스토리\도구_Kokoro'))  # moved again 2026-11
 sys.path.insert(0, str(KOKORO_DIR))
 
 VOICE, SPEED, SR = 'af_heart', 1.08, 24000
@@ -26,6 +26,7 @@ PHRASES = {
     'pop_first': 'Which country has the most people?',
     'pop': 'Most people?',
     'outro': 'Comment your score, and subscribe for more!',
+    'outro_tag': "Tag a friend who can't get three!",  # v1.6.6 test ask (cta.py)
 }
 
 

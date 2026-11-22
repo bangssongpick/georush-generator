@@ -36,6 +36,7 @@ def _voice_clip(key):
 def voice_plan(questions):
     """(seconds, clip key) pairs: the prompt as each flag appears, the answer at the reveal, the ask at the very end."""
     from .hooks import choose
+    from .cta import choose as choose_cta
     plan, count = [], len(questions)
     for index, question in enumerate(questions):
         base, kind, code = index*QUESTION_SECONDS, question.get('kind'), question['country_code']
@@ -55,7 +56,7 @@ def voice_plan(questions):
         plan.append((base+.12, prompt))
         plan.append((base+COUNTDOWN_SECONDS+.08, 'name_'+code))
     if questions and questions[-1].get('kind') != 'capital':
-        plan.append(((count-1)*QUESTION_SECONDS+COUNTDOWN_SECONDS+1.05, 'outro'))
+        plan.append(((count-1)*QUESTION_SECONDS+COUNTDOWN_SECONDS+1.05, choose_cta(questions)[2]))  # v1.6.6: 'outro' or 'outro_tag'
     return plan
 
 
@@ -65,7 +66,7 @@ def _add_voice(track, events, questions, size):
         clip = _voice_clip(key)
         if clip is None:
             continue
-        if key == 'outro':
+        if key.startswith('outro'):
             at = max(at, end+.12)  # never over a long country name
         start = round(at*SAMPLE_RATE)
         length = min(len(clip), size-start)
