@@ -27,7 +27,7 @@ FLAG_POP_SECONDS = .35
 HEADLINE_WIDTH = 900  # the banner is 960 px wide; the italic lean needs the rest
 SHEAR = .2            # italic lean of the banner and badge text
 BANNER = (60,326,1020,456)   # v1.6.5 design: glowing yellow banner under the globe logo
-BADGE = (270,444,810,512)    # red badge on the banner's lower edge: "90% FAIL", "ROUND 2 / 3", "FINAL ROUND!"
+BADGE = (270,444,810,512)    # red badge on the banner's lower edge: "ONLY 1 IS RIGHT!", "ROUND 2 / 3", "FINAL ROUND!"
 # Shorts draws its own buttons over the right edge (x > 930, y 1000-1650) and its caption over the bottom (y > 1600):
 # everything the viewer has to read stays left of x=930 in the lower half and above y=1580.
 FLAG_CARD = (40,534,1040,1180)  # single-flag card (the flag is 787 px wide, 73% of the screen; it was 83% before the logo took the top)
@@ -43,9 +43,9 @@ OPTION_TEXT_WIDTH = 316
 REVEAL_FX_SECONDS = .3  # v1.6.5: a short flash and pop on the right answer (local, never full screen)
 # Where the countdown, the answer label and the last-answer banner sit for each kind of question.
 LAYOUTS = {
-    'find': {'ring':(465,1262,615,1412),'bar_y':1428,'label_y':1262,'name_y':1308,
+    'find': {'ring':(465,1262,615,1412),'bar_y':1428,'label_y':1254,'name_y':1290,'name_size':44,'info_y':1342,
              'last_box':(117,1380,963,1560),'last_lines':(1412,1494),'last_label':True},
-    'std': {'ring':(480,1190,600,1310),'bar_y':1322,'label_y':1196,'name_y':1240,
+    'std': {'ring':(480,1190,600,1310),'bar_y':1322,'label_y':1196,'name_y':1240,'name_size':48,'info_y':1296,
             'last_box':(117,1190,963,1335),'last_lines':(1208,1268),'last_label':False},
 }
 ASSETS = resource_root()/'assets'
@@ -254,8 +254,23 @@ def _subline(index,count,question):
     if count>1 and index==count-1:
         return 'FINAL ROUND!'
     if question is not None and question.get('kind')=='find' and index==0:
-        return '90% FAIL!'
+        return 'ONLY 1 IS RIGHT!'  # true of every Find round: four flags, one is the country
     return f'ROUND {index+1} / {count}' if count>1 else 'ONE ROUND'
+
+
+def _facts(question):
+    """v1.6.7: one verifiable line about the answer's country (capital and people) for the reveal: flag questions only.
+    Capital questions would give the answer away and Population questions already show the numbers."""
+    if question.get('kind') in ('capital','population'):
+        return None
+    from .themes import capital_of
+    from .population import population, short_number
+    code=question.get('country_code')
+    if not code:
+        return None
+    capital=capital_of(code);people=population(code)
+    parts=([f'Capital: {capital}'] if capital else [])+([f'{short_number(people)} people'] if people else [])
+    return ' \u00b7 '.join(parts) or None
 
 
 def _question_static(question,index,count,background,reveal=False,hook=None,cta=None):
@@ -289,7 +304,12 @@ def _question_static(question,index,count,background,reveal=False,hook=None,cta=
         _center(draw,line2,layout['last_lines'][1],38,'#0B2A60',max_width=790)
     if reveal and (not last or layout['last_label']):
         _center(draw,'CORRECT ANSWER',layout['label_y'],30,GREEN)
-        _center(draw,f'{chr(65+correct)} · {options[correct]}',layout['name_y'],48 if not last else 44,WHITE,max_width=900)
+        _center(draw,f'{chr(65+correct)} · {options[correct]}',layout['name_y'],layout['name_size'] if not last else min(44,layout['name_size']),WHITE,max_width=900)
+        facts=_facts(question)
+        if facts:  # v1.6.7: a fact on the answer screen, with the data credited (CC BY 4.0) above the Shorts caption
+            from .population import SOURCE_LINE
+            _center(draw,facts,layout['info_y'],30,MUTED,max_width=900)
+            _center(draw,SOURCE_LINE,1590,24,MUTED)
     return image
 
 

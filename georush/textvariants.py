@@ -52,7 +52,7 @@ THEME_TITLES = {
                '{adj} Flag Challenge: Can You Get {n}/{n}? | GeoRush #Shorts'],
     'Lookalike': ['These Flags Look Almost the Same! Can You Tell? | GeoRush #Shorts',
                   'Look-Alike Flags: Can You Get {n}/{n}? | GeoRush #Shorts',
-                  'Most People Mix Up These {n} Flags! | GeoRush #Shorts'],
+                  'Can You Tell These {n} Flags Apart? | GeoRush #Shorts'],
     'Zoom': ['Zoomed-In Flags: Can You Guess Them? | GeoRush #Shorts',
              'Guess the Flag From a Tiny Corner! | GeoRush #Shorts',
              'Zoom Quiz: Name These {n} Flags! | GeoRush #Shorts'],
@@ -61,12 +61,12 @@ THEME_TITLES = {
                 'Capital City Quiz: Can You Get {n}/{n}? | GeoRush #Shorts'],
     # v1.6.0 Find: challenge-style titles, the style of the channel's best Shorts in Nov 2026.
     'Population': ['Which Country Has the Most People? \U0001F30F | GeoRush #Shorts',
-                   'Bigger Population? Most People Get This Wrong! | GeoRush #Shorts',
+                   'Bigger Population? Can You Pick the Right Country? | GeoRush #Shorts',
                    'Guess the Most Populated Country! {n} Rounds | GeoRush #Shorts',
                    'Population Quiz: Can You Get {n}/{n}? | GeoRush #Shorts'],
     'Find': ['Find the Right Flag! Can You Get {n}/{n}? 😈 | GeoRush #Shorts',
              'Can You Find Your Country’s Flag? | GeoRush #Shorts',
-             'Pick the Right Flag! Most People Miss One | GeoRush #Shorts',
+             'Pick the Right Flag Fast! Can You Find It? | GeoRush #Shorts',
              'Which Flag Is It? Find {n} Countries Fast! | GeoRush #Shorts'],
 }
 THEME_INTROS = {
@@ -87,6 +87,14 @@ CAPITAL_COMMENTS = ['How many capitals did you get right? {scores}? Tell us your
                     'Did you get {count}/{count}? Drop your capital score: {scores}!']
 
 
+def _facts_credit(key):
+    """v1.6.7: the answer screen shows the country's capital and population, so the data source is credited (CC BY 4.0).
+    Capital quizzes show no such line and Population quizzes already credit it in their intro."""
+    if key in ('Capital', 'Population'):
+        return ''
+    return 'Country facts: capitals and population (World Bank 2025, CC BY 4.0).\n\n'
+
+
 def _themed_short_texts(signature, count, difficulty, theme):
     rng = random.Random(f'{theme}:{signature}')
     key = 'region' if theme in REGION_ADJ else theme
@@ -100,7 +108,7 @@ def _themed_short_texts(signature, count, difficulty, theme):
     else:
         middle = rng.choice(MIDDLES).format(difficulty=difficulty)
     description = (THEME_INTROS[key].format(**values)+'\n\n'+middle+'\n'+rng.choice(CALLS)+'\n\n'
-                   +rng.choice(FOLLOWS)+'\n\n'+hashtags+'\n')
+                   +rng.choice(FOLLOWS)+'\n\n'+_facts_credit(key)+hashtags+'\n')
     tags = ', '.join(CORE_TAGS+[tag.format(**values) for tag in THEME_TAGS[key]]+rng.sample(EXTRA_TAGS, 3)+['Shorts'])
     comment = rng.choice(CAPITAL_COMMENTS if key == 'Capital' else COMMENTS).format(count=count, scores=scores)
     return title, description, tags, comment
@@ -134,7 +142,7 @@ def _classic_short_texts(signature, count, difficulty):
         # v1.6.0: challenge-style titles (the channel's top Short is 'Only 1 of These 3 Flags Is Hard').
         # Both claims are true of a Mixed Short: its last flag is the only Hard one.
         titles = [f'Only 1 of These {count} Flags Is Hard 😈 | GeoRush #Shorts',
-                  f'Most People Miss the Last Flag! Can You Get {count}/{count}? | GeoRush #Shorts',
+                  f'The Last Flag Is the Hard One! Can You Get {count}/{count}? | GeoRush #Shorts',
                   f'Can You Get {count}/{count}? Flag Challenge | GeoRush #Shorts']
     scores = ', '.join(f'{n}/{count}' for n in range(count+1))
     title = rng.choice(titles)
@@ -142,7 +150,7 @@ def _classic_short_texts(signature, count, difficulty):
                    +rng.choice(MIDDLES).format(difficulty=difficulty)+'\n'
                    +rng.choice(CALLS)+'\n\n'
                    +rng.choice(FOLLOWS)+'\n\n'
-                   +SHORT_HASHTAGS+'\n')
+                   +_facts_credit('Classic')+SHORT_HASHTAGS+'\n')
     tags = ', '.join(CORE_TAGS+rng.sample(EXTRA_TAGS, 4)+['Shorts'])
     comment = rng.choice(COMMENTS).format(count=count, scores=scores)
     return title, description, tags, comment
@@ -155,7 +163,7 @@ LONG_INTROS = ['Can you identify all {count} country flags?',
                'Ready for a big flag challenge? Name all {count} countries!',
                '{count} flags, four levels. Can you name them all?']
 LONG_BODIES = ['Test your geography knowledge in this Easy to Expert challenge!',
-               'Start with easy flags and work your way up to the experts!',
+               'Start with easy flags and work your way up to the hard ones!',
                'From well-known flags to real head-scratchers: how far can you get?',
                'Find out whether you are a flag rookie or a geography pro!']
 LONG_RULES = ['Choose A, B, C or D. Each question has a {cd}-second countdown and a {rv}-second answer reveal.',

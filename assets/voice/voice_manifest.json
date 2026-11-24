@@ -1537,16 +1537,16 @@
    "seconds": 1.207
   },
   "hook_99": {
-   "text": "Ninety-nine percent miss the last one!",
-   "seconds": 1.847
+   "text": "Can you get number three?",
+   "seconds": 1.164
   },
   "hook_experts": {
-   "text": "Only experts get all three!",
-   "seconds": 1.448
+   "text": "Try for a perfect three out of three!",
+   "seconds": 1.673
   },
   "hook_fail": {
-   "text": "Most people fail number three!",
-   "seconds": 1.519
+   "text": "Flag number three is tough!",
+   "seconds": 1.305
   },
   "hook_last": {
    "text": "The last flag is really hard!",

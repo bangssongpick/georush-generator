@@ -2,23 +2,24 @@
 
 Studio (Nov 2026): 'stayed to watch' ~40%; the channel's best Short had a challenge title. The first headline now
 rotates between a few challenge lines, chosen from the quiz's flags so one quiz always gets the same line.
-Every line is true of a Mixed Short: its last flag is the only Hard one. Each has a matching Kokoro voice clip.
+Every line is true of a Mixed Short: its last flag is the only Hard one. v1.6.7: no made-up statistics ("99% miss",
+"most people fail", "only experts") - they cannot be verified and read as misleading. Each has a matching Kokoro voice clip.
 """
 import hashlib
 
 DEFAULT = ('CAN YOU GET ALL 3?', 'first')
 HOOKS = (
     DEFAULT,
-    ('99% MISS THE LAST ONE!', 'hook_99'),
+    ('CAN YOU GET #3?', 'hook_99'),
     ('THE LAST FLAG IS HARD!', 'hook_last'),
-    ('ONLY EXPERTS GET 3/3!', 'hook_experts'),
-    ('MOST PEOPLE FAIL #3!', 'hook_fail'),
+    ('TRY FOR A PERFECT 3/3!', 'hook_experts'),
+    ('FLAG #3 IS TOUGH!', 'hook_fail'),
 )
 VOICE_LINES = {
-    'hook_99': 'Ninety-nine percent miss the last one!',
+    'hook_99': 'Can you get number three?',
     'hook_last': 'The last flag is really hard!',
-    'hook_experts': 'Only experts get all three!',
-    'hook_fail': 'Most people fail number three!',
+    'hook_experts': 'Try for a perfect three out of three!',
+    'hook_fail': 'Flag number three is tough!',
 }
 
 

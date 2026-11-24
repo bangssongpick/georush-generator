@@ -38,3 +38,9 @@
   - B(시험): `TAG A FRIEND WHO CAN'T GET 3/3!` / `LIKE & SUBSCRIBE IF YOU GOT 3/3!` + 음성 "Tag a friend who can't get three!"(Kokoro, assets/voice/outro_tag.wav 1.47초)
 - 어느 쪽인지는 퀴즈의 국가 코드로 정해진다(`georush/cta.py`, 순서와 무관·항상 같은 결과). 그래서 **올린 뒤에도 업로드 기록의 `countries`로 A/B를 다시 계산**할 수 있다: `cta.variant(codes)` = sha256(정렬한 코드를 ','로 이음) 둘째 바이트가 홀수면 B. B는 3문제 쇼츠에만(음성이 "three"라서).
 - 비교 지표: 영상별 공유·좋아요·댓글·구독을 조회수로 나눈 비율(분석 API). 영상 수가 적어 큰 차이만 보인다(주 14편이면 한쪽 7편).
+
+## v1.6.7 — 수익 창출 안전: 근거 없는 통계 문구 제거, 정답 화면에 국가 정보 한 줄
+- 근거(2026-11-24): 유튜브 수익 창출 정책은 오해를 주는 제목·문구와 '템플릿으로 변화 없이 대량 생산한 콘텐츠'(비진정성 콘텐츠)를 제외한다. 우리 쇼츠는 퀴즈 틀이 같아서, (1) 사실로 확인할 수 없는 숫자·주장을 없애고 (2) 영상마다 확인 가능한 정보를 더했다.
+- **없앤 문구:** Find 첫 화면 배지 `90% FAIL!` → `ONLY 1 IS RIGHT!`(네 개 중 하나가 정답이라 사실). 후크 `99% MISS THE LAST ONE!` → `CAN YOU GET #3?`, `ONLY EXPERTS GET 3/3!` → `TRY FOR A PERFECT 3/3!`, `MOST PEOPLE FAIL #3!` → `FLAG #3 IS TOUGH!`(마지막이 Hard라 사실). 음성 클립 3개도 같은 문장으로 다시 만듦(Kokoro). 제목 풀에서 `Most People Miss/Get Wrong/Mix Up…`, `Only (Flag) Experts…` 제거(질문형 `Which Country Has the Most People?`는 유지). 테스트 `tests/test_policy_v167.py`가 통계·"most people ~" 같은 표현이 다시 들어오면 실패한다.
+- **정답 화면 국가 정보:** `Capital: Lusaka · 22M people`(수도 + 세계은행 인구). 국기 문제에만(수도 퀴즈는 정답이 드러나서, 인구 퀴즈는 이미 숫자가 있어서 제외). 수도가 없거나 분쟁 지역이라 비어 있으면 인구만, 둘 다 없으면 줄 자체를 그리지 않는다. 아래에 `Population: World Bank (2025)` 출처, 설명에도 `Country facts: capitals and population (World Bank 2025, CC BY 4.0).` 한 줄(수도·인구 퀴즈 제외).
+- 업로더(georush_upload.py)의 제목 풀(Find·Population·일반)에서도 같은 표현을 뺐다.
