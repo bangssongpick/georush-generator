@@ -15,3 +15,9 @@ The first free installation downloads dependencies; normal rendering uses only i
 Their packages carry their notices. A separately redistributed EXE folder must retain applicable notices and fulfill the license of its bundled FFmpeg build.
 
 BGM and effects are synthesized by `georush/audio.py` from mathematical oscillators and seeded noise. No third-party recording is included.
+
+## Flag stories (v1.7.0)
+
+assets/flag_stories.json: sentences written for GeoRush from the flag descriptions of factbook/factbook.json
+(CIA World Factbook data, CC0-1.0) and checked against the second page listed per entry. The pages are references for
+facts; their text is not included. Story voice clips (assets/voice/story_*.wav) are generated with Kokoro-82M (Apache-2.0).

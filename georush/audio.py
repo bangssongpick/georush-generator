@@ -15,6 +15,16 @@ COUNTDOWN_SECONDS = 3.0  # v1.4.2: was 4.0 (countdown 3-2-1, then a 1.5 s answer
 # v1.6.2: the last answer stays 2.5 s longer for the spoken 'Comment your score, and subscribe for more!' (no separate screen).
 CTA_SECONDS = 2.5  # v1.3.4-v1.6.0: 3.0 closing screen, v1.6.1: 0.0
 COUNTDOWN_TICKS = int(COUNTDOWN_SECONDS)
+# v1.7: a story quiz reads one sentence after each answer, so its questions and its closing hold are longer.
+STORY_QUESTION_SECONDS = 8.2  # the longest name + story (vc) needs 8.0
+STORY_CTA_SECONDS = 2.8
+
+
+def timing(questions):
+    """(seconds per question, closing hold) of this quiz."""
+    if any(q.get('story') for q in questions or []):
+        return STORY_QUESTION_SECONDS, STORY_CTA_SECONDS
+    return QUESTION_SECONDS, CTA_SECONDS
 
 
 VOICE_GAIN = .62
@@ -38,8 +48,9 @@ def voice_plan(questions):
     from .hooks import choose
     from .cta import choose as choose_cta
     plan, count = [], len(questions)
+    seconds = timing(questions)[0]
     for index, question in enumerate(questions):
-        base, kind, code = index*QUESTION_SECONDS, question.get('kind'), question['country_code']
+        base, kind, code = index*seconds, question.get('kind'), question['country_code']
         last = count > 1 and index == count-1
         if kind == 'capital':
             continue  # capital names are not in the clip set
@@ -55,8 +66,11 @@ def voice_plan(questions):
             prompt = choose(questions)[1] if count > 1 and index == 0 else 'guess'
         plan.append((base+.12, prompt))
         plan.append((base+COUNTDOWN_SECONDS+.08, 'name_'+code))
+        if question.get('story'):  # v1.7 sample: the story is read right after the country name
+            name = _voice_clip('name_'+code)
+            plan.append((base+COUNTDOWN_SECONDS+.08+(len(name)/SAMPLE_RATE if name is not None else 1.0)+.15, 'story_'+code))
     if questions and questions[-1].get('kind') != 'capital':
-        plan.append(((count-1)*QUESTION_SECONDS+COUNTDOWN_SECONDS+1.05, choose_cta(questions)[2]))  # v1.6.6: 'outro' or 'outro_tag'
+        plan.append(((count-1)*seconds+COUNTDOWN_SECONDS+1.05, choose_cta(questions)[2]))  # v1.6.6: 'outro' or 'outro_tag'
     return plan
 
 
@@ -90,7 +104,8 @@ def synthesize_audio(destination: Path, question_count: int, bgm_volume: float =
     if not 1 <= question_count <= 10:
         raise ValueError('Question count must be between 1 and 10')
     destination = Path(destination)
-    duration = QUESTION_SECONDS * question_count + CTA_SECONDS
+    seconds, hold = timing(questions)
+    duration = seconds * question_count + hold
     size = round(duration * SAMPLE_RATE)
     track = np.zeros((size, 2), dtype=np.float64)
     music = np.zeros_like(track)
@@ -128,7 +143,7 @@ def synthesize_audio(destination: Path, question_count: int, bgm_volume: float =
         events.append({'kind':kind,'time_seconds':at,'duration_seconds':seconds})
 
     for question in range(question_count):
-        base = question*QUESTION_SECONDS
+        base = question*seconds
         add_tone(base+.12,(740.0,1110.0),.14,.08,'entrance')
         for tick in range(COUNTDOWN_TICKS):
             add_tone(base+tick,(1000.0 if tick<COUNTDOWN_TICKS-1 else 1250.0,),.075,.12,'countdown_tick')
@@ -136,7 +151,7 @@ def synthesize_audio(destination: Path, question_count: int, bgm_volume: float =
         for step, frequency in enumerate((523.251,659.255,783.991)):
             add_tone(base+COUNTDOWN_SECONDS+step*.065,(frequency,),.24,.15,'correct_answer')
         if question+1 < question_count:
-            start = round((base+QUESTION_SECONDS-.16)*SAMPLE_RATE)
+            start = round((base+seconds-.16)*SAMPLE_RATE)
             length = round(.16*SAMPLE_RATE)
             t = np.arange(length)/SAMPLE_RATE
             # Deterministic, gently filtered noise; no source recording.
@@ -145,10 +160,10 @@ def synthesize_audio(destination: Path, question_count: int, bgm_volume: float =
             noise = np.convolve(noise,np.ones(9)/9,mode='same')
             noise *= .07*np.sin(np.pi*t/.16)**2
             track[start:start+length] += noise[:,None]
-            events.append({'kind':'transition','time_seconds':base+QUESTION_SECONDS-.16,'duration_seconds':.16})
+            events.append({'kind':'transition','time_seconds':base+seconds-.16,'duration_seconds':.16})
     voiced = _add_voice(track, events, questions or [], size)
     if not voiced:
-        add_tone(question_count*QUESTION_SECONDS,(659.255,783.991),.42,.11,'cta')
+        add_tone(question_count*seconds,(659.255,783.991),.42,.11,'cta')
     fade = min(round(.08*SAMPLE_RATE),size)
     track[:fade] *= np.linspace(0,1,fade)[:,None]
     end_fade=min(round(.45*SAMPLE_RATE),size)

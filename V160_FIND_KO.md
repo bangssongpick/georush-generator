@@ -44,3 +44,11 @@
 - **없앤 문구:** Find 첫 화면 배지 `90% FAIL!` → `ONLY 1 IS RIGHT!`(네 개 중 하나가 정답이라 사실). 후크 `99% MISS THE LAST ONE!` → `CAN YOU GET #3?`, `ONLY EXPERTS GET 3/3!` → `TRY FOR A PERFECT 3/3!`, `MOST PEOPLE FAIL #3!` → `FLAG #3 IS TOUGH!`(마지막이 Hard라 사실). 음성 클립 3개도 같은 문장으로 다시 만듦(Kokoro). 제목 풀에서 `Most People Miss/Get Wrong/Mix Up…`, `Only (Flag) Experts…` 제거(질문형 `Which Country Has the Most People?`는 유지). 테스트 `tests/test_policy_v167.py`가 통계·"most people ~" 같은 표현이 다시 들어오면 실패한다.
 - **정답 화면 국가 정보:** `Capital: Lusaka · 22M people`(수도 + 세계은행 인구). 국기 문제에만(수도 퀴즈는 정답이 드러나서, 인구 퀴즈는 이미 숫자가 있어서 제외). 수도가 없거나 분쟁 지역이라 비어 있으면 인구만, 둘 다 없으면 줄 자체를 그리지 않는다. 아래에 `Population: World Bank (2025)` 출처, 설명에도 `Country facts: capitals and population (World Bank 2025, CC BY 4.0).` 한 줄(수도·인구 퀴즈 제외).
 - 업로더(georush_upload.py)의 제목 풀(Find·Population·일반)에서도 같은 표현을 뺐다.
+
+## v1.7.0 — 국기 설명(Story) 주제
+
+- 한 영상에 국기 찾기·확대·맞히기 3가지를 섞고, 정답마다 그 국기 설명 한 문장을 화면과 목소리로 보여줍니다. 문제당 8.2초, 끝 2.8초.
+- 설명은 두 근거(factbook CC0 자료 + 다른 출처)가 일치한 문장만 씁니다. 문장 해시가 확인 기록과 다르면 영상에 들어가지 않습니다(georush/stories.py).
+- 설명 추가·수정: assets/flag_stories.json → 다시 교차 확인 → tools/merge_story_checks.py → tools/make_story_voice.py.
+- 다른 주제의 시간과 화면은 그대로입니다.
+

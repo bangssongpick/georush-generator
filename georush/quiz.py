@@ -59,6 +59,10 @@ def validate_quiz(quiz, catalog):
                     or any(Path(p).resolve() != Path(catalog.validate_country(names[o])['flag_path']).resolve()
                            for o, p in zip(question['options'], paths))):
                 raise ValueError('국기 찾기 문제의 보기 국기가 국가와 일치하지 않습니다.')
+        if 'story' in question:
+            from .stories import verified_stories
+            if question['story'] != verified_stories().get(code):
+                raise ValueError('국기 설명이 교차 검수를 통과한 문장과 다릅니다.')
         expected = Path(country['flag_path']).resolve()
         if Path(question.get('flag_path', '')).resolve() != expected:
             raise ValueError('문제의 국기 파일이 해당 국가와 일치하지 않습니다.')
@@ -238,10 +242,13 @@ def build_quiz(catalog, history=None, difficulty='Mixed', questions_per_video=3,
                                         for row in selected for other in selected):
             continue  # two flags of one look-alike group in a video would give each other away
         questions = []
-        for country in selected:
+        # v1.7 Story: every video mixes the three ways to play, in a random order.
+        kinds = rng.sample(['Find', 'Zoom', 'Classic'], 3) if theme == 'Story' else []
+        for number, country in enumerate(selected):
+            play = kinds[number % 3] if kinds else theme
             # v1.6.0 Find: another round's answer is never a wrong flag here (it would give that round away).
-            choices = [row for row in valid if row is country or row not in selected] if theme == 'Find' else valid
-            wrong = _distractors(rng, country, choices, theme)
+            choices = [row for row in valid if row is country or row not in selected] if play == 'Find' else valid
+            wrong = _distractors(rng, country, choices, play)
             label = (lambda row: capital_of(row['code'])) if theme == 'Capital' else (lambda row: row['name'])
             answer = label(country)
             options = [answer] + [label(row) for row in wrong]
@@ -251,13 +258,16 @@ def build_quiz(catalog, history=None, difficulty='Mixed', questions_per_video=3,
                         'flag_sha256': country['sha256'], 'options': options,
                         'correct_index': options.index(answer),
                         'difficulty': country['difficulty']}
-            if theme == 'Capital':
+            if play == 'Capital':
                 question.update(kind='capital', answer_name=answer)
-            elif theme == 'Zoom':
+            elif play == 'Zoom':
                 question.update(kind='zoom', zoom_center=_zoom_center(rng, country['flag_path']))
-            elif theme == 'Find':
+            elif play == 'Find':
                 by_name = {row['name']: row['flag_path'] for row in [country]+wrong}
                 question.update(kind='find', option_flag_paths=[by_name[name] for name in options])
+            if theme == 'Story':
+                from .stories import verified_stories
+                question['story'] = verified_stories()[country['code']]
             questions.append(question)
         # v1.3.6: easiest flag first (a quick win keeps viewers), hardest last (a reason to stay for the finale).
         # Python's sort is stable, so the famous first flag stays first. The signature ignores order.

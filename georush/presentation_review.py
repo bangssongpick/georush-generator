@@ -5,7 +5,7 @@ import math
 import subprocess
 import numpy as np
 from PIL import Image, ImageDraw
-from .audio import COUNTDOWN_SECONDS, CTA_SECONDS, QUESTION_SECONDS
+from .audio import COUNTDOWN_SECONDS, timing
 from .render import prepare_animation, animated_frame, _font, _option_box, FIND_CELLS, OPTION_W, OPTION_H
 from .paths import subprocess_options
 
@@ -13,8 +13,9 @@ from .paths import subprocess_options
 def review_video(video, quiz, destination, ffmpeg):
     destination=Path(destination);destination.mkdir(parents=True,exist_ok=True)
     # Frame numbers follow the real timing constants and stay ascending: FFmpeg writes them in video order.
-    reveal=round(COUNTDOWN_SECONDS*30);second_question=round(QUESTION_SECONDS*30)
-    last=round((len(quiz['questions'])*QUESTION_SECONDS+CTA_SECONDS)*30)-1
+    seconds,hold=timing(quiz['questions'])
+    reveal=round(COUNTDOWN_SECONDS*30);second_question=round(seconds*30)
+    last=round((len(quiz['questions'])*seconds+hold)*30)-1
     indices=sorted({0,3,9,21,30,33,60,75,reveal-1,reveal+1,reveal+4,second_question,last})
     select='select='+ '+'.join(f'eq(n\\,{n})' for n in indices)
     result=subprocess.run([str(ffmpeg),'-hide_banner','-v','error','-y','-i',str(video),

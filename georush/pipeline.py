@@ -8,7 +8,7 @@ import shutil
 import sqlite3
 import uuid
 
-from .audio import QUESTION_SECONDS, CTA_SECONDS
+from .audio import timing
 from .batchsizes import SHORTS_BATCH_SIZES
 from .catalog import Catalog
 from .history import History
@@ -92,12 +92,12 @@ def generate_batch(count=1, difficulty='Mixed', questions_per_video=3, bgm_volum
                                                          event.get('progress', 0)*.90,
                                                          event.get('message', '렌더 중')), ffmpeg)
                 emit(index, 'validate', .92, f'{index}/{count} 실제 MP4·오디오 전체 디코딩 검사')
-                media = validate_video(work/'video.mp4',
-                                       questions_per_video*QUESTION_SECONDS+CTA_SECONDS,
-                                       round((questions_per_video*QUESTION_SECONDS+CTA_SECONDS)*30), ffmpeg)
+                seconds, hold = timing(quiz['questions'])
+                duration = questions_per_video*seconds+hold
+                media = validate_video(work/'video.mp4', duration, round(duration*30), ffmpeg)
                 media['encoded_inspection'] = extract_encoded_frames(work/'video.mp4',
                                                                       work/'encoded_inspection',
-                                                                      questions_per_video, ffmpeg)
+                                                                      questions_per_video, ffmpeg, (seconds, hold))
                 validate_quiz(quiz, catalog)
                 _write(work/'MEDIA_REPORT.json', media)
                 _write(work/'RENDER_REPORT.json', report)

@@ -12,7 +12,7 @@ import time
 
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
-from .audio import synthesize_audio, QUESTION_SECONDS, COUNTDOWN_SECONDS, COUNTDOWN_TICKS, CTA_SECONDS
+from .audio import synthesize_audio, timing, QUESTION_SECONDS, COUNTDOWN_SECONDS, COUNTDOWN_TICKS, CTA_SECONDS
 from .names import display_name
 from .themes import ZOOM_START
 from .paths import resource_root, subprocess_options
@@ -273,6 +273,36 @@ def _facts(question):
     return ' \u00b7 '.join(parts) or None
 
 
+def _story_panel(image, story, top):
+    """v1.7 sample: the one-sentence story of the answer's flag, large, over the lower area at the reveal."""
+    box=(36,top,932,1580);draw=ImageDraw.Draw(image)
+    draw.rounded_rectangle(box,radius=34,fill='#0B2A60',outline=YELLOW,width=5)
+    _center(draw,'FLAG STORY',top+22,32,GREEN,x=484)
+    for size in range(52,31,-2):
+        lines=[];line=''
+        for word in story.split():
+            candidate=f'{line} {word}'.strip()
+            if line and draw.textbbox((0,0),candidate,font=_font(size))[2]>810:
+                lines.append(line);line=word
+            else:line=candidate
+        lines.append(line)
+        height=len(lines)*(size+14)
+        if height<=box[3]-top-90:break
+    else:
+        raise ValueError(f'Story cannot fit on the screen: {story}')
+    y=top+66+(box[3]-top-90-height)/2
+    for line in lines:
+        _center(draw,line,y,size,WHITE,max_width=810,x=484);y+=size+14
+
+
+def _ask_box(draw, box, line_y, cta):
+    draw.rounded_rectangle(box,radius=34,fill=YELLOW)
+    line1,line2=cta or ('COMMENT YOUR SCORE + COUNTRY!','LIKE & SUBSCRIBE FOR MORE!')  # v1.6.6: cta.py picks the ask
+    x=(box[0]+box[2])//2
+    _center(draw,line1,line_y[0],40,'#0B2A60',max_width=790,x=x)
+    _center(draw,line2,line_y[1],38,'#0B2A60',max_width=790,x=x)
+
+
 def _question_static(question,index,count,background,reveal=False,hook=None,cta=None):
     options,correct,flag_path=_question_data(question)
     image=background.copy()
@@ -294,14 +324,16 @@ def _question_static(question,index,count,background,reveal=False,hook=None,cta=
     if kind=='population':  # CC BY 4.0 credit, kept above the Shorts caption
         from .population import SOURCE_LINE
         _center(draw,SOURCE_LINE,1590,24,MUTED)
+    story=question.get('story')
+    if reveal and story:  # the ask follows after the story (animated_frame)
+        _center(draw,'CORRECT ANSWER',layout['label_y'],30,GREEN)
+        _center(draw,f'{chr(65+correct)} · {options[correct]}',layout['name_y'],layout['name_size'],WHITE,max_width=900)
+        _story_panel(image,story,1345 if mode=='find' else 1306)
+        return image
     if reveal and last:
         # v1.6.1: the score ask sits on the last answer, so the Short can loop without a closing screen.
         # v1.6.5: it moved up out of the zone the Shorts caption covers.
-        x0,y0,x1,y1=layout['last_box']
-        draw.rounded_rectangle((x0,y0,x1,y1),radius=34,fill=YELLOW)
-        line1,line2=cta or ('COMMENT YOUR SCORE + COUNTRY!','LIKE & SUBSCRIBE FOR MORE!')  # v1.6.6: cta.py picks the ask
-        _center(draw,line1,layout['last_lines'][0],40,'#0B2A60',max_width=790)
-        _center(draw,line2,layout['last_lines'][1],38,'#0B2A60',max_width=790)
+        _ask_box(draw,layout['last_box'],layout['last_lines'],cta)
     if reveal and (not last or layout['last_label']):
         _center(draw,'CORRECT ANSWER',layout['label_y'],30,GREEN)
         _center(draw,f'{chr(65+correct)} · {options[correct]}',layout['name_y'],layout['name_size'] if not last else min(44,layout['name_size']),WHITE,max_width=900)
@@ -328,12 +360,13 @@ def _cta(background,count):
     return image
 
 
-def animation_state(second, question_count):
-    """Shared timing in seconds; effects are local to the current question."""
-    index = int((second+1e-8)//QUESTION_SECONDS)
-    if index >= question_count and second < question_count*QUESTION_SECONDS+CTA_SECONDS:
+def animation_state(second, question_count, lengths=None):
+    """Shared timing in seconds; effects are local to the current question. lengths = audio.timing(questions)."""
+    seconds, hold = lengths or (QUESTION_SECONDS, CTA_SECONDS)
+    index = int((second+1e-8)//seconds)
+    if index >= question_count and second < question_count*seconds+hold:
         index = question_count-1  # v1.6.2: the last answer is held for CTA_SECONDS (spoken comment/subscribe ask)
-    local = max(0.0, second-index*QUESTION_SECONDS)
+    local = max(0.0, second-index*seconds)
     state = {'question_index': index, 'local': local, 'cta': index >= question_count,
              'reveal': local >= COUNTDOWN_SECONDS, 'flag_scale': 1.0,
              'title_offset': 0, 'digit_scale': 1.0, 'answer_scale': 1.0,
@@ -369,7 +402,7 @@ def prepare_animation(questions):
             flag=full.copy();flag.thumbnail(FLAG_MAX,Image.Resampling.LANCZOS)
             flags.append(flag)
             sources.append(full if question.get('kind')=='zoom' else None)
-    return {'background':background,'boards':boards,'flags':flags,'sources':sources,
+    return {'background':background,'boards':boards,'flags':flags,'sources':sources,'ask':ask[:2],
             'cta':_cta(background,len(questions)),'questions':questions,'hook':hook,'cta_variant':ask[3]}
 
 
@@ -419,11 +452,11 @@ def _zoomed(source, size, center, local):
 
 
 def animated_frame(context, second):
-    questions=context['questions'];state=animation_state(second,len(questions))
+    questions=context['questions'];lengths=timing(questions);state=animation_state(second,len(questions),lengths)
     index=state['question_index'];local=state['local']
     if state['cta']:
         image=context['cta'].copy();draw=ImageDraw.Draw(image)
-        elapsed=second-len(questions)*QUESTION_SECONDS
+        elapsed=second-len(questions)*lengths[0]
         length=int(700*min(1,elapsed/.45))
         draw.rounded_rectangle((190,1320,190+max(1,length),1327),radius=3,fill=YELLOW)
         return image
@@ -455,7 +488,9 @@ def animated_frame(context, second):
         if end>161:draw.rounded_rectangle((160,bar,end,bar+12),radius=6,fill=color)
     else:
         correct=int(question['correct_index']);elapsed=local-COUNTDOWN_SECONDS
-        if mode=='std':
+        if mode=='std' and question.get('story'):
+            origin=(WIDTH//2,FLAG_CENTER_Y)
+        elif mode=='std':
             x,y=_option_box(correct)
             card=context['boards'][index][1].crop((x,y,x+OPTION_W+1,y+OPTION_H+1))
             width=round((OPTION_W+1)*state['answer_scale']);height=round((OPTION_H+1)*state['answer_scale'])
@@ -473,6 +508,9 @@ def animated_frame(context, second):
         _reveal_pop(image,context['boards'][index][1],box,elapsed,.05 if mode=='find' or question.get('kind')=='population' else .025)
         draw=ImageDraw.Draw(image)
         _confetti(draw,index,origin[0],origin[1],elapsed)
+        if question.get('story') and index==len(questions)-1 and local>=lengths[0]:
+            top=1345 if mode=='find' else 1306  # same top as the story panel, so the answer name stays readable
+            _ask_box(draw,(36,top,932,1580),(top+80,top+168),context['ask'])  # held closing seconds, over the story panel
     if index>0 and local<.16:
         draw.rectangle((0,516,int(WIDTH*(local/.16)),522),fill=YELLOW)
     return image
@@ -495,7 +533,8 @@ def render_video(quiz, destination, bgm_volume=.10, progress_callback=None, ffmp
     audio_report=synthesize_audio(audio_path,count,bgm_volume,questions)
     animation=prepare_animation(questions)
     inspection=destination.parent/'inspection';inspection.mkdir(exist_ok=True)
-    duration=count*QUESTION_SECONDS+CTA_SECONDS
+    seconds,hold=timing(questions)
+    duration=count*seconds+hold
     frames=round(duration*FPS)
     temporary=destination.with_name(destination.stem+'.partial.mp4')
     log_path=destination.parent/'ffmpeg.log'
@@ -512,17 +551,17 @@ def render_video(quiz, destination, bgm_volume=.10, progress_callback=None, ffmp
                                      **subprocess_options())
             for number in range(frames):
                 second=number/FPS
-                question_index=int(second//QUESTION_SECONDS)
-                local=second-question_index*QUESTION_SECONDS
+                question_index=int(second//seconds)
+                local=second-question_index*seconds
                 image=animated_frame(animation,second)
-                if (number%round(QUESTION_SECONDS*FPS)==0 or
-                    number%round(QUESTION_SECONDS*FPS)==round(2.0*FPS) or
-                    number%round(QUESTION_SECONDS*FPS)==round(COUNTDOWN_SECONDS*FPS)) and question_index<count:
+                if (number%round(seconds*FPS)==0 or
+                    number%round(seconds*FPS)==round(2.0*FPS) or
+                    number%round(seconds*FPS)==round(COUNTDOWN_SECONDS*FPS)) and question_index<count:
                     label='start' if local<.01 else 'countdown' if local<COUNTDOWN_SECONDS else 'answer'
                     name=f'question_{question_index+1:02d}_{label}.jpg'
                     image.save(inspection/name,quality=92)
                     inspections.append({'file':name,'time_seconds':second,'frame':number})
-                if number==count*round(QUESTION_SECONDS*FPS):
+                if number==count*round(seconds*FPS):
                     image.save(inspection/'cta.jpg',quality=92)
                     inspections.append({'file':'cta.jpg','time_seconds':second,'frame':number})
                 try:process.stdin.write(image.tobytes())
@@ -554,7 +593,7 @@ def render_video(quiz, destination, bgm_volume=.10, progress_callback=None, ffmp
                              'flag_aspect_preserved':True,'no_text_truncation':True},
             'ffmpeg_log':log_path.name}
     report['presentation']={'version':'1.2','intro_seconds':FLAG_POP_SECONDS,'first_flag_scale':1.0,
-                            'countdown_seconds':COUNTDOWN_SECONDS,'answer_hold_seconds':QUESTION_SECONDS-COUNTDOWN_SECONDS,
+                            'countdown_seconds':COUNTDOWN_SECONDS,'answer_hold_seconds':seconds-COUNTDOWN_SECONDS,
                             'digit_pulse_seconds':.18,'answer_pulse_seconds':.28,'global_flashes':False,'camera_shake':False}
     (destination.parent/'render_report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
     return report

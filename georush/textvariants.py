@@ -64,6 +64,9 @@ THEME_TITLES = {
                    'Bigger Population? Can You Pick the Right Country? | GeoRush #Shorts',
                    'Guess the Most Populated Country! {n} Rounds | GeoRush #Shorts',
                    'Population Quiz: Can You Get {n}/{n}? | GeoRush #Shorts'],
+    'Story': ['{n} Flags, {n} Flag Stories | GeoRush #Shorts',
+              'Guess the Flag, Then Learn Its Story | GeoRush #Shorts',
+              'Find, Zoom, Guess: A Flag Story in Every Round | GeoRush #Shorts'],
     'Find': ['Find the Right Flag! Can You Get {n}/{n}? 😈 | GeoRush #Shorts',
              'Can You Find Your Country’s Flag? | GeoRush #Shorts',
              'Pick the Right Flag Fast! Can You Find It? | GeoRush #Shorts',
@@ -75,13 +78,15 @@ THEME_INTROS = {
     'Capital': 'You see the flag and the country: now name its capital city. {n} questions!',
     'Zoom': 'Every flag starts zoomed in on one small spot. Name the country before the full flag appears!',
     'Population': 'Four flags, one question: which country has the most people? Population data: World Bank (2025), CC BY 4.0.',
+    'Story': 'Three rounds, three ways to play: find it, zoom in and name it. Every answer comes with a short flag story.',
     'Find': 'Each round names a country: find its flag among four look-alike flags before the timer runs out!',
 }
 THEME_TAGS = {'region': ['{region} flags'], 'Lookalike': ['similar flags', 'look alike flags'],
               'Capital': ['capital cities', 'capital city quiz'], 'Zoom': ['zoomed in flags', 'flag zoom quiz'],
               'Find': ['find the flag', 'which flag is it'],
+              'Story': ['flag facts', 'flag meaning'],
               'Population': ['population quiz', 'most populated countries']}
-THEME_HASHTAG = {'region': '#{tag}Flags', 'Lookalike': '#SimilarFlags', 'Capital': '#CapitalCities', 'Zoom': '#FlagZoom', 'Find': '#FindTheFlag', 'Population': '#PopulationQuiz'}
+THEME_HASHTAG = {'region': '#{tag}Flags', 'Lookalike': '#SimilarFlags', 'Capital': '#CapitalCities', 'Zoom': '#FlagZoom', 'Find': '#FindTheFlag', 'Story': '#FlagFacts', 'Population': '#PopulationQuiz'}
 CAPITAL_COMMENTS = ['How many capitals did you get right? {scores}? Tell us your score!',
                     'Which capital tricked you? Share your score ({scores}) below!',
                     'Did you get {count}/{count}? Drop your capital score: {scores}!']
@@ -92,6 +97,8 @@ def _facts_credit(key):
     Capital quizzes show no such line and Population quizzes already credit it in their intro."""
     if key in ('Capital', 'Population'):
         return ''
+    if key == 'Story':
+        return 'Flag stories: each sentence is checked against the CIA World Factbook and a second reference.\n\n'
     return 'Country facts: capitals and population (World Bank 2025, CC BY 4.0).\n\n'
 
 

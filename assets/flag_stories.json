@@ -1,0 +1,922 @@
+{
+ "ad": {
+  "text": "Its colors mix those of France and Spain.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [ad]"
+ },
+ "ae": {
+  "text": "Green stands for fertility and white for neutrality.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [ae]"
+ },
+ "ag": {
+  "text": "The sun stands for the dawn of a new era.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [ag]",
+  "second": "https://en.wikipedia.org/wiki/Flag_of_Antigua_and_Barbuda",
+  "checked": "b2af321ee89d401f0c567fe9fdd53caab3004c81197151f87b582cab9726e834"
+ },
+ "al": {
+  "text": "Albanians call themselves the sons of the eagle.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [al]"
+ },
+ "am": {
+  "text": "Blue stands for the sky, and also for hope.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [am]"
+ },
+ "ao": {
+  "text": "Red stands for liberty and black for Africa.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [ao]"
+ },
+ "ar": {
+  "text": "The sun honors a pro-independence rally in 1810.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [ar]"
+ },
+ "at": {
+  "text": "It is one of the oldest national flags in the world.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [at]",
+  "second": "http://www.worldatlas.com/flags/austria",
+  "checked": "4b4dcea0995e07464c0f9dc1c7f6039db31a325082686728b843879ff3ca18e7"
+ },
+ "au": {
+  "text": "The largest star marks the colonies uniting in 1901.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [au]"
+ },
+ "az": {
+  "text": "The eight star points stand for eight Turkic peoples.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [az]"
+ },
+ "ba": {
+  "text": "The triangle roughly matches the shape of the country.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [ba]",
+  "second": "https://bs.wikipedia.org/wiki/Zastava_Bosne_i_Hercegovine",
+  "checked": "b0dacaba0acda5ecc7478fd0dc17455c7659af20e7e1adf4c45a56714e58db73"
+ },
+ "bb": {
+  "text": "Blue is for the sea and sky, and gold for the beaches.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [bb]",
+  "second": "https://en.wikipedia.org/wiki/Flag_of_Barbados",
+  "checked": "def414e3cd2aa0fd24cffb4b8728689389e68518d888b2cbbd34c3825f40c335"
+ },
+ "bd": {
+  "text": "The red disk stands for the rising sun and sacrifice.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [bd]",
+  "second": "https://www.britannica.com/topic/flag-of-Bangladesh",
+  "checked": "f85a14b5d40185a95123003e3d7736060a584a26c033aafd27bfb78be4186ff7"
+ },
+ "bf": {
+  "text": "Yellow stands for the country's mineral wealth.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [bf]",
+  "second": "https://www.britannica.com/topic/flag-of-Burkina-Faso",
+  "checked": "f4330880465c76f96a10a0be98f9b2618aebc03bcc0d7b1f4dee85a184247c90"
+ },
+ "bg": {
+  "text": "White is for peace, and green for farming wealth.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [bg]"
+ },
+ "bi": {
+  "text": "The three stars stand for unity, work and progress.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [bi]",
+  "second": "https://www.britannica.com:443/topic/flag-of-Burundi",
+  "checked": "03c3bac7a731b60344af42d17cc5558bd8c7460d652dd735f3cbed973a4f95b4"
+ },
+ "bj": {
+  "text": "Green is for hope, yellow for wealth, red for courage.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [bj]",
+  "second": "https://en.wikipedia.org/wiki/Flag_of_Benin",
+  "checked": "e9ee6f51d9a2baaeffac2a5a0f1b1eaff483389893866204d7cc5df0b494dbfe"
+ },
+ "bo": {
+  "text": "Yellow stands for minerals and green for fertile land.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [bo]",
+  "second": "https://www.britannica.com/topic/flag-of-Bolivia",
+  "checked": "c46361a66b56e9bfbeecf0085648e1c659b91b99e37c8f517da0f556f7407d60"
+ },
+ "br": {
+  "text": "Its stars show the sky over Rio on a morning in 1889.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [br]",
+  "second": "https://www.crwflags.com/fotw/flags/br_astro.html",
+  "checked": "bc7e523fe5200f152af5b18bdfea4db58d6cbc3383b67d1183466893b00f665c"
+ },
+ "bs": {
+  "text": "Gold and aquamarine stand for beaches and sea.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [bs]"
+ },
+ "bt": {
+  "text": "White stands for purity, and the dragon's jewels for wealth.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [bt]",
+  "second": "https://en.wikipedia.org/wiki/Flag_of_Bhutan",
+  "checked": "3bf5fb9683be99fa77f2d44d24e2759a82ead2b86cebe72ca40dd99605a13218"
+ },
+ "bw": {
+  "text": "The blue on this flag stands for rainwater.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [bw]",
+  "second": "https://en.wikipedia.org/wiki/Flag_of_Botswana",
+  "checked": "65cbc7de5694d4d58c98dcb8dc230483c70558e005a271b1b1627478d9042e7d"
+ },
+ "by": {
+  "text": "Green stands for hope and the country's forests.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [by]",
+  "second": "https://president.gov.by/en/events/remarks-of-the-president-at-the-ceremony-to-inaugurate-the-state-flag-square-6448",
+  "checked": "20bab957951cceb3f9c00b840fa43d62fa597a0bd8d75d5a56aa149dc33b8900"
+ },
+ "bz": {
+  "text": "The mahogany tree recalls the old logging industry.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [bz]",
+  "second": "https://en.wikipedia.org/wiki/Flag_of_Belize",
+  "checked": "c1ba12fd73f678ed879095d7c7a8928a0290a042eb28b2ee1f102cf9e0acfe20"
+ },
+ "ca": {
+  "text": "The maple leaf is a national symbol of Canada.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [ca]",
+  "second": "https://www.canada.ca/en/immigration-refugees-citizenship/corporate/publications-manuals/discover-canada/read-online/canadian-symbols.html",
+  "checked": "be8f3ba6481b310da46f518197ae5f5e4203b2577bde5e066c42dc08613f5a6f"
+ },
+ "cd": {
+  "text": "Blue stands for peace, and yellow for wealth.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [cd]",
+  "second": "https://en.wikipedia.org/wiki/Flag_of_the_Democratic_Republic_of_the_Congo",
+  "checked": "ac06911f435beebe6c92a739d0d698a4133417f8e07d2e89d89177fdfb9f6a1b"
+ },
+ "cf": {
+  "text": "It combines pan-African colors with French colors.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [cf]",
+  "second": "https://www.britannica.com/topic/flag-of-the-Central-African-Republic",
+  "checked": "6709eab4695908022e2c1a6e90a1f8c63cb1a6f3fd6fe1eb583d0e7b1bf37f63"
+ },
+ "cg": {
+  "text": "Green stands for farming and forests.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [cg]",
+  "second": "https://www.britannica.com:443/topic/flag-of-the-Republic-of-the-Congo",
+  "checked": "8e350d777ce7fdddd39c4da80cd1d9770e845612d73f293e6ecfc8efba0a3058"
+ },
+ "ch": {
+  "text": "It is square, with a white cross in the center.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [ch]",
+  "second": "https://en.wikipedia.org/wiki/Flag_of_Switzerland",
+  "checked": "f3bbda933d1a4ea125c3cd9e48eaa6cc5dc8b65f9afbbe7b5ee618a6b94dd21f"
+ },
+ "ci": {
+  "text": "Orange is for the savannah and green for the forests.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [ci]"
+ },
+ "cl": {
+  "text": "Blue is for the sky and white for the Andes Mountains.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [cl]",
+  "second": "https://www.britannica.com/print/article/1355128",
+  "checked": "240c6c731aeb4cba9cf56f51bfdd5fd6b88544a45a4979b648af00b5797f967f"
+ },
+ "cm": {
+  "text": "Its single star is called the star of unity.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [cm]",
+  "second": "https://en.wikipedia.org/wiki/Flag_of_Cameroon",
+  "checked": "e5eb0eea837e9b710c4052886d2fb33744da8626a9d2e684b1775770423b1a05"
+ },
+ "co": {
+  "text": "One reading says yellow stands for the gold in the land.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [co]",
+  "second": "https://en.wikipedia.org/wiki/Flag_of_Colombia",
+  "checked": "060b135374d82528df8e5a299f7285b52550d14a7c6c0a6c761665c422a724b0"
+ },
+ "cr": {
+  "text": "Blue is said to stand for the sky and perseverance.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [cr]",
+  "second": "https://en.wikipedia.org/wiki/Flag_of_Costa_Rica",
+  "checked": "ef6e2bb85ff4b2d262112c7b48d63e4f0e43cedd9c932690af279134f1540d8e"
+ },
+ "cu": {
+  "text": "The single white star lights the way to freedom.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [cu]"
+ },
+ "cv": {
+  "text": "The ten stars stand for the major islands.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [cv]",
+  "second": "https://en.wikipedia.org/wiki/Flag_of_Cape_Verde",
+  "checked": "5dcd58709f9add46244a0df40e03e3794aaa61c2f439303877531f2fd1b068be"
+ },
+ "cy": {
+  "text": "The olive branches stand for hope for peace.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [cy]",
+  "second": "https://en.wikipedia.org/wiki/Flag_of_Cyprus",
+  "checked": "f8ad61e4eb817543c9b65fb440b7699c602af246d1f625c4462a4128bcc2a42e"
+ },
+ "dj": {
+  "text": "Blue is for sea and sky, and green for the earth.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [dj]",
+  "second": "https://en.wikipedia.org/wiki/Flag_of_Djibouti",
+  "checked": "50ee25a94da965a827f76a2bf4b53c60dcc7fbaa6822d7a68936c38db537efed"
+ },
+ "dk": {
+  "text": "It is one of the oldest national flags in the world.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [dk]",
+  "second": "https://www.guinnessworldrecords.com/world-records/oldest-continuously-used-national-flag",
+  "checked": "4b4dcea0995e07464c0f9dc1c7f6039db31a325082686728b843879ff3ca18e7"
+ },
+ "dm": {
+  "text": "The ten stars stand for the country's ten parishes.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [dm]",
+  "second": "https://dominica.gov.dm/about-dominica/national-symbols/national-flag",
+  "checked": "e699de378f370d5344a5ce882b45fed5d1a2392c8d70825e193254deb9af7a11"
+ },
+ "do": {
+  "text": "Blue stands for liberty on this flag.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [do]"
+ },
+ "dz": {
+  "text": "White stands for purity and peace.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [dz]",
+  "second": "https://en.wikipedia.org/wiki/Flag_of_Algeria",
+  "checked": "28d10aa05da6fb9f67938757ad8314178d8312575170d62fd077156596e1d953"
+ },
+ "ec": {
+  "text": "Yellow is for sunshine and grain, blue for sea and sky.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [ec]",
+  "second": "https://www.expreso.ec/ecuador/dia-bandera-ecuador-fecha-significado-jura-296145.html",
+  "checked": "fc5f352b0cc6772422a09cf735824387fbfd4a74ec259f3890e3341a1cfa4151"
+ },
+ "ee": {
+  "text": "Blue is for the sky, black for the soil, white for snow.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [ee]"
+ },
+ "eg": {
+  "text": "White on this flag stands for a bright future.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [eg]"
+ },
+ "er": {
+  "text": "The red triangle mimics the shape of the country.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [er]"
+ },
+ "es": {
+  "text": "The shield shows emblems of old Spanish kingdoms.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [es]",
+  "second": "https://en.wikipedia.org/wiki/Coat_of_arms_of_Spain",
+  "checked": "4b7dd6646a932d054921597ec2d1ca0700b5c617f7ce99af46c70d5d6e2d2289"
+ },
+ "et": {
+  "text": "Green stands for hope and the fertile land.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [et]"
+ },
+ "fi": {
+  "text": "Blue is for thousands of lakes, and white for snow.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [fi]",
+  "second": "https://norden.org/en/information/finnish-flag",
+  "checked": "448e9a88344ae91c70c559c824af74fd5995ad4b90a18320533d63d2448f1e80"
+ },
+ "fj": {
+  "text": "The light blue stands for the Pacific Ocean.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [fj]",
+  "second": "https://en.wikipedia.org/wiki/Flag_of_Fiji",
+  "checked": "ca142089421e5b3a24e055df70fef544cd4fae330c180dc9ce86dfc52b08b53a"
+ },
+ "fm": {
+  "text": "The four stars stand for four island groups.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [fm]"
+ },
+ "fr": {
+  "text": "This tricolor dates back to the French Revolution.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [fr]",
+  "second": "https://www.elysee.fr/la-presidence/le-drapeau-francais",
+  "checked": "6f9007bbc6ad1dd40e63b89f3762502e2a81bf37aec25e015005177326bead9b"
+ },
+ "ga": {
+  "text": "Green is for forests, gold for the sun, blue for the sea.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [ga]",
+  "second": "https://en.wikipedia.org/wiki/Flag_of_Gabon",
+  "checked": "d3e5c99284272fb2db431bba8aed2ec0449b92751fc975c8d85463b149dcf272"
+ },
+ "gb": {
+  "text": "It combines the crosses of three patron saints.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [gb]",
+  "second": "https://www.royal.uk/union-jack",
+  "checked": "ed158becbc9905ccf37fbbf1177154551b63d2d75faedcf63f84e47bfe27c429"
+ },
+ "gd": {
+  "text": "The seven stars stand for administrative divisions.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [gd]",
+  "second": "https://www.gov.gd/national-symbols",
+  "checked": "2631b4b409e92c612b0f85ab1bcb1dd754f9fb15e4b6a9ca232a904e61defdc6"
+ },
+ "ge": {
+  "text": "It is sometimes called the Five-Cross Flag.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [ge]",
+  "second": "https://en.wikipedia.org/wiki/Flag_of_Georgia_(country)",
+  "checked": "7591507ffb5ba611a185eec8bae5a12a792e6801538f9e6b6fede1cc444bd97c"
+ },
+ "gh": {
+  "text": "The black star is called a guiding star of African freedom.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [gh]",
+  "second": "https://www.britannica.com/topic/flag-of-Ghana",
+  "checked": "2ad574170fe31800b1e4622f33e811f75884db2be45841e5b2d9fb9460d13797"
+ },
+ "gm": {
+  "text": "The blue band stands for the Gambia River.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [gm]",
+  "second": "https://britannica.com/topic/Gambia-flag-of-The",
+  "checked": "5f822c452d2c3072651b1459f02ae722820af56272779d7240dd8d8be28dce73"
+ },
+ "gn": {
+  "text": "Yellow stands for the sun and the riches of the earth.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [gn]",
+  "second": "https://en.wikipedia.org/wiki/Flag_of_Guinea",
+  "checked": "f414401bb5c11c466cb64e65f24ff98ae6538b3b81adffa10fc06e26f744737a"
+ },
+ "gq": {
+  "text": "Green is for the jungle and blue for the sea.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [gq]",
+  "second": "https://www.ecured.cu/Bandera_de_Guinea_Ecuatorial",
+  "checked": "e589832e22c52496b555583788271c6fcf8ba8337f93de7a7690f33cd76a7a60"
+ },
+ "gr": {
+  "text": "There is no set meaning for its stripes.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [gr]",
+  "second": "https://en.wikipedia.org/wiki/Flag_of_Greece",
+  "checked": "fe9cfa8271a2e2e86fce32ca8ea68374cc822f693d98c97874c51b1d0102d7b1"
+ },
+ "gt": {
+  "text": "Blue is for the Pacific and Caribbean, white for peace.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [gt]"
+ },
+ "gw": {
+  "text": "Yellow stands for the sun and green for hope.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [gw]"
+ },
+ "gy": {
+  "text": "Green is for forests and white is for rivers.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [gy]",
+  "second": "https://www.britannica.com/topic/flag-of-Guyana",
+  "checked": "96430b3e29bb71958cb40a4462409bf7b636fc851e46f4818d4bcd9d6cb9f611"
+ },
+ "hn": {
+  "text": "Its five stars recall a Central American federation.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [hn]",
+  "second": "https://en.wikipedia.org/wiki/Flag_of_Honduras",
+  "checked": "1908e1b0b1b66c1ed3ff2fd5d0812dfb70742a9a5618614e40bf596b324cd4a2"
+ },
+ "hr": {
+  "text": "The small shields stand for five historic regions.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [hr]",
+  "second": "https://en.wikipedia.org/wiki/Coat_of_arms_of_Croatia",
+  "checked": "4745a79aa16ebe0bf6db15e673bd13a72842a160fb06bb84f9827e8d58461213"
+ },
+ "ht": {
+  "text": "Its colors were taken from the French flag.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [ht]",
+  "second": "https://www.britannica.com/topic/flag-of-Haiti",
+  "checked": "87de9810b21f9fad76004d767351215dd5059487d3686aa4ac995f6aee79a02c"
+ },
+ "hu": {
+  "text": "In folklore, red is strength and green is hope.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [hu]",
+  "second": "https://en.wikipedia.org/wiki/Flag_of_Hungary",
+  "checked": "170b76522b7b8a3c2cb513c2feef23918a39616be02c1756e61ff63689d0c17d"
+ },
+ "id": {
+  "text": "Red stands for courage and white for purity.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [id]",
+  "second": "https://kbri-astana.kz/page/web/65/national-symbols/",
+  "checked": "3012b7c3a8dea9ad9d3f035c612ffde474115a58e84769a850ab1eae7d4c737d"
+ },
+ "ie": {
+  "text": "A common reading says the white stands for peace.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [ie]",
+  "second": "https://en.wikipedia.org/wiki/Flag_of_Ireland",
+  "checked": "2635a57dfdbd25957104fb8e0c34be01fc3363b8c251058babe6efcd69c683fb"
+ },
+ "in": {
+  "text": "The wheel in the middle is a symbol of life in movement.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [in]",
+  "second": "https://en.wikipedia.org/wiki/Flag_of_India",
+  "checked": "cad7c306e41aaa49785726c954d10bcb02706217d3cf91e106060e0a17c501b2"
+ },
+ "iq": {
+  "text": "White on this flag stands for a bright future.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [iq]"
+ },
+ "ir": {
+  "text": "White stands for honesty and peace.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [ir]"
+ },
+ "is": {
+  "text": "Red is for volcanic fire, white for ice, blue for ocean.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [is]"
+ },
+ "it": {
+  "text": "Its red and white are the colors of Milan.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [it]",
+  "second": "https://www.quirinale.it/allegati_statici/tricolore_en/tricolore_en.pdf",
+  "checked": "086c9bb86466260054a5dfca4a1a9fb31014f3e881fa152ee10f67bc4f12a471"
+ },
+ "jm": {
+  "text": "Green stands for hope and yellow for sunshine.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [jm]",
+  "second": "https://jis.gov.jm/information/get-the-facts/the-jamaican-flag/",
+  "checked": "895c5a9fb2664c002bb305045c321ca1ad365c2a8fa37851b387dda3b061c530"
+ },
+ "jo": {
+  "text": "The triangle stands for the Arab Revolt of 1916.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [jo]",
+  "second": "https://en.wikipedia.org/wiki/Flag_of_Jordan",
+  "checked": "c8b1f009bedefe231aa6cdc1b55fce062d18847ff2f8e6e1662191290b659c54"
+ },
+ "jp": {
+  "text": "The red disk is a symbol of the sun.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [jp]",
+  "second": "https://en.wikipedia.org/wiki/Flag_of_Japan",
+  "checked": "7962997d8b2389979269b621b4b807b668f9f329f1d9202253a4e0a72b220b72"
+ },
+ "ke": {
+  "text": "Green stands for natural wealth and white for peace.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [ke]",
+  "second": "https://www.citizenguide.ke/national-symbols",
+  "checked": "bd9075bfca8da4539442b57babcc59d48baaf1828d46da47775109c51e8ec21e"
+ },
+ "kg": {
+  "text": "The sun in the center of the flag has forty rays.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [kg]",
+  "second": "https://en.wikipedia.org/wiki/Flag_of_Kyrgyzstan",
+  "checked": "fc3670ba4798684b930a867cd3a4e6611be8b85fec327aab319258c8138d6acc"
+ },
+ "ki": {
+  "text": "The frigatebird stands for authority and freedom.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [ki]"
+ },
+ "km": {
+  "text": "Its stars and bands stand for the main islands.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [km]",
+  "second": "https://en.wikipedia.org/wiki/Flag_of_the_Comoros",
+  "checked": "0c1556deabc413d93ec56e49a5d064d82aee6e6e2b20f25ce570854dca099dba"
+ },
+ "kn": {
+  "text": "Green stands for fertility and yellow for sunshine.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [kn]",
+  "second": "https://en.wikipedia.org/wiki/Flag_of_Saint_Kitts_and_Nevis",
+  "checked": "e8cce0493ac6c9f8e4d39ad1c6cd60b817955f9e95998313d525ad162dfa2658"
+ },
+ "kr": {
+  "text": "The blue and red circle stands for yin and yang.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [kr]",
+  "second": "https://asiasociety.org/education/taegeuk",
+  "checked": "c399002f93abc786010ae627ea4c796b4d97632932dbe171fa1103425bed96a6"
+ },
+ "kw": {
+  "text": "Green stands for fertile fields and white for purity.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [kw]",
+  "second": "https://www.britannica.com/topic/flag-of-Kuwait",
+  "checked": "e57e26d3dd6519300ea70b60662c8d9b8ee90773c843c797d2db5954e15412f5"
+ },
+ "kz": {
+  "text": "The eagle stands for freedom and flight to the future.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [kz]",
+  "second": "https://en.wikipedia.org/wiki/Flag_of_Kazakhstan",
+  "checked": "7ad6be98e422db2b3afb0cd9bbeb6378366d322c8f67cc0710b6625c38a1151a"
+ },
+ "la": {
+  "text": "The white disk stands for a full moon over the Mekong.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [la]"
+ },
+ "lb": {
+  "text": "The green cedar tree is the national symbol.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [lb]",
+  "second": "https://en.wikipedia.org/wiki/National_symbols_of_Lebanon",
+  "checked": "bf94a84c6b0085301f0bc5ac9e8b15546483ca264ee966c8f1a91375f0e02dc4"
+ },
+ "lc": {
+  "text": "The triangles stand for two volcanic peaks on the island.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [lc]",
+  "second": "https://en.wikipedia.org/wiki/Flag_of_Saint_Lucia",
+  "checked": "e348c17e041ec1a41f28e46aa1a93f05d8055dcb3a51fec2abdc151735126ab8"
+ },
+ "li": {
+  "text": "A crown was added to set this flag apart from Haiti's.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [li]",
+  "second": "https://www.worldatlas.com/articles/which-two-countries-used-to-have-the-same-flag.html",
+  "checked": "21664387959a13021982080cb6a49f709c31e8173f1d222c1df870e002673002"
+ },
+ "lk": {
+  "text": "The lion stands for strength and bravery.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [lk]",
+  "second": "https://en.wikipedia.org/wiki/Flag_of_Sri_Lanka",
+  "checked": "42de04f9ba649db211d0a49f48fcf11fc7a5b61c0ab1eccc5adeeaeb0e5c3a1e"
+ },
+ "lr": {
+  "text": "Its single star stands for freedom.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [lr]"
+ },
+ "ls": {
+  "text": "Blue is for rain, white for peace, green for prosperity.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [ls]",
+  "second": "https://en.wikipedia.org/wiki/Flag_of_Lesotho",
+  "checked": "f3429f016b5c35d1e6eedf42216e6cf17e813fc0ab05ddabd6f9e984733deb1a"
+ },
+ "lt": {
+  "text": "Yellow is for golden fields and green for forests.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [lt]"
+ },
+ "lv": {
+  "text": "It is one of the older flag designs in the world.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [lv]",
+  "second": "https://en.wikipedia.org/wiki/Flag_of_Latvia",
+  "checked": "20a439dec439b76ffa0c6cc7d28c028d10d8d1b087bb48518887e9de99adcb0f"
+ },
+ "ly": {
+  "text": "Its three colors stand for three major regions.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [ly]",
+  "second": "https://en.wikipedia.org/wiki/Flag_of_Libya",
+  "checked": "171293d70eacc8e7b38106e59292a4374bb5c07f178cbfd282f549eaf084e2ee"
+ },
+ "mg": {
+  "text": "Red is for sovereignty, green for hope, white for purity.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [mg]"
+ },
+ "mh": {
+  "text": "The blue stands for the Pacific Ocean.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [mh]",
+  "second": "https://crwflags.com/fotw/flags/mh.html",
+  "checked": "a8ab8063c2507997c5f6826f0641d5f901974d8206d5034828e11b6785a6c8b1"
+ },
+ "mk": {
+  "text": "The yellow sun is called the Sun of Liberty.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [mk]",
+  "second": "https://en.wikipedia.org/wiki/Flag_of_North_Macedonia",
+  "checked": "406f1629e1c05b07e51d3db7a12f595c5dd457af2677fff380b9242f3f89ee3a"
+ },
+ "mm": {
+  "text": "A white star overlaps all three stripes.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [mm]",
+  "second": "https://www.crwflags.com/fotw/flags/mm.html",
+  "checked": "79325dec7520e1b172fded80756bc627e44997d32db4baddd8b2fdca99d84d07"
+ },
+ "mn": {
+  "text": "Blue stands for the sky and red for progress.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [mn]",
+  "second": "https://www.viewmongolia.com/mongolia-flag.html",
+  "checked": "57d2d0de0744863733b00adc590c8d463193669447de9bcd9db5dc1e35327232"
+ },
+ "mr": {
+  "text": "Yellow stands for the sands of the Sahara.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [mr]"
+ },
+ "mt": {
+  "text": "The cross in the corner is called the George Cross.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [mt]",
+  "second": "https://www.gov.mt/en/About%20Malta/Pages/Flags-Symbols-and-their-use.aspx",
+  "checked": "a5b6d9ae8eacd535b8778096b1b8b834766f448af631fa349eb40eb7580ca21a"
+ },
+ "mu": {
+  "text": "Blue stands for the Indian Ocean.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [mu]",
+  "second": "https://en.wikipedia.org/wiki/Flag_of_Mauritius",
+  "checked": "158e4a2846efbb0593b6f56fb077896b401ca0801d33a337da5be7ff27a8b546"
+ },
+ "mw": {
+  "text": "The rising sun stands for hope of freedom in Africa.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [mw]",
+  "second": "https://en.wikipedia.org/wiki/Flag_of_Malawi",
+  "checked": "0964eb2732366af0f07d86b6fab8822408cacf4c77ba57f1169a6625346b02e7"
+ },
+ "mx": {
+  "text": "Green stands for hope and white for peace.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [mx]"
+ },
+ "my": {
+  "text": "The stripes mean states and federal government are equal.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [my]"
+ },
+ "mz": {
+  "text": "The open book stands for the importance of education.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [mz]",
+  "second": "https://embamocsantase.org/?p=2224",
+  "checked": "896207e9164a05a6f4a0ad1690e05a94c2769bd5f0488e0d89dec6c8e1278336"
+ },
+ "na": {
+  "text": "Blue stands for the sky and the Atlantic Ocean.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [na]",
+  "second": "https://www.un.int/namibia/namibia/symbols",
+  "checked": "bf800e79edd632aa03130966cef9dc3097d88dac11ac89b67c813007d3564c30"
+ },
+ "ne": {
+  "text": "The orange disk stands for the sun and sacrifice.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [ne]"
+ },
+ "ng": {
+  "text": "Green stands for forests and white for peace.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [ng]"
+ },
+ "ni": {
+  "text": "White stands for the land between an ocean and a sea.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [ni]"
+ },
+ "nl": {
+  "text": "The top stripe was once orange before it became red.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [nl]",
+  "second": "https://en.wikipedia.org/wiki/Flag_of_the_Netherlands",
+  "checked": "bf7695e6332607ed083a42023be62f4160487e7b91d9294063e7317f131bf07a"
+ },
+ "no": {
+  "text": "Its colors recall past unions with Denmark and Sweden.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [no]",
+  "second": "https://en.wikipedia.org/wiki/Flag_of_Norway",
+  "checked": "af28f0056b60ca33db7d206e4b2a3f346cf3563a2cc2389c3ce736b2c6f93486"
+ },
+ "np": {
+  "text": "It is the only national flag that is not a rectangle.",
+  "source": "https://www.britannica.com/one-good-fact/what-country-does-not-have-a-rectangular-flag",
+  "second": "https://www.britannica.com/one-good-fact/what-country-does-not-have-a-rectangular-flag",
+  "checked": "e7852869c15a33c051949e27c680a274003794aed0683c02208578820626ea1f"
+ },
+ "nr": {
+  "text": "The star shows where the island is compared to the equator.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [nr]",
+  "second": "https://en.wikipedia.org/wiki/Flag_of_Nauru",
+  "checked": "61a76d3d7737246630268f903508a60168b55648d8ceeb4b684fab123cccd4dd"
+ },
+ "nz": {
+  "text": "Its stars show the Southern Cross constellation.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [nz]",
+  "second": "https://www.mch.govt.nz/our-work/flags-anthems-and-emblems/new-zealand-flag",
+  "checked": "e4840aa872fe727c2f36f7a90cefa6d0182a46a2ae672035de13ec5052676cc3"
+ },
+ "om": {
+  "text": "Green stands for the Green Mountains and fertility.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [om]"
+ },
+ "pa": {
+  "text": "White stands for peace between the main political parties.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [pa]"
+ },
+ "pe": {
+  "text": "Its shield shows a vicuna, a tree and a horn spilling coins.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [pe]",
+  "second": "https://www.britannica.com/topic/flag-of-Peru",
+  "checked": "39f17b82cd8f943d63b85f1265c888cb4b0e365dd17b2a9676e7663b0bbcecf8"
+ },
+ "pg": {
+  "text": "It shows a bird of paradise and the Southern Cross.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [pg]",
+  "second": "https://en.wikipedia.org/wiki/Flag_of_Papua_New_Guinea",
+  "checked": "b40228529204e46009983ca10fa2fedde4741d8b8011264dd7b7995d450c8377"
+ },
+ "ph": {
+  "text": "Its stars stand for Luzon, Visayas and Mindanao.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [ph]",
+  "second": "https://en.wikipedia.org/wiki/Flag_of_the_Philippines",
+  "checked": "3cc3f1d90ac936429a1faa0f4558b223cd9a1bdebe3012d8f5d5b023cdec25c2"
+ },
+ "pl": {
+  "text": "Its colors come from the white eagle emblem.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [pl]"
+ },
+ "pt": {
+  "text": "A popular reading says green stands for hope.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [pt]",
+  "second": "https://en.wikipedia.org/wiki/National_colours_of_Portugal",
+  "checked": "fddf118244fafc2b85b037042f8583f711046e328e58ca38d1995537ecdf23b1"
+ },
+ "pw": {
+  "text": "The disk stands for the moon, seen as a symbol of peace.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [pw]",
+  "second": "https://en.wikipedia.org/wiki/Flag_of_Palau",
+  "checked": "946f8436d759a31a7d40325177253f0d0fd660a30906e710745914284e7a71ce"
+ },
+ "py": {
+  "text": "Blue on this flag stands for liberty and generosity.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [py]"
+ },
+ "qa": {
+  "text": "Its serrated edge has nine points.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [qa]",
+  "second": "https://en.wikipedia.org/wiki/Flag_of_Qatar",
+  "checked": "28cfb4604bbae794b0b0ecd69e6c22300d5bc83f372b553d9cd1e4782aeda985"
+ },
+ "ro": {
+  "text": "Its colors come from two regions that united.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [ro]"
+ },
+ "rs": {
+  "text": "It uses the pan-Slav colors red, blue and white.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [rs]",
+  "second": "https://www.britannica.com/topic/flag-of-Serbia",
+  "checked": "b3b02b619870fc5426ea08148e579041a3baa6d36f1e0463b900020e7b3c635d"
+ },
+ "ru": {
+  "text": "No official meaning is given to its three colors.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [ru]",
+  "second": "https://www.gw2ru.com/basic-facts/231552-colors-russian-flag",
+  "checked": "3e2f17c2553ad4cf3ffa7e8080501a27a79f9a822bf8de8642e3fb4ebd7861a6"
+ },
+ "rw": {
+  "text": "The sun stands for unity and enlightenment.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [rw]",
+  "second": "https://en.wikipedia.org/wiki/Flag_of_Rwanda",
+  "checked": "81b2cb7f58f6c23a3a4c6572ee48b57b572298b812c01775cddba4252bc4ee1a"
+ },
+ "sb": {
+  "text": "Blue is for ocean, green for land, yellow for sunshine.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [sb]",
+  "second": "https://en.wikipedia.org/wiki/Flag_of_the_Solomon_Islands",
+  "checked": "775747db6b6249347647f69afe8aa88c41f6d32228e00691b5c462b862a79a79"
+ },
+ "sc": {
+  "text": "Its slanted bands show a country moving into the future.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [sc]",
+  "second": "https://www.crwflags.com/fotw/flags/sc.html",
+  "checked": "b5d3e5e29e9a40f9763473fac02db6ebc82822cf5803e3cbc188661694b8e51d"
+ },
+ "sd": {
+  "text": "White stands for peace, light and love.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [sd]",
+  "second": "https://www.fotw.info/flags/sd.html",
+  "checked": "179e07cc0f31aa241418b155ca8ffe77f9b72aced95b512664e091ede94b226f"
+ },
+ "se": {
+  "text": "Its colors come from the Swedish coat of arms.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [se]",
+  "second": "https://riksarkivet.se/arkivera-och-forvalta/heraldik-och-statssymboler/sveriges-flagga",
+  "checked": "2df58e27b22b3af98cdea2e58002078d9ddacb9b3e3691519b794bb5e94b55c5"
+ },
+ "sg": {
+  "text": "The five stars stand for ideals like peace and equality.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [sg]",
+  "second": "https://eresources.nlb.gov.sg/infopedia/articles/SIP_488_2004-12-18.html",
+  "checked": "975d3ec529f16bbccde1b5cc3794d911dafd77bb8b33e58209171f5c4717916c"
+ },
+ "si": {
+  "text": "The wavy lines stand for seas and rivers.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [si]",
+  "second": "https://en.wikipedia.org/wiki/Flag_of_Slovenia",
+  "checked": "18b184766f50a92e891b193ea1e5b5f7584f84d4a0107a15dcf9244cc7a7af69"
+ },
+ "sk": {
+  "text": "It uses the pan-Slav colors white, blue and red.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [sk]",
+  "second": "https://en.wikipedia.org/wiki/Flag_of_Slovakia",
+  "checked": "01dc24f463bb76b3784d2070b09fc164e84fa417f54c4acbec06e2a2402baace"
+ },
+ "sl": {
+  "text": "Green is for farming, white for unity, blue for the sea.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [sl]"
+ },
+ "sm": {
+  "text": "The three towers stand for castles on Mount Titano.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [sm]",
+  "second": "https://en.wikipedia.org/wiki/Coat_of_arms_of_San_Marino",
+  "checked": "9c1f61abcd5681c3386062ad002bfa8360e370a2102bd20029db04b2ae4c531f"
+ },
+ "sn": {
+  "text": "The green star stands for unity and hope.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [sn]"
+ },
+ "so": {
+  "text": "A white star sits in the middle of a light blue flag.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [so]",
+  "second": "https://www.britannica.com/topic/flag-of-Somalia",
+  "checked": "bfe099cf3cf07ae5f8540e42362177931f2fe28b5173d736ff46d9c3da5d633c"
+ },
+ "sr": {
+  "text": "Green stands for hope and white for peace.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [sr]"
+ },
+ "ss": {
+  "text": "The blue on this flag stands for the Nile.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [ss]",
+  "second": "https://en.wikipedia.org/wiki/Flag_of_South_Sudan",
+  "checked": "94bb7a974599d1cc27e2b7e479b84180effb27a5aebb45143fb87d92fe0079f9"
+ },
+ "st": {
+  "text": "Yellow stands for cocoa, a major crop.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [st]"
+ },
+ "sv": {
+  "text": "The blue bands stand for two bodies of water.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [sv]",
+  "second": "https://en.wikipedia.org/wiki/Flag_of_El_Salvador",
+  "checked": "5897bd9e71e66bdc94d219480c3befe5462c6dcbd5d9e67dfac160f9945895a2"
+ },
+ "sz": {
+  "text": "The shield and spears stand for protection.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [sz]",
+  "second": "https://en.wikipedia.org/wiki/Flag_of_Eswatini",
+  "checked": "57caf49e100de719bb18b0c2a42e98a8a7ed77df18f0936ee7779742866d00ff"
+ },
+ "tg": {
+  "text": "Yellow stands for mineral wealth and faith in hard work.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [tg]",
+  "second": "https://de.wikipedia.org/wiki/Flagge_Togos",
+  "checked": "3e54c515544a4864206a8b3ab95632b3581944159c27b436329165a91d3dde17"
+ },
+ "th": {
+  "text": "The wide blue stripe stands for the monarchy.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [th]",
+  "second": "https://en.wikipedia.org/wiki/Flag_of_Thailand",
+  "checked": "d20c11d6f05403b47fc34dcef730cdca23b5ea1c30af92496202aad710758396"
+ },
+ "tj": {
+  "text": "White stands for purity, cotton and mountain snow.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [tj]",
+  "second": "https://en.wikipedia.org/wiki/Flag_of_Tajikistan",
+  "checked": "8a3fa36c1a46964f38aa988637108bef4bfdce960a4c8650e2346fe654400443"
+ },
+ "tl": {
+  "text": "The white star stands for peace and a guiding light.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [tl]",
+  "second": "https://en.wikipedia.org/wiki/Flag_of_Timor-Leste",
+  "checked": "9f9e5fc490aca9bd38a9a2c1bca27d2a0ddda293fe537338d99b28b97ae97f0f"
+ },
+ "tm": {
+  "text": "Its five carpet patterns stand for national identity.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [tm]"
+ },
+ "tn": {
+  "text": "White stands for peace on this flag.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [tn]",
+  "second": "https://en.wikipedia.org/wiki/Flag_of_Tunisia",
+  "checked": "ea04e0bacb337668a32bf955289008a010cc828842a8e44baa36de4a18f7d81d"
+ },
+ "tr": {
+  "text": "The crescent and star are symbols of Turkic peoples.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [tr]"
+ },
+ "tt": {
+  "text": "Its colors stand for earth, water and fire.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [tt]",
+  "second": "https://en.wikipedia.org/wiki/Flag_of_Trinidad_and_Tobago",
+  "checked": "7b7cc083c764a9e82892bbaed104178509da9e8b0b246d4bf1e601be92477128"
+ },
+ "tv": {
+  "text": "Its stars form a map, each one standing for an atoll.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [tv]"
+ },
+ "tz": {
+  "text": "Its colors come from the flags of Tanganyika and Zanzibar.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [tz]",
+  "second": "https://en.wikipedia.org/wiki/Flag_of_Tanzania",
+  "checked": "7fca5e5c99ac0d6de2e41c1c2a7f9630d61f3a4611c5cba7abc3579bab570859"
+ },
+ "ua": {
+  "text": "It is sometimes said to show grain fields under a blue sky.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [ua]",
+  "second": "https://simple.wikipedia.org/wiki/Flag_of_Ukraine",
+  "checked": "7f63ee8cf308adcbcb392079e34ab7d029f87fe9ecb2ce2b20613183e008e8bc"
+ },
+ "ug": {
+  "text": "Yellow stands for sunshine and vitality.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [ug]"
+ },
+ "us": {
+  "text": "50 stars for states, 13 stripes for the original colonies.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [us]",
+  "second": "https://www.usa.gov/flag",
+  "checked": "7504caf193708f44173602a33f5a5b935ae4491a687b89b6b3d1b4793d3531a7"
+ },
+ "uy": {
+  "text": "Its nine stripes stand for the original departments.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [uy]",
+  "second": "https://en.wikipedia.org/wiki/Flag_of_Uruguay",
+  "checked": "976edbf0b1d57c6bc8971cc52636cae21e106afe198f37494760d9f9945bc8ce"
+ },
+ "uz": {
+  "text": "The twelve stars stand for months and constellations.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [uz]"
+ },
+ "vc": {
+  "text": "The diamonds show the islands as the Gems of the Antilles.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [vc]",
+  "second": "https://www.gov.vc/index.php/citizens/e-services/59-visitors/about-svg",
+  "checked": "d75e4cb2c5195d50e4f6eec0d169ed4c469d48a75a135f4a30adb650e29d0bb7"
+ },
+ "ve": {
+  "text": "Yellow stands for the riches of the land.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [ve]",
+  "second": "https://en.wikipedia.org/wiki/Flag_of_Venezuela",
+  "checked": "0974f1a4992c74853fe33c34f8836b78c5f59d976bd479c48dcf1b92c0564a90"
+ },
+ "vn": {
+  "text": "The star's five points stand for five groups of people.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [vn]"
+ },
+ "vu": {
+  "text": "The Y shape reflects the layout of the islands.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [vu]",
+  "second": "https://www.britannica.com/topic/flag-of-Vanuatu",
+  "checked": "724abcc280aa6b3a8ac634b3b36397075aa90178b38e1d9d27892805866aee55"
+ },
+ "ws": {
+  "text": "Red is for courage, blue for freedom, white for purity.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [ws]"
+ },
+ "za": {
+  "text": "Its Y shape stands for different groups moving as one.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [za]",
+  "second": "https://www.gov.za/about-sa/national-flag-0",
+  "checked": "58391a9c657ba74032789fba8e5977f8e0223647c1602db14aef63345b549a8a"
+ },
+ "zm": {
+  "text": "The eagle stands for rising above problems.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [zm]",
+  "second": "https://zambiaembassy.org/page/the-flag-of-zambia",
+  "checked": "e8122e5878d233948f9485ad496c46d0286645dd742283980ed147009ed32646"
+ },
+ "zw": {
+  "text": "The bird stands for the long history of the country.",
+  "source": "factbook/factbook.json (CC0) Government.Flag [zw]",
+  "second": "https://en.wikipedia.org/wiki/Flag_of_Zimbabwe",
+  "checked": "d8b8e291cd9063ed50151a932082aca950e3675191c4fc988bd868cbacad5435"
+ }
+}

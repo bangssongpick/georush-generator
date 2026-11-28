@@ -84,20 +84,21 @@ def validate_video(path, expected_duration=21.0, expected_frames=630, ffmpeg_pat
     return report
 
 
-def extract_encoded_frames(path, output_folder, question_count=3, ffmpeg_path=None):
+def extract_encoded_frames(path, output_folder, question_count=3, ffmpeg_path=None, lengths=None):
     from .audio import QUESTION_SECONDS, COUNTDOWN_SECONDS, CTA_SECONDS
+    question_seconds, hold = lengths or (QUESTION_SECONDS, CTA_SECONDS)
     ffmpeg = str(ffmpeg_path or find_ffmpeg())
     output = Path(output_folder)
     output.mkdir(exist_ok=True, parents=True)
     times = []
     for number in range(question_count):
-        base = number*QUESTION_SECONDS
+        base = number*question_seconds
         for label, offset in (('start', 0), ('countdown', 2), ('answer', COUNTDOWN_SECONDS+.2)):
             times.append((f'q{number+1}_{label}', base+offset))
-    if CTA_SECONDS:
-        times.append(('cta', question_count*QUESTION_SECONDS+.3))
+    if hold:
+        times.append(('cta', question_count*question_seconds+.3))
     else:  # v1.6.1: no closing screen - check the very last frame (last answer + score ask) instead
-        times.append(('final', question_count*QUESTION_SECONDS-.1))
+        times.append(('final', question_count*question_seconds-.1))
     for name, second in times:
         _run([ffmpeg, '-hide_banner', '-v', 'error', '-y', '-ss', str(second), '-i', str(path),
               '-frames:v', '1', '-q:v', '2', str(output/(name+'.jpg'))], timeout=60)

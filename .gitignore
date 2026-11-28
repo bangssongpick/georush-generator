@@ -16,3 +16,8 @@ v12_actual_validation/
 
 v13_actual_validation/
 v13_samples/
+
+# local working data
+_banner/
+_dl_*/
+_factbook/

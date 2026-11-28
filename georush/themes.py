@@ -8,7 +8,7 @@ import json
 
 from .paths import resource_root
 
-THEMES = ('Classic', 'Africa', 'Asia', 'Europe', 'Americas', 'Oceania', 'Lookalike', 'Capital', 'Zoom', 'Find', 'Population')
+THEMES = ('Classic', 'Africa', 'Asia', 'Europe', 'Americas', 'Oceania', 'Lookalike', 'Capital', 'Zoom', 'Find', 'Population', 'Story')
 # v1.6.2 Population: four flags, which country has the most people (World Bank data, see population.py).
 # v1.6.0 Find: a country is named and the viewer picks its flag out of four (look-alikes first).
 # The channel's biggest audiences (Studio, Nov 2026: Indonesia, Korea, Philippines, Uzbekistan, USA, India, Vietnam,
@@ -94,6 +94,9 @@ def theme_pool(theme, rows, upstream=None):
         raise ValueError(f'지원하지 않는 주제입니다: {theme}')
     if theme in ('Classic', 'Zoom', 'Find', 'Population'):
         return list(rows)
+    if theme == 'Story':  # v1.7: only flags whose story passed the cross-check
+        from .stories import verified_stories
+        return [row for row in rows if row['code'] in verified_stories()]
     upstream = upstream or _upstream()
     if theme in REGIONS:
         return [row for row in rows if continent_of(row['code'], upstream) in REGIONS[theme]]
