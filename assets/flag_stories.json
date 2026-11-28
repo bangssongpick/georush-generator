@@ -63,9 +63,7 @@
  },
  "bf": {
   "text": "Yellow stands for the country's mineral wealth.",
-  "source": "factbook/factbook.json (CC0) Government.Flag [bf]",
-  "second": "https://www.britannica.com/topic/flag-of-Burkina-Faso",
-  "checked": "f4330880465c76f96a10a0be98f9b2618aebc03bcc0d7b1f4dee85a184247c90"
+  "source": "factbook/factbook.json (CC0) Government.Flag [bf]"
  },
  "bg": {
   "text": "White is for peace, and green for farming wealth.",
@@ -149,9 +147,7 @@
  },
  "ch": {
   "text": "It is square, with a white cross in the center.",
-  "source": "factbook/factbook.json (CC0) Government.Flag [ch]",
-  "second": "https://en.wikipedia.org/wiki/Flag_of_Switzerland",
-  "checked": "f3bbda933d1a4ea125c3cd9e48eaa6cc5dc8b65f9afbbe7b5ee618a6b94dd21f"
+  "source": "factbook/factbook.json (CC0) Government.Flag [ch]"
  },
  "ci": {
   "text": "Orange is for the savannah and green for the forests.",
@@ -221,15 +217,11 @@
  },
  "dz": {
   "text": "White stands for purity and peace.",
-  "source": "factbook/factbook.json (CC0) Government.Flag [dz]",
-  "second": "https://en.wikipedia.org/wiki/Flag_of_Algeria",
-  "checked": "28d10aa05da6fb9f67938757ad8314178d8312575170d62fd077156596e1d953"
+  "source": "factbook/factbook.json (CC0) Government.Flag [dz]"
  },
  "ec": {
   "text": "Yellow is for sunshine and grain, blue for sea and sky.",
-  "source": "factbook/factbook.json (CC0) Government.Flag [ec]",
-  "second": "https://www.expreso.ec/ecuador/dia-bandera-ecuador-fecha-significado-jura-296145.html",
-  "checked": "fc5f352b0cc6772422a09cf735824387fbfd4a74ec259f3890e3341a1cfa4151"
+  "source": "factbook/factbook.json (CC0) Government.Flag [ec]"
  },
  "ee": {
   "text": "Blue is for the sky, black for the soil, white for snow.",
@@ -411,9 +403,7 @@
  },
  "jo": {
   "text": "The triangle stands for the Arab Revolt of 1916.",
-  "source": "factbook/factbook.json (CC0) Government.Flag [jo]",
-  "second": "https://en.wikipedia.org/wiki/Flag_of_Jordan",
-  "checked": "c8b1f009bedefe231aa6cdc1b55fce062d18847ff2f8e6e1662191290b659c54"
+  "source": "factbook/factbook.json (CC0) Government.Flag [jo]"
  },
  "jp": {
   "text": "The red disk is a symbol of the sun.",
@@ -517,9 +507,7 @@
  },
  "ly": {
   "text": "Its three colors stand for three major regions.",
-  "source": "factbook/factbook.json (CC0) Government.Flag [ly]",
-  "second": "https://en.wikipedia.org/wiki/Flag_of_Libya",
-  "checked": "171293d70eacc8e7b38106e59292a4374bb5c07f178cbfd282f549eaf084e2ee"
+  "source": "factbook/factbook.json (CC0) Government.Flag [ly]"
  },
  "mg": {
   "text": "Red is for sovereignty, green for hope, white for purity.",
@@ -611,9 +599,7 @@
  },
  "no": {
   "text": "Its colors recall past unions with Denmark and Sweden.",
-  "source": "factbook/factbook.json (CC0) Government.Flag [no]",
-  "second": "https://en.wikipedia.org/wiki/Flag_of_Norway",
-  "checked": "af28f0056b60ca33db7d206e4b2a3f346cf3563a2cc2389c3ce736b2c6f93486"
+  "source": "factbook/factbook.json (CC0) Government.Flag [no]"
  },
  "np": {
   "text": "It is the only national flag that is not a rectangle.",
@@ -643,9 +629,7 @@
  },
  "pe": {
   "text": "Its shield shows a vicuna, a tree and a horn spilling coins.",
-  "source": "factbook/factbook.json (CC0) Government.Flag [pe]",
-  "second": "https://www.britannica.com/topic/flag-of-Peru",
-  "checked": "39f17b82cd8f943d63b85f1265c888cb4b0e365dd17b2a9676e7663b0bbcecf8"
+  "source": "factbook/factbook.json (CC0) Government.Flag [pe]"
  },
  "pg": {
   "text": "It shows a bird of paradise and the Southern Cross.",
@@ -903,9 +887,7 @@
  },
  "za": {
   "text": "Its Y shape stands for different groups moving as one.",
-  "source": "factbook/factbook.json (CC0) Government.Flag [za]",
-  "second": "https://www.gov.za/about-sa/national-flag-0",
-  "checked": "58391a9c657ba74032789fba8e5977f8e0223647c1602db14aef63345b549a8a"
+  "source": "factbook/factbook.json (CC0) Government.Flag [za]"
  },
  "zm": {
   "text": "The eagle stands for rising above problems.",
